@@ -114,6 +114,8 @@ obj/
 /out/
 
 # User-specific configurations
+*.iml
+.idea/
 .idea/caches/
 .idea/libraries/
 .idea/shelf/
