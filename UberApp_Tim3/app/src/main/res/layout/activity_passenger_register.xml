@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="60dp"
         android:layout_marginTop="40dp"
-        android:text="Registration"
+        android:text="@string/registrationTitle"
         android:textSize="26dp" />
 
     <EditText
@@ -22,55 +22,59 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="60dp"
-        android:hint="Name" />
+        android:hint="@string/regName"
+        android:minWidth="180dp" />
 
     <EditText
         android:id="@+id/txtLastName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
-        android:hint="Last Name" />
+        android:hint="@string/regLastName"
+        android:minWidth="180dp" />
 
     <EditText
         android:id="@+id/txtPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
-        android:hint="Phone Number"
-        android:inputType="phone" />
+        android:hint="@string/phoneNumber"
+        android:inputType="phone"
+        android:minWidth="180dp" />
 
     <EditText
         android:id="@+id/txtEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
-        android:hint="Email Address"
-        android:inputType="textEmailAddress" />
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:minWidth="180dp" />
 
     <EditText
         android:id="@+id/txtPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword"
-
-        />
+        android:minWidth="180dp" />
 
     <EditText
         android:id="@+id/txtPasswordRepeat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
-        android:hint="Repeat Password"
-        android:inputType="textPassword" />
+        android:hint="@string/repeatPassword"
+        android:inputType="textPassword"
+        android:minWidth="180dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="20dp"
-        android:text="Choose a profile picture"
+        android:text="@string/chooseProfilePicture"
         android:textSize="20dp" />
 
     <Button
@@ -79,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="10dp"
-        android:text="Add Image" />
+        android:text="@string/addImage" />
 
     <Button
         android:id="@+id/btnRegisterUser"
@@ -87,6 +91,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="20dp"
-        android:text="Register" />
+        android:text="@string/register" />
 
 </LinearLayout>
