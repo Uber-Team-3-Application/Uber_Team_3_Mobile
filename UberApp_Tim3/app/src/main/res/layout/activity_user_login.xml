@@ -8,18 +8,19 @@
     tools:context=".UserLoginActivity">
 
     <EditText
-        android:id="@+id/editTxtUsername"
+        android:id="@+id/editTxtEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:hint="Username" />
+        android:hint="Email Address"
+        android:inputType="textEmailAddress"/>
 
     <EditText
         android:id="@+id/editTxtPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editTxtUsername"
+        android:layout_below="@+id/editTxtEmail"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginTop="20dp"
