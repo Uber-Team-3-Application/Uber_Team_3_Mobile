@@ -17,5 +17,7 @@
     <string name="buttonAccout">Account</string>
     <string name="buttonInbox">Inbox</string>
     <string name="splashScreenText">Uber Team 3</string>
+    <string name="driver_inbox">Inbox</string>
+    <string name="driver_profile">Profile</string>
 
 </resources>
