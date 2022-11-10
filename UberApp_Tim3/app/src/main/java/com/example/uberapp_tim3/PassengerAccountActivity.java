@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -52,7 +53,13 @@ public class PassengerAccountActivity extends AppCompatActivity {
         TextView txtEmailAddress = findViewById(R.id.txtPassengerEmail);
         txtEmailAddress.setText(passenger.getEmailAddress());
 
-
+        TextView tvBlocked = findViewById(R.id.txtBlocked);
+        if(!passenger.isBlocked())
+            tvBlocked.setText("");
+        else {
+            tvBlocked.setText(R.string.blocked_text);
+            tvBlocked.setTextColor(Color.RED);
+        }
     }
 
     @Override

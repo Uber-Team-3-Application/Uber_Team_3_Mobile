@@ -40,6 +40,9 @@
     <string name="driver_email">Email Address:</string>
     <string name="driver_real_email">email@gmail.com</string>
 
+    <string name="blocked_text">ACCOUNT IS BLOCKED</string>
+    <string name="active_text">ACCOUNT IS ACTIVE</string>
+
 
 
 </resources>
