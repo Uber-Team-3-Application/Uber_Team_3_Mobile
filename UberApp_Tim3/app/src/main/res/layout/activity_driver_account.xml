@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/uber_background"
-    tools:context=".PassengerAccountActivity">
+    tools:context=".DriverAccountActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -34,65 +33,110 @@
         android:src="@drawable/ic_baseline_person_24" />
 
     <TextView
-        android:id="@+id/txtPassengerFullName"
+        android:id="@+id/txtdriverFullName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/appbar"
         android:layout_marginLeft="4dp"
         android:layout_marginTop="100dp"
         android:layout_toRightOf="@+id/imgAvatar"
-        android:text="@string/passenger_full_name"
+        android:text="@string/driver_full_name"
         android:textSize="24sp"
         android:textStyle="bold|italic"/>
 
 
     <TextView
-        android:id="@+id/txtPassPhone"
+        android:id="@+id/txtDrivPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgAvatar"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
-        android:text="@string/passenger_phone_number"
+        android:text="@string/driver_phone_number"
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/txtPassengerPhoneNumber"
+        android:id="@+id/txtdriverPhoneNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgAvatar"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
-        android:layout_toRightOf="@+id/txtPassPhone"
-        android:text="@string/passenger_phone_real_number"
+        android:layout_toRightOf="@+id/txtDrivPhone"
+        android:text="@string/driver_phone_real_number"
         android:textSize="18sp"
         android:textStyle="bold|italic"/>
 
 
     <TextView
-        android:id="@+id/txtPassEmail"
+        android:id="@+id/txtDrivEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtPassPhone"
+        android:layout_below="@+id/txtDrivPhone"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
-        android:text="@string/passenger_email"
+        android:text="@string/driver_email"
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/txtPassengerEmail"
+        android:id="@+id/txtdriverEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtPassPhone"
+        android:layout_below="@+id/txtDrivPhone"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
-        android:layout_toRightOf="@+id/txtPassEmail"
-        android:text="@string/passenger_real_email"
+        android:layout_toRightOf="@+id/txtDrivEmail"
+        android:text="@string/driver_real_email"
         android:textSize="18sp"
         android:textStyle="bold|italic"/>
 
+
     <TextView
-        android:id="@+id/txtBlocked"
+        android:id="@+id/txtDrivLicense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtdriverEmail"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/driver_license_number"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txtDriverLicense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtDrivLicense"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/driver_license_number_real"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
+
+
+    <TextView
+        android:id="@+id/txtCarReg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtDriverLicense"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/vehicle_registration_number"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txtCarRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtCarReg"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/vehicle_registration_real_number"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
+
+
+    <TextView
+        android:id="@+id/txtDriverBlocked"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -100,7 +144,6 @@
         android:layout_marginBottom="10dp"
         android:text="@string/active_text"
         android:textSize="26sp"
-        android:textStyle="bold|italic"/>
-
+        android:textStyle="bold|italic" />
 
 </RelativeLayout>

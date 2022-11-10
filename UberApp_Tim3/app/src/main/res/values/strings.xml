@@ -20,6 +20,8 @@
     <string name="driver_inbox">Inbox</string>
     <string name="driver_profile">Profile</string>
 
+
+
     <string name="passenger_full_name">Full Name</string>
 
     <string name="passenger_phone_number">Phone Number:</string>
@@ -29,6 +31,24 @@
     <string name="passenger_real_email">email@gmail.com</string>
 
     <string name="team_name">Uber Team 3</string>
+
+
+    <string name="driver_full_name">Full Name</string>
+    <string name="driver_phone_number">Phone Number:</string>
+    <string name="driver_phone_real_number">064123123</string>
+
+    <string name="driver_email">Email Address:</string>
+    <string name="driver_real_email">email@gmail.com</string>
+
+    <string name="driver_license_number">Drivers License:</string>
+    <string name="driver_license_number_real">543543543</string>
+
+    <string name="vehicle_registration_number">Vehicle Registration number:</string>
+    <string name="vehicle_registration_real_number">123215543</string>
+
+    <string name="blocked_text">ACCOUNT IS BLOCKED</string>
+    <string name="active_text">ACCOUNT IS ACTIVE</string>
+
 
 
 </resources>
