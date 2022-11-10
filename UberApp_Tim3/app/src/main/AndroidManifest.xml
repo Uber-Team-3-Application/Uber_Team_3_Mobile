@@ -63,7 +63,7 @@
         <activity
             android:name=".SplashActivity"
             android:exported="true"
-            android:label="Intro">
+            android:label="Uber Clone">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

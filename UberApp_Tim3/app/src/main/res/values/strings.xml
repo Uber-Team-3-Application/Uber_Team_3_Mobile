@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Uber</string>
+    <string name="app_name">Uber Clone</string>
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="email">Email Address</string>
@@ -16,7 +16,7 @@
     <string name="offlineText">Offline</string>
     <string name="buttonAccout">Account</string>
     <string name="buttonInbox">Inbox</string>
-    <string name="splashScreenText">Uber</string>
+    <string name="splashScreenText">Uber Clone</string>
     <string name="driver_inbox">Inbox</string>
     <string name="driver_profile">Profile</string>
 
@@ -27,6 +27,8 @@
 
     <string name="passenger_email">Email Address:</string>
     <string name="passenger_real_email">email@gmail.com</string>
+
+    <string name="team_name">Uber Team 3</string>
 
 
 </resources>
