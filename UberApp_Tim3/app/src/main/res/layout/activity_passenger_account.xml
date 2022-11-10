@@ -42,7 +42,8 @@
         android:layout_marginTop="100dp"
         android:layout_toRightOf="@+id/imgAvatar"
         android:text="@string/passenger_full_name"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:textStyle="bold|italic"/>
 
 
     <TextView
@@ -64,7 +65,8 @@
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@+id/txtPassPhone"
         android:text="@string/passenger_phone_real_number"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textStyle="bold|italic"/>
 
 
     <TextView
@@ -86,7 +88,8 @@
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@+id/txtPassEmail"
         android:text="@string/passenger_real_email"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textStyle="bold|italic"/>
 
     <TextView
         android:id="@+id/txtBlocked"
@@ -96,7 +99,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:text="@string/active_text"
-        android:textSize="26sp" />
+        android:textSize="26sp"
+        android:textStyle="bold|italic"/>
 
 
 </RelativeLayout>

@@ -41,7 +41,8 @@
         android:layout_marginTop="100dp"
         android:layout_toRightOf="@+id/imgAvatar"
         android:text="@string/driver_full_name"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:textStyle="bold|italic"/>
 
 
     <TextView
@@ -63,7 +64,8 @@
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@+id/txtDrivPhone"
         android:text="@string/driver_phone_real_number"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textStyle="bold|italic"/>
 
 
     <TextView
@@ -85,7 +87,8 @@
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@+id/txtDrivEmail"
         android:text="@string/driver_real_email"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textStyle="bold|italic"/>
 
 
     <TextView
@@ -106,7 +109,8 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
         android:text="@string/driver_license_number_real"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
 
 
     <TextView
@@ -127,8 +131,19 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
         android:text="@string/vehicle_registration_real_number"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
 
 
+    <TextView
+        android:id="@+id/txtDriverBlocked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:text="@string/active_text"
+        android:textSize="26sp"
+        android:textStyle="bold|italic" />
 
 </RelativeLayout>
