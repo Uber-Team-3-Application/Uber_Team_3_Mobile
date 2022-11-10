@@ -87,4 +87,48 @@
         android:text="@string/driver_real_email"
         android:textSize="18sp" />
 
+
+    <TextView
+        android:id="@+id/txtDrivLicense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtdriverEmail"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/driver_license_number"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txtDriverLicense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtDrivLicense"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/driver_license_number_real"
+        android:textSize="18sp" />
+
+
+    <TextView
+        android:id="@+id/txtCarReg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtDriverLicense"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/vehicle_registration_number"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txtCarRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtCarReg"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/vehicle_registration_real_number"
+        android:textSize="18sp" />
+
+
+
 </RelativeLayout>
