@@ -4,15 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashActivity"
-    android:background="#276EF1">
+    android:background="@color/uber_celadon_green"
+    tools:context=".SplashActivity">
+
+
+    <ProgressBar
+        android:id="@+id/splashPgBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:indeterminateTint="@color/uber_eucalyptus"/>
 
     <TextView
+        android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="@string/splashScreenText"
-        android:textSize="40sp"
-        android:textColor="#FFFFFF"/>
+        android:textColor="@color/uber_toolbar"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_below="@+id/txtTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/uber" />
+
+    <ImageView
+        android:id="@+id/imgCopyright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_copyright_24"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/txtTeamname"
+        android:layout_marginBottom="27dp"
+        android:layout_marginRight="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/team_name"
+        android:textColor="@color/uber_toolbar"
+        android:textSize="32sp"
+        android:textStyle="bold|italic"
+        android:id="@+id/txtTeamname"/>
 </RelativeLayout>

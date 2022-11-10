@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#517470</color>
+    <color name="colorPrimaryDark">#517470</color>
     <color name="colorAccent">#FF4081</color>
     <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
+    <color name="purple_500">#517470</color>
+    <color name="purple_700">#517470</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="uber_background">#f7f7f7 </color>
+    <color name="uber_desert_sage">#aaae9f</color>
+    <color name="uber_surf_spray">#aabfb8 </color>
+    <color name="uber_lauren_green">#acbaa1</color>
+    <color name="uber_sage">#a4b1a0</color>
+    <color name="uber_green_lily">#b5c6b4</color>
+    <color name="uber_toolbar">#517470</color>
+    <color name="uber_silt_green_button">#adc387</color>
+    <color name="uber_celadon_green">#b2c1a2</color>
+    <color name="uber_eucalyptus">#9ca89e</color>
+
 </resources>
