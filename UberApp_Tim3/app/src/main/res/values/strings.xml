@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UberApp_Tim3</string>
+    <string name="app_name">Uber</string>
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="email">Email Address</string>
@@ -16,8 +16,17 @@
     <string name="offlineText">Offline</string>
     <string name="buttonAccout">Account</string>
     <string name="buttonInbox">Inbox</string>
-    <string name="splashScreenText">Uber Team 3</string>
+    <string name="splashScreenText">Uber</string>
     <string name="driver_inbox">Inbox</string>
     <string name="driver_profile">Profile</string>
+
+    <string name="passenger_full_name">Full Name</string>
+
+    <string name="passenger_phone_number">Phone Number:</string>
+    <string name="passenger_phone_real_number">064123123</string>
+
+    <string name="passenger_email">Email Address:</string>
+    <string name="passenger_real_email">email@gmail.com</string>
+
 
 </resources>

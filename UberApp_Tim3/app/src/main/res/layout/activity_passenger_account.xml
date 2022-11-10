@@ -4,7 +4,89 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/uber_background"
     tools:context=".PassengerAccountActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/appbar_padding_top"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/uber_toolbar"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ImageView
+        android:id="@+id/imgAvatar"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_below="@+id/appbar"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_baseline_person_24" />
+
+    <TextView
+        android:id="@+id/txtPassengerFullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appbar"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="100dp"
+        android:layout_toRightOf="@+id/imgAvatar"
+        android:text="@string/passenger_full_name"
+        android:textSize="24sp" />
+
+
+    <TextView
+        android:id="@+id/txtPassPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgAvatar"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/passenger_phone_number"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txtPassengerPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgAvatar"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/txtPassPhone"
+        android:text="@string/passenger_phone_real_number"
+        android:textSize="18sp" />
+
+
+    <TextView
+        android:id="@+id/txtPassEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtPassPhone"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/passenger_email"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txtPassengerEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtPassPhone"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/txtPassEmail"
+        android:text="@string/passenger_real_email"
+        android:textSize="18sp" />
 
 
 

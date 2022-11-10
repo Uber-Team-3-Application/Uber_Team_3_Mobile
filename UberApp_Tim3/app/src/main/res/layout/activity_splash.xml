@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SplashActivity"
-    android:background="#276EF1">
+    android:background="@color/uber_celadon_green">
 
     <TextView
         android:layout_width="wrap_content"
@@ -13,6 +13,15 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="@string/splashScreenText"
-        android:textSize="40sp"
-        android:textColor="#FFFFFF"/>
+        android:textSize="50sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgLogo"
+        android:src="uberlo"
+        />
 </RelativeLayout>
