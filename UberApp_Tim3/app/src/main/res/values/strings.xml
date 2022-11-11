@@ -20,8 +20,6 @@
     <string name="driver_inbox">Inbox</string>
     <string name="driver_profile">Profile</string>
 
-
-
     <string name="passenger_full_name">Full Name</string>
 
     <string name="passenger_phone_number">Phone Number:</string>
@@ -48,7 +46,14 @@
 
     <string name="blocked_text">ACCOUNT IS BLOCKED</string>
     <string name="active_text">ACCOUNT IS ACTIVE</string>
-
-
+    <string name="my_profile">My profile</string>
+    <string name="messages">Messages</string>
+    <string name="home_page">Home page</string>
+    <string name="ride_history">Ride history</string>
+    <string name="favorite_routes">Favorite routes</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_clodr">Close navigation drawer</string>
+    <string name="order_a_ride">Order a ride</string>
+    <string name="contact_support">Contact support</string>
 
 </resources>
