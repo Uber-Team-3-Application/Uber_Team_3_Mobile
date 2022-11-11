@@ -51,6 +51,9 @@
     <string name="ride_history">Ride History</string>
     <string name="driver_profile_long">See your profile</string>
     <string name="driver_inbox_long">See your messages</string>
+    <string name="drive_history">History</string>
+    <string name="drive_history_long">See your rides</string>
+    <string name="driver_home">Home</string>
 
 
 </resources>
