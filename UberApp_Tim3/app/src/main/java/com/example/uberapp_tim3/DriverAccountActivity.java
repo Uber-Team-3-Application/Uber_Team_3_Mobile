@@ -13,13 +13,25 @@ import android.widget.TextView;
 import com.example.uberapp_tim3.model.Driver;
 import com.example.uberapp_tim3.tools.DriverMockup;
 
-public class DriverAccountActivity extends AppCompatActivity {
+public class DriverAccountActivity extends DriverMainActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_driver_account);
+
+        final ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);
+            actionBar.setHomeButtonEnabled(true);
+        }
         setTextViews();
+
+
     }
 
 
