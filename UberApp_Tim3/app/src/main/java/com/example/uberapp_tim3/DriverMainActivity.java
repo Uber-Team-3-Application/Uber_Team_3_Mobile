@@ -9,16 +9,16 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.example.uberapp_tim3.fragments.DriverFragment;
 import com.example.uberapp_tim3.model.NavItem;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 
@@ -47,12 +47,12 @@ public class DriverMainActivity extends AppCompatActivity {
 
         mDrawerList = findViewById(R.id.navList);
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-     //   mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
         mDrawerList.setAdapter(adapter);
 
         mTitle = getTitle();
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.driver_main_toolbar);
         setSupportActionBar(toolbar);
         final ActionBar actionBar = getSupportActionBar();
 
@@ -92,35 +92,51 @@ public class DriverMainActivity extends AppCompatActivity {
             }
         };
 
-        // Izborom na neki element iz liste, pokrecemo akciju
-        if (savedInstanceState == null) {
-            selectItemFromDrawer(0);
-        }
+
 
     }
 
-    private void selectItemFromDrawer(int position) {
-        if(position == 0){
-          //  FragmentTransition.to(DriverFragment.newInstance(), this, false);
-        }else if(position == 1){
-          //  FragmentTransition.to(ExamplesFragment.newInstance(), this, false);
-
-        }else if(position == 2){
-            //..
-        }else if(position == 3){
-            //..
-        }else if(position == 4){
-            //..
-        }else if(position == 5){
-            //...
-        }else{
-            Log.e("DRAWER", "Nesto van opsega!");
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItemFromDrawer(position);
         }
+    }
+
+    private void selectItemFromDrawer(int position) {
+
+        if(position == 0) {
+            Intent intent = new Intent(this, DriverAccountActivity.class);
+            startActivity(intent);
+        }
+       //  FragmentTransition.to(DriverFragment.newInstance(), this, false);
+//        }else if(position == 0){
+//          //  FragmentTransition.to(ExamplesFragment.newInstance(), this, false);
+//
+//        }else if(position == 2){
+//            //..
+//        }else if(position == 3){
+//            //..
+//        }else if(position == 4){
+//            //..
+//        }else if(position == 5){
+//            //...
+//        }else{
+//            Log.e("DRAWER", "Nesto van opsega!");
+//        }
+
+        mDrawerList.setItemChecked(position, true);
+        if(position != 5)
+        {
+            setTitle(mNavItems.get(position).getmTitle());
+        }
+        mDrawerLayout.closeDrawer(mDrawerPane);
     }
 
     private void prepareMenu(ArrayList<NavItem> mNavItems ) {
         mNavItems.add(new NavItem(getString(R.string.driver_profile), getString(R.string.driver_profile), R.drawable.ic_baseline_person_24));
         mNavItems.add(new NavItem(getString(R.string.drive_history), getString(R.string.drive_history_long), R.drawable.ic_history));
         mNavItems.add(new NavItem(getString(R.string.driver_inbox), getString(R.string.driver_inbox_long), R.drawable.ic_message));
+        mNavItems.add(new NavItem(getString(R.string.driver_back), getString(R.string.driver_back_long), R.drawable.ic_home));
     }
 }

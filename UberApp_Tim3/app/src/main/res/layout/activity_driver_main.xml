@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/uber_background"
@@ -12,7 +13,7 @@
         android:paddingTop="@dimen/appbar_padding_top"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar"
+        <androidx.appcompat.widget.Toolbar android:id="@+id/driver_main_toolbar"
             android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
             android:background="@color/uber_toolbar" app:popupTheme="@style/AppTheme.PopupOverlay"
             app:layout_scrollFlags="scroll|enterAlways">
@@ -23,11 +24,11 @@
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/o_street"> <!--  prikaz mape kao pozadine-->
 
 
 <!--         The main content view -->
-
 
         <RelativeLayout
             android:id="@+id/mainContent"
@@ -39,30 +40,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="110dp"
-                android:layout_marginBottom="10dp"
                 android:layout_alignParentBottom="true"
+                android:layout_marginEnd="126dp"
+                android:layout_marginBottom="6dp"
                 android:background="@color/uber_silt_green_button"
                 android:checked="true"
-                android:padding="20dp"
+                android:padding="10dp"
                 android:textColor="#FFFFFF"
                 android:textOff="@string/offlineText"
                 android:textOn="@string/onlineText"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
-<!--                        <ToggleButton-->
-<!--                android:id="@+id/btnToggleOnline"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_alignParentEnd="true"-->
-<!--                android:background="@color/uber_silt_green_button"-->
-<!--                android:layout_alignParentBottom="true"-->
-<!--                android:layout_marginEnd="106dp"-->
-<!--                android:textColor="#FFFFFF"-->
-<!--                android:textOff="@string/offlineText"-->
-<!--                android:textOn="@string/onlineText"-->
-<!--                android:layout_marginBottom="16dp"-->
-<!--                />-->
         </RelativeLayout>
 
         <!-- The navigation drawer -->
@@ -81,11 +69,35 @@
                 android:background="@color/material_blue_grey_800"
                 android:padding="8dp" >
 
+                    <ImageView
+                        android:id="@+id/avatar"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_baseline_person_24"
+                        android:layout_marginTop="15dp"
+                        android:contentDescription="@string/description1" />
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="42dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_toEndOf="@+id/avatar"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:id="@+id/userName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user"
+                            android:textColor="#fff"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
 
             </RelativeLayout>
 
-            <!-- List of Actions (pages) -->
             <ListView
                 android:id="@+id/navList"
                 android:layout_width="280dp"
@@ -98,4 +110,6 @@
 
     </androidx.drawerlayout.widget.DrawerLayout>
 
-</RelativeLayout>
+</LinearLayout>
+
+

@@ -1,9 +1,13 @@
 package com.example.uberapp_tim3;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.TextView;
 
 import com.example.uberapp_tim3.model.Driver;
@@ -15,7 +19,6 @@ public class DriverAccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_account);
-
         setTextViews();
     }
 

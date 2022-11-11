@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".DriverAccountActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
+
+        <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,7 +15,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/uber_toolbar"
@@ -145,5 +146,6 @@
         android:text="@string/active_text"
         android:textSize="26sp"
         android:textStyle="bold|italic" />
+
 
 </RelativeLayout>
