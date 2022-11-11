@@ -49,6 +49,8 @@
     <string name="active_text">ACCOUNT IS ACTIVE</string>
     <string name="driver_back">Back</string>
     <string name="ride_history">Ride History</string>
+    <string name="driver_profile_long">See your profile</string>
+    <string name="driver_inbox_long">See your messages</string>
 
 
 </resources>
