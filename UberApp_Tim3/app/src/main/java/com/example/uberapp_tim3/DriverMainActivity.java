@@ -84,4 +84,6 @@ public class DriverMainActivity extends AppCompatActivity {
 //        mNavItems.add(new NavItem(getString(R.string.about), getString(R.string.about_long), R.drawable.ic_action_about));
 //        mNavItems.add(new NavItem(getString(R.string.sync_data), getString(R.string.sync_data_long), R.drawable.ic_action_refresh));
     }
+
+
 }

@@ -21,7 +21,6 @@
     <string name="driver_profile">Profile</string>
 
 
-
     <string name="passenger_full_name">Full Name</string>
 
     <string name="passenger_phone_number">Phone Number:</string>
@@ -48,7 +47,8 @@
 
     <string name="blocked_text">ACCOUNT IS BLOCKED</string>
     <string name="active_text">ACCOUNT IS ACTIVE</string>
-
+    <string name="driver_back">Back</string>
+    <string name="ride_history">Ride History</string>
 
 
 </resources>
