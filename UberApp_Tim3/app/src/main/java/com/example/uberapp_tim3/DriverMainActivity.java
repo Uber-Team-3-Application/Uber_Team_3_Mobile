@@ -78,10 +78,8 @@ public class DriverMainActivity extends AppCompatActivity {
 
 
     private void prepareMenu(ArrayList<NavItem> mNavItems ) {
-        mNavItems.add(new NavItem(getString(R.string.driver_home), getString(R.string.driver_profile), R.drawable.ic_baseine_person_24));
+        mNavItems.add(new NavItem(getString(R.string.driver_home), getString(R.string.driver_profile), R.drawable.ic_home));
         mNavItems.add(new NavItem(getString(R.string.drive_history), getString(R.string.drive_history_long), R.drawable.ic_history));
-        mNavItems.add(new NavItem(getString(R.string.preferences), getString(R.string.preferences_long), R.drawable.ic_action_settings));
-        mNavItems.add(new NavItem(getString(R.string.about), getString(R.string.about_long), R.drawable.ic_action_about));
-        mNavItems.add(new NavItem(getString(R.string.sync_data), getString(R.string.sync_data_long), R.drawable.ic_action_refresh));
+        mNavItems.add(new NavItem(getString(R.string.driver_inbox), getString(R.string.driver_inbox_long), R.drawable.ic_home))
     }
 }
