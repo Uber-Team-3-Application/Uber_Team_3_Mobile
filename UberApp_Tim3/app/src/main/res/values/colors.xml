@@ -12,6 +12,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="uber_background">#f7f7f7 </color>
+    <color name="uber_off_white">#11AAAE9F</color>
+    <color name="uber_transperent">#0AAAE9F</color>
     <color name="uber_desert_sage">#aaae9f</color>
     <color name="uber_surf_spray">#aabfb8 </color>
     <color name="uber_lauren_green">#acbaa1</color>

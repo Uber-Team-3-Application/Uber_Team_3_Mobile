@@ -8,10 +8,10 @@
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher_round"></ImageView>
+        android:src="@mipmap/ic_launcher_round"></de.hdodenhof.circleimageview.CircleImageView>
 
     <TextView
         android:layout_width="wrap_content"
