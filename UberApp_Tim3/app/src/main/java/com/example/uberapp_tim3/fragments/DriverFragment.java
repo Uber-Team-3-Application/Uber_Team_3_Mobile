@@ -49,20 +49,20 @@ public class DriverFragment extends ListFragment {
             Intent intent = new Intent(getContext(), DriverRideHistoryActivity.class);
             startActivity(intent);
         }
-        if(id == R.id.driver_inbox){
-            Intent intent = new Intent(getContext(), DriverInboxActivity.class);
-            startActivity(intent);
-        }
-        if (id == R.id.driver_profile) {
-            Intent intent = new Intent(getContext(), DriverAccountActivity.class);
-            startActivity(intent);
-        }
-
-        if (id == R.id.back_to_drive_main) {
-
-            Intent intent = new Intent(getContext(), DriverMainActivity.class);
-            startActivity(intent);
-        }
+//        if(id == R.id.driver_inbox){
+//            Intent intent = new Intent(getContext(), DriverInboxActivity.class);
+//            startActivity(intent);
+//        }
+//        if (id == R.id.driver_profile) {
+//            Intent intent = new Intent(getContext(), DriverAccountActivity.class);
+//            startActivity(intent);
+//        }
+//
+//        if (id == R.id.back_to_drive_main) {
+//
+//            Intent intent = new Intent(getContext(), DriverMainActivity.class);
+//            startActivity(intent);
+//        }
         return super.onOptionsItemSelected(item);
     }
 

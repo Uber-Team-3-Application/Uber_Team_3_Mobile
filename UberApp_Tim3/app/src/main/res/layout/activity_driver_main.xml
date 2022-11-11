@@ -19,25 +19,83 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <RelativeLayout
-        android:id="@+id/mainContent"
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <ToggleButton
-        android:id="@+id/btnToggleOnline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:background="@color/uber_silt_green_button"
-        android:textColor="#FFFFFF"
-        android:checked="true"
-        android:padding="20dp"
-        android:textOff="@string/offlineText"
-        android:textOn="@string/onlineText"
-        android:textSize="20sp" />
 
+<!--         The main content view -->
+
+
+        <RelativeLayout
+            android:id="@+id/mainContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <ToggleButton
+                android:id="@+id/btnToggleOnline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="110dp"
+                android:layout_marginBottom="10dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/uber_silt_green_button"
+                android:checked="true"
+                android:padding="20dp"
+                android:textColor="#FFFFFF"
+                android:textOff="@string/offlineText"
+                android:textOn="@string/onlineText"
+                android:textSize="20sp" />
+
+<!--                        <ToggleButton-->
+<!--                android:id="@+id/btnToggleOnline"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:background="@color/uber_silt_green_button"-->
+<!--                android:layout_alignParentBottom="true"-->
+<!--                android:layout_marginEnd="106dp"-->
+<!--                android:textColor="#FFFFFF"-->
+<!--                android:textOff="@string/offlineText"-->
+<!--                android:textOn="@string/onlineText"-->
+<!--                android:layout_marginBottom="16dp"-->
+<!--                />-->
+        </RelativeLayout>
+
+        <!-- The navigation drawer -->
+        <RelativeLayout
+            android:layout_width="280dp"
+            android:layout_height="match_parent"
+            android:id="@+id/drawerPane"
+            android:layout_gravity="start">
+
+            <!-- Profile Box -->
+
+            <RelativeLayout
+                android:id="@+id/profileBox"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/material_blue_grey_800"
+                android:padding="8dp" >
+
+
+
+            </RelativeLayout>
+
+            <!-- List of Actions (pages) -->
+            <ListView
+                android:id="@+id/navList"
+                android:layout_width="280dp"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/profileBox"
+                android:choiceMode="singleChoice"
+                android:background="#ffffffff" />
+
+        </RelativeLayout>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 </RelativeLayout>
