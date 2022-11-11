@@ -5,33 +5,4 @@
         android:title="@string/action_settings"
         android:orderInCategory="100"
         app:showAsAction="never" />
-
-    <item android:id="@+id/back_to_drive_main"
-        android:title="@string/driver_back"
-        android:icon="@drawable/icons_go_back"
-        android:orderInCategory="200"
-        app:showAsAction="always" />
-
-    <item android:id="@+id/ride_history"
-        android:title="@string/ride_history"
-        android:icon="@drawable/iconshistory"
-        android:orderInCategory="300"
-        app:showAsAction="ifRoom" />
-
-    <item android:id="@+id/driver_inbox"
-        android:title="@string/driver_inbox"
-        android:icon="@drawable/icons_inbox"
-        android:orderInCategory="400"
-        app:showAsAction="always" />
-
-
-    <item android:id="@+id/driver_profile"
-        android:title="@string/driver_profile"
-        android:icon="@drawable/icons_user"
-        android:orderInCategory="500"
-        app:showAsAction="always" />
-
-
-
-
 </menu>
