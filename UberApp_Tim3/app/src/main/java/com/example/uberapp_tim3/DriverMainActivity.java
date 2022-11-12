@@ -105,32 +105,26 @@ public class DriverMainActivity extends AppCompatActivity {
 
     private void selectItemFromDrawer(int position) {
 
-        if(position == 0) {
+        if (position == 0) {
             Intent intent = new Intent(this, DriverAccountActivity.class);
             startActivity(intent);
+        } else if (position == 1) {
+            Intent intent = new Intent(this, DriverRideHistoryActivity.class);
+            startActivity(intent);
+        } else if (position == 2) {
+            Intent intent = new Intent(this, DriverInboxActivity.class);
+            startActivity(intent);
+        } else if (position == 3) {
+            Intent intent = new Intent(this, DriverMainActivity.class);
+            startActivity(intent);
         }
-       //  FragmentTransition.to(DriverFragment.newInstance(), this, false);
-//        }else if(position == 0){
-//          //  FragmentTransition.to(ExamplesFragment.newInstance(), this, false);
-//
-//        }else if(position == 2){
-//            //..
-//        }else if(position == 3){
-//            //..
-//        }else if(position == 4){
-//            //..
-//        }else if(position == 5){
-//            //...
-//        }else{
-//            Log.e("DRAWER", "Nesto van opsega!");
-//        }
 
-        mDrawerList.setItemChecked(position, true);
-        if(position != 5)
-        {
-            setTitle(mNavItems.get(position).getmTitle());
-        }
-        mDrawerLayout.closeDrawer(mDrawerPane);
+            mDrawerList.setItemChecked(position, true);
+            if (position != 5) {
+                setTitle(mNavItems.get(position).getmTitle());
+            }
+            mDrawerLayout.closeDrawer(mDrawerPane);
+
     }
 
     private void prepareMenu(ArrayList<NavItem> mNavItems ) {
