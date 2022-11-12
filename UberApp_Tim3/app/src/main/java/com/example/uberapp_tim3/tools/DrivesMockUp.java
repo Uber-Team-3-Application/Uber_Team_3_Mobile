@@ -13,12 +13,11 @@ import java.util.List;
 
 public class DrivesMockUp {
 
-    public static List<Drive> getDrives() throws ParseException {
+    public static List<Drive> getDrives()  {
         ArrayList<Drive> drives = new ArrayList<>();
 
         String date_string = "26-09-1989";
         //Instantiating the SimpleDateFormat class
-        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy hh:mm");
         //Parsing the given String to Date object
 
         drives.add(

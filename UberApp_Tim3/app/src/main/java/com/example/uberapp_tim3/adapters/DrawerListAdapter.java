@@ -28,12 +28,8 @@ public class DrawerListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        try {
-            return  DrivesMockUp.getDrives().size();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return 0;
+        return  DrivesMockUp.getDrives().size();
+
     }
 
     /*
@@ -41,12 +37,8 @@ public class DrawerListAdapter extends BaseAdapter {
      * */
     @Override
     public Object getItem(int position) {
-        try {
-            return DrivesMockUp.getDrives().get(position);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return 0;
+        return DrivesMockUp.getDrives().get(position);
+
     }
 
 
@@ -65,11 +57,7 @@ public class DrawerListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi=convertView;
         Drive drive = null;
-        try {
-            drive = DrivesMockUp.getDrives().get(position);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        drive = DrivesMockUp.getDrives().get(position);
 
         if(convertView==null)
             vi = activity.getLayoutInflater().inflate(R.layout.driver_list, null);

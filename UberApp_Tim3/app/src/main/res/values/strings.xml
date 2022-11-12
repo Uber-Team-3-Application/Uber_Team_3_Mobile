@@ -81,6 +81,16 @@
     <string name="passenger_card_info">Card Information:</string>
     <string name="passenger_real_card_info">**********</string>
     <string name="driver_stats">Ride Statistics</string>
+    <string name="start_driving">Start driving</string>
+    <string name="end_driving">End driving</string>
+    <string name="kilometers">Kilometers</string>
+    <string name="number_of_passengers">Passengers</string>
+    <string name="comments">Comments</string>
+    <string name="rate">Rate</string>
+    <string name="price">Price</string>
+    <string name="start_station">Start station</string>
+    <string name="end_station">End Station</string>
+    <string name="inbox">INBOX</string>
 
 
 </resources>
