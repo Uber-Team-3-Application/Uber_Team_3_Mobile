@@ -46,7 +46,7 @@
                     android:layout_marginTop="-19dp"
                     android:layout_marginRight="2dp"
                     android:contentDescription="TODO"
-                    android:src="@drawable/car_logo" />
+                    android:src="@drawable/car_uber" />
             </RelativeLayout>
 
             <RelativeLayout
