@@ -9,13 +9,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.model.Passenger;
 import com.example.uberapp_tim3.tools.PassengerMockup;
 
-public class PassengerAccountFragment extends Fragment {
+public class PassengerAccountFragment extends Fragment implements View.OnClickListener {
 
 
     @Nullable
@@ -27,6 +29,7 @@ public class PassengerAccountFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         setTextViews();
+        setOnClickListeners();
     }
 
 
@@ -74,6 +77,21 @@ public class PassengerAccountFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    private void setOnClickListeners() {
+        Button btnEditBasicInfo = getView().findViewById(R.id.btnEditBasicPassInfo);
+        Button btnPassRoutes = getView().findViewById(R.id.btnFavouriteRoutes);
+        Button btnPassReports = getView().findViewById(R.id.btnPassengerReports);
+
+        btnEditBasicInfo.setOnClickListener(this);
+        btnPassReports.setOnClickListener(this);
+        btnPassRoutes.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        Toast.makeText(getActivity(), "Functionality not implemented!", Toast.LENGTH_SHORT).show();
     }
 
 

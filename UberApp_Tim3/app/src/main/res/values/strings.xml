@@ -28,6 +28,9 @@
     <string name="passenger_email">Email Address:</string>
     <string name="passenger_real_email">email@gmail.com</string>
 
+    <string name="passenger_address">Home Address:</string>
+    <string name="passenger_real_address">Kisacka 64a, Novi Sad</string>
+
     <string name="team_name">Uber Team 3</string>
 
     <string name="driver_full_name">Full Name</string>
@@ -73,6 +76,10 @@
     <string name="last_message">Last message</string>
     <string name="contact_name">Contact name</string>
     <string name="or_register_using">Or Register Using</string>
+    <string name="edit_pass_info">Edit Basic Info</string>
+    <string name="reports">Reports</string>
+    <string name="passenger_card_info">Card Information:</string>
+    <string name="passenger_real_card_info">**********</string>
 
 
 </resources>

@@ -64,7 +64,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
-                        android:text="Username"
+                        android:text="Email Address"
                         android:textColor="@color/uber_sagebrush"
                         android:textSize="15dp"
                         android:textStyle="bold" />
