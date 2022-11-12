@@ -1,5 +1,6 @@
-package com.example.vezbe4.adapters;
+package com.example.uberapp_tim3.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,54 +10,78 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.model.Drive;
+import com.example.uberapp_tim3.model.Driver;
 import com.example.uberapp_tim3.model.NavItem;
+import com.example.uberapp_tim3.tools.DriverMockup;
+import com.example.uberapp_tim3.tools.DrivesMockUp;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class DrawerListAdapter extends BaseAdapter {
-    Context mContext;
-    ArrayList<NavItem> mNavItems;
+    private Activity activity;
 
-    public DrawerListAdapter(Context context, ArrayList<NavItem> navItems) {
-        mContext = context;
-        mNavItems = navItems;
+    public DrawerListAdapter(Activity activity) {
+        this.activity = activity;
     }
 
     @Override
     public int getCount() {
-        return mNavItems.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return mNavItems.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
+        try {
+            return  DrivesMockUp.getDrives().size();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return 0;
     }
 
+    /*
+     * Ova metoda vraca pojedinacan element na osnovu pozicije
+     * */
+    @Override
+    public Object getItem(int position) {
+        try {
+            return DrivesMockUp.getDrives().get(position);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+
+    /*
+     * Ova metoda vraca jedinstveni identifikator, za adaptere koji prikazuju
+     * listu ili niz, pozicija je dovoljno dobra. Naravno mozemo iskoristiti i
+     * jedinstveni identifikator objekta, ako on postoji.
+     * */
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view;
-
-        if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.drawer_list_item, null);
-        }
-        else {
-            view = convertView;
+        View vi=convertView;
+        Drive drive = null;
+        try {
+            drive = DrivesMockUp.getDrives().get(position);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
-        TextView titleView = (TextView) view.findViewById(R.id.title);
-        TextView subtitleView = (TextView) view.findViewById(R.id.subTitle);
-        ImageView iconView = (ImageView) view.findViewById(R.id.icon);
+        if(convertView==null)
+            vi = activity.getLayoutInflater().inflate(R.layout.driver_list, null);
 
-        titleView.setText( mNavItems.get(position).getmTitle() );
-        subtitleView.setText( mNavItems.get(position).getmSubtitle() );
-        iconView.setImageResource(mNavItems.get(position).getmIcon());
+        TextView name = (TextView)vi.findViewById(R.id.name);
+        TextView description = (TextView)vi.findViewById(R.id.description);
+        ImageView image = (ImageView)vi.findViewById(R.id.item_icon);
 
-        return view;
+        assert drive != null;
+        name.setText(drive.getrelation());
+        description.setText(drive.getStartDrive());
+
+        return  vi;
     }
 }

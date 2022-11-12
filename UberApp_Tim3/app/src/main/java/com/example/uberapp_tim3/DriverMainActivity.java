@@ -19,8 +19,14 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.example.uberapp_tim3.adapters.DrawerNavListAdapter;
 import com.example.uberapp_tim3.fragments.DriverAccountFragment;
+import com.example.uberapp_tim3.fragments.DriverFragment;
+import com.example.uberapp_tim3.fragments.DriverHomeFragment;
+import com.example.uberapp_tim3.fragments.DriverRideHistoryFragment;
+import com.example.uberapp_tim3.fragments.PassengerAccountFragment;
 import com.example.uberapp_tim3.model.NavItem;
+import com.example.uberapp_tim3.tools.FragmentTransition;
 
 import java.util.ArrayList;
 
@@ -42,7 +48,7 @@ public class DriverMainActivity extends AppCompatActivity {
 
         mDrawerLayout = findViewById(R.id.drawerLayout);
         mDrawerPane = findViewById(R.id.drawerPane);
-        com.example.vezbe4.adapters.DrawerListAdapter adapter = new com.example.vezbe4.adapters.DrawerListAdapter(this, mNavItems);
+        DrawerNavListAdapter adapter = new DrawerNavListAdapter(this, mNavItems);
 
 
         mDrawerList = findViewById(R.id.navList);
@@ -62,18 +68,6 @@ public class DriverMainActivity extends AppCompatActivity {
             actionBar.setHomeButtonEnabled(true);
         }
 
-        ToggleButton tbChangeActivity = findViewById(R.id.btnToggleOnline);
-
-        tbChangeActivity.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                String text = "Current status: ";
-                if(b) text += "Online";
-                else text += "Offline";
-                Toast.makeText(DriverMainActivity.this, text, Toast.LENGTH_SHORT).show();
-            }
-        });
-
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,
                 mDrawerLayout,
@@ -92,6 +86,8 @@ public class DriverMainActivity extends AppCompatActivity {
             }
         };
 
+        if (savedInstanceState == null)
+            selectItemFromDrawer(3);
 
 
     }
@@ -105,18 +101,15 @@ public class DriverMainActivity extends AppCompatActivity {
 
     private void selectItemFromDrawer(int position) {
 
+
         if (position == 0) {
-            Intent intent = new Intent(this, DriverAccountFragment.class);
-            startActivity(intent);
+            FragmentTransition.to(DriverAccountFragment.newInstance(), this, false);
         } else if (position == 1) {
-            Intent intent = new Intent(this, DriverRideHistoryActivity.class);
-            startActivity(intent);
+            FragmentTransition.to(DriverRideHistoryFragment.newInstance(), this, false);
         } else if (position == 2) {
-            Intent intent = new Intent(this, DriverInboxActivity.class);
-            startActivity(intent);
+            // TODO: DriverInbox
         } else if (position == 3) {
-            Intent intent = new Intent(this, DriverMainActivity.class);
-            startActivity(intent);
+            FragmentTransition.to(DriverHomeFragment.newInstance(), this, false);
         }
 
             mDrawerList.setItemChecked(position, true);
