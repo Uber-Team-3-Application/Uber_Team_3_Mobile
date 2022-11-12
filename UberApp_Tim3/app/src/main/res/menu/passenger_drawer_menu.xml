@@ -8,15 +8,14 @@
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_profile"
             android:title="@string/my_profile" />
-
-        <item
-            android:id="@+id/nav_inbox"
-            android:icon="@drawable/ic_message"
-            android:title="@string/messages" />
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
             android:title="@string/home_page" />
+        <item
+            android:id="@+id/nav_inbox"
+            android:icon="@drawable/ic_message"
+            android:title="@string/messages" />
         <item
             android:id="@+id/nav_history"
             android:icon="@drawable/ic_history"
