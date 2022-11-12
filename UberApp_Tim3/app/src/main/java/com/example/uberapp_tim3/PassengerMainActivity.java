@@ -30,12 +30,13 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        if (savedInstanceState == null){
+        if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerMapFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
@@ -43,7 +44,7 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_inbox:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerInboxFragment()).commit();
                 break;
