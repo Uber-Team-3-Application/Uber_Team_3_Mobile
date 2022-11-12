@@ -1,11 +1,14 @@
 package com.example.uberapp_tim3.fragments;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,7 +18,7 @@ import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.model.Driver;
 import com.example.uberapp_tim3.tools.DriverMockup;
 
-public class DriverAccountFragment extends Fragment {
+public class DriverAccountFragment extends Fragment{
 
 
     public static DriverAccountFragment newInstance() {
@@ -33,6 +36,7 @@ public class DriverAccountFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         setTextViews();
     }
+
 
     private void setTextViews(){
         Driver driver = DriverMockup.getDrivers().get(0);
