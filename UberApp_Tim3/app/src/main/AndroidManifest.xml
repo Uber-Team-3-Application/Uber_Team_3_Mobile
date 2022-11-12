@@ -62,7 +62,7 @@
         <activity
             android:name=".PassengerMainActivity"
             android:exported="false"
-            android:label="Reesen">
+            android:label="Passenger">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
