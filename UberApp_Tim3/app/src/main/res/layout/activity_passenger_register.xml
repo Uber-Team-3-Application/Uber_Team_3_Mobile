@@ -81,7 +81,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -217,15 +216,15 @@
 
         <ImageView
             android:id="@+id/ivGoogleReg"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/google" />
 
         <ImageView
             android:id="@+id/ivFacebookReg"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
             android:src="@drawable/facebook" />
 
     </LinearLayout>
