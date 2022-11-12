@@ -8,18 +8,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.ListFragment;
 
-import com.example.uberapp_tim3.DriverAccountActivity;
-import com.example.uberapp_tim3.DriverInboxActivity;
-import com.example.uberapp_tim3.DriverMainActivity;
 import com.example.uberapp_tim3.DriverRideHistoryActivity;
-import com.example.uberapp_tim3.MainActivity;
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.UserLoginActivity;
 
 public class DriverFragment extends ListFragment {
     public static DriverFragment newInstance() {
