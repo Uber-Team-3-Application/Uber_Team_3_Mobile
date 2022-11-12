@@ -43,7 +43,7 @@
     <string name="driver_license_number">Drivers License:</string>
     <string name="driver_license_number_real">543543543</string>
 
-    <string name="vehicle_registration_number">Vehicle Registration number:</string>
+    <string name="vehicle_registration_number">Car Registration\nnumber</string>
     <string name="vehicle_registration_real_number">123215543</string>
 
     <string name="blocked_text">ACCOUNT IS BLOCKED</string>
@@ -80,6 +80,7 @@
     <string name="reports">Reports</string>
     <string name="passenger_card_info">Card Information:</string>
     <string name="passenger_real_card_info">**********</string>
+    <string name="driver_stats">Ride Statistics</string>
 
 
 </resources>

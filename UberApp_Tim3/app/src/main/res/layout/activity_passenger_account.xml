@@ -4,9 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/uber_background"
+    android:background="@color/uber_green_lily"
     tools:context=".fragments.PassengerAccountFragment">
 
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/white"
+        app:cardCornerRadius="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp">
 
     <ImageView
         android:id="@+id/imgAvatar"
@@ -132,10 +146,13 @@
         android:text="@string/edit_pass_info"
         android:textSize="16sp" />
 
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnEditBasicPassInfo"
+        android:layout_below="@+id/cardViewPass"
         android:layout_marginTop="20dp"
         android:orientation="vertical"
         android:layout_marginHorizontal="10dp">
