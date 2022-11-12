@@ -18,16 +18,16 @@ public class UserLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
 
-        Button btnRegister = findViewById(R.id.btnRegister);
+        //Button btnRegister = findViewById(R.id.btnRegister);
         Button btnLogin = findViewById(R.id.btnLogin);
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        /*btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(UserLoginActivity.this, PassengerRegisterActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
