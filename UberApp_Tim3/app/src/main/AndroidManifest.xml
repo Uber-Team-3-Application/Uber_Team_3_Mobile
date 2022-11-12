@@ -44,7 +44,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".PassengerInboxActivity"
+            android:name=".fragments.PassengerInboxFragment"
             android:exported="false"
             android:label="My Inbox">
             <meta-data
@@ -62,7 +62,7 @@
         <activity
             android:name=".PassengerMainActivity"
             android:exported="false"
-            android:label="Uber">
+            android:label="Reesen">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
