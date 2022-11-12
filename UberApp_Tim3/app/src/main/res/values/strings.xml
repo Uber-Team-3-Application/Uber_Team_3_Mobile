@@ -45,6 +45,21 @@
 
     <string name="blocked_text">ACCOUNT IS BLOCKED</string>
     <string name="active_text">ACCOUNT IS ACTIVE</string>
+
+    <string name="driver_back">Home</string>
+    <string name="ride_history">Ride History</string>
+    <string name="driver_profile_long">See your profile</string>
+    <string name="driver_inbox_long">See your messages</string>
+    <string name="drive_history">History</string>
+    <string name="drive_history_long">See your rides</string>
+    <string name="driver_home">Home</string>
+    <string name="description1">Description</string>
+    <string name="user">username</string>
+    <string name="driver_back_long">Back to the home page</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
     <string name="my_profile">My profile</string>
     <string name="messages">Messages</string>
     <string name="home_page">Home page</string>
@@ -58,5 +73,6 @@
     <string name="time_and_date">18:30 11.11.2022.</string>
     <string name="last_message">Last message</string>
     <string name="contact_name">Contact name</string>
+
 
 </resources>
