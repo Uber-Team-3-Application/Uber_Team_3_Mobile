@@ -18,9 +18,14 @@ import com.example.uberapp_tim3.tools.DriverMockup;
 public class DriverAccountFragment extends Fragment {
 
 
+    public static DriverAccountFragment newInstance() {
+        return new DriverAccountFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.activity_driver_account, container, false);
     }
 

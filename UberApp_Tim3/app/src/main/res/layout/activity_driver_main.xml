@@ -51,6 +51,7 @@
                 android:textOn="@string/onlineText"
                 android:textSize="15sp" />
 
+
         </RelativeLayout>
 
         <!-- The navigation drawer -->
