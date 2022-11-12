@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 public class PassengerRegisterActivity extends AppCompatActivity {
 
@@ -20,9 +22,25 @@ public class PassengerRegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PassengerRegisterActivity.this, PassengerMainActivity.class);
-
                 startActivity(intent);
                 finish();
+            }
+        });
+
+
+        ImageView ivGoogle = findViewById(R.id.ivGoogleReg);
+        ImageView ivFacebook = findViewById(R.id.ivFacebookReg);
+
+        ivGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(PassengerRegisterActivity.this, "Functionality not implemented!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        ivFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(PassengerRegisterActivity.this, "Functionality not implemented!", Toast.LENGTH_SHORT).show();
             }
         });
     }
