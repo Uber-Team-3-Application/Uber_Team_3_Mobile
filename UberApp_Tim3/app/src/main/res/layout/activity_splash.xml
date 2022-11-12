@@ -7,47 +7,49 @@
     android:background="@color/uber_surf_spray"
     tools:context=".SplashActivity">
 
-
-    <ProgressBar
-        android:id="@+id/splashPgBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/txtTitle"
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/locationpin"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_above="@id/imgLogo"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:indeterminateTint="@color/uber_eucalyptus"/>
+        android:src="@drawable/location_pin" />
 
     <TextView
         android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/imgLogo"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/splashScreenText"
+        android:letterSpacing="0.09"
+        android:text="reesen"
         android:textColor="@color/uber_toolbar"
         android:textSize="50sp"
-        android:textStyle="bold" />
+        android:textStyle="italic|bold" />
 
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:layout_below="@+id/txtTitle"
         android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_marginTop="20dp"
-        android:src="@drawable/uber" />
+        android:src="@drawable/logo" />
 
     <ImageView
         android:id="@+id/imgCopyright"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_copyright_24"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_alignEnd="@+id/txtTeamname"
         android:layout_alignParentBottom="true"
+        android:layout_marginEnd="85dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginBottom="23dp"
         android:layout_toLeftOf="@+id/txtTeamname"
-        android:layout_marginBottom="27dp"
-        android:layout_marginRight="10dp"/>
+        android:src="@drawable/ic_baseline_copyright_24" />
 
     <TextView
+        android:id="@+id/txtTeamname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -56,7 +58,6 @@
         android:layout_marginBottom="20dp"
         android:text="@string/team_name"
         android:textColor="@color/uber_toolbar"
-        android:textSize="32sp"
-        android:textStyle="bold|italic"
-        android:id="@+id/txtTeamname"/>
+        android:textSize="15sp"
+        android:textStyle="italic" />
 </RelativeLayout>
