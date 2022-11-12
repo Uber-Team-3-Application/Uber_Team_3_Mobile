@@ -49,7 +49,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/driver_phone_number"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/txtdriverPhoneNumber"
@@ -60,7 +60,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_toRightOf="@+id/txtDrivPhone"
                 android:text="@string/driver_phone_real_number"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold|italic" />
 
 
@@ -72,7 +72,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/driver_email"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/txtdriverEmail"
@@ -83,7 +83,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_toRightOf="@+id/txtDrivEmail"
                 android:text="@string/driver_real_email"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold|italic" />
 
 
@@ -95,7 +95,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/passenger_address"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/txtDriverHomeAddress"
@@ -106,7 +106,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_toRightOf="@+id/txtDrivHomeAddress"
                 android:text="@string/passenger_real_address"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold|italic" />
 
 
@@ -118,7 +118,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/driver_license_number"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/txtDriverLicense"
@@ -129,7 +129,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_toRightOf="@+id/txtDrivLicense"
                 android:text="@string/driver_license_number_real"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold|italic" />
 
 
@@ -141,7 +141,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/vehicle_registration_number"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/txtCarRegistration"
@@ -152,7 +152,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_toRightOf="@+id/txtCarReg"
                 android:text="@string/vehicle_registration_real_number"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold|italic" />
 
 
@@ -166,7 +166,7 @@
                 android:layout_marginRight="30dp"
                 android:paddingVertical="10dp"
                 android:text="@string/edit_pass_info"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
         </RelativeLayout>
 
