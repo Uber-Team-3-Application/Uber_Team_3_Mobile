@@ -40,13 +40,11 @@
 
                 <ImageView
                     android:layout_width="250dp"
-                    android:layout_height="200dp"
+                    android:layout_height="230dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="-19dp"
-                    android:layout_marginRight="2dp"
                     android:contentDescription="TODO"
-                    android:src="@drawable/car_uber" />
+                    android:src="@drawable/carlogo1" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -121,7 +119,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
 
-                        android:hint="@string/password"
+                        android:hint="password123"
                         android:inputType="textPassword" />
                 </LinearLayout>
             </RelativeLayout>
@@ -133,7 +131,7 @@
 
                 android:text="Forgot Password?"
                 android:textColor="@color/uber_green_lily"
-                android:textSize="10dp" />
+                android:textSize="12dp" />
 
             <RelativeLayout
                 android:layout_width="fill_parent"
