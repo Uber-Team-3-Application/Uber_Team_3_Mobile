@@ -26,10 +26,10 @@
             android:textStyle="bold|italic" />
 
         <ImageView
-            android:layout_width="130dp"
-            android:layout_height="100dp"
+            android:layout_width="196dp"
+            android:layout_height="120dp"
             android:layout_marginLeft="30dp"
-            android:src="@drawable/car_uber" />
+            android:src="@drawable/carlogo2" />
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
@@ -50,7 +50,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:orientation="vertical">
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:text="Registration:"
+                    android:textAlignment="center"
+                    android:textColor="@color/uber_sagebrush"
+                    android:textSize="20sp"
+                    android:textStyle="bold|italic" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
