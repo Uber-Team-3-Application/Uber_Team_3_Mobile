@@ -8,12 +8,12 @@
     <color name="purple_700">#517470</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
 
     <color name="uber_background">#f7f7f7 </color>
-    <color name="uber_off_white">#11AAAE9F</color>
-    <color name="uber_transperent">#0AAAE9F</color>
+    <color name="uber_off_white">#11AAAE</color>
+    <color name="uber_transperent">#0AAAE9</color>
     <color name="uber_desert_sage">#aaae9f</color>
     <color name="uber_surf_spray">#aabfb8 </color>
     <color name="uber_lauren_green">#acbaa1</color>
