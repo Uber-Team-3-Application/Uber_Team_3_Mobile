@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.uberapp_tim3.model.Driver;
@@ -18,16 +19,16 @@ public class UserLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
 
-        //Button btnRegister = findViewById(R.id.btnRegister);
+        TextView tvRegister = findViewById(R.id.btnRegister);
         Button btnLogin = findViewById(R.id.btnLogin);
 
-        /*btnRegister.setOnClickListener(new View.OnClickListener() {
+        tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(UserLoginActivity.this, PassengerRegisterActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
