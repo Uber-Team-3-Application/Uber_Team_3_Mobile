@@ -6,6 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.uberapp_tim3.model.Driver;
 
 public class UserLoginActivity extends AppCompatActivity {
 
@@ -28,7 +32,13 @@ public class UserLoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(UserLoginActivity.this, PassengerMainActivity.class);
+                Intent intent;
+                String etUser = ((EditText) findViewById(R.id.editTxtEmail)).getText().toString();
+                String etPw = ((EditText)findViewById(R.id.editTxtPassword)).getText().toString();
+                if(etUser.equals("nebojsa") && etPw.equals("vuga"))
+                    intent = new Intent(UserLoginActivity.this, PassengerMainActivity.class);
+                else
+                    intent = new Intent(UserLoginActivity.this, DriverMainActivity.class);
                 startActivity(intent);
             }
         });
