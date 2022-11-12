@@ -1,4 +1,4 @@
-package com.example.vezbe4.adapters;
+package com.example.uberapp_tim3.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,10 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.model.Drive;
 import com.example.uberapp_tim3.model.Driver;
 import com.example.uberapp_tim3.model.NavItem;
 import com.example.uberapp_tim3.tools.DriverMockup;
+import com.example.uberapp_tim3.tools.DrivesMockUp;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class DrawerListAdapter extends BaseAdapter {
@@ -25,7 +28,12 @@ public class DrawerListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return DriverMockup.getDrivers().size();
+        try {
+            return  DrivesMockUp.getDrives().size();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     /*
@@ -33,7 +41,12 @@ public class DrawerListAdapter extends BaseAdapter {
      * */
     @Override
     public Object getItem(int position) {
-        return DriverMockup.getDrivers().get(position);
+        try {
+            return DrivesMockUp.getDrives().get(position);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
 
@@ -51,7 +64,12 @@ public class DrawerListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi=convertView;
-        Driver driver = DriverMockup.getDrivers().get(position);
+        Drive drive = null;
+        try {
+            drive = DrivesMockUp.getDrives().get(position);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         if(convertView==null)
             vi = activity.getLayoutInflater().inflate(R.layout.driver_list, null);
@@ -60,8 +78,9 @@ public class DrawerListAdapter extends BaseAdapter {
         TextView description = (TextView)vi.findViewById(R.id.description);
         ImageView image = (ImageView)vi.findViewById(R.id.item_icon);
 
-        name.setText(driver.getName());
-        description.setText(driver.getVehicleRegistrationNumber());
+        assert drive != null;
+        name.setText(drive.getrelation());
+        description.setText(drive.getStartDrive());
 
         return  vi;
     }
