@@ -19,8 +19,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.example.uberapp_tim3.fragments.DriverAccountFragment;
 import com.example.uberapp_tim3.model.NavItem;
-import com.example.uberapp_tim3.tools.FragmentTransition;
 
 import java.util.ArrayList;
 
@@ -106,7 +106,7 @@ public class DriverMainActivity extends AppCompatActivity {
     private void selectItemFromDrawer(int position) {
 
         if (position == 0) {
-            Intent intent = new Intent(this, DriverAccountActivity.class);
+            Intent intent = new Intent(this, DriverAccountFragment.class);
             startActivity(intent);
         } else if (position == 1) {
             Intent intent = new Intent(this, DriverRideHistoryActivity.class);

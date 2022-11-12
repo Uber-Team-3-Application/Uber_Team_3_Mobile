@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.uberapp_tim3.fragments.PassengerAccountFragment;
 import com.example.uberapp_tim3.fragments.PassengerInboxFragment;
 import com.example.uberapp_tim3.fragments.PassengerMapFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -49,6 +50,10 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
             case R.id.nav_home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerMapFragment()).commit();
                 break;
+            case R.id.nav_profile:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerAccountFragment()).commit();
+                break;
+
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

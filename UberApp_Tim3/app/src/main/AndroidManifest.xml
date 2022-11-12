@@ -29,7 +29,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".DriverAccountActivity"
+            android:name=".fragments.DriverAccountFragment"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -52,7 +52,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".PassengerAccountActivity"
+            android:name=".fragments.PassengerAccountFragment"
             android:exported="false"
             android:label="My Account">
             <meta-data
