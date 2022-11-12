@@ -32,6 +32,8 @@ public class DriverRideHistoryActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             FragmentTransition.to(DriverFragment.newInstance(), this, false);
         }
+
+
     }
 
     @Override
