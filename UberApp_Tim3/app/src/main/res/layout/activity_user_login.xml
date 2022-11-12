@@ -35,7 +35,7 @@
                     android:layout_centerVertical="true"
                     android:text="Already \nhave an \nAccount?"
                     android:textColor="@color/uber_sagebrush"
-                    android:textSize="25dp"
+                    android:textSize="23dp"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -81,7 +81,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:hint="@string/email"
+                        android:hint="example@email.com"
                         android:inputType="textEmailAddress" />
                 </LinearLayout>
             </RelativeLayout>
@@ -130,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginTop="10dp"
+
                 android:text="Forgot Password?"
                 android:textColor="@color/uber_green_lily"
                 android:textSize="10dp" />
