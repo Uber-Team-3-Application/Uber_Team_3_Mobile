@@ -67,24 +67,34 @@ public class PassengerEditInfoFragment extends Fragment {
         rbCard.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b)
+                if (b) {
                     ((EditText) getActivity().findViewById(R.id.txtPassengerCardNumber)).setText("");
+                    rbPaypal.setChecked(false);
+                    rbBitcoin.setChecked(false);
+                }
             }
         });
 
         rbPaypal.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b)
+                if (b) {
                     ((EditText) getActivity().findViewById(R.id.txtPassengerCardNumber)).setText("");
+
+                    rbCard.setChecked(false);
+                    rbBitcoin.setChecked(false);
+                }
             }
         });
 
         rbBitcoin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b)
+                if (b) {
                     ((EditText) getActivity().findViewById(R.id.txtPassengerCardNumber)).setText("");
+                    rbCard.setChecked(false);
+                    rbPaypal.setChecked(false);
+                }
             }
         });
     }
@@ -92,6 +102,8 @@ public class PassengerEditInfoFragment extends Fragment {
     private void fillViews() {
 
         Passenger passenger = PassengerMockup.getPassengers().get(0);
+        RadioButton rbCard = getActivity().findViewById(R.id.rbCard);
+        rbCard.setChecked(true);
 
         ((EditText) getActivity().findViewById(R.id.txtPassengerEditFirstName)).setText(passenger.getName());
         ((EditText) getActivity().findViewById(R.id.txtPassengerEditLastName)).setText(passenger.getLastName());
