@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.uberapp_tim3.fragments.PassengerAccountFragment;
+import com.example.uberapp_tim3.fragments.PassengerFavouriteRoutesFragment;
 import com.example.uberapp_tim3.fragments.PassengerInboxFragment;
 import com.example.uberapp_tim3.fragments.PassengerMapFragment;
 import com.example.uberapp_tim3.fragments.PassengerReportFragment;
@@ -58,6 +59,9 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
                 break;
             case R.id.nav_report:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerReportFragment()).addToBackStack(null).commit();
+                break;
+            case R.id.nav_favorite:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerFavouriteRoutesFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_logout:
                 this.finish();
