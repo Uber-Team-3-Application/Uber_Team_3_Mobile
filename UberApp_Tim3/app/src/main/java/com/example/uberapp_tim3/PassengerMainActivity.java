@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import com.example.uberapp_tim3.fragments.PassengerAccountFragment;
 import com.example.uberapp_tim3.fragments.PassengerInboxFragment;
 import com.example.uberapp_tim3.fragments.PassengerMapFragment;
+import com.example.uberapp_tim3.fragments.PassengerReportFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class PassengerMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -54,7 +55,9 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
             case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerAccountFragment()).commit();
                 break;
-
+            case R.id.nav_report:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerReportFragment()).commit();
+                break;
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
