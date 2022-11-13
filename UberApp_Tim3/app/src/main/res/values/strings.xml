@@ -123,6 +123,8 @@
     <string name="paypal">Paypal</string>
     <string name="card">Card</string>
     <string name="change_payment_details">Change payment details</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_accept">Accept</string>
 
 
 </resources>

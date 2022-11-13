@@ -227,7 +227,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -250,7 +249,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -275,7 +273,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -338,8 +336,33 @@
                         android:textStyle="bold|italic" />
                 </LinearLayout>
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/btnCancelEditPassenger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_toLeftOf="@+id/btnAcceptEditPassenger"
+                        android:text="@string/button_cancel" />
+
+                    <Button
+                        android:id="@+id/btnAcceptEditPassenger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="@string/button_accept" />
+
+                </RelativeLayout>
+
 
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
 
