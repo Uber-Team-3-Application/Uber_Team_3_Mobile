@@ -143,8 +143,12 @@
     <string name="monthly">Monthly</string>
     <string name="daily">Daily</string>
     <string name="weekly">Weekly</string>
-    <string name="choose_date_range" >Choose Date Range:</string>
+    <string name="choose_date_range">Choose Date Range:</string>
     <string name="range">range</string>
+    <string name="trip_from">From</string>
+    <string name="trip_from_mockup">Zemun</string>
+    <string name="trip_to">To</string>
+    <string name="trip_to_mockup">Beograd</string>
 
 
 </resources>

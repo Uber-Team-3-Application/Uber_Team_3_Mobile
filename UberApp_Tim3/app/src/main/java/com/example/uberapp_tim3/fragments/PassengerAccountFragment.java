@@ -18,7 +18,7 @@ import com.example.uberapp_tim3.model.Passenger;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 import com.example.uberapp_tim3.tools.PassengerMockup;
 
-public class PassengerAccountFragment extends Fragment implements View.OnClickListener {
+public class PassengerAccountFragment extends Fragment {
 
 
     @Nullable
@@ -94,14 +94,23 @@ public class PassengerAccountFragment extends Fragment implements View.OnClickLi
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerEditInfoFragment()).addToBackStack(null).commit();
             }
         });
-        btnPassReports.setOnClickListener(this);
-        btnPassRoutes.setOnClickListener(this);
+        btnPassReports.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerReportFragment()).addToBackStack(null).commit();
+
+            }
+        });
+        btnPassRoutes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerFavouriteRoutesFragment()).addToBackStack(null).commit();
+
+            }
+        });
     }
 
-    @Override
-    public void onClick(View view) {
-        Toast.makeText(getActivity(), "Functionality not implemented!", Toast.LENGTH_SHORT).show();
-    }
+
 
 
 }
