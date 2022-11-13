@@ -46,29 +46,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
-                    android:text="@string/choose_start_date"
+                    android:text="@string/choose_date_range"
                     android:textSize="16sp"
                     android:textStyle="bold|italic" />
 
                 <Button
+                    android:id="@+id/btnDateRange"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="@string/choose_date_from" />
+                    android:layout_marginTop="6dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/range" />
 
 
                 <TextView
+                    android:id="@+id/tvSelectedDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
-                    android:text="@string/choose_end_date"
+                    android:text="@string/no_selected_date"
                     android:textSize="16sp"
                     android:textStyle="bold|italic" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/choose_date_to" />
 
 
             </LinearLayout>
