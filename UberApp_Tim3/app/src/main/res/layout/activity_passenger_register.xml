@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingVertical="20dp">
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
 
         <ImageView
             android:layout_width="196dp"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:layout_marginLeft="30dp"
             android:src="@drawable/carlogo2" />
     </LinearLayout>
@@ -48,39 +48,48 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
-                    android:text="Registration:"
-                    android:textAlignment="center"
-                    android:textColor="@color/uber_sagebrush"
-                    android:textSize="20sp"
-                    android:textStyle="bold|italic" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="First Name"
+                        android:textColor="@color/uber_sagebrush"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="40dp"/>
                     <EditText
                         android:id="@+id/txtName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
-                        android:layout_marginRight="20dp"
-                        android:hint="@string/regName"
+                        android:layout_marginRight="40dp"
+                        android:hint="Bob"
                         android:minWidth="180dp" />
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="Last Name"
+                        android:textColor="@color/uber_sagebrush"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="40dp"/>
                     <EditText
                         android:id="@+id/txtLastName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
-                        android:layout_marginRight="20dp"
-                        android:hint="@string/regLastName"
+                        android:layout_marginRight="40dp"
+                        android:hint="Ross"
                         android:minWidth="180dp" />
                 </LinearLayout>
             </LinearLayout>
@@ -95,24 +104,42 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="Phone number"
+                        android:textColor="@color/uber_sagebrush"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="40dp"/>
                     <EditText
                         android:id="@+id/txtPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
-                        android:layout_marginRight="20dp"
-                        android:hint="@string/phoneNumber"
+                        android:layout_marginRight="40dp"
+                        android:hint="+381600000000"
                         android:inputType="phone"
                         android:minWidth="180dp" />
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="Email address"
+                        android:textColor="@color/uber_sagebrush"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="40dp"/>
                     <EditText
                         android:id="@+id/txtEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
-                        android:layout_marginRight="20dp"
-                        android:hint="@string/email"
+                        android:layout_marginRight="40dp"
+                        android:hint="example@email.com"
                         android:inputType="textEmailAddress"
                         android:minWidth="180dp" />
 
@@ -128,24 +155,42 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="Password"
+                        android:textColor="@color/uber_sagebrush"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="40dp"/>
                     <EditText
                         android:id="@+id/txtPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
-                        android:layout_marginRight="20dp"
-                        android:hint="@string/password"
+                        android:layout_marginRight="40dp"
+                        android:hint="password123"
                         android:inputType="textPassword"
                         android:minWidth="180dp" />
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="Repeat password"
+                        android:textColor="@color/uber_sagebrush"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="40dp"/>
                     <EditText
                         android:id="@+id/txtPasswordRepeat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
-                        android:layout_marginRight="20dp"
-                        android:hint="@string/repeatPassword"
+                        android:layout_marginRight="40dp"
+                        android:hint="password123"
                         android:inputType="textPassword"
                         android:minWidth="180dp" />
 
@@ -160,14 +205,24 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="4dp">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="Choose a profile picture:"
+                    android:textColor="@color/uber_sagebrush"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"/>
                 <Button
                     android:id="@+id/btnAddImage"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="33dp"
                     android:layout_marginLeft="10dp"
-                    android:background="@color/uber_toolbar"
-                    android:text="@string/addImage"
-                    android:textSize="12sp" />
+                    android:background="@color/uber_desert_sage"
+                    android:text="CHOOSE"
+                    android:textSize="12dp" />
             </LinearLayout>
 
             <Button
@@ -194,7 +249,7 @@
 
         <View
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:layout_weight="4"
             android:background="#FFFFFF" />
 
@@ -210,7 +265,7 @@
 
         <View
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:layout_weight="4"
             android:background="#FFFFFF" />
 
