@@ -59,6 +59,9 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
             case R.id.nav_report:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerReportFragment()).addToBackStack(null).commit();
                 break;
+            case R.id.nav_logout:
+                this.finish();
+                break;
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

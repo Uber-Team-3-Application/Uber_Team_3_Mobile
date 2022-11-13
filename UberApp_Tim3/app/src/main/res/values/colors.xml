@@ -24,5 +24,7 @@
     <color name="uber_celadon_green">#b2c1a2</color>
     <color name="uber_eucalyptus">#9ca89e</color>
     <color name="uber_sagebrush">#4D706D</color>
+    <color name="gold">#FDB145</color>
+    <color name="light_gray">#A5A5A5</color>
 
 </resources>

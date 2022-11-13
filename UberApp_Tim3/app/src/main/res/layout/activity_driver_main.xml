@@ -58,7 +58,7 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:src="@drawable/mapa"></de.hdodenhof.circleimageview.CircleImageView>
+                    android:src="@drawable/mapa" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
                     android:text="Android Studovic"
                     android:textColor="@color/white"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textStyle="bold"></TextView>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -75,7 +75,7 @@
                     android:text="+38160645897"
                     android:textColor="@color/white"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textStyle="italic"></TextView>
+                    android:textStyle="italic" />
             </LinearLayout>
 
 
