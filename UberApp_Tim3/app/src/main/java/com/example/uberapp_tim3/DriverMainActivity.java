@@ -102,13 +102,12 @@ public class DriverMainActivity extends AppCompatActivity {
 
     private void selectItemFromDrawer(int position) {
 
-
         if (position == 0) {
-            FragmentTransition.to(DriverAccountFragment.newInstance(), this, false);
+            FragmentTransition.to(DriverAccountFragment.newInstance(), this, true);
         } else if (position == 1) {
-            FragmentTransition.to(DriverRideHistoryFragment.newInstance(), this, false);
+            FragmentTransition.to(DriverRideHistoryFragment.newInstance(), this, true);
         } else if (position == 2) {
-            FragmentTransition.to(DriverInboxFragment.newInstance(), this, false);
+            FragmentTransition.to(DriverInboxFragment.newInstance(), this, true);
         } else if (position == 3) {
             FragmentTransition.to(DriverHomeFragment.newInstance(), this, false);
         }

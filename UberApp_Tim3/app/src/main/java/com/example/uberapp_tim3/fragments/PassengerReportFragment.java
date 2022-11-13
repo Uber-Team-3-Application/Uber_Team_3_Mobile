@@ -35,6 +35,9 @@ public class PassengerReportFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_passenger_report, container, false);
     }
 
+    public static PassengerReportFragment newInstance() {
+        return new PassengerReportFragment();
+    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

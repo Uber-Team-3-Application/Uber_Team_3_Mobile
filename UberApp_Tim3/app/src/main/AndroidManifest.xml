@@ -86,7 +86,7 @@
         <activity
             android:name=".SplashActivity"
             android:exported="true"
-            android:label="Uber Clone">
+            android:label="Reesen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
