@@ -91,7 +91,7 @@ public class PassengerAccountFragment extends Fragment implements View.OnClickLi
         btnEditBasicInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransition.to(new PassengerEditInfoFragment(), getActivity(), true);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerEditInfoFragment()).addToBackStack(null).commit();
             }
         });
         btnPassReports.setOnClickListener(this);
