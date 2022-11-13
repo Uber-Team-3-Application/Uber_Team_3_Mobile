@@ -11,9 +11,19 @@ public class User {
     private String phoneNumber;
     private String emailAddress;
     private String password;
-    private boolean isBlocked;
 
-    public User(int id, String name, String lastName, Image profilePicture, String phoneNumber, String emailAddress, String password, boolean isBlocked) {
+    private boolean isBlocked;
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public User(int id, String name, String lastName, Image profilePicture, String phoneNumber, String emailAddress, String password, boolean isBlocked, String address) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -22,9 +32,10 @@ public class User {
         this.emailAddress = emailAddress;
         this.password = password;
         this.isBlocked = isBlocked;
+        this.address = address;
     }
 
-    public User(String name, String lastName, Image profilePicture, String phoneNumber, String emailAddress, String password, boolean isBlocked) {
+    public User(String name, String lastName, Image profilePicture, String phoneNumber, String emailAddress, String password, boolean isBlocked, String address) {
         this.name = name;
         this.lastName = lastName;
         this.profilePicture = profilePicture;
@@ -33,6 +44,7 @@ public class User {
         this.password = password;
         this.isBlocked = isBlocked;
         this.id = 0;
+        this.address = address;
     }
 
     public int getId() {

@@ -17,8 +17,10 @@ import androidx.fragment.app.Fragment;
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.model.Driver;
 import com.example.uberapp_tim3.tools.DriverMockup;
+import com.example.uberapp_tim3.tools.FragmentTransition;
+import com.google.android.material.snackbar.Snackbar;
 
-public class DriverAccountFragment extends Fragment{
+public class DriverAccountFragment extends Fragment {
 
 
     public static DriverAccountFragment newInstance() {
@@ -34,7 +36,19 @@ public class DriverAccountFragment extends Fragment{
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        setOnClickListeners();
         setTextViews();
+    }
+
+    private void setOnClickListeners() {
+        ((Button)getActivity().findViewById(R.id.btnEditDriverInfo)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransition.to(new DriverEditInfoFragment(), getActivity(), true);
+            }
+        });
+        ((Button)getActivity().findViewById(R.id.btnDriverReports)).setOnClickListener(null);
+        ((Button)getActivity().findViewById(R.id.btnDriverStatistics)).setOnClickListener(null);
     }
 
 
@@ -50,6 +64,9 @@ public class DriverAccountFragment extends Fragment{
         TextView txtEmailAddress =  getView().findViewById(R.id.txtdriverEmail);
         txtEmailAddress.setText(driver.getEmailAddress());
 
+        TextView txtAddress = getView().findViewById(R.id.txtDriverHomeAddress);
+        txtAddress.setText(driver.getAddress());
+
         TextView tvBlocked =  getView().findViewById(R.id.txtDriverBlocked);
         if(!driver.isBlocked())
             tvBlocked.setText("");
@@ -58,5 +75,6 @@ public class DriverAccountFragment extends Fragment{
             tvBlocked.setTextColor(Color.RED);
         }
     }
+
 
 }

@@ -55,6 +55,7 @@
                             android:src="@drawable/ic_baseline_person_24" />
 
                         <Button
+                            android:id="@+id/btnChangePassengerAvatar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="6dp"
@@ -118,7 +119,7 @@
                         android:textSize="14sp" />
 
                     <EditText
-                        android:id="@+id/txtPassengerPhoneNumber"
+                        android:id="@+id/txtPassengerEditPhoneNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
@@ -148,7 +149,7 @@
                         android:id="@+id/txtPassengerEmailEdit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="40dp"
+                        android:layout_marginLeft="42dp"
                         android:inputType="textEmailAddress"
                         android:text="@string/passenger_real_email"
                         android:textSize="16sp"
@@ -218,7 +219,7 @@
                             android:id="@+id/txtPassengerOldPassword"
                             android:layout_width="160dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="38dp"
+                            android:layout_marginLeft="44dp"
                             android:inputType="textPassword"
                             android:textSize="16sp"
                             android:textStyle="bold|italic" />
@@ -237,10 +238,10 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/txtPassengerNewPassowrd"
+                            android:id="@+id/txtPassengerNewPassword"
                             android:layout_width="160dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="36dp"
+                            android:layout_marginLeft="40dp"
                             android:inputType="textPassword"
                             android:textSize="16sp"
                             android:textStyle="bold|italic" />

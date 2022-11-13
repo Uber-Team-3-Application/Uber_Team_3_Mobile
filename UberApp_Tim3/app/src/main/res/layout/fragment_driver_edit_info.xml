@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="14dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="16dp"
             android:background="@color/white"
             app:cardCornerRadius="10dp">
 
@@ -55,6 +55,7 @@
                             android:src="@drawable/ic_baseline_person_24" />
 
                         <Button
+                            android:id="@+id/btnChangeDriverAvatar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="6dp"
@@ -75,7 +76,7 @@
                             android:textSize="16sp" />
 
                         <EditText
-                            android:id="@+id/txtPassengerEditFirstName"
+                            android:id="@+id/txtDriverEditFirstName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
 
@@ -90,7 +91,7 @@
                             android:textSize="16sp" />
 
                         <EditText
-                            android:id="@+id/txtPassengerEditLastName"
+                            android:id="@+id/txtDriverEditLastName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
 
@@ -118,7 +119,7 @@
                         android:textSize="14sp" />
 
                     <EditText
-                        android:id="@+id/txtPassengerPhoneNumber"
+                        android:id="@+id/txtDriverEditPhoneNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
@@ -145,12 +146,39 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/txtPassengerEmailEdit"
+                        android:id="@+id/txtDriverEmailEdit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
                         android:inputType="textEmailAddress"
                         android:text="@string/passenger_real_email"
+                        android:textSize="16sp"
+                        android:textStyle="bold|italic" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/passenger_address"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/txtDriverAddressEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:inputType="textEmailAddress"
+                        android:text="@string/passenger_real_address"
                         android:textSize="16sp"
                         android:textStyle="bold|italic" />
 
@@ -188,10 +216,10 @@
 
 
                         <EditText
-                            android:id="@+id/txtPassengerOldPassword"
+                            android:id="@+id/txtDriverOldPassword"
                             android:layout_width="160dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="38dp"
+                            android:layout_marginLeft="44dp"
                             android:inputType="textPassword"
                             android:textSize="16sp"
                             android:textStyle="bold|italic" />
@@ -200,8 +228,9 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="8dp">
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -210,10 +239,10 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/txtPassengerNewPassowrd"
+                            android:id="@+id/txtDriverNewPassword"
                             android:layout_width="160dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="36dp"
+                            android:layout_marginLeft="40dp"
                             android:inputType="textPassword"
                             android:textSize="16sp"
                             android:textStyle="bold|italic" />
@@ -222,8 +251,9 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -232,7 +262,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/txtPassengerRepeatPassword"
+                            android:id="@+id/txtDriverRepeatPassword"
                             android:layout_width="160dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"

@@ -45,6 +45,9 @@ public class PassengerAccountFragment extends Fragment implements View.OnClickLi
         TextView txtEmailAddress = getView().findViewById(R.id.txtPassengerEmail);
         txtEmailAddress.setText(passenger.getEmailAddress());
 
+        TextView txtAddress = getView().findViewById(R.id.txtPassengerAddress);
+        txtAddress.setText(passenger.getAddress());
+
         TextView tvBlocked = getView().findViewById(R.id.txtBlocked);
         if(!passenger.isBlocked())
             tvBlocked.setText("");
