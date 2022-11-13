@@ -149,6 +149,7 @@
     <string name="trip_from_mockup">Zemun</string>
     <string name="trip_to">To</string>
     <string name="trip_to_mockup">Beograd</string>
+    <string name="order_again">Order\nAgain</string>
 
 
 </resources>
