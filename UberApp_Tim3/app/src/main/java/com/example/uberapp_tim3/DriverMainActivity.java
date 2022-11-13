@@ -23,6 +23,7 @@ import com.example.uberapp_tim3.adapters.DrawerNavListAdapter;
 import com.example.uberapp_tim3.fragments.DriverAccountFragment;
 import com.example.uberapp_tim3.fragments.DriverFragment;
 import com.example.uberapp_tim3.fragments.DriverHomeFragment;
+import com.example.uberapp_tim3.fragments.DriverInboxFragment;
 import com.example.uberapp_tim3.fragments.DriverRideHistoryFragment;
 import com.example.uberapp_tim3.fragments.PassengerAccountFragment;
 import com.example.uberapp_tim3.model.NavItem;
@@ -107,7 +108,7 @@ public class DriverMainActivity extends AppCompatActivity {
         } else if (position == 1) {
             FragmentTransition.to(DriverRideHistoryFragment.newInstance(), this, false);
         } else if (position == 2) {
-            // TODO: DriverInbox
+            FragmentTransition.to(DriverInboxFragment.newInstance(), this, false);
         } else if (position == 3) {
             FragmentTransition.to(DriverHomeFragment.newInstance(), this, false);
         }
