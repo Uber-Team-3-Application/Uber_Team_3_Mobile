@@ -303,7 +303,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:minHeight="80dp"
+                    android:minHeight="50dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -333,7 +333,6 @@
                         android:id="@+id/btnCancelEditDriver"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
                         android:layout_toLeftOf="@+id/btnAcceptEditDriver"
                         android:text="@string/button_cancel" />
@@ -343,7 +342,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginTop="10dp"
                         android:layout_marginRight="30dp"
                         android:text="@string/button_accept" />
 

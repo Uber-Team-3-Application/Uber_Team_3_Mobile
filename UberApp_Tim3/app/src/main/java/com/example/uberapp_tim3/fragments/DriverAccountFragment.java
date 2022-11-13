@@ -20,7 +20,7 @@ import com.example.uberapp_tim3.tools.DriverMockup;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 import com.google.android.material.snackbar.Snackbar;
 
-public class DriverAccountFragment extends Fragment {
+public class DriverAccountFragment extends Fragment implements View.OnClickListener {
 
 
     public static DriverAccountFragment newInstance() {
@@ -47,8 +47,8 @@ public class DriverAccountFragment extends Fragment {
                 FragmentTransition.to(new DriverEditInfoFragment(), getActivity(), true);
             }
         });
-        ((Button)getActivity().findViewById(R.id.btnDriverReports)).setOnClickListener(null);
-        ((Button)getActivity().findViewById(R.id.btnDriverStatistics)).setOnClickListener(null);
+        ((Button)getActivity().findViewById(R.id.btnDriverReports)).setOnClickListener(this);
+        ((Button)getActivity().findViewById(R.id.btnDriverStatistics)).setOnClickListener(this);
     }
 
 
@@ -76,5 +76,9 @@ public class DriverAccountFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onClick(View view) {
+        Toast.makeText(getActivity(), "Functionality not implemented!", Toast.LENGTH_SHORT).show();
+    }
 
 }

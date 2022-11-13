@@ -11,15 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.model.Driver;
 import com.example.uberapp_tim3.tools.DriverMockup;
-import com.example.uberapp_tim3.tools.FragmentTransition;
-import com.google.android.material.snackbar.Snackbar;
-
-import org.w3c.dom.Text;
 
 
 public class DriverEditInfoFragment extends Fragment {

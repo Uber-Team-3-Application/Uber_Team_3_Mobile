@@ -297,18 +297,21 @@
                         android:orientation="horizontal">
 
                         <RadioButton
+                            android:id="@+id/rbCard"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="4dp"
                             android:text="@string/card" />
 
                         <RadioButton
+                            android:id="@+id/rbPaypal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="4dp"
                             android:text="@string/paypal" />
 
                         <RadioButton
+                            android:id="@+id/rbBitcoin"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="4dp"
@@ -329,6 +332,7 @@
                         android:textSize="16sp" />
 
                     <EditText
+                        android:id="@+id/txtPassengerCardNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="40dp"
