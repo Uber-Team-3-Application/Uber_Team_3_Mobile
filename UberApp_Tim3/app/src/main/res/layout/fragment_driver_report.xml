@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:text="Choose a range"
+        android:text="@string/choose_a_range"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,8 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/calendar"
         android:layout_centerHorizontal="true"
-        android:text="No selected date!"
-        android:textSize="20dp"
+        android:text="@string/no_selected_date"
+        android:textSize="20sp"
         android:textStyle="bold|italic" />
 
     <com.github.mikephil.charting.charts.HorizontalBarChart

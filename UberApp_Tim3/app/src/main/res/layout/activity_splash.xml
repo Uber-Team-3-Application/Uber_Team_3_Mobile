@@ -22,7 +22,7 @@
         android:layout_below="@+id/imgLogo"
         android:layout_centerHorizontal="true"
         android:letterSpacing="0.09"
-        android:text="reesen"
+        android:text="@string/app_name"
         android:textColor="@color/uber_toolbar"
         android:textSize="50sp"
         android:textStyle="italic|bold" />
@@ -43,18 +43,17 @@
         android:layout_alignEnd="@+id/txtTeamname"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="85dp"
-        android:layout_marginRight="3dp"
         android:layout_marginBottom="23dp"
-        android:layout_toLeftOf="@+id/txtTeamname"
+        android:layout_toStartOf="@+id/txtTeamname"
         android:src="@drawable/ic_baseline_copyright_24" />
 
     <TextView
         android:id="@+id/txtTeamname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:text="@string/team_name"
         android:textColor="@color/uber_toolbar"

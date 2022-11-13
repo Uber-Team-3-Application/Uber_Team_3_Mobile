@@ -91,6 +91,27 @@
     <string name="start_station">Start station</string>
     <string name="end_station">End Station</string>
     <string name="inbox">INBOX</string>
+    <string name="report">Report</string>
+    <string name="user_name">Android Studovic</string>
+    <string name="mobile">+38160645897</string>
+    <string name="choose_a_range">Choose a range</string>
+    <string name="no_selected_date">No selected date!</string>
+    <string name="already_nhave_an_naccount">Already \nhave an \nAccount?</string>
+    <string name="email_address">Email Address</string>
+    <string name="example_email">example@email.com</string>
+    <string name="password_example">password123</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="new_account_register_now">New Account? Register now!</string>
+    <string name="use_other_methods">Use other Methods</string>
+    <string name="first_name">First Name</string>
+    <string name="name_example">Bob</string>
+    <string name="last_name">Last Name</string>
+    <string name="last_name_example">Ross</string>
+    <string name="phone_number">Phone number</string>
+    <string name="mobile_example">+381600000000</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="choose_a_profile_picture">Choose a profile picture:</string>
+    <string name="choose">CHOOSE</string>
 
 
 </resources>

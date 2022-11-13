@@ -34,9 +34,9 @@
                 android:id="@+id/txtRouteFullName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="100dp"
-                android:layout_toRightOf="@+id/imgAvatar"
+                android:layout_toEndOf="@+id/imgAvatar"
                 android:textSize="24sp"
                 android:textStyle="bold|italic" />
 
@@ -45,9 +45,9 @@
                 android:id="@+id/imgInbox"
                 android:layout_width="69dp"
                 android:layout_height="52dp"
-                android:layout_marginLeft="95dp"
+                android:layout_marginStart="95dp"
                 android:layout_marginTop="20dp"
-                android:layout_toRightOf="@+id/imgAvatar"
+                android:layout_toEndOf="@+id/imgAvatar"
                 android:src="@drawable/ic_message" />
 
             <TextView
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imgAvatar"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/start_station"
                 android:textSize="16sp" />
@@ -65,9 +65,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imgAvatar"
-                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="20dp"
-                android:layout_toRightOf="@id/startDrivingStation"
+                android:layout_toEndOf="@id/startDrivingStation"
                 android:textSize="16sp"
                 android:textStyle="bold|italic" />
 
@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/startDrivingStation"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/end_station"
                 android:textSize="16sp" />
@@ -86,9 +86,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/startDrivingStation"
-                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="20dp"
-                android:layout_toRightOf="@id/endDrivingStation"
+                android:layout_toEndOf="@id/endDrivingStation"
                 android:textSize="16sp"
                 android:textStyle="bold|italic" />
 
@@ -98,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/endDrivingStation"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/start_driving"
                 android:textSize="16sp" />
@@ -108,9 +108,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/endDrivingStation"
-                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="20dp"
-                android:layout_toRightOf="@id/startDriving"
+                android:layout_toEndOf="@id/startDriving"
                 android:textSize="16sp"
                 android:textStyle="bold|italic" />
 
@@ -120,7 +120,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/startDriving"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/end_driving"
                 android:textSize="16sp" />
@@ -130,9 +130,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/startDriving"
-                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="20dp"
-                android:layout_toRightOf="@id/endDriving"
+                android:layout_toEndOf="@id/endDriving"
                 android:textSize="16sp"
                 android:textStyle="bold|italic" />
 
@@ -141,7 +141,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/endDriving"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/kilometers"
                 android:textSize="16sp" />
@@ -151,9 +151,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/endDriving"
-                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="20dp"
-                android:layout_toRightOf="@id/passengerNum"
+                android:layout_toEndOf="@id/passengerNum"
                 android:textSize="16sp"
                 android:textStyle="bold|italic" />
 
@@ -163,7 +163,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/kilometersNum"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/number_of_passengers"
                 android:textSize="16sp" />
@@ -173,9 +173,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/kilometersNum"
-                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="20dp"
-                android:layout_toRightOf="@id/passengerNum"
+                android:layout_toEndOf="@id/passengerNum"
                 android:textSize="16sp"
                 android:textStyle="bold|italic" />
 
@@ -185,7 +185,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/passengerNum"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/comments"
                 android:textSize="16sp" />
@@ -195,9 +195,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/passengerNum"
-                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="20dp"
-                android:layout_toRightOf="@id/comments"
+                android:layout_toEndOf="@id/comments"
                 android:textSize="16sp"
                 android:textStyle="bold|italic" />
 
@@ -206,7 +206,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/comments"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/price"
                 android:textSize="16sp" />
@@ -216,9 +216,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/comments"
-                android:layout_marginLeft="70dp"
+                android:layout_marginStart="70dp"
                 android:layout_marginTop="20dp"
-                android:layout_toRightOf="@id/priceOfDrive"
+                android:layout_toEndOf="@id/priceOfDrive"
                 android:textSize="16sp"
                 android:textStyle="bold|italic" />
 
@@ -227,7 +227,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/priceOfDrive"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/rate"
                 android:textSize="16sp" />
@@ -238,8 +238,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/priceOfDrive"
                 android:layout_marginStart="8dp"
-                android:layout_marginLeft="30dp"
-                android:layout_toRightOf="@id/ratingDriveBar"
+                android:layout_toEndOf="@id/ratingDriveBar"
                 />
 
 

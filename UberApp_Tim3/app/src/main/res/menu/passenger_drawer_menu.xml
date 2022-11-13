@@ -27,7 +27,7 @@
         <item
             android:id="@+id/nav_report"
             android:icon="@drawable/ic_report"
-            android:title="Report" />
+            android:title="@string/report" />
     </group>
 
 </menu>

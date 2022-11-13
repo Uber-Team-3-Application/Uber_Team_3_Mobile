@@ -13,7 +13,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:paddingTop="20dp">
@@ -31,19 +31,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="Already \nhave an \nAccount?"
+                    android:text="@string/already_nhave_an_naccount"
                     android:textColor="@color/uber_sagebrush"
-                    android:textSize="23dp"
+                    android:textSize="23sp"
                     android:textStyle="bold" />
 
                 <ImageView
                     android:layout_width="250dp"
                     android:layout_height="230dp"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:contentDescription="TODO"
+                    android:layout_alignParentEnd="true"
                     android:src="@drawable/carlogo1" />
             </RelativeLayout>
 
@@ -60,11 +59,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:text="Email Address"
+                        android:text="@string/email_address"
                         android:textColor="@color/uber_sagebrush"
-                        android:textSize="15dp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -77,9 +74,7 @@
                         android:id="@+id/editTxtEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:hint="example@email.com"
+                        android:hint="@string/example_email"
                         android:inputType="textEmailAddress" />
                 </LinearLayout>
             </RelativeLayout>
@@ -98,11 +93,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:text="Password"
+                        android:text="@string/password"
                         android:textColor="@color/uber_sagebrush"
-                        android:textSize="15dp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -115,11 +108,7 @@
                         android:id="@+id/editTxtPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/editTxtEmail"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-
-                        android:hint="password123"
+                        android:hint="@string/password_example"
                         android:inputType="textPassword" />
                 </LinearLayout>
             </RelativeLayout>
@@ -129,9 +118,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
 
-                android:text="Forgot Password?"
+                android:text="@string/forgot_password"
                 android:textColor="@color/uber_green_lily"
-                android:textSize="12dp" />
+                android:textSize="12sp" />
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -146,7 +135,7 @@
                     android:layout_centerVertical="true"
 
                     android:text="@string/login"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -160,9 +149,9 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:text="New Account? Register now!"
+                    android:text="@string/new_account_register_now"
                     android:textColor="@color/uber_sagebrush"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
             </RelativeLayout>
 
@@ -183,7 +172,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="6"
-                    android:text="Use other Methods"
+                    android:text="@string/use_other_methods"
                     android:textAlignment="center"
                     android:textSize="12sp" />
 
@@ -209,7 +198,7 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginStart="30dp"
                     android:src="@drawable/facebook" />
             </LinearLayout>
         </LinearLayout>

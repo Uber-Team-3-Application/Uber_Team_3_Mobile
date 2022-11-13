@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/contact_name"
                     android:textColor="@color/uber_desert_sage"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -44,14 +44,14 @@
                     android:layout_height="wrap_content"
                     android:text="@string/last_message"
                     android:textColor="@color/uber_lauren_green"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/time_and_date"
                     android:textColor="@color/uber_lauren_green"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textStyle="italic" />
             </LinearLayout>
 
