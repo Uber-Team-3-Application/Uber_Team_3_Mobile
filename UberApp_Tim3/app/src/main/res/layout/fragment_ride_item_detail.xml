@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.DriveItemDetail"
+    android:background="@color/uber_green_lily">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/relLayoutDriverRide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/white"
+        app:cardCornerRadius="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp">
+
+            <ImageView
+                android:id="@+id/imgAvatar"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/route" />
+
+            <TextView
+                android:id="@+id/txtRouteFullName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="100dp"
+                android:layout_toRightOf="@+id/imgAvatar"
+                android:textSize="24sp"
+                android:textStyle="bold|italic" />
+
+
+            <ImageView
+                android:id="@+id/imgInbox"
+                android:layout_width="69dp"
+                android:layout_height="52dp"
+                android:layout_marginLeft="95dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@+id/imgAvatar"
+                android:src="@drawable/ic_message" />
+
+            <TextView
+                android:id="@+id/startDrivingStation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgAvatar"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/start_station"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtStartDrivingStation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgAvatar"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/startDrivingStation"
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:id="@+id/endDrivingStation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/startDrivingStation"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/end_station"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtEndDrivingStation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/startDrivingStation"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/endDrivingStation"
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
+
+
+            <TextView
+                android:id="@+id/startDriving"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/endDrivingStation"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/start_driving"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtStartDriving"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/endDrivingStation"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/startDriving"
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
+
+
+            <TextView
+                android:id="@+id/endDriving"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/startDriving"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/end_driving"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtEndDriving"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/startDriving"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/endDriving"
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:id="@+id/kilometersNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/endDriving"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/kilometers"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtKilometersNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/endDriving"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/passengerNum"
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
+
+
+            <TextView
+                android:id="@+id/passengerNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/kilometersNum"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/number_of_passengers"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtPassengerNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/kilometersNum"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/passengerNum"
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
+
+
+            <TextView
+                android:id="@+id/comments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/passengerNum"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/comments"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtComments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/passengerNum"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/comments"
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:id="@+id/priceOfDrive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/comments"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/price"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtPriceOfDrive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/comments"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/priceOfDrive"
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:id="@+id/ratingDriveBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/priceOfDrive"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/rate"
+                android:textSize="16sp" />
+
+            <RatingBar
+                android:id="@+id/simpleRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/priceOfDrive"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@id/ratingDriveBar"
+                />
+
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

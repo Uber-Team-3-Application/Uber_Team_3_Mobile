@@ -1,9 +1,12 @@
 package com.example.uberapp_tim3.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.time.LocalDateTime;
 import java.util.Date;
 
-public class Drive {
+public class Drive implements Parcelable {
 
     private int rate;
     private String comment;
@@ -25,6 +28,29 @@ public class Drive {
         this.km = km;
         this.price = price;
     }
+
+    protected Drive(Parcel in) {
+        rate = in.readInt();
+        comment = in.readString();
+        startDrive = in.readString();
+        endDrive = in.readString();
+        numberOfPassengers = in.readInt();
+        relation = in.readString();
+        km = in.readDouble();
+        price = in.readDouble();
+    }
+
+    public static final Creator<Drive> CREATOR = new Creator<Drive>() {
+        @Override
+        public Drive createFromParcel(Parcel in) {
+            return new Drive(in);
+        }
+
+        @Override
+        public Drive[] newArray(int size) {
+            return new Drive[size];
+        }
+    };
 
     public int getRate() {
         return rate;
@@ -88,5 +114,23 @@ public class Drive {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(rate);
+        parcel.writeString(comment);
+        parcel.writeString(startDrive);
+        parcel.writeString(endDrive);
+        parcel.writeInt(numberOfPassengers);
+        parcel.writeString(relation);
+        parcel.writeDouble(km);
+        parcel.writeDouble(price);
     }
 }
