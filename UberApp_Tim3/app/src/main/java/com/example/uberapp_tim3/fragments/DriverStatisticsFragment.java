@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.uberapp_tim3.R;
 
@@ -35,6 +36,17 @@ public class DriverStatisticsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        setOnClickListeners();
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    private void setOnClickListeners(){
+        Button btnBack = getActivity().findViewById(R.id.btndriverStatsBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().popBackStackImmediate();
+            }
+        });
     }
 }

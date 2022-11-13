@@ -129,6 +129,20 @@
 
     <string name="reesen">reesen</string>
     <string name="log_out">Log out</string>
+    <string name="choose_start_date">Choose Start Date:</string>
+    <string name="choose_end_date">Choose End Date:</string>
+    <string name="choose_date_from">From</string>
+    <string name="choose_date_to">To</string>
+    <string name="choose_period">Choose Period:</string>
+    <string name="generate_report">Generate</string>
+    <string name="go_back">Go Back</string>
+    <string name="number_of_rejected_rides">Number of rejected rides</string>
+    <string name="number_of_accepted_rides">Number of accepted rides</string>
+    <string name="total_hours_worked">Total Hours Worked</string>
+    <string name="total_income_rsd">Total income (RSD)</string>
+    <string name="monthly">Monthly</string>
+    <string name="daily">Daily</string>
+    <string name="weekly">Weekly</string>
 
 
 </resources>
