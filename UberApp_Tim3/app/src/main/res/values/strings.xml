@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Reesen</string>
+    <string name="app_name">reesen</string>
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="email">Email Address</string>
@@ -16,7 +16,7 @@
     <string name="offlineText">Offline</string>
     <string name="buttonAccout">Account</string>
     <string name="buttonInbox">Inbox</string>
-    <string name="splashScreenText">Uber Clone</string>
+    <string name="splashScreenText">reesen</string>
     <string name="driver_inbox">Inbox</string>
     <string name="driver_profile">Profile</string>
 
@@ -112,6 +112,8 @@
     <string name="repeat_password">Repeat password</string>
     <string name="choose_a_profile_picture">Choose a profile picture:</string>
     <string name="choose">CHOOSE</string>
+    <string name="reesen">reesen</string>
+    <string name="log_out">Log out</string>
 
 
 </resources>
