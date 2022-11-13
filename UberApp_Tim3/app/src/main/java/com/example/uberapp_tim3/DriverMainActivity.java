@@ -110,6 +110,8 @@ public class DriverMainActivity extends AppCompatActivity {
             FragmentTransition.to(DriverInboxFragment.newInstance(), this, true);
         } else if (position == 3) {
             FragmentTransition.to(DriverHomeFragment.newInstance(), this, false);
+        } else if (position == 4) {
+            this.finish();
         }
 
             mDrawerList.setItemChecked(position, true);
@@ -125,5 +127,6 @@ public class DriverMainActivity extends AppCompatActivity {
         mNavItems.add(new NavItem(getString(R.string.drive_history), getString(R.string.drive_history_long), R.drawable.ic_history));
         mNavItems.add(new NavItem(getString(R.string.driver_inbox), getString(R.string.driver_inbox_long), R.drawable.ic_message));
         mNavItems.add(new NavItem(getString(R.string.driver_back), getString(R.string.driver_back_long), R.drawable.ic_home));
+        mNavItems.add(new NavItem(getString(R.string.log_out) , getString(R.string.logout), R.drawable.ic_logout));
     }
 }
