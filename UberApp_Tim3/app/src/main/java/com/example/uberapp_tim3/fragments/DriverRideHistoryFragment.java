@@ -43,6 +43,7 @@ public class DriverRideHistoryFragment extends ListFragment {
     }
 
 
+
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
@@ -52,13 +53,12 @@ public class DriverRideHistoryFragment extends ListFragment {
         args.putParcelable("driveInfo", drive);
         DriveItemDetail driveItemDetail = new DriveItemDetail();
         driveItemDetail.setArguments(args);
-
-        assert getFragmentManager() != null;
+        FragmentTransition.to(driveItemDetail, getActivity(), true);
+        /*assert getFragmentManager() != null;
         getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.mainContent, driveItemDetail)
-                .commit();
-
+                .commit();*/
 
     }
 

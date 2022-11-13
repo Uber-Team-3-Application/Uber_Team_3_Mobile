@@ -14,6 +14,7 @@ import com.example.uberapp_tim3.fragments.PassengerAccountFragment;
 import com.example.uberapp_tim3.fragments.PassengerInboxFragment;
 import com.example.uberapp_tim3.fragments.PassengerMapFragment;
 import com.example.uberapp_tim3.fragments.PassengerReportFragment;
+import com.example.uberapp_tim3.tools.FragmentTransition;
 import com.google.android.material.navigation.NavigationView;
 
 public class PassengerMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -47,16 +48,16 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_inbox:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerInboxFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerInboxFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerMapFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerMapFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_profile:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerAccountFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerAccountFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_report:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerReportFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerReportFragment()).addToBackStack(null).commit();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

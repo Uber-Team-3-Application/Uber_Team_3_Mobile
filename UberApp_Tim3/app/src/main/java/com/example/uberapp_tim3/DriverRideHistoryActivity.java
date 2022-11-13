@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
+import android.app.FragmentManager;
 import android.os.Bundle;
 
 import com.example.uberapp_tim3.fragments.DriverFragment;
@@ -33,8 +34,8 @@ public class DriverRideHistoryActivity extends AppCompatActivity {
             FragmentTransition.to(DriverFragment.newInstance(), this, false);
         }
 
-
     }
+
 
     @Override
     protected void onStart() {
