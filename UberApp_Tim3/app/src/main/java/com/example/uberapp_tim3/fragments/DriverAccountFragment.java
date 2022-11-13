@@ -47,8 +47,19 @@ public class DriverAccountFragment extends Fragment implements View.OnClickListe
                 FragmentTransition.to(new DriverEditInfoFragment(), getActivity(), true);
             }
         });
-        ((Button)getActivity().findViewById(R.id.btnDriverReports)).setOnClickListener(this);
-        ((Button)getActivity().findViewById(R.id.btnDriverStatistics)).setOnClickListener(this);
+        ((Button)getActivity().findViewById(R.id.btnDriverReports)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransition.to(new DriverReportFragment(), getActivity(), true);
+            }
+        });
+        ((Button)getActivity().findViewById(R.id.btnDriverStatistics)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransition.to(new DriverStatisticsFragment(), getActivity(), true);
+            }
+        });
+
     }
 
 
