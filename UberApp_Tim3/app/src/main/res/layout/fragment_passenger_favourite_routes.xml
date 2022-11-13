@@ -45,7 +45,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/trip_from"
-                            android:textColor="@color/uber_desert_sage"
+                            android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -70,7 +70,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/trip_to"
-                            android:textColor="@color/uber_desert_sage"
+                            android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:layout_marginRight="16dp"/>
@@ -141,7 +141,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/trip_from"
-                            android:textColor="@color/uber_desert_sage"
+                            android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -166,7 +166,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/trip_to"
-                            android:textColor="@color/uber_desert_sage"
+                            android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:layout_marginRight="16dp"/>
@@ -236,7 +236,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/trip_from"
-                            android:textColor="@color/uber_desert_sage"
+                            android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -261,7 +261,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/trip_to"
-                            android:textColor="@color/uber_desert_sage"
+                            android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:layout_marginRight="16dp"/>
@@ -331,7 +331,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/trip_from"
-                            android:textColor="@color/uber_desert_sage"
+                            android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -356,7 +356,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/trip_to"
-                            android:textColor="@color/uber_desert_sage"
+                            android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:layout_marginRight="16dp"/>
