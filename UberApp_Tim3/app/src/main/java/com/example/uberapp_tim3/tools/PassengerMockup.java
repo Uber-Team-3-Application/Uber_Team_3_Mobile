@@ -17,7 +17,8 @@ public class PassengerMockup {
                 "064123123",
                 "markomarkovic@gmail.com",
                 "markoni123",
-                false
+                false,
+                "Lazina 2, Novi Sad"
         ));
 
         passengers.add(new Passenger(
@@ -27,7 +28,8 @@ public class PassengerMockup {
                 "064123123",
                 "nemanjamalesevic@gmail.com",
                 "nemanja123",
-                false
+                false,
+                "Lazina 4, Novi Sad"
         ));
         passengers.add(new Passenger(
                 "Nikola",
@@ -36,7 +38,8 @@ public class PassengerMockup {
                 "064123123",
                 "jokicsmokic@gmail.com",
                 "jokic123",
-                false
+                false,
+                "Aurelija 14, Novi Sad"
         ));
         return passengers;
     }

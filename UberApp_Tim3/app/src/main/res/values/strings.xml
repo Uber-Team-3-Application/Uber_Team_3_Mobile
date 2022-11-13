@@ -112,6 +112,21 @@
     <string name="repeat_password">Repeat password</string>
     <string name="choose_a_profile_picture">Choose a profile picture:</string>
     <string name="choose">CHOOSE</string>
+
+    <string name="change_info">Change Basic Information</string>
+    <string name="change_password">Change Password</string>
+    <string name="enter_old_password">Enter Old:</string>
+    <string name="enter_new_password">Enter New:</string>
+    <string name="repeat_new_password">Repeat New:</string>
+    <string name="change_avatar">Change Avatar</string>
+    <string name="edit_number">Edit Number:</string>
+    <string name="bitcoin">Bitcoin</string>
+    <string name="paypal">Paypal</string>
+    <string name="card">Card</string>
+    <string name="change_payment_details">Change payment details</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_accept">Accept</string>
+
     <string name="reesen">reesen</string>
     <string name="log_out">Log out</string>
 

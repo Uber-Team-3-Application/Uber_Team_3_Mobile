@@ -23,7 +23,8 @@ public class DriverMockup {
                 false,
                 "04242142",
                 "06654645",
-                false
+                false,
+                "Kisacka 12, Novi Sad"
         ));
 
         drivers.add(new Driver(
@@ -36,7 +37,8 @@ public class DriverMockup {
                 false,
                 "04242142",
                 "06654645",
-                false
+                false,
+                "Kisacka 13, Novi Sad"
         ));
         drivers.add(new Driver(
                 "Nikola",
@@ -48,7 +50,8 @@ public class DriverMockup {
                 false,
                 "04242142",
                 "06654645",
-                false
+                false,
+                "Lazina 2, Novi Sad"
         ));
         return drivers;
     }

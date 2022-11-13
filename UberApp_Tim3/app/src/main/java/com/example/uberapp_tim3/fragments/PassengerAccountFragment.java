@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.model.Passenger;
+import com.example.uberapp_tim3.tools.FragmentTransition;
 import com.example.uberapp_tim3.tools.PassengerMockup;
 
 public class PassengerAccountFragment extends Fragment implements View.OnClickListener {
@@ -44,6 +45,9 @@ public class PassengerAccountFragment extends Fragment implements View.OnClickLi
 
         TextView txtEmailAddress = getView().findViewById(R.id.txtPassengerEmail);
         txtEmailAddress.setText(passenger.getEmailAddress());
+
+        TextView txtAddress = getView().findViewById(R.id.txtPassengerAddress);
+        txtAddress.setText(passenger.getAddress());
 
         TextView tvBlocked = getView().findViewById(R.id.txtBlocked);
         if(!passenger.isBlocked())
@@ -84,7 +88,12 @@ public class PassengerAccountFragment extends Fragment implements View.OnClickLi
         Button btnPassRoutes = getView().findViewById(R.id.btnFavouriteRoutes);
         Button btnPassReports = getView().findViewById(R.id.btnPassengerReports);
 
-        btnEditBasicInfo.setOnClickListener(this);
+        btnEditBasicInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransition.to(new PassengerEditInfoFragment(), getActivity(), true);
+            }
+        });
         btnPassReports.setOnClickListener(this);
         btnPassRoutes.setOnClickListener(this);
     }
