@@ -26,7 +26,12 @@ public class PassengerFavouriteRoutesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        requireActivity().setTitle(R.string.favorite_routes);
     }
 
     @Override

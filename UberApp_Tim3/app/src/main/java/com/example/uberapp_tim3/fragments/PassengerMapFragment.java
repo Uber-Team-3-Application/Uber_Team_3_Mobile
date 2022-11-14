@@ -18,4 +18,9 @@ public class PassengerMapFragment extends Fragment {
         return inflater.inflate(R.layout.activity_passenger_map, container, false);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        requireActivity().setTitle(R.string.driver_profile);
+    }
 }
