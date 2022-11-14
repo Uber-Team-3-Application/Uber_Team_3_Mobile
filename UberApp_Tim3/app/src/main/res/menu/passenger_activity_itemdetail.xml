@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/ride_history"
+        android:title="@string/action_refresh"
+        android:icon="@drawable/iconshistory"
+        android:orderInCategory="200"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/passenger_inbox"
+        android:title="@string/driver_inbox"
+        android:icon="@drawable/icons_inbox"
+        android:orderInCategory="300"
+        app:showAsAction="always" />
+
+
+    <item android:id="@+id/passenger_profile"
+        android:title="@string/driver_profile"
+        android:icon="@drawable/icons_user"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom" />
+
+</menu>
