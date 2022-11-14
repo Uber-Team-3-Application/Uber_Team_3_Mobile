@@ -21,6 +21,6 @@ public class PassengerMapFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        requireActivity().setTitle(R.string.driver_profile);
+        requireActivity().setTitle(R.string.home);
     }
 }
