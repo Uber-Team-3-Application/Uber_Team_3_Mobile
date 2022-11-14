@@ -63,8 +63,9 @@ public class CommentsFragment extends ListFragment {
     @Override
     public void onListItemClick(@NonNull ListView l, @NonNull View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        PassengerAccountFragment passengerAccountFragment = new PassengerAccountFragment();
-        FragmentTransition.to(passengerAccountFragment, requireActivity(), true);
+
+        PassengerInfoProfile profile = new PassengerInfoProfile();
+        FragmentTransition.to(profile, requireActivity(), true);
 
     }
 
