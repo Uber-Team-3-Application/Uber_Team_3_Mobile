@@ -54,7 +54,7 @@
                             android:layout_height="120dp"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
-                            android:src="@drawable/ic_baseline_person_24" />
+                            android:src="@drawable/b_person" />
 
                         <Button
                             android:id="@+id/btnChangeDriverAvatar"

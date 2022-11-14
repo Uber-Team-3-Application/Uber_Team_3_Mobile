@@ -49,18 +49,23 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_inbox:
+                setTitle("Inbox");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerInboxFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_home:
+                setTitle("Home");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerMapFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_profile:
+                setTitle("Account");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerAccountFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_report:
+                setTitle("Reports");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerReportFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_favorite:
+                setTitle("Favourite Routes");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerFavouriteRoutesFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_logout:

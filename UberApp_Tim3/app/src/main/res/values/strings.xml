@@ -92,7 +92,7 @@
     <string name="end_station">End Station</string>
     <string name="inbox">INBOX</string>
     <string name="report">Report</string>
-    <string name="user_name">Android Studovic</string>
+    <string name="user_name">Marko Kraljevic</string>
     <string name="mobile">+38160645897</string>
     <string name="choose_a_range">Choose a range</string>
     <string name="no_selected_date">No selected date!</string>
@@ -152,6 +152,7 @@
     <string name="order_again">Order again</string>
     <string name="active">Active:</string>
     <string name="change_driver_licences">Change Driver Licences</string>
+    <string name="mirko_cemes">Marko Markovic</string>
 
 
 </resources>
