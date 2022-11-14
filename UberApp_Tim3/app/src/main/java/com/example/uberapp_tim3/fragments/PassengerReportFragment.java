@@ -35,6 +35,12 @@ public class PassengerReportFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_passenger_report, container, false);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        requireActivity().setTitle(R.string.reports);
+    }
+
     public static PassengerReportFragment newInstance() {
         return new PassengerReportFragment();
     }

@@ -90,7 +90,7 @@
     <string name="price">Price</string>
     <string name="start_station">Start station</string>
     <string name="end_station">End Station</string>
-    <string name="inbox">INBOX</string>
+    <string name="inbox">Inbox</string>
     <string name="report">Report</string>
     <string name="user_name">Marko Kraljevic</string>
     <string name="mobile">+38160645897</string>
@@ -146,11 +146,6 @@
     <string name="choose_date_range">Choose Date Range:</string>
     <string name="range">range</string>
 
-    <string name="trip_from">From</string>
-    <string name="trip_from_mockup">Zemun</string>
-    <string name="trip_to">To</string>
-    <string name="trip_to_mockup">Beograd</string>
-    <string name="order_again">Order\nAgain</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -249,7 +244,7 @@
     <string name="active">Active:</string>
     <string name="change_driver_licences">Change Driver Licences</string>
     <string name="mirko_cemes">Marko Markovic</string>
-
+    <string name="edit_info">Edit personal info</string>
 
 
 </resources>

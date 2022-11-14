@@ -33,6 +33,12 @@ public class PassengerEditInfoFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        requireActivity().setTitle(R.string.edit_info);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment

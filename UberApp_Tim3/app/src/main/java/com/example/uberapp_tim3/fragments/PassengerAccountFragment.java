@@ -81,7 +81,7 @@ public class PassengerAccountFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        requireActivity().setTitle("Passenger profile");
+        requireActivity().setTitle("Profile");
     }
 
     private void setOnClickListeners() {
