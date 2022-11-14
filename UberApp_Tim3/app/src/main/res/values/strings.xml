@@ -146,11 +146,6 @@
     <string name="choose_date_range">Choose Date Range:</string>
     <string name="range">range</string>
 
-    <string name="trip_from">From</string>
-    <string name="trip_from_mockup">Zemun</string>
-    <string name="trip_to">To</string>
-    <string name="trip_to_mockup">Beograd</string>
-    <string name="order_again">Order\nAgain</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
