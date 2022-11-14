@@ -22,12 +22,15 @@
             android:layout_height="wrap_content"
             android:paddingBottom="20dp">
 
-    <ImageView
-        android:id="@+id/imgAvatar"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_margin="10dp"
-        android:src="@drawable/ic_baseline_person_24" />
+            <ImageView
+                android:id="@+id/imgAvatar"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/ic_baseline_person_24" />
 
     <TextView
         android:id="@+id/txtPassengerFullName"
@@ -52,17 +55,17 @@
         android:text="@string/passenger_phone_number"
         android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/txtPassengerPhoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imgAvatar"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_toEndOf="@+id/txtPassPhone"
-        android:text="@string/passenger_phone_real_number"
-        android:textSize="16sp"
-        android:textStyle="bold|italic" />
+            <TextView
+                android:id="@+id/txtPassengerPhoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgAvatar"
+                android:layout_alignStart="@+id/txtPassPhone"
+                android:layout_marginStart="144dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/passenger_phone_real_number"
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
 
 
     <TextView
@@ -75,17 +78,17 @@
         android:text="@string/passenger_email"
         android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/txtPassengerEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtPassPhone"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_toEndOf="@+id/txtPassEmail"
-        android:text="@string/passenger_real_email"
-        android:textSize="16sp"
-        android:textStyle="bold|italic" />
+            <TextView
+                android:id="@+id/txtPassengerEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtPassPhone"
+                android:layout_alignStart="@+id/txtPassEmail"
+                android:layout_marginStart="144dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/passenger_real_email"
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
 
 
     <TextView
@@ -98,17 +101,17 @@
         android:text="@string/passenger_address"
         android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/txtPassengerAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtPassengerEmail"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_toEndOf="@+id/txtPassAddress"
-        android:text="@string/passenger_real_address"
-        android:textSize="16sp"
-        android:textStyle="bold|italic" />
+            <TextView
+                android:id="@+id/txtPassengerAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtPassengerEmail"
+                android:layout_alignStart="@+id/txtPassAddress"
+                android:layout_marginStart="144dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/passenger_real_address"
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
 
 
     <TextView
@@ -121,17 +124,17 @@
         android:text="@string/passenger_card_info"
         android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/txtPassengerCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtPassengerAddress"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_toEndOf="@+id/txtPassAddress"
-        android:text="@string/passenger_real_card_info"
-        android:textSize="16sp"
-        android:textStyle="bold|italic" />
+            <TextView
+                android:id="@+id/txtPassengerCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtPassengerAddress"
+                android:layout_alignStart="@+id/txtPassCard"
+                android:layout_marginStart="144dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/passenger_real_card_info"
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
 
 
     <Button
@@ -141,10 +144,10 @@
         android:layout_below="@id/txtPassengerCard"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="50dp"
-        android:padding="14dp"
+        android:layout_marginEnd="30dp"
+        android:paddingVertical="10dp"
         android:text="@string/edit_pass_info"
-        android:textSize="16sp" />
+        android:textSize="13sp" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
@@ -183,8 +186,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:text="@string/active_text"
-        android:textSize="26sp"
-        android:textStyle="bold|italic" />
+        android:textSize="21sp"
+        android:letterSpacing="0.1"
+        android:textColor="@color/uber_off_white"
+        android:textStyle="bold|italic"  />
 
 
 </RelativeLayout>
