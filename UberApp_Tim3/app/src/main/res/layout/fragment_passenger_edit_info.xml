@@ -19,7 +19,9 @@
             android:paddingVertical="10dp"
             android:text="@string/change_info"
             android:textAlignment="center"
-            android:textSize="22sp"
+            android:textSize="21sp"
+            android:letterSpacing="0.06"
+            android:textColor="@color/white"
             android:textStyle="bold|italic">
 
         </TextView>
@@ -47,19 +49,22 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <ImageView
+                        <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/imgEditPassengerAvatar"
-                            android:layout_width="120dp"
+                            android:layout_width="130dp"
                             android:layout_height="120dp"
-                            android:layout_marginHorizontal="10dp"
-                            android:src="@drawable/ic_baseline_person_24" />
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/person" />
 
                         <Button
                             android:id="@+id/btnChangePassengerAvatar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="6dp"
-                            android:text="@string/change_avatar" />
+                            android:layout_marginStart="10dp"
+                            android:text="@string/change_avatar"
+                            android:textSize="11sp" />
 
                     </LinearLayout>
 
@@ -81,7 +86,7 @@
                             android:layout_height="wrap_content"
 
                             android:text="@string/first_name"
-                            android:textSize="22sp"
+                            android:textSize="18sp"
                             android:textStyle="bold|italic" />
 
                         <TextView
@@ -96,8 +101,9 @@
                             android:layout_height="wrap_content"
 
                             android:text="@string/last_name"
-                            android:textSize="22sp"
+                            android:textSize="18sp"
                             android:textStyle="bold|italic" />
+
                     </LinearLayout>
 
                 </LinearLayout>
@@ -122,7 +128,7 @@
                         android:id="@+id/txtPassengerEditPhoneNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="40dp"
+                        android:layout_marginStart="50dp"
                         android:inputType="phone"
                         android:text="@string/passenger_phone_real_number"
                         android:textSize="16sp"
@@ -149,7 +155,7 @@
                         android:id="@+id/txtPassengerEmailEdit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="42dp"
+                        android:layout_marginStart="54dp"
                         android:inputType="textEmailAddress"
                         android:text="@string/passenger_real_email"
                         android:textSize="16sp"
@@ -177,7 +183,7 @@
                         android:id="@+id/txtHomeAddressEdit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="40dp"
+                        android:layout_marginLeft="50dp"
                         android:text="@string/passenger_real_address"
                         android:textSize="16sp"
                         android:textStyle="bold|italic" />
@@ -192,14 +198,35 @@
                     android:orientation="vertical">
 
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="6dp"
-                        android:text="@string/change_password"
-                        android:textSize="14sp"
-                        android:textStyle="bold|italic" />
+                        android:layout_marginTop="1dp"
+                        android:gravity="center"
+                        android:weightSum="12">
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="3"
+                            android:background="@color/uber_sagebrush" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:text="@string/change_password"
+                            android:textAlignment="center"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="3"
+                            android:background="@color/uber_sagebrush" />
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -219,10 +246,16 @@
                             android:id="@+id/txtPassengerOldPassword"
                             android:layout_width="160dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="44dp"
+                            android:layout_marginStart="88dp"
                             android:inputType="textPassword"
                             android:textSize="16sp"
                             android:textStyle="bold|italic" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/ic_hidden" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -233,7 +266,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="6dp"
                             android:text="@string/enter_new_password"
                             android:textSize="14sp" />
 
@@ -241,10 +275,16 @@
                             android:id="@+id/txtPassengerNewPassword"
                             android:layout_width="160dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="40dp"
+                            android:layout_marginStart="81dp"
                             android:inputType="textPassword"
                             android:textSize="16sp"
                             android:textStyle="bold|italic" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/ic_hidden" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -256,6 +296,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
+                            android:layout_marginTop="6dp"
                             android:text="@string/repeat_new_password"
                             android:textSize="14sp" />
 
@@ -263,10 +304,16 @@
                             android:id="@+id/txtPassengerRepeatPassword"
                             android:layout_width="160dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
+                            android:layout_marginStart="70dp"
                             android:inputType="textPassword"
                             android:textSize="16sp"
                             android:textStyle="bold|italic" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/ic_hidden" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -274,15 +321,30 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:weightSum="12">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="3"
+                        android:background="@color/uber_sagebrush" />
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_weight="4"
                         android:text="@string/change_payment_details"
                         android:textAlignment="center"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="3"
+                        android:background="@color/uber_sagebrush" />
 
                 </LinearLayout>
 
@@ -327,17 +389,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="30dp"
+                        android:layout_marginHorizontal="20dp"
                         android:text="@string/edit_number"
+
                         android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/txtPassengerCardNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="40dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginEnd="20dp"
                         android:text="@string/passenger_card_info"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold|italic" />
                 </LinearLayout>
 
@@ -349,9 +413,10 @@
                         android:id="@+id/btnCancelEditPassenger"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="78dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_toLeftOf="@+id/btnAcceptEditPassenger"
+                        android:layout_marginEnd="20dp"
                         android:text="@string/button_cancel" />
 
                     <Button
@@ -360,7 +425,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="78dp"
                         android:text="@string/button_accept" />
 
                 </RelativeLayout>

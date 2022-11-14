@@ -92,7 +92,7 @@
     <string name="end_station">End Station</string>
     <string name="inbox">INBOX</string>
     <string name="report">Report</string>
-    <string name="user_name">Android Studovic</string>
+    <string name="user_name">Marko Kraljevic</string>
     <string name="mobile">+38160645897</string>
     <string name="choose_a_range">Choose a range</string>
     <string name="no_selected_date">No selected date!</string>
@@ -145,6 +145,7 @@
     <string name="weekly">Weekly</string>
     <string name="choose_date_range">Choose Date Range:</string>
     <string name="range">range</string>
+
     <string name="trip_from">From</string>
     <string name="trip_from_mockup">Zemun</string>
     <string name="trip_to">To</string>
@@ -239,6 +240,16 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+
+    <string name="trip_from">From:</string>
+    <string name="trip_from_mockup">Milana Visnjica 21, Zemun</string>
+    <string name="trip_to">To:</string>
+    <string name="trip_to_mockup">Toplicka 22, Beograd</string>
+    <string name="order_again">Order again</string>
+    <string name="active">Active:</string>
+    <string name="change_driver_licences">Change Driver Licences</string>
+    <string name="mirko_cemes">Marko Markovic</string>
+
 
 
 </resources>

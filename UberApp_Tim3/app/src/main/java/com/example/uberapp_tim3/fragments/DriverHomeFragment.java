@@ -39,17 +39,17 @@ public class DriverHomeFragment extends Fragment {
 
         View view =  inflater.inflate(R.layout.fragment_driver_home, container, false);
 
-        ToggleButton tbChangeActivity = (ToggleButton) view.findViewById(R.id.btnToggleOnline);
+        //ToggleButton tbChangeActivity = (ToggleButton) view.findViewById(R.id.btnToggleOnline);
 
-        tbChangeActivity.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
+       // tbChangeActivity.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /*    @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 String text = "Current status: ";
                 if(b) text += "Online";
                 else text += "Offline";
                 Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
         return view;
     }

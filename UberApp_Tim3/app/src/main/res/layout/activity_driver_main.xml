@@ -58,13 +58,13 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:src="@drawable/mapa" />
+                    android:src="@drawable/b_person" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="10dp"
-                    android:text="Android Studovic"
+                    android:text="@string/mirko_cemes"
                     android:textColor="@color/white"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textStyle="bold" />
