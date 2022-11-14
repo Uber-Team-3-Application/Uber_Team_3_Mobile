@@ -3,6 +3,7 @@ package com.example.uberapp_tim3.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.ListFragment;
 
@@ -18,6 +19,8 @@ import com.example.uberapp_tim3.adapters.DrawerListAdapter;
 import com.example.uberapp_tim3.model.Drive;
 import com.example.uberapp_tim3.tools.DrivesMockUp;
 import com.example.uberapp_tim3.tools.FragmentTransition;
+
+import java.util.Objects;
 
 /**
  * A fragment representing a list of Items.
@@ -42,7 +45,11 @@ public class DriverRideHistoryFragment extends ListFragment {
 
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        requireActivity().setTitle(R.string.drive_history);
+    }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
@@ -54,11 +61,6 @@ public class DriverRideHistoryFragment extends ListFragment {
         DriveItemDetail driveItemDetail = new DriveItemDetail();
         driveItemDetail.setArguments(args);
         FragmentTransition.to(driveItemDetail, getActivity(), true);
-        /*assert getFragmentManager() != null;
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.mainContent, driveItemDetail)
-                .commit();*/
 
     }
 
