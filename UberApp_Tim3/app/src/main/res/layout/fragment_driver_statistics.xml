@@ -37,7 +37,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
+                android:layout_marginRight="40dp"
                 android:background="@color/uber_green_lily"
                 android:orientation="vertical"
                 android:padding="20dp">
@@ -67,14 +67,15 @@
                     android:layout_marginBottom="2dp"
                     android:text="@string/no_selected_date"
                     android:textSize="16sp"
+                    android:layout_marginStart="5dp"
                     android:textStyle="bold|italic" />
 
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
                 android:background="@color/uber_green_lily"
                 android:orientation="vertical"
                 android:padding="16dp">
@@ -82,10 +83,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
                     android:text="@string/choose_period"
                     android:textSize="16sp"
-                    android:textStyle="bold|italic"
-                    android:layout_marginBottom="6dp"/>
+                    android:textStyle="bold|italic" />
 
                 <RadioGroup
                     android:layout_width="match_parent"
@@ -95,14 +96,12 @@
                         android:id="@+id/rbDaily"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
                         android:text="@string/daily" />
 
                     <RadioButton
                         android:id="@+id/rbWeekly"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
                         android:text="@string/weekly" />
 
                     <RadioButton

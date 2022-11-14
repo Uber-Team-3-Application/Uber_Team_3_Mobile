@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#517470</color>
     <color name="colorPrimaryDark">#517470</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#324947</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#517470</color>
     <color name="purple_700">#517470</color>
@@ -12,7 +12,7 @@
     <color name="white">#FFFFFF</color>
 
     <color name="uber_background">#f7f7f7 </color>
-    <color name="uber_off_white">#E9EFE9</color>
+    <color name="uber_off_white">#EFEFEF</color>
     <color name="uber_transperent">#2B2B2B</color>
     <color name="uber_desert_sage">#aaae9f</color>
     <color name="uber_surf_spray">#aabfb8 </color>

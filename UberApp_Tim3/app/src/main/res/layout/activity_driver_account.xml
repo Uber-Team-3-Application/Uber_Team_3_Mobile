@@ -25,9 +25,12 @@
 
             <ImageView
                 android:id="@+id/imgAvatar"
-                android:layout_width="140dp"
-                android:layout_height="140dp"
-                android:layout_margin="10dp"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:src="@drawable/ic_baseline_person_24" />
 
             <TextView
@@ -57,9 +60,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imgAvatar"
-                android:layout_marginStart="30dp"
+                android:layout_alignStart="@+id/txtDrivPhone"
+                android:layout_marginStart="144dp"
                 android:layout_marginTop="20dp"
-                android:layout_toEndOf="@+id/txtDrivPhone"
                 android:text="@string/driver_phone_real_number"
                 android:textSize="16sp"
                 android:textStyle="bold|italic" />
@@ -80,9 +83,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtDrivPhone"
-                android:layout_marginStart="30dp"
+                android:layout_alignStart="@+id/txtDrivEmail"
+                android:layout_marginStart="144dp"
                 android:layout_marginTop="20dp"
-                android:layout_toEndOf="@+id/txtDrivEmail"
                 android:text="@string/driver_real_email"
                 android:textSize="16sp"
                 android:textStyle="bold|italic" />
@@ -103,9 +106,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtdriverEmail"
-                android:layout_marginStart="30dp"
+                android:layout_alignStart="@+id/txtDrivHomeAddress"
+                android:layout_marginStart="144dp"
                 android:layout_marginTop="20dp"
-                android:layout_toEndOf="@+id/txtDrivHomeAddress"
                 android:text="@string/passenger_real_address"
                 android:textSize="16sp"
                 android:textStyle="bold|italic" />
@@ -126,9 +129,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtDriverHomeAddress"
-                android:layout_marginStart="30dp"
+                android:layout_alignStart="@+id/txtDrivLicense"
+                android:layout_marginStart="144dp"
                 android:layout_marginTop="20dp"
-                android:layout_toEndOf="@+id/txtDrivLicense"
                 android:text="@string/driver_license_number_real"
                 android:textSize="16sp"
                 android:textStyle="bold|italic" />
@@ -149,9 +152,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtDriverLicense"
-                android:layout_marginStart="30dp"
+                android:layout_alignStart="@+id/txtCarReg"
+                android:layout_marginStart="144dp"
                 android:layout_marginTop="20dp"
-                android:layout_toEndOf="@+id/txtCarReg"
                 android:text="@string/vehicle_registration_real_number"
                 android:textSize="16sp"
                 android:textStyle="bold|italic" />
@@ -167,7 +170,7 @@
                 android:layout_marginEnd="30dp"
                 android:paddingVertical="10dp"
                 android:text="@string/edit_pass_info"
-                android:textSize="16sp" />
+                android:textSize="13sp" />
 
         </RelativeLayout>
 
@@ -206,7 +209,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:text="@string/active_text"
-        android:textSize="26sp"
+        android:textSize="21sp"
+        android:letterSpacing="0.1"
+        android:textColor="@color/uber_off_white"
         android:textStyle="bold|italic" />
 
 
