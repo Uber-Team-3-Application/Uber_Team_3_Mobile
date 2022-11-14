@@ -4,54 +4,61 @@ import android.annotation.SuppressLint;
 
 import com.example.uberapp_tim3.model.Drive;
 import com.example.uberapp_tim3.model.Driver;
+import com.example.uberapp_tim3.model.Passenger;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class DrivesMockUp {
 
     public static List<Drive> getDrives()  {
         ArrayList<Drive> drives = new ArrayList<>();
-
-        String date_string = "26-09-1989";
-        //Instantiating the SimpleDateFormat class
-        //Parsing the given String to Date object
+        HashMap<Passenger, String> comments = new HashMap<>();
+        for (Passenger passenger : PassengerMockup.getPassengers()) {
+            comments.put(passenger, "Voznja je bila solidna");
+        }
 
         drives.add(
                 new Drive(4,
-                        "Voznja je bila odlicna",
                         "26.10.2022 12:34",
                         "26.10.2022 13:00",
                         2,
-                        "Kikinda - Sombor",
-                        30,
-                        2500.0)
+                        "Svetosavka 86 Kikinda - Atarska 7 Sombor",
+                        128.0,
+                        6500.0,
+                        comments,
+                        PassengerMockup.getPassengers()
+                        )
         );
 
         drives.add(
                 new Drive(4,
-                        "Voznja je bila odlicna",
                         "26.10.2022 12:34",
                         "26.10.2022 13:00",
                         2,
-                        "Kikinda - Sombor",
-                        30,
-                        2500.0)
+                        "Svetosavka 86 Kikinda - Atarska 7 Sombor",
+                        128.0,
+                        6500.0,
+                        comments,
+                        PassengerMockup.getPassengers()
+                )
         );
         drives.add(
                 new Drive(4,
-                        "Voznja je bila odlicna",
                         "26.10.2022 12:34",
                         "26.10.2022 13:00",
                         2,
-                        "Kikinda - Sombor",
-                        30,
-                        2500.0)
+                        "Svetosavka 86 Kikinda - Atarska 7 Sombor",
+                        128.0,
+                        6500.0,
+                        comments,
+                        PassengerMockup.getPassengers()
+                )
         );
-
         return drives;
 
     }

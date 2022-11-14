@@ -35,6 +35,17 @@ public class DriverAccountFragment extends Fragment implements View.OnClickListe
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        requireActivity().setTitle(R.string.driver_profile);
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         setOnClickListeners();
         setTextViews();
@@ -61,6 +72,8 @@ public class DriverAccountFragment extends Fragment implements View.OnClickListe
         });
 
     }
+
+
 
 
     private void setTextViews(){

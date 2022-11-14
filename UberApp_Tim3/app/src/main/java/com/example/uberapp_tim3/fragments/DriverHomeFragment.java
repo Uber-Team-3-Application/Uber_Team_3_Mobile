@@ -17,9 +17,15 @@ import com.example.uberapp_tim3.R;
 
 public class DriverHomeFragment extends Fragment {
 
-    // TODO: Rename and change types and number of parameters
+
     public static DriverHomeFragment newInstance() {
         return new DriverHomeFragment();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        requireActivity().setTitle(R.string.home);
     }
 
     @Override

@@ -22,6 +22,12 @@ public class PassengerInboxFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        requireActivity().setTitle(R.string.inbox);
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //final ListView listView = (ListView) getView().findViewById(R.id.inbox_listview);

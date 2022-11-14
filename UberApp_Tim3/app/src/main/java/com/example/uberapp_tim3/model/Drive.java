@@ -4,12 +4,16 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
-public class Drive implements Parcelable {
+public class Drive implements Parcelable  {
 
     private int rate;
-    private String comment;
+    private List<Passenger> passengerList;
+    private HashMap<Passenger, String> comments;
     private String startDrive;
     private String endDrive;
     private int numberOfPassengers;
@@ -17,21 +21,8 @@ public class Drive implements Parcelable {
     private double km;
     private double price;
 
-    public Drive(int rate, String comment, String startDrive, String endDrive, int numberOfPassengers,
-                 String relation, double km, double price) {
-        this.rate = rate;
-        this.comment = comment;
-        this.startDrive = startDrive;
-        this.endDrive = endDrive;
-        this.numberOfPassengers = numberOfPassengers;
-        this.relation = relation;
-        this.km = km;
-        this.price = price;
-    }
-
     protected Drive(Parcel in) {
         rate = in.readInt();
-        comment = in.readString();
         startDrive = in.readString();
         endDrive = in.readString();
         numberOfPassengers = in.readInt();
@@ -52,6 +43,45 @@ public class Drive implements Parcelable {
         }
     };
 
+    public List<Passenger> getPassengerList() {
+        return passengerList;
+    }
+
+    public void setPassengerList(ArrayList<Passenger> passengerList) {
+        this.passengerList = passengerList;
+    }
+
+    public HashMap<Passenger, String> getComments() {
+        return comments;
+    }
+
+    public void setComments(HashMap<Passenger, String> comments) {
+        this.comments = comments;
+    }
+
+    public String getRelation() {
+        return relation;
+    }
+
+    public void setRelation(String relation) {
+        this.relation = relation;
+    }
+
+    public Drive(int rate, String startDrive, String endDrive, int numberOfPassengers,
+                 String relation, double km, double price, HashMap<Passenger, String> comments,
+                 List<Passenger> passengerList) {
+        this.rate = rate;
+        this.startDrive = startDrive;
+        this.endDrive = endDrive;
+        this.comments = comments;
+        this.numberOfPassengers = numberOfPassengers;
+        this.relation = relation;
+        this.km = km;
+        this.passengerList = passengerList;
+        this.price = price;
+    }
+
+
     public int getRate() {
         return rate;
     }
@@ -60,13 +90,6 @@ public class Drive implements Parcelable {
         this.rate = rate;
     }
 
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
 
     public String getStartDrive() {
         return startDrive;
@@ -125,7 +148,6 @@ public class Drive implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(rate);
-        parcel.writeString(comment);
         parcel.writeString(startDrive);
         parcel.writeString(endDrive);
         parcel.writeInt(numberOfPassengers);

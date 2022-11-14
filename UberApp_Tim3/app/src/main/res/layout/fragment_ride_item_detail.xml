@@ -27,33 +27,13 @@
 
             <ImageView
                 android:id="@+id/imgAvatar"
-                android:layout_width="140dp"
-                android:layout_height="140dp"
+                android:layout_width="135dp"
+                android:layout_height="136dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:src="@drawable/route" />
-
-
-            <TextView
-                android:id="@+id/txtRouteFullName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="100dp"
-                android:layout_toEndOf="@+id/imgAvatar"
-                android:textSize="24sp"
-                android:textStyle="bold|italic" />
-
-            <ImageView
-                android:id="@+id/imgInbox"
-                android:layout_width="46dp"
-                android:layout_height="43dp"
-                android:layout_marginStart="128dp"
-                android:layout_marginTop="20dp"
-                android:layout_toEndOf="@+id/imgAvatar"
-                android:src="@drawable/ic_message" />
 
             <TextView
                 android:id="@+id/startDrivingStation"
@@ -171,6 +151,7 @@
                 android:layout_below="@id/kilometersNum"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
+                android:linksClickable="true"
                 android:text="@string/number_of_passengers"
                 android:textSize="16sp" />
 
@@ -185,33 +166,32 @@
                 android:textSize="16sp"
                 android:textStyle="bold|italic" />
 
+            <!--            <TextView-->
+            <!--                android:id="@+id/comments"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_below="@id/passengerNum"-->
+            <!--                android:layout_marginStart="10dp"-->
+            <!--                android:layout_marginTop="20dp"-->
+            <!--                android:text="@string/comments"-->
+            <!--                android:textSize="16sp" />-->
 
-            <TextView
-                android:id="@+id/comments"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/passengerNum"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/comments"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/txtComments"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/passengerNum"
-                android:layout_alignStart="@+id/comments"
-                android:layout_marginStart="125dp"
-                android:layout_marginTop="20dp"
-                android:textSize="16sp"
-                android:textStyle="bold|italic" />
+            <!--            <TextView-->
+            <!--                android:id="@+id/txtComments"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_below="@id/passengerNum"-->
+            <!--                android:layout_alignStart="@+id/comments"-->
+            <!--                android:layout_marginStart="125dp"-->
+            <!--                android:layout_marginTop="20dp"-->
+            <!--                android:textSize="16sp"-->
+            <!--                android:textStyle="bold|italic" />-->
 
             <TextView
                 android:id="@+id/priceOfDrive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/comments"
+                android:layout_below="@id/passengerNum"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/price"
@@ -221,7 +201,7 @@
                 android:id="@+id/txtPriceOfDrive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/comments"
+                android:layout_below="@id/passengerNum"
                 android:layout_alignStart="@+id/priceOfDrive"
                 android:layout_marginStart="125dp"
                 android:layout_marginTop="20dp"
@@ -232,10 +212,42 @@
                 android:id="@+id/simpleRatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_below="@id/priceOfDrive"
                 android:layout_centerHorizontal="true"
-                android:theme="@style/RatingBar"/>
+                android:layout_marginTop="20dp"
+                android:theme="@style/RatingBar" />
+
+
+            <ImageView
+                android:id="@+id/imgComments"
+                android:layout_width="46dp"
+                android:layout_height="43dp"
+                android:layout_below="@id/simpleRatingBar"
+                android:layout_marginStart="65dp"
+                android:layout_marginLeft="-85dp"
+                android:layout_marginTop="8dp"
+                android:layout_toEndOf="@+id/imgAvatar"
+                android:src="@drawable/ic_baseline_comment_24" />
+
+            <ImageView
+                android:id="@+id/imgInbox"
+                android:layout_width="46dp"
+                android:layout_height="43dp"
+                android:layout_below="@id/simpleRatingBar"
+                android:layout_marginStart="-5dp"
+                android:layout_marginTop="4dp"
+                android:layout_toEndOf="@+id/imgAvatar"
+                android:src="@drawable/ic_message" />
+
+            <ImageView
+                android:id="@+id/imgProfiles"
+                android:layout_width="52dp"
+                android:layout_height="46dp"
+                android:layout_below="@id/simpleRatingBar"
+                android:layout_marginStart="-75dp"
+                android:layout_marginTop="2dp"
+                android:layout_toEndOf="@+id/imgAvatar"
+                android:src="@drawable/ic_baseline_group_24" />
 
 
         </RelativeLayout>
