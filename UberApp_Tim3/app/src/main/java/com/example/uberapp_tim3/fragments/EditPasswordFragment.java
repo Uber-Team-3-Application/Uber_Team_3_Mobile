@@ -48,7 +48,7 @@ public class EditPasswordFragment extends Fragment {
     }
 
     private void setOnCLickListeners() {
-        ((Button) getActivity().findViewById(R.id.btnCancelEditPassenger)).setOnClickListener(new View.OnClickListener() {
+        ((Button) getActivity().findViewById(R.id.btnCancelEditPassword)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getActivity().getSupportFragmentManager().popBackStackImmediate();
