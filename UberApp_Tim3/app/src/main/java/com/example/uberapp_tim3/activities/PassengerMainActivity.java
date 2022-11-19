@@ -23,6 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 
 public class PassengerMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private final static String PASSENGER_CHANEL = "Passenger channel";
     private DrawerLayout drawer;
 
     @Override
@@ -41,6 +42,8 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        createNotificationChannel();
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerMapFragment()).commit();
@@ -118,7 +121,6 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
         super.onRestart();
     }
 
-    private static String PASSENGER_CHANEL = "Zero channel";
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -127,8 +129,6 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(PASSENGER_CHANEL, name, importance);
             channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
