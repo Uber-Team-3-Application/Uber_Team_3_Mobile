@@ -15,7 +15,7 @@ public class Vehicle
     private boolean petTransport;
     private TypeOfVehicle typeOfVehicle;
     private Driver driver;
-    private ArrayList<Location> locations;
+    private Location location;
 
     public Vehicle() {
         this.id = 0;
@@ -24,11 +24,10 @@ public class Vehicle
         this.numberOfPlaces = 0;
         this.babyTransport = false;
         this.petTransport = false;
-        this.locations = new ArrayList<>();
     }
 
     public Vehicle(int id, String model, String licencePlate, int numberOfPlaces, boolean babyTransport,
-                   boolean petTransport, TypeOfVehicle typeOfVehicle, Driver driver, ArrayList<Location> locations) {
+                   boolean petTransport, TypeOfVehicle typeOfVehicle, Driver driver, Location location) {
         this.id = id;
         this.model = model;
         this.licencePlate = licencePlate;
@@ -37,11 +36,11 @@ public class Vehicle
         this.petTransport = petTransport;
         this.typeOfVehicle = typeOfVehicle;
         this.driver = driver;
-        this.locations = locations;
+        this.location = location;
     }
 
     public Vehicle(String model, String licencePlate, int numberOfPlaces, boolean babyTransport,
-                   boolean petTransport, TypeOfVehicle typeOfVehicle, Driver driver, ArrayList<Location> locations) {
+                   boolean petTransport, TypeOfVehicle typeOfVehicle, Driver driver, Location location) {
         this.id = 0;
         this.model = model;
         this.licencePlate = licencePlate;
@@ -50,7 +49,7 @@ public class Vehicle
         this.petTransport = petTransport;
         this.typeOfVehicle = typeOfVehicle;
         this.driver = driver;
-        this.locations = locations;
+        this.location = location;
     }
 
     public int getId() {
@@ -117,11 +116,11 @@ public class Vehicle
         this.driver = driver;
     }
 
-    public ArrayList<Location> getLocations() {
-        return locations;
+    public Location getLocations() {
+        return location;
     }
 
-    public void setLocations(ArrayList<Location> locations) {
-        this.locations = locations;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }
