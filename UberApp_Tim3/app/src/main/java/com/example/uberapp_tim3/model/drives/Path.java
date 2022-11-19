@@ -12,7 +12,6 @@ public class Path {
     private double price;
     private int ordinal;
     private Route route;
-    private Drive drive;
 
     public Path() {
         super();
@@ -23,7 +22,7 @@ public class Path {
     }
 
     public Path(LocalDateTime startTime, LocalDateTime endTime, LocalTime approximateTime,
-                double kilometers, double price, int ordinal, Route route, Drive drive) {
+                double kilometers, double price, int ordinal, Route route) {
         this.id = 0;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -32,11 +31,10 @@ public class Path {
         this.price = price;
         this.ordinal = ordinal;
         this.route = route;
-        this.drive = drive;
     }
 
     public Path(int id, LocalDateTime startTime, LocalDateTime endTime, LocalTime approximateTime,
-                double kilometers, double price, int ordinal, Route route, Drive drive) {
+                double kilometers, double price, int ordinal, Route route) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -45,7 +43,6 @@ public class Path {
         this.price = price;
         this.ordinal = ordinal;
         this.route = route;
-        this.drive = drive;
     }
 
     public int getId() {
@@ -112,11 +109,4 @@ public class Path {
         this.route = route;
     }
 
-    public Drive getDrive() {
-        return drive;
-    }
-
-    public void setDrive(Drive drive) {
-        this.drive = drive;
-    }
 }

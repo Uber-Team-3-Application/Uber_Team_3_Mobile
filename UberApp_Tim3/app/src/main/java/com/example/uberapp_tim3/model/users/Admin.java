@@ -18,14 +18,14 @@ public class Admin extends User {
                  String emailAddress, String password, boolean isBlocked, String address,
                  ArrayList<Message> receiverInbox, ArrayList<Message> senderInbox,
                  ArrayList<PanicButton> panicButtons, ArrayList<Rejection> rejections) {
-        super(name, lastName, profilePicture, phoneNumber, emailAddress, password, isBlocked, address, receiverInbox, senderInbox, panicButtons, rejections);
+        super(name, lastName, profilePicture, phoneNumber, emailAddress, password, isBlocked, address, receiverInbox, senderInbox, panicButtons);
     }
 
     public Admin(int id, String name, String lastName, Image profilePicture, String phoneNumber,
                  String emailAddress, String password, boolean isBlocked, String address,
                  ArrayList<Message> receiverInbox, ArrayList<Message> senderInbox,
                  ArrayList<PanicButton> panicButtons, ArrayList<Rejection> rejections) {
-        super(id, name, lastName, profilePicture, phoneNumber, emailAddress, password, isBlocked, address, receiverInbox, senderInbox, panicButtons, rejections);
+        super(id, name, lastName, profilePicture, phoneNumber, emailAddress, password, isBlocked, address, receiverInbox, senderInbox, panicButtons);
     }
 
     @Override

@@ -5,7 +5,6 @@ import com.example.uberapp_tim3.model.users.Passenger;
 public class FavouriteRoute {
     private int id;
     private Route route;
-    private Passenger passenger;
 
     public FavouriteRoute() {
         super();
@@ -13,16 +12,14 @@ public class FavouriteRoute {
 
     }
 
-    public FavouriteRoute(Route route, Passenger passenger) {
+    public FavouriteRoute(Route route) {
         this.id = 0;
         this.route = route;
-        this.passenger = passenger;
     }
 
-    public FavouriteRoute(int id, Route route, Passenger passenger) {
+    public FavouriteRoute(int id, Route route) {
         this.id = id;
         this.route = route;
-        this.passenger = passenger;
     }
 
     public int getId() {
@@ -41,11 +38,4 @@ public class FavouriteRoute {
         this.route = route;
     }
 
-    public Passenger getPassenger() {
-        return passenger;
-    }
-
-    public void setPassenger(Passenger passenger) {
-        this.passenger = passenger;
-    }
 }

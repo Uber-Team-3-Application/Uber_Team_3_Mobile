@@ -9,29 +9,25 @@ public class TypeOfVehicle {
     private int id;
     private VehicleName vehicleName;
     private double pricePerKilometer;
-    private ArrayList<Vehicle> vehicles;
     private ArrayList<Drive> drives;
 
     public TypeOfVehicle() {
         this.id  =0 ;
         this.pricePerKilometer = 0.0;
-        this.vehicles = new ArrayList<>();
         this.drives = new ArrayList<>();
     }
 
-    public TypeOfVehicle(int id, VehicleName vehicleName, double pricePerKilometer, ArrayList<Vehicle> vehicles, ArrayList<Drive> drives) {
+    public TypeOfVehicle(int id, VehicleName vehicleName, double pricePerKilometer, ArrayList<Drive> drives) {
         this.id = id;
         this.vehicleName = vehicleName;
         this.pricePerKilometer = pricePerKilometer;
-        this.vehicles = vehicles;
         this.drives = drives;
     }
 
-    public TypeOfVehicle(VehicleName vehicleName, double pricePerKilometer, ArrayList<Vehicle> vehicles, ArrayList<Drive> drives) {
+    public TypeOfVehicle(VehicleName vehicleName, double pricePerKilometer, ArrayList<Drive> drives) {
         this.id = 0;
         this.vehicleName = vehicleName;
         this.pricePerKilometer = pricePerKilometer;
-        this.vehicles = vehicles;
         this.drives = drives;
     }
 
@@ -58,15 +54,6 @@ public class TypeOfVehicle {
     public void setPricePerKilometer(double pricePerKilometer) {
         this.pricePerKilometer = pricePerKilometer;
     }
-
-    public ArrayList<Vehicle> getVehicles() {
-        return vehicles;
-    }
-
-    public void setVehicles(ArrayList<Vehicle> vehicles) {
-        this.vehicles = vehicles;
-    }
-
     public ArrayList<Drive> getDrives() {
         return drives;
     }

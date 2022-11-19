@@ -7,7 +7,6 @@ import com.example.uberapp_tim3.model.items.Message;
 import com.example.uberapp_tim3.model.items.PanicButton;
 import com.example.uberapp_tim3.model.drives.Rejection;
 import com.example.uberapp_tim3.model.vehicle.Vehicle;
-import com.example.uberapp_tim3.model.items.WorkingHour;
 
 import java.util.ArrayList;
 
@@ -25,7 +24,7 @@ public class Driver extends User {
                   ArrayList<PanicButton> panicButtons, ArrayList<Rejection> rejections,
                   String driversLicenseNumber, String vehicleRegistrationNumber, boolean isActive,
                   ArrayList<Vehicle> vehicles, ArrayList<Drive> drives) {
-        super(id, name, lastName, profilePicture, phoneNumber, emailAddress, password, isBlocked, address, receiverInbox, senderInbox, panicButtons, rejections);
+        super(id, name, lastName, profilePicture, phoneNumber, emailAddress, password, isBlocked, address, receiverInbox, senderInbox, panicButtons);
         this.driversLicenseNumber = driversLicenseNumber;
         this.vehicleRegistrationNumber = vehicleRegistrationNumber;
         this.isActive = isActive;
@@ -39,7 +38,7 @@ public class Driver extends User {
                   ArrayList<Rejection> rejections, String driversLicenseNumber, String vehicleRegistrationNumber,
                   boolean isActive, ArrayList<Vehicle> vehicles,
                   ArrayList<Drive> drives) {
-        super(name, lastName, profilePicture, phoneNumber, emailAddress, password, isBlocked, address, receiverInbox, senderInbox, panicButtons, rejections);
+        super(name, lastName, profilePicture, phoneNumber, emailAddress, password, isBlocked, address, receiverInbox, senderInbox, panicButtons);
         this.driversLicenseNumber = driversLicenseNumber;
         this.vehicleRegistrationNumber = vehicleRegistrationNumber;
         this.isActive = isActive;

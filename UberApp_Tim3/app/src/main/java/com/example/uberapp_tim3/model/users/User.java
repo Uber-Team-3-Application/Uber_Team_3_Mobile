@@ -22,14 +22,12 @@ public class User {
     private ArrayList<Message> receiverInbox;
     private ArrayList<Message> senderInbox;
     private ArrayList<PanicButton> panicButtons;
-    private ArrayList<Rejection> rejections;
 
 
 
     public User() {
         this.id  = 0;
         this.senderInbox = new ArrayList<>();
-        this.receiverInbox  = new ArrayList<>();
         this.receiverInbox = new ArrayList<>();
         this.senderInbox = new ArrayList<>();
         this.isBlocked = false;
@@ -38,7 +36,7 @@ public class User {
     public User(String name, String lastName, Image profilePicture, String phoneNumber,
                 String emailAddress, String password, boolean isBlocked, String address,
                 ArrayList<Message> receiverInbox, ArrayList<Message> senderInbox,
-                ArrayList<PanicButton> panicButtons, ArrayList<Rejection> rejections) {
+                ArrayList<PanicButton> panicButtons) {
         this.id = 0;
         this.name = name;
         this.lastName = lastName;
@@ -51,13 +49,12 @@ public class User {
         this.receiverInbox = receiverInbox;
         this.senderInbox = senderInbox;
         this.panicButtons = panicButtons;
-        this.rejections = rejections;
     }
 
     public User(int id, String name, String lastName, Image profilePicture, String phoneNumber,
                 String emailAddress, String password, boolean isBlocked, String address,
                 ArrayList<Message> receiverInbox, ArrayList<Message> senderInbox,
-                ArrayList<PanicButton> panicButtons, ArrayList<Rejection> rejections) {
+                ArrayList<PanicButton> panicButtons) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -70,7 +67,6 @@ public class User {
         this.receiverInbox = receiverInbox;
         this.senderInbox = senderInbox;
         this.panicButtons = panicButtons;
-        this.rejections = rejections;
     }
 
     public int getId() {
@@ -169,12 +165,6 @@ public class User {
         this.panicButtons = panicButtons;
     }
 
-    public ArrayList<Rejection> getRejections() {
-        return rejections;
-    }
 
-    public void setRejections(ArrayList<Rejection> rejections) {
-        this.rejections = rejections;
-    }
 }
 

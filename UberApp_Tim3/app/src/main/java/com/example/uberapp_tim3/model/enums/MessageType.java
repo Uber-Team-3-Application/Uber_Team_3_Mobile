@@ -8,22 +8,4 @@ public enum MessageType {
     SUPPORT,
     DRIVE,
     PANIC;
-
-    private ArrayList<Message> messages;
-
-    MessageType() {
-        this.messages = new ArrayList<>();
-    }
-
-    MessageType(ArrayList<Message> messages) {
-        this.messages = messages;
-    }
-
-    public ArrayList<Message> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(ArrayList<Message> messages) {
-        this.messages = messages;
-    }
 }

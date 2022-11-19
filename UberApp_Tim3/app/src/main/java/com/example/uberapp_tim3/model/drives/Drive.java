@@ -28,7 +28,6 @@ public class Drive implements Parcelable  {
     private TypeOfVehicle typeOfVehicle;
     private DriveStatus driveStatus;
     private ArrayList<Passenger> passengers;
-    private ArrayList<Message> messages;
     private PanicButton panicButton;
     private ArrayList<Rejection> rejections;
     private ArrayList<Path> paths;
@@ -37,14 +36,16 @@ public class Drive implements Parcelable  {
 
     public Drive() {
         this.passengers = new ArrayList<>();
-        this.messages = new ArrayList<>();
         this.rejections = new ArrayList<>();
         this.paths = new ArrayList<>();
         this.payments = new ArrayList<>();
         this.reviews = new ArrayList<>();
     }
 
-    public Drive(LocalDateTime startTime, LocalDateTime endTime, double price, LocalTime approximateTime, boolean babyTransport, boolean petTransport, boolean splitFare, Driver driver, TypeOfVehicle typeOfVehicle, DriveStatus driveStatus, ArrayList<Passenger> passengers, ArrayList<Message> messages, PanicButton panicButton, ArrayList<Rejection> rejections, ArrayList<Path> paths, ArrayList<Payment> payments, ArrayList<Review> reviews) {
+    public Drive(LocalDateTime startTime, LocalDateTime endTime, double price, LocalTime approximateTime,
+                 boolean babyTransport, boolean petTransport, boolean splitFare, Driver driver,
+                 TypeOfVehicle typeOfVehicle, DriveStatus driveStatus, ArrayList<Passenger> passengers,
+                 PanicButton panicButton, ArrayList<Rejection> rejections, ArrayList<Path> paths, ArrayList<Payment> payments, ArrayList<Review> reviews) {
         this.id = 0;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -57,7 +58,6 @@ public class Drive implements Parcelable  {
         this.typeOfVehicle = typeOfVehicle;
         this.driveStatus = driveStatus;
         this.passengers = passengers;
-        this.messages = messages;
         this.panicButton = panicButton;
         this.rejections = rejections;
         this.paths = paths;
@@ -67,7 +67,9 @@ public class Drive implements Parcelable  {
 
 
     public Drive(int id, LocalDateTime startTime, LocalDateTime endTime, double price, LocalTime approximateTime,
-                 boolean babyTransport, boolean petTransport, boolean splitFare, Driver driver, TypeOfVehicle typeOfVehicle, DriveStatus driveStatus, ArrayList<Passenger> passengers, ArrayList<Message> messages, PanicButton panicButton, ArrayList<Rejection> rejections, ArrayList<Path> paths, ArrayList<Payment> payments, ArrayList<Review> reviews) {
+                 boolean babyTransport, boolean petTransport, boolean splitFare, Driver driver,
+                 TypeOfVehicle typeOfVehicle, DriveStatus driveStatus, ArrayList<Passenger> passengers,
+                 PanicButton panicButton, ArrayList<Rejection> rejections, ArrayList<Path> paths, ArrayList<Payment> payments, ArrayList<Review> reviews) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -80,7 +82,6 @@ public class Drive implements Parcelable  {
         this.typeOfVehicle = typeOfVehicle;
         this.driveStatus = driveStatus;
         this.passengers = passengers;
-        this.messages = messages;
         this.panicButton = panicButton;
         this.rejections = rejections;
         this.paths = paths;
@@ -217,14 +218,6 @@ public class Drive implements Parcelable  {
 
     public void setPassengers(ArrayList<Passenger> passengers) {
         this.passengers = passengers;
-    }
-
-    public ArrayList<Message> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(ArrayList<Message> messages) {
-        this.messages = messages;
     }
 
     public PanicButton getPanicButton() {

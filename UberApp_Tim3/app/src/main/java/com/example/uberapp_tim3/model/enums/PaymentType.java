@@ -9,21 +9,4 @@ public enum PaymentType {
     PAYPAL,
     BITCOIN;
 
-    private ArrayList<Payment> payments;
-
-    PaymentType() {
-        this.payments = new ArrayList<>();
-    }
-
-    public ArrayList<Payment> getPayments() {
-        return payments;
-    }
-
-    public void setPayments(ArrayList<Payment> payments) {
-        this.payments = payments;
-    }
-
-    PaymentType(ArrayList<Payment> payments) {
-        this.payments = payments;
-    }
 }
