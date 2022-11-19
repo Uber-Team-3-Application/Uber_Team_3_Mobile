@@ -24,7 +24,7 @@ public class Drive implements Parcelable  {
     private boolean babyTransport;
     private boolean petTransport;
     private boolean splitFare;
-    private Drive driver;
+    private Driver driver;
     private TypeOfVehicle typeOfVehicle;
     private DriveStatus driveStatus;
     private ArrayList<Passenger> passengers;
@@ -44,7 +44,7 @@ public class Drive implements Parcelable  {
         this.reviews = new ArrayList<>();
     }
 
-    public Drive(LocalDateTime startTime, LocalDateTime endTime, double price, LocalTime approximateTime, boolean babyTransport, boolean petTransport, boolean splitFare, Drive driver, TypeOfVehicle typeOfVehicle, DriveStatus driveStatus, ArrayList<Passenger> passengers, ArrayList<Message> messages, PanicButton panicButton, ArrayList<Rejection> rejections, ArrayList<Path> paths, ArrayList<Payment> payments, ArrayList<Review> reviews) {
+    public Drive(LocalDateTime startTime, LocalDateTime endTime, double price, LocalTime approximateTime, boolean babyTransport, boolean petTransport, boolean splitFare, Driver driver, TypeOfVehicle typeOfVehicle, DriveStatus driveStatus, ArrayList<Passenger> passengers, ArrayList<Message> messages, PanicButton panicButton, ArrayList<Rejection> rejections, ArrayList<Path> paths, ArrayList<Payment> payments, ArrayList<Review> reviews) {
         this.id = 0;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -66,7 +66,8 @@ public class Drive implements Parcelable  {
     }
 
 
-    public Drive(int id, LocalDateTime startTime, LocalDateTime endTime, double price, LocalTime approximateTime, boolean babyTransport, boolean petTransport, boolean splitFare, Drive driver, TypeOfVehicle typeOfVehicle, DriveStatus driveStatus, ArrayList<Passenger> passengers, ArrayList<Message> messages, PanicButton panicButton, ArrayList<Rejection> rejections, ArrayList<Path> paths, ArrayList<Payment> payments, ArrayList<Review> reviews) {
+    public Drive(int id, LocalDateTime startTime, LocalDateTime endTime, double price, LocalTime approximateTime,
+                 boolean babyTransport, boolean petTransport, boolean splitFare, Driver driver, TypeOfVehicle typeOfVehicle, DriveStatus driveStatus, ArrayList<Passenger> passengers, ArrayList<Message> messages, PanicButton panicButton, ArrayList<Rejection> rejections, ArrayList<Path> paths, ArrayList<Payment> payments, ArrayList<Review> reviews) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -87,13 +88,13 @@ public class Drive implements Parcelable  {
         this.reviews = reviews;
     }
 
+
     protected Drive(Parcel in) {
         id = in.readInt();
         price = in.readDouble();
         babyTransport = in.readByte() != 0;
         petTransport = in.readByte() != 0;
         splitFare = in.readByte() != 0;
-        driver = in.readParcelable(Drive.class.getClassLoader());
     }
 
     public static final Creator<Drive> CREATOR = new Creator<Drive>() {
@@ -107,6 +108,20 @@ public class Drive implements Parcelable  {
             return new Drive[size];
         }
     };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeDouble(price);
+        parcel.writeByte((byte) (babyTransport ? 1 : 0));
+        parcel.writeByte((byte) (petTransport ? 1 : 0));
+        parcel.writeByte((byte) (splitFare ? 1 : 0));
+    }
 
     public int getId() {
         return id;
@@ -172,11 +187,11 @@ public class Drive implements Parcelable  {
         this.splitFare = splitFare;
     }
 
-    public Drive getDriver() {
+    public Driver getDriver() {
         return driver;
     }
 
-    public void setDriver(Drive driver) {
+    public void setDriver(Driver driver) {
         this.driver = driver;
     }
 
@@ -250,21 +265,6 @@ public class Drive implements Parcelable  {
 
     public void setReviews(ArrayList<Review> reviews) {
         this.reviews = reviews;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
-        parcel.writeDouble(price);
-        parcel.writeByte((byte) (babyTransport ? 1 : 0));
-        parcel.writeByte((byte) (petTransport ? 1 : 0));
-        parcel.writeByte((byte) (splitFare ? 1 : 0));
-        parcel.writeParcelable(driver, i);
     }
 }
 
