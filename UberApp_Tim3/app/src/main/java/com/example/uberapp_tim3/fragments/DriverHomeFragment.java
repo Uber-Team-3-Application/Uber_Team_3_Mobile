@@ -45,21 +45,4 @@ public class DriverHomeFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Switch activeSwitch = getView().findViewById(R.id.btnToggleOnline);
-
-        activeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b)
-                    Toast.makeText(getView().getContext(), "STATUS: Online", Toast.LENGTH_SHORT);
-                else
-                    Toast.makeText(getView().getContext(), "STATUS: Offline", Toast.LENGTH_SHORT);
-
-            }
-        });
-
-        super.onViewCreated(view, savedInstanceState);
-    }
 }
