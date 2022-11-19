@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/uber_green_lily"
-    tools:context=".fragments.PassengerAccountFragment">
+    tools:context=".fragments.passanger.PassengerAccountFragment">
 
 
     <androidx.cardview.widget.CardView

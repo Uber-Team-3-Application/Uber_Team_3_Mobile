@@ -1,4 +1,4 @@
-package com.example.uberapp_tim3.fragments;
+package com.example.uberapp_tim3.fragments.driver;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.fragments.EditCarInformationFragment;
+import com.example.uberapp_tim3.fragments.EditPasswordFragment;
 import com.example.uberapp_tim3.model.mockup.Driver;
 import com.example.uberapp_tim3.tools.DriverMockup;
 import com.example.uberapp_tim3.tools.FragmentTransition;

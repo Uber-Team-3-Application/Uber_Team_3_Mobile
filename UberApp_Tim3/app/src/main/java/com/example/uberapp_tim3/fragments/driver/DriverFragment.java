@@ -1,4 +1,4 @@
-package com.example.uberapp_tim3.fragments;
+package com.example.uberapp_tim3.fragments.driver;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -4,12 +4,10 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.annotation.SuppressLint;
-import android.app.FragmentManager;
 import android.os.Bundle;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.fragments.DriverFragment;
+import com.example.uberapp_tim3.fragments.driver.DriverFragment;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 
 public class DriverRideHistoryActivity extends AppCompatActivity {

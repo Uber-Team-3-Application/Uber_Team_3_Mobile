@@ -29,7 +29,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".fragments.PassengerInfoProfile"
+            android:name=".fragments.passanger.PassengerInfoProfile"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -37,7 +37,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".fragments.DriverAccountFragment"
+            android:name=".fragments.driver.DriverAccountFragment"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -52,7 +52,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".fragments.PassengerInboxFragment"
+            android:name=".fragments.passanger.PassengerInboxFragment"
             android:exported="false"
             android:label="My Inbox">
             <meta-data
@@ -60,7 +60,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".fragments.PassengerAccountFragment"
+            android:name=".fragments.passanger.PassengerAccountFragment"
             android:exported="false"
             android:label="My Account">
             <meta-data
