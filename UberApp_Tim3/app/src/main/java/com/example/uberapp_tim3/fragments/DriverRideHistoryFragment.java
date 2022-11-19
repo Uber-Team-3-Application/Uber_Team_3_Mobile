@@ -11,7 +11,8 @@ import android.widget.ListView;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.adapters.DrawerListAdapter;
-import com.example.uberapp_tim3.model.drives.Drive;
+import com.example.uberapp_tim3.model.mockup.Drive;
+import com.example.uberapp_tim3.tools.DrivesMockUp;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 
 /**

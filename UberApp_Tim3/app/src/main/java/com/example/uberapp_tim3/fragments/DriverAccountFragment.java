@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.model.users.Driver;
+import com.example.uberapp_tim3.model.mockup.Driver;
 import com.example.uberapp_tim3.tools.DriverMockup;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 

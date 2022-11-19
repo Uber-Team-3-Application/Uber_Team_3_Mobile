@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.model.users.Passenger;
+import com.example.uberapp_tim3.model.mockup.Passenger;
 import com.example.uberapp_tim3.tools.PassengerMockup;
 
 public class PassengerInfoProfile extends Fragment {
