@@ -1,15 +1,9 @@
 package com.example.uberapp_tim3.tools;
 
-import android.annotation.SuppressLint;
+import com.example.uberapp_tim3.model.drives.Drive;
+import com.example.uberapp_tim3.model.users.Passenger;
 
-import com.example.uberapp_tim3.model.Drive;
-import com.example.uberapp_tim3.model.Driver;
-import com.example.uberapp_tim3.model.Passenger;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 

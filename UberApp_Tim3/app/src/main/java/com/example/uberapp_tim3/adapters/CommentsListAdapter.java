@@ -4,17 +4,11 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.fragments.DriverRideHistoryFragment;
-import com.example.uberapp_tim3.model.Drive;
-import com.example.uberapp_tim3.model.Passenger;
-import com.example.uberapp_tim3.tools.DrivesMockUp;
-import com.example.uberapp_tim3.tools.FragmentTransition;
+import com.example.uberapp_tim3.model.users.Passenger;
 
 import java.util.ArrayList;
 import java.util.HashMap;

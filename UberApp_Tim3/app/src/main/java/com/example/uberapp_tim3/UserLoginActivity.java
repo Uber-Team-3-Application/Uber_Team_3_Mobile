@@ -8,9 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.uberapp_tim3.model.Driver;
 
 public class UserLoginActivity extends AppCompatActivity {
 

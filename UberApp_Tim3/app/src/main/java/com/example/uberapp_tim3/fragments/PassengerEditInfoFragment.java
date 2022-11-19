@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.model.Passenger;
+import com.example.uberapp_tim3.model.users.Passenger;
 import com.example.uberapp_tim3.tools.PassengerMockup;
 
 

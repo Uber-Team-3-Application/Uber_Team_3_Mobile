@@ -1,15 +1,10 @@
 package com.example.uberapp_tim3.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.ListFragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +13,8 @@ import android.widget.ListView;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.adapters.PassengersListAdapter;
-import com.example.uberapp_tim3.fragments.placeholder.PlaceholderContent;
-import com.example.uberapp_tim3.model.Drive;
-import com.example.uberapp_tim3.model.Passenger;
+import com.example.uberapp_tim3.model.drives.Drive;
 import com.example.uberapp_tim3.tools.FragmentTransition;
-import com.example.uberapp_tim3.tools.PassengerMockup;
 
 /**
  * A fragment representing a list of Items.&laquo;

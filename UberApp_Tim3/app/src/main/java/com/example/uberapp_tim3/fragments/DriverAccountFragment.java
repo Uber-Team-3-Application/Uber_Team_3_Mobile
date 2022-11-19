@@ -1,6 +1,5 @@
 package com.example.uberapp_tim3.fragments;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,10 +14,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.model.Driver;
+import com.example.uberapp_tim3.model.users.Driver;
 import com.example.uberapp_tim3.tools.DriverMockup;
 import com.example.uberapp_tim3.tools.FragmentTransition;
-import com.google.android.material.snackbar.Snackbar;
 
 public class DriverAccountFragment extends Fragment implements View.OnClickListener {
 

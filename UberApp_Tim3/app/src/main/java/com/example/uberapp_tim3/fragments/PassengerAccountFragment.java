@@ -11,11 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.model.Passenger;
-import com.example.uberapp_tim3.tools.FragmentTransition;
+import com.example.uberapp_tim3.model.users.Passenger;
 import com.example.uberapp_tim3.tools.PassengerMockup;
 
 public class PassengerAccountFragment extends Fragment {

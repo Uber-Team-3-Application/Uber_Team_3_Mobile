@@ -1,6 +1,6 @@
 package com.example.uberapp_tim3.tools;
 
-import com.example.uberapp_tim3.model.Passenger;
+import com.example.uberapp_tim3.model.users.Passenger;
 
 import java.util.ArrayList;
 import java.util.List;
