@@ -2,12 +2,15 @@ package com.example.uberapp_tim3.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -40,5 +43,23 @@ public class DriverHomeFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_driver_home, container, false);
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Switch activeSwitch = getView().findViewById(R.id.btnToggleOnline);
+
+        activeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b)
+                    Toast.makeText(getView().getContext(), "STATUS: Online", Toast.LENGTH_SHORT);
+                else
+                    Toast.makeText(getView().getContext(), "STATUS: Offline", Toast.LENGTH_SHORT);
+
+            }
+        });
+
+        super.onViewCreated(view, savedInstanceState);
     }
 }

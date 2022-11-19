@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
 
@@ -58,7 +59,9 @@ public class EditPasswordFragment extends Fragment {
         ((Button) getActivity().findViewById(R.id.btnSaveEditPassword)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(getView().getContext(), "Successfully saved password!", Toast.LENGTH_SHORT).show();
                 getActivity().getSupportFragmentManager().popBackStackImmediate();
+                
             }
         });
     }
