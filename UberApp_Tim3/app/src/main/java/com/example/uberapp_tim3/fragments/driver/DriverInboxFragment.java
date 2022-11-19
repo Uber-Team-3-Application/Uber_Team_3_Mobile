@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.uberapp_tim3.R;
 
-public class DriverInboxFragment extends Fragment {
+public class wDriverInboxFragment extends Fragment {
 
     @Nullable
     @Override
