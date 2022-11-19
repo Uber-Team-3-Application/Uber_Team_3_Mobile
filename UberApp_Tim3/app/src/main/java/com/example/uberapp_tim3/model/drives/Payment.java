@@ -1,6 +1,6 @@
 package com.example.uberapp_tim3.model.drives;
 
-import com.example.uberapp_tim3.enums.PaymentType;
+import com.example.uberapp_tim3.model.enums.PaymentType;
 import com.example.uberapp_tim3.model.users.Passenger;
 
 import java.time.LocalDateTime;

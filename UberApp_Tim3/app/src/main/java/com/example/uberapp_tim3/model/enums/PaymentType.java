@@ -1,4 +1,4 @@
-package com.example.uberapp_tim3.enums;
+package com.example.uberapp_tim3.model.enums;
 
 import com.example.uberapp_tim3.model.drives.Payment;
 

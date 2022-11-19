@@ -1,11 +1,9 @@
 package com.example.uberapp_tim3.fragments;
 
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -16,11 +14,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.model.Drive;
-import com.example.uberapp_tim3.tools.DrivesMockUp;
+import com.example.uberapp_tim3.model.drives.Drive;
 import com.example.uberapp_tim3.tools.FragmentTransition;
-
-import java.util.Objects;
 
 public class DriveItemDetail extends Fragment {
 

@@ -3,7 +3,7 @@ package com.example.uberapp_tim3.model.drives;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.example.uberapp_tim3.enums.DriveStatus;
+import com.example.uberapp_tim3.model.enums.DriveStatus;
 import com.example.uberapp_tim3.model.items.Message;
 import com.example.uberapp_tim3.model.items.PanicButton;
 import com.example.uberapp_tim3.model.users.Driver;

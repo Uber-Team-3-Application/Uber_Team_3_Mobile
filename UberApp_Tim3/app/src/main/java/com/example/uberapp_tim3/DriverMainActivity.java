@@ -9,24 +9,18 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.example.uberapp_tim3.adapters.DrawerNavListAdapter;
 import com.example.uberapp_tim3.fragments.DriverAccountFragment;
-import com.example.uberapp_tim3.fragments.DriverFragment;
 import com.example.uberapp_tim3.fragments.DriverHomeFragment;
 import com.example.uberapp_tim3.fragments.DriverInboxFragment;
 import com.example.uberapp_tim3.fragments.DriverRideHistoryFragment;
-import com.example.uberapp_tim3.fragments.PassengerAccountFragment;
-import com.example.uberapp_tim3.model.NavItem;
+import com.example.uberapp_tim3.model.items.NavItem;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 
 import java.util.ArrayList;
