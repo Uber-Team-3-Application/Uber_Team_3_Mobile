@@ -16,7 +16,6 @@ public class Driver extends User {
     private String driversLicenseNumber;
     private String vehicleRegistrationNumber;
     private boolean isActive;
-    private ArrayList<WorkingHour> workingHour;
     private ArrayList<Vehicle> vehicles;
     private ArrayList<Drive> drives;
 
@@ -25,12 +24,11 @@ public class Driver extends User {
                   ArrayList<Message> receiverInbox, ArrayList<Message> senderInbox,
                   ArrayList<PanicButton> panicButtons, ArrayList<Rejection> rejections,
                   String driversLicenseNumber, String vehicleRegistrationNumber, boolean isActive,
-                  ArrayList<WorkingHour> workingHour, ArrayList<Vehicle> vehicles, ArrayList<Drive> drives) {
+                  ArrayList<Vehicle> vehicles, ArrayList<Drive> drives) {
         super(id, name, lastName, profilePicture, phoneNumber, emailAddress, password, isBlocked, address, receiverInbox, senderInbox, panicButtons, rejections);
         this.driversLicenseNumber = driversLicenseNumber;
         this.vehicleRegistrationNumber = vehicleRegistrationNumber;
         this.isActive = isActive;
-        this.workingHour = workingHour;
         this.vehicles = vehicles;
         this.drives = drives;
     }
@@ -39,13 +37,12 @@ public class Driver extends User {
                   String password, boolean isBlocked, String address, ArrayList<Message> receiverInbox,
                   ArrayList<Message> senderInbox, ArrayList<PanicButton> panicButtons,
                   ArrayList<Rejection> rejections, String driversLicenseNumber, String vehicleRegistrationNumber,
-                  boolean isActive, ArrayList<WorkingHour> workingHour, ArrayList<Vehicle> vehicles,
+                  boolean isActive, ArrayList<Vehicle> vehicles,
                   ArrayList<Drive> drives) {
         super(name, lastName, profilePicture, phoneNumber, emailAddress, password, isBlocked, address, receiverInbox, senderInbox, panicButtons, rejections);
         this.driversLicenseNumber = driversLicenseNumber;
         this.vehicleRegistrationNumber = vehicleRegistrationNumber;
         this.isActive = isActive;
-        this.workingHour = workingHour;
         this.vehicles = vehicles;
         this.drives = drives;
     }
@@ -53,7 +50,6 @@ public class Driver extends User {
     public Driver() {
         super();
         this.isActive = false;
-        this.workingHour = new ArrayList<>();
         this.vehicles = new ArrayList<>();
         this.drives = new ArrayList<>();
     }
@@ -74,15 +70,6 @@ public class Driver extends User {
         this.vehicles = vehicles;
     }
 
-
-
-    public ArrayList<WorkingHour> getWorkingHour() {
-        return workingHour;
-    }
-
-    public void setWorkingHour(ArrayList<WorkingHour> workingHour) {
-        this.workingHour = workingHour;
-    }
 
     public String getDriversLicenseNumber() {
         return driversLicenseNumber;
