@@ -9,6 +9,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,7 +29,11 @@ import com.example.uberapp_tim3.tools.FragmentTransition;
 
 import java.util.ArrayList;
 
+
 public class DriverMainActivity extends AppCompatActivity {
+
+    private final static String DRIVER_CHANEL = "Driver channel";
+
 
     private ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
     private DrawerLayout mDrawerLayout;
@@ -82,6 +89,8 @@ public class DriverMainActivity extends AppCompatActivity {
             }
         };
 
+        createNotificationChannel();
+
         if (savedInstanceState == null)
             selectItemFromDrawer(3);
 
@@ -123,5 +132,19 @@ public class DriverMainActivity extends AppCompatActivity {
         mNavItems.add(new NavItem(getString(R.string.driver_inbox), getString(R.string.driver_inbox_long), R.drawable.ic_message));
         mNavItems.add(new NavItem(getString(R.string.driver_back), getString(R.string.driver_back_long), R.drawable.ic_home));
         mNavItems.add(new NavItem(getString(R.string.log_out) , getString(R.string.logout), R.drawable.ic_logout));
+    }
+
+
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Notification channel";
+            String description = "Description";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(DRIVER_CHANEL, name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }

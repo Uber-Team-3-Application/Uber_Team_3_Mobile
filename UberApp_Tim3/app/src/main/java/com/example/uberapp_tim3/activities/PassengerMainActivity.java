@@ -7,6 +7,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -20,6 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 
 public class PassengerMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private final static String PASSENGER_CHANEL = "Passenger channel";
     private DrawerLayout drawer;
 
     @Override
@@ -38,6 +42,8 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        createNotificationChannel();
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerMapFragment()).commit();
@@ -113,5 +119,18 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
     @Override
     protected void onRestart() {
         super.onRestart();
+    }
+
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Notification channel";
+            String description = "Description";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(PASSENGER_CHANEL, name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }
