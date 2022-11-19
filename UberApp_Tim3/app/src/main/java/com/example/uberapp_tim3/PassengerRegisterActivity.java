@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -41,6 +42,30 @@ public class PassengerRegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(PassengerRegisterActivity.this, "Functionality not implemented!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        EditText password = findViewById(R.id.txtPassword);
+        EditText repeatPassword = findViewById(R.id.txtPasswordRepeat);
+
+        password.setHint("password123");
+        repeatPassword.setHint("password123");
+        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(b)
+                    password.setHint("");
+                else
+                    password.setHint("password123");
+            }
+        });
+        repeatPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(b)
+                    repeatPassword.setHint("");
+                else
+                    repeatPassword.setHint("password123");
             }
         });
     }
