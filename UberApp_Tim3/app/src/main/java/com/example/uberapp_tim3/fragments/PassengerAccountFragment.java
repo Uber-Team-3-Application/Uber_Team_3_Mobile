@@ -89,6 +89,7 @@ public class PassengerAccountFragment extends Fragment {
         Button btnEditBasicInfo = getView().findViewById(R.id.btnEditBasicPassInfo);
         Button btnPassRoutes = getView().findViewById(R.id.btnFavouriteRoutes);
         Button btnPassReports = getView().findViewById(R.id.btnPassengerReports);
+        Button btnEditCard = getView().findViewById(R.id.btnEditCardInfo);
 
         btnEditBasicInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +119,14 @@ public class PassengerAccountFragment extends Fragment {
 
             }
         });
+        btnEditCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerFinancialCardFragment()).addToBackStack(null).commit();
+
+            }
+        });
+
     }
 
 

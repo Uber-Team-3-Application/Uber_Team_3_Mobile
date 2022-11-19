@@ -246,6 +246,9 @@
     <string name="mirko_cemes">Marko Markovic</string>
     <string name="edit_info">Edit personal info</string>
     <string name="edit_password">Edit Password</string>
+    <string name="enter_card_ammount">Enter Card Ammount</string>
+    <string name="_5000">5000</string>
+    <string name="edit_card_info">Edit Card Information</string>
 
 
 </resources>

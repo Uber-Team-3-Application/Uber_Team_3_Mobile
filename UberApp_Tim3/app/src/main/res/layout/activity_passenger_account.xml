@@ -173,6 +173,13 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/btnEditCardInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_card_info"
+
+            />
+        <Button
             android:id="@+id/btnFavouriteRoutes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

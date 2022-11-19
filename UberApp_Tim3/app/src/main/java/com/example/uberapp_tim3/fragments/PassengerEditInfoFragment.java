@@ -49,7 +49,6 @@ public class PassengerEditInfoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         fillViews();
         setOnClickListeners();
-        setOnCheckedChangedListeners();
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -65,58 +64,17 @@ public class PassengerEditInfoFragment extends Fragment {
 
     }
 
-    private void setOnCheckedChangedListeners() {
-        RadioButton rbCard = getActivity().findViewById(R.id.rbCard);
-        RadioButton rbPaypal = getActivity().findViewById(R.id.rbPaypal);
-        RadioButton rbBitcoin = getActivity().findViewById(R.id.rbBitcoin);
 
-        rbCard.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    ((EditText) getActivity().findViewById(R.id.txtPassengerCardNumber)).setText("");
-                    rbPaypal.setChecked(false);
-                    rbBitcoin.setChecked(false);
-                }
-            }
-        });
-
-        rbPaypal.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    ((EditText) getActivity().findViewById(R.id.txtPassengerCardNumber)).setText("");
-
-                    rbCard.setChecked(false);
-                    rbBitcoin.setChecked(false);
-                }
-            }
-        });
-
-        rbBitcoin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    ((EditText) getActivity().findViewById(R.id.txtPassengerCardNumber)).setText("");
-                    rbCard.setChecked(false);
-                    rbPaypal.setChecked(false);
-                }
-            }
-        });
-    }
 
     private void fillViews() {
 
         Passenger passenger = PassengerMockup.getPassengers().get(0);
-        RadioButton rbCard = getActivity().findViewById(R.id.rbCard);
-        rbCard.setChecked(true);
-
+        
         ((EditText) getActivity().findViewById(R.id.txtPassengerEditFirstName)).setText(passenger.getName());
         ((EditText) getActivity().findViewById(R.id.txtPassengerEditLastName)).setText(passenger.getLastName());
         ((EditText) getActivity().findViewById(R.id.txtPassengerEditPhoneNumber)).setText(passenger.getPhoneNumber());
 
         ((EditText) getActivity().findViewById(R.id.txtHomeAddressEdit)).setText(passenger.getAddress());
-        ((EditText) getActivity().findViewById(R.id.txtPassengerCardNumber)).setText("124124534");
 
     }
 
