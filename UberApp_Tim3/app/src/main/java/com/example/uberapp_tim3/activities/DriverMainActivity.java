@@ -17,10 +17,10 @@ import android.widget.RelativeLayout;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.adapters.DrawerNavListAdapter;
-import com.example.uberapp_tim3.fragments.DriverAccountFragment;
-import com.example.uberapp_tim3.fragments.DriverHomeFragment;
-import com.example.uberapp_tim3.fragments.DriverInboxFragment;
-import com.example.uberapp_tim3.fragments.DriverRideHistoryFragment;
+import com.example.uberapp_tim3.fragments.driver.DriverAccountFragment;
+import com.example.uberapp_tim3.fragments.driver.DriverHomeFragment;
+import com.example.uberapp_tim3.fragments.driver.DriverInboxFragment;
+import com.example.uberapp_tim3.fragments.driver.DriverRideHistoryFragment;
 import com.example.uberapp_tim3.model.items.NavItem;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 

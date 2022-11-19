@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
 
     android:background="@color/uber_green_lily"
-    tools:context=".fragments.DriverAccountFragment">
+    tools:context=".fragments.driver.DriverAccountFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/relLayoutDriverAcc"

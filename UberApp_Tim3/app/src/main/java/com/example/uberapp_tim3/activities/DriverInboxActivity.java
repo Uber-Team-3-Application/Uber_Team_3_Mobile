@@ -6,10 +6,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.fragments.DriverFragment;
+import com.example.uberapp_tim3.fragments.driver.DriverFragment;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 
 public class DriverInboxActivity extends AppCompatActivity {
