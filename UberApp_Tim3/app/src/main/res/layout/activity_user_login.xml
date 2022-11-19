@@ -74,6 +74,7 @@
                         android:id="@+id/editTxtEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:hint="@string/example_email"
                         android:inputType="textEmailAddress" />
                 </LinearLayout>
@@ -104,12 +105,23 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="13dp">
 
-                    <EditText
-                        android:id="@+id/editTxtPassword"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/password_example"
-                        android:inputType="textPassword" />
+                        app:passwordToggleEnabled="true"
+
+                        >
+
+                        <EditText
+                            android:id="@+id/editTxtPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:backgroundTint="#55FFFFFF"
+                            android:inputType="textPassword" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
                 </LinearLayout>
             </RelativeLayout>
 
@@ -118,6 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
 
+                android:layout_marginVertical="4dp"
                 android:text="@string/forgot_password"
                 android:textColor="@color/uber_green_lily"
                 android:textSize="12sp" />

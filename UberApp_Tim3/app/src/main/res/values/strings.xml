@@ -245,6 +245,21 @@
     <string name="change_driver_licences">Change Driver Licences</string>
     <string name="mirko_cemes">Marko Markovic</string>
     <string name="edit_info">Edit personal info</string>
+    <string name="edit_password">Edit Password</string>
+    <string name="enter_card_ammount">Enter Card Ammount</string>
+    <string name="_5000">5000</string>
+    <string name="edit_card_info">Edit Card Information</string>
+    <string name="edit_vehicle_information">EDIT VEHICLE INFORMATION</string>
+    <string name="edit_car_information">Edit Vehicle Information</string>
+    <string name="model">Model</string>
+    <string name="r8_audi">R8 Audi</string>
+    <string name="_4dsa968">4dsa968</string>
+    <string name="registration_nr">Registration nr.</string>
+    <string name="body_type">Body Type</string>
+    <string name="lux">LUXURY</string>
+    <string name="number_of_seats">Number of Seats</string>
+    <string name="baby_transport">Baby Transport</string>
+    <string name="pet_transport">Pet Transport</string>
 
 
 </resources>

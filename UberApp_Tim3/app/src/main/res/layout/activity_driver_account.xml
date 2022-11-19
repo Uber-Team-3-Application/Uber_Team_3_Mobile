@@ -137,34 +137,23 @@
                 android:textStyle="bold|italic" />
 
 
-            <TextView
-                android:id="@+id/txtCarReg"
+            <Button
+                android:id="@+id/btnEditPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txtDriverLicense"
-                android:layout_marginStart="10dp"
+                android:layout_below="@id/txtDriverLicense"
+                android:layout_toLeftOf="@+id/btnEditDriverInfo"
                 android:layout_marginTop="20dp"
-                android:text="@string/vehicle_registration_number"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/txtCarRegistration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtDriverLicense"
-                android:layout_alignStart="@+id/txtCarReg"
-                android:layout_marginStart="144dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/vehicle_registration_real_number"
-                android:textSize="16sp"
-                android:textStyle="bold|italic" />
-
+                android:layout_marginRight="10dp"
+                android:paddingVertical="10dp"
+                android:text="@string/edit_password"
+                android:textSize="13sp" />
 
             <Button
                 android:id="@+id/btnEditDriverInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txtCarRegistration"
+                android:layout_below="@+id/txtDriverLicense"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
@@ -184,6 +173,14 @@
         android:layout_marginTop="20dp"
         android:orientation="vertical">
 
+
+        <Button
+            android:id="@+id/btnEditCarInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_vehicle_information"
+
+            />
         <Button
             android:id="@+id/btnDriverStatistics"
             android:layout_width="match_parent"

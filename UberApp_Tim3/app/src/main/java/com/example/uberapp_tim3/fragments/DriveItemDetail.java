@@ -14,7 +14,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.model.drives.Drive;
+import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 
 public class DriveItemDetail extends Fragment {

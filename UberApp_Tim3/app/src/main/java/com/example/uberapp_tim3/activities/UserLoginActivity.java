@@ -42,6 +42,18 @@ public class UserLoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        EditText password = findViewById(R.id.editTxtPassword);
+        password.setHint("password123");
+        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(b)
+                    password.setHint("");
+                else
+                    password.setHint("password123");
+            }
+        });
     }
     @Override
     protected void onStart() {

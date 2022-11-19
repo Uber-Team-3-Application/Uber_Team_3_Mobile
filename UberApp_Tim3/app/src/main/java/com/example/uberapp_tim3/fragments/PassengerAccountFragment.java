@@ -83,9 +83,11 @@ public class PassengerAccountFragment extends Fragment {
     }
 
     private void setOnClickListeners() {
+        Button btnEditPassword = getView().findViewById(R.id.btnEditPassword);
         Button btnEditBasicInfo = getView().findViewById(R.id.btnEditBasicPassInfo);
         Button btnPassRoutes = getView().findViewById(R.id.btnFavouriteRoutes);
         Button btnPassReports = getView().findViewById(R.id.btnPassengerReports);
+        Button btnEditCard = getView().findViewById(R.id.btnEditCardInfo);
 
         btnEditBasicInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +109,22 @@ public class PassengerAccountFragment extends Fragment {
 
             }
         });
+
+        btnEditPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EditPasswordFragment()).addToBackStack(null).commit();
+
+            }
+        });
+        btnEditCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerFinancialCardFragment()).addToBackStack(null).commit();
+
+            }
+        });
+
     }
 
 
