@@ -4,13 +4,12 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.model.Passenger;
+import com.example.uberapp_tim3.model.mockup.Passenger;
 
 
 import java.util.List;

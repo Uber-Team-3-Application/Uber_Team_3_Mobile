@@ -8,7 +8,7 @@
     android:background="@color/white"
     android:focusableInTouchMode="true"
     android:gravity="center"
-    tools:context=".UserLoginActivity">
+    tools:context=".activities.UserLoginActivity">
 
     <ScrollView
         android:layout_width="match_parent"

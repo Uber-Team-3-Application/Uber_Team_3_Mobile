@@ -13,7 +13,7 @@
         android:theme="@style/Theme.UberApp_Tim3"
         tools:targetApi="31">
         <activity
-            android:name=".DriverInboxActivity"
+            android:name=".activities.DriverInboxActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -21,7 +21,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".DriverRideHistoryActivity"
+            android:name=".activities.DriverRideHistoryActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -29,7 +29,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".fragments.PassengerInfoProfile"
+            android:name=".fragments.passanger.PassengerInfoProfile"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -37,14 +37,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".fragments.DriverAccountFragment"
+            android:name=".fragments.driver.DriverAccountFragment"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".DriverMainActivity"
+            android:name=".activities.DriverMainActivity"
             android:exported="true"
             android:label="Home">
             <meta-data
@@ -52,7 +52,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".fragments.PassengerInboxFragment"
+            android:name=".fragments.passanger.PassengerInboxFragment"
             android:exported="false"
             android:label="My Inbox">
             <meta-data
@@ -60,7 +60,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".fragments.PassengerAccountFragment"
+            android:name=".fragments.passanger.PassengerAccountFragment"
             android:exported="false"
             android:label="My Account">
             <meta-data
@@ -68,7 +68,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".PassengerMainActivity"
+            android:name=".activities.PassengerMainActivity"
             android:exported="false"
             android:label="Passenger">
             <meta-data
@@ -76,7 +76,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".PassengerRegisterActivity"
+            android:name=".activities.PassengerRegisterActivity"
             android:exported="false"
             android:label="Register">
             <meta-data
@@ -84,7 +84,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".UserLoginActivity"
+            android:name=".activities.UserLoginActivity"
             android:exported="true"
             android:label="Login">
             <meta-data
@@ -92,7 +92,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".SplashActivity"
+            android:name=".activities.SplashActivity"
             android:exported="true"
             android:label="Reesen">
             <intent-filter>
