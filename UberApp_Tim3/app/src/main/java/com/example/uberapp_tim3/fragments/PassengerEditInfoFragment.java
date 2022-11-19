@@ -69,7 +69,7 @@ public class PassengerEditInfoFragment extends Fragment {
     private void fillViews() {
 
         Passenger passenger = PassengerMockup.getPassengers().get(0);
-        
+
         ((EditText) getActivity().findViewById(R.id.txtPassengerEditFirstName)).setText(passenger.getName());
         ((EditText) getActivity().findViewById(R.id.txtPassengerEditLastName)).setText(passenger.getLastName());
         ((EditText) getActivity().findViewById(R.id.txtPassengerEditPhoneNumber)).setText(passenger.getPhoneNumber());

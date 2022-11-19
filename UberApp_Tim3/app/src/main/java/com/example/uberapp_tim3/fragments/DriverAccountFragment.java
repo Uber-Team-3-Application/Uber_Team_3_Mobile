@@ -78,6 +78,13 @@ public class DriverAccountFragment extends Fragment implements View.OnClickListe
             }
         });
 
+        ((Button)getActivity().findViewById(R.id.btnEditCarInfo)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransition.to(new EditCarInformationFragment(), getActivity(), true);
+            }
+        });
+
     }
 
 

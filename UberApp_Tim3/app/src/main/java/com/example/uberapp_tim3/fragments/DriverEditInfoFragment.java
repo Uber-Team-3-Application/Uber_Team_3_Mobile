@@ -63,7 +63,6 @@ public class DriverEditInfoFragment extends Fragment {
         ((EditText)getActivity().findViewById(R.id.txtDriverEditPhoneNumber)).setText(driver.getPhoneNumber());
 
         ((EditText)getActivity().findViewById(R.id.txtDriverEditLicense)).setText(driver.getDriversLicenseNumber());
-        ((EditText)getActivity().findViewById(R.id.txtDriverEditCarRegistration)).setText(driver.getVehicleRegistrationNumber());
 
         ((EditText)getActivity().findViewById(R.id.txtDriverAddressEdit)).setText(driver.getAddress());
 
