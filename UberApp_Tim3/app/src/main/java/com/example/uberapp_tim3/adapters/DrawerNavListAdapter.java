@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.model.NavItem;
-
 import java.util.ArrayList;
 
 public class DrawerNavListAdapter extends BaseAdapter {
