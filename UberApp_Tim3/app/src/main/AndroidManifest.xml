@@ -76,7 +76,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".PassengerRegisterActivity"
+            android:name=".activities.PassengerRegisterActivity"
             android:exported="false"
             android:label="Register">
             <meta-data
@@ -84,7 +84,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".UserLoginActivity"
+            android:name=".activities.UserLoginActivity"
             android:exported="true"
             android:label="Login">
             <meta-data

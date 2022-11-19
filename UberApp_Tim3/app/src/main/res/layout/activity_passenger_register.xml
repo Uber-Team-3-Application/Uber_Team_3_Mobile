@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/uber_sage"
     android:orientation="vertical"
-    tools:context=".PassengerRegisterActivity">
+    tools:context=".activities.PassengerRegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

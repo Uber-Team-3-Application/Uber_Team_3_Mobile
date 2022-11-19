@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.model.users.Passenger;
+import com.example.uberapp_tim3.model.mockup.Passenger;
 
 
 import java.util.List;

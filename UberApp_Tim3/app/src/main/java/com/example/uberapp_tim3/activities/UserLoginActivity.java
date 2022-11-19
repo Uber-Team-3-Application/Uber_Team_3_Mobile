@@ -1,4 +1,4 @@
-package com.example.uberapp_tim3;
+package com.example.uberapp_tim3.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,8 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.uberapp_tim3.activities.DriverMainActivity;
-import com.example.uberapp_tim3.activities.PassengerMainActivity;
+import com.example.uberapp_tim3.R;
 
 public class UserLoginActivity extends AppCompatActivity {
 

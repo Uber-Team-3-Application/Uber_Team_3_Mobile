@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.model.users.Passenger;
+import com.example.uberapp_tim3.model.mockup.Passenger;
 import com.example.uberapp_tim3.tools.PassengerMockup;
 
 public class PassengerAccountFragment extends Fragment {
