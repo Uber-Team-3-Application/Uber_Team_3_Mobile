@@ -1,11 +1,12 @@
-package com.example.uberapp_tim3;
+package com.example.uberapp_tim3.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.widget.ProgressBar;
+
+import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.UserLoginActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;

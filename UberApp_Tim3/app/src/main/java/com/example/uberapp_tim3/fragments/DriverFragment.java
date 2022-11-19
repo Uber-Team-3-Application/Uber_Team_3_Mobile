@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.ListFragment;
 
-import com.example.uberapp_tim3.DriverRideHistoryActivity;
+import com.example.uberapp_tim3.activities.DriverRideHistoryActivity;
 import com.example.uberapp_tim3.R;
 
 public class DriverFragment extends ListFragment {

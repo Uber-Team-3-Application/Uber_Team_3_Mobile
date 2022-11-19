@@ -1,4 +1,4 @@
-package com.example.uberapp_tim3;
+package com.example.uberapp_tim3.activities;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.adapters.DrawerNavListAdapter;
 import com.example.uberapp_tim3.fragments.DriverAccountFragment;
 import com.example.uberapp_tim3.fragments.DriverHomeFragment;

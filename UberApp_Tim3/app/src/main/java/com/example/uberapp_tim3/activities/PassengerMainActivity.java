@@ -1,4 +1,4 @@
-package com.example.uberapp_tim3;
+package com.example.uberapp_tim3.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.PassengerAccountFragment;
 import com.example.uberapp_tim3.fragments.PassengerFavouriteRoutesFragment;
 import com.example.uberapp_tim3.fragments.PassengerInboxFragment;
