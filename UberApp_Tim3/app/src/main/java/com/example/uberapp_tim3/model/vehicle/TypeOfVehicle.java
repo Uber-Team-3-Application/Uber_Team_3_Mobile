@@ -1,6 +1,6 @@
 package com.example.uberapp_tim3.model.vehicle;
 
-import com.example.uberapp_tim3.enums.VehicleName;
+import com.example.uberapp_tim3.model.enums.VehicleName;
 import com.example.uberapp_tim3.model.drives.Drive;
 
 import java.util.ArrayList;

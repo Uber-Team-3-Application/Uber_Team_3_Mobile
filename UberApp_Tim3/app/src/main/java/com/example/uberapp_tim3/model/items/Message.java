@@ -1,6 +1,6 @@
 package com.example.uberapp_tim3.model.items;
 
-import com.example.uberapp_tim3.enums.MessageType;
+import com.example.uberapp_tim3.model.enums.MessageType;
 import com.example.uberapp_tim3.model.drives.Drive;
 import com.example.uberapp_tim3.model.users.User;
 
