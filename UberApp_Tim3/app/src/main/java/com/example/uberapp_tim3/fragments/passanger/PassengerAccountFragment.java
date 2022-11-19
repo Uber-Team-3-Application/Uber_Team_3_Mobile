@@ -1,4 +1,4 @@
-package com.example.uberapp_tim3.fragments;
+package com.example.uberapp_tim3.fragments.passanger;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.fragments.EditPasswordFragment;
 import com.example.uberapp_tim3.model.mockup.Passenger;
 import com.example.uberapp_tim3.tools.PassengerMockup;
 

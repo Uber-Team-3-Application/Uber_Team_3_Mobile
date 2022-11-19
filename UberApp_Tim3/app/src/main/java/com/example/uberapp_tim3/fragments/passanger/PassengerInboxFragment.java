@@ -1,4 +1,4 @@
-package com.example.uberapp_tim3.fragments;
+package com.example.uberapp_tim3.fragments.passanger;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

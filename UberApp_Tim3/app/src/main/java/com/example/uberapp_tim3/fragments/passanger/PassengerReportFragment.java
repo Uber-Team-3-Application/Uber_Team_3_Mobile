@@ -1,4 +1,4 @@
-package com.example.uberapp_tim3.fragments;
+package com.example.uberapp_tim3.fragments.passanger;
 
 import android.graphics.Color;
 import android.os.Bundle;
