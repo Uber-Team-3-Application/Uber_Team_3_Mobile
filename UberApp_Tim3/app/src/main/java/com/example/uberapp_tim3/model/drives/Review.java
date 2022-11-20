@@ -4,7 +4,8 @@ import com.example.uberapp_tim3.model.users.Passenger;
 
 public class Review {
     private int id;
-    private double rate;
+    private double rateDriver;
+    private double rateVehicle;
     private String comment;
     private Passenger passenger;
     private Drive drive;
@@ -15,17 +16,19 @@ public class Review {
         this.comment = "";
     }
 
-    public Review(int id, double rate, String comment, Passenger passenger, Drive drive) {
+    public Review(int id, double rateDriver, double rateVehicle, String comment, Passenger passenger, Drive drive) {
         this.id = id;
         this.rate = rate;
+        this.rateVehicle = rateVehicle;	
         this.comment = comment;
         this.passenger = passenger;
         this.drive = drive;
     }
 
-    public Review(double rate, String comment, Passenger passenger, Drive drive) {
+    public Review(double rateDriver, double rateVehicle, String comment, Passenger passenger, Drive drive) {
         this.id = 0;
         this.rate = rate;
+        this.rateVehicle = rateVehicle;
         this.comment = comment;
         this.passenger = passenger;
         this.drive = drive;
@@ -39,13 +42,22 @@ public class Review {
         this.id = id;
     }
 
-    public double getRate() {
-        return rate;
+    public double getRateDriver() {
+        return rateDriver;
     }
 
-    public void setRate(double rate) {
-        this.rate = rate;
+    public void setRateDriver(double rate) {
+        this.rateDriver = rate;
     }
+
+public double getRateVehicle() {
+        return rateVehicle;
+    }
+
+    public void setRateVehicle(double rate) {
+        this.rateVehicle = rate;
+    }
+
 
     public String getComment() {
         return comment;
