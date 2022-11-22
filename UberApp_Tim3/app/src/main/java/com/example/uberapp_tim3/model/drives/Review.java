@@ -12,13 +12,15 @@ public class Review {
 
     public Review() {
         this.id = 0;
-        this.rate = 0.0;
+        this.rateDriver = 0.0;
+        this.rateVehicle = 0.0;
         this.comment = "";
     }
 
     public Review(int id, double rateDriver, double rateVehicle, String comment, Passenger passenger, Drive drive) {
         this.id = id;
-        this.rate = rate;
+        this.rateDriver = rateDriver;
+        this.rateVehicle = rateVehicle;
         this.rateVehicle = rateVehicle;	
         this.comment = comment;
         this.passenger = passenger;
@@ -27,7 +29,7 @@ public class Review {
 
     public Review(double rateDriver, double rateVehicle, String comment, Passenger passenger, Drive drive) {
         this.id = 0;
-        this.rate = rate;
+        this.rateDriver = rateDriver;
         this.rateVehicle = rateVehicle;
         this.comment = comment;
         this.passenger = passenger;
@@ -50,7 +52,7 @@ public class Review {
         this.rateDriver = rate;
     }
 
-public double getRateVehicle() {
+    public double getRateVehicle() {
         return rateVehicle;
     }
 
@@ -82,4 +84,6 @@ public double getRateVehicle() {
     public void setDrive(Drive drive) {
         this.drive = drive;
     }
+
+
 }
