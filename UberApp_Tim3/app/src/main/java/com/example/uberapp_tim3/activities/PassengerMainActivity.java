@@ -13,12 +13,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.fragments.passanger.PassengerAccountFragment;
-import com.example.uberapp_tim3.fragments.passanger.PassengerFavouriteRoutesFragment;
-import com.example.uberapp_tim3.fragments.passanger.PassengerInboxFragment;
-import com.example.uberapp_tim3.fragments.passanger.PassengerMapFragment;
-import com.example.uberapp_tim3.fragments.passanger.PassengerReportFragment;
+import com.example.uberapp_tim3.fragments.ChatFragment;
+import com.example.uberapp_tim3.fragments.PassengerAccountFragment;
+import com.example.uberapp_tim3.fragments.PassengerFavouriteRoutesFragment;
+import com.example.uberapp_tim3.fragments.PassengerInboxFragment;
+import com.example.uberapp_tim3.fragments.PassengerMapFragment;
+import com.example.uberapp_tim3.fragments.PassengerReportFragment;
+import com.example.uberapp_tim3.tools.FragmentTransition;
 import com.google.android.material.navigation.NavigationView;
 
 public class PassengerMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -90,6 +91,11 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
             super.onBackPressed();
         }
     }
+
+    public void openChat() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ChatFragment()).addToBackStack(null).commit();
+    }
+
 
     @Override
     protected void onStart() {
