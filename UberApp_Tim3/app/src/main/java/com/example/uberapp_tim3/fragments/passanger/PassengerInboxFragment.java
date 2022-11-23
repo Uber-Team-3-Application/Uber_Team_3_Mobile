@@ -77,7 +77,8 @@ public class PassengerInboxFragment extends Fragment implements AdapterView.OnIt
             @Override
             public void onClick(View v)
             {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ChatFragment()).addToBackStack(null).commit();
+                FragmentTransition.to(new ChatFragment(), getActivity(), true);
+               // getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ChatFragment()).addToBackStack(null).commit();
             }
         };
     }
@@ -98,6 +99,7 @@ public class PassengerInboxFragment extends Fragment implements AdapterView.OnIt
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         // TODO Auto-generated method stub
+
     }
 
 }
