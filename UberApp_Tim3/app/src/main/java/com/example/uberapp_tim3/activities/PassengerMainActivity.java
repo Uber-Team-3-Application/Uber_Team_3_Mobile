@@ -20,6 +20,7 @@ import com.example.uberapp_tim3.fragments.passanger.PassengerFavouriteRoutesFrag
 import com.example.uberapp_tim3.fragments.passanger.PassengerInboxFragment;
 import com.example.uberapp_tim3.fragments.passanger.PassengerMapFragment;
 import com.example.uberapp_tim3.fragments.passanger.PassengerReportFragment;
+import com.example.uberapp_tim3.fragments.passanger.PassengerRideHistoryFragment;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 import com.google.android.material.navigation.NavigationView;
 
@@ -71,6 +72,11 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
             case R.id.nav_report:
                 setTitle("Reports");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerReportFragment()).addToBackStack(null).commit();
+                break;
+            case R.id.nav_history:
+                setTitle("Ride History");
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerRideHistoryFragment()).addToBackStack(null).commit();
+
                 break;
             case R.id.nav_favorite:
                 setTitle("Favourite Routes");
