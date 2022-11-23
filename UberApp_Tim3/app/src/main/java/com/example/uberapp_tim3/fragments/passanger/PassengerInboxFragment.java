@@ -17,8 +17,9 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.uberapp_tim3.PassengerMainActivity;
+import com.example.uberapp_tim3.activities.PassengerMainActivity;
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.fragments.ChatFragment;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 
 public class PassengerInboxFragment extends Fragment implements AdapterView.OnItemSelectedListener {
