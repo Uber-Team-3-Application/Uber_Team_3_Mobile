@@ -56,11 +56,18 @@ public class PassengerInboxFragment extends Fragment implements AdapterView.OnIt
         LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.inboxLayout);
         linearLayout.setOnClickListener(ClickOnInbox());
         LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View notificationBox;
+        notificationBox = inflater.inflate(R.layout.notification_item, (ViewGroup) getView(), false);
+        linearLayout.addView(notificationBox);
         for(int i = 1; i < 5; i++) {
             View itemBox;
             itemBox = inflater.inflate(R.layout.inbox_list_item, (ViewGroup) getView(), false);
             linearLayout.addView(itemBox);
         }
+
+        notificationBox = inflater.inflate(R.layout.notification_item, (ViewGroup) getView(), false);
+        linearLayout.addView(notificationBox);
     }
 
     private View.OnClickListener ClickOnInbox() {

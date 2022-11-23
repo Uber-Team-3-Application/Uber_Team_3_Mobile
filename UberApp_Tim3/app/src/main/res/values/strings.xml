@@ -261,6 +261,7 @@
     <string name="number_of_seats">Number of Seats</string>
     <string name="baby_transport">Baby Transport</string>
     <string name="pet_transport">Pet Transport</string>
+    <string name="notification_text">Your ride is at the destination!</string>
 
 
 </resources>

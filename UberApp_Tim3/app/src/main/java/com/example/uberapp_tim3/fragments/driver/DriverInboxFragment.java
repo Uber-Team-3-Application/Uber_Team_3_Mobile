@@ -60,11 +60,17 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
         LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.inboxLayout);
         linearLayout.setOnClickListener(ClickOnInbox());
         LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View notificationBox;
+        notificationBox = inflater.inflate(R.layout.notification_item, (ViewGroup) getView(), false);
+        linearLayout.addView(notificationBox);
         for(int i = 1; i < 5; i++) {
             View itemBox;
             itemBox = inflater.inflate(R.layout.inbox_list_item, (ViewGroup) getView(), false);
             linearLayout.addView(itemBox);
         }
+        notificationBox = inflater.inflate(R.layout.notification_item, (ViewGroup) getView(), false);
+        linearLayout.addView(notificationBox);
     }
 
     private View.OnClickListener ClickOnInbox() {
@@ -73,7 +79,7 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
             @Override
             public void onClick(View v)
             {
-                FragmentTransition.to(new ChatFragment(), getActivity(), false);            }
+                FragmentTransition.to(new ChatFragment(), getActivity(), true);            }
         };
     }
 
