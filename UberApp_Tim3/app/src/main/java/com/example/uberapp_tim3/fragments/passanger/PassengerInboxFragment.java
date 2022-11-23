@@ -25,7 +25,7 @@ import com.example.uberapp_tim3.tools.FragmentTransition;
 public class PassengerInboxFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private Spinner dropdown;
-    private static final String[] items = {"All", "Support", "Drivers"};
+    private static final String[] items = {"All", "Support", "Drivers", "Notifications"};
 
     @Nullable
     @Override
@@ -54,7 +54,7 @@ public class PassengerInboxFragment extends Fragment implements AdapterView.OnIt
 
     private void loadInbox() {
         LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.inboxLayout);
-        linearLayout.setOnClickListener(ClickOnInbox());
+        //linearLayout.setOnClickListener(ClickOnInbox());
         LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View notificationBox;
@@ -63,6 +63,7 @@ public class PassengerInboxFragment extends Fragment implements AdapterView.OnIt
         for(int i = 1; i < 5; i++) {
             View itemBox;
             itemBox = inflater.inflate(R.layout.inbox_list_item, (ViewGroup) getView(), false);
+            itemBox.setOnClickListener(ClickOnInbox());
             linearLayout.addView(itemBox);
         }
 

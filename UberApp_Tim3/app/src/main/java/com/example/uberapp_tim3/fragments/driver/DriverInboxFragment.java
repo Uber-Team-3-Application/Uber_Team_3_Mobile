@@ -25,7 +25,7 @@ import com.example.uberapp_tim3.tools.FragmentTransition;
 public class DriverInboxFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private Spinner dropdown;
-    private static final String[] items = {"All", "Support", "Passengers"};
+    private static final String[] items = {"All", "Support", "Passengers" , "Notifications"};
 
     public static Fragment newInstance() {
         return new DriverInboxFragment();
@@ -58,7 +58,7 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
 
     private void loadInbox() {
         LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.inboxLayout);
-        linearLayout.setOnClickListener(ClickOnInbox());
+        //linearLayout.setOnClickListener(ClickOnInbox());
         LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View notificationBox;
@@ -66,7 +66,9 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
         linearLayout.addView(notificationBox);
         for(int i = 1; i < 5; i++) {
             View itemBox;
+
             itemBox = inflater.inflate(R.layout.inbox_list_item, (ViewGroup) getView(), false);
+            itemBox.setOnClickListener(ClickOnInbox());
             linearLayout.addView(itemBox);
         }
         notificationBox = inflater.inflate(R.layout.notification_item, (ViewGroup) getView(), false);
@@ -79,7 +81,7 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
             @Override
             public void onClick(View v)
             {
-                FragmentTransition.to(new ChatFragment(), getActivity(), true);            }
+                    FragmentTransition.to(new ChatFragment(), getActivity(), true);            }
         };
     }
 
