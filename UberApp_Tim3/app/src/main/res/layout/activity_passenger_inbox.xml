@@ -50,6 +50,7 @@
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
     <RelativeLayout
         android:id="@+id/supportInbox"
         android:layout_width="match_parent"

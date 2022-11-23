@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/uber_green_lily"
-    tools:context=".fragments.PassengerAccountFragment">
+    tools:context=".fragments.passanger.PassengerAccountFragment">
 
 
     <androidx.cardview.widget.CardView
@@ -32,28 +32,28 @@
                 android:layout_marginBottom="10dp"
                 android:src="@drawable/person" />
 
-    <TextView
-        android:id="@+id/txtPassengerFullName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+            <TextView
+                android:id="@+id/txtPassengerFullName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="100dp"
-        android:layout_toEndOf="@+id/imgAvatar"
-        android:text="@string/passenger_full_name"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" />
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="100dp"
+                android:layout_toEndOf="@+id/imgAvatar"
+                android:text="@string/passenger_full_name"
+                android:textSize="24sp"
+                android:textStyle="bold|italic" />
 
 
-    <TextView
-        android:id="@+id/txtPassPhone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imgAvatar"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/passenger_phone_number"
-        android:textSize="16sp" />
+            <TextView
+                android:id="@+id/txtPassPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgAvatar"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/passenger_phone_number"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/txtPassengerPhoneNumber"
@@ -68,15 +68,15 @@
                 android:textStyle="bold|italic" />
 
 
-    <TextView
-        android:id="@+id/txtPassEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtPassPhone"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/passenger_email"
-        android:textSize="16sp" />
+            <TextView
+                android:id="@+id/txtPassEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtPassPhone"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/passenger_email"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/txtPassengerEmail"
@@ -91,15 +91,15 @@
                 android:textStyle="bold|italic" />
 
 
-    <TextView
-        android:id="@+id/txtPassAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtPassEmail"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/passenger_address"
-        android:textSize="16sp" />
+            <TextView
+                android:id="@+id/txtPassAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtPassEmail"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/passenger_address"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/txtPassengerAddress"
@@ -114,15 +114,15 @@
                 android:textStyle="bold|italic" />
 
 
-    <TextView
-        android:id="@+id/txtPassCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtPassAddress"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/passenger_card_info"
-        android:textSize="16sp" />
+            <TextView
+                android:id="@+id/txtPassCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtPassAddress"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/passenger_card_info"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/txtPassengerCard"
@@ -137,17 +137,29 @@
                 android:textStyle="bold|italic" />
 
 
-    <Button
-        android:id="@+id/btnEditBasicPassInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtPassengerCard"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
-        android:paddingVertical="10dp"
-        android:text="@string/edit_pass_info"
-        android:textSize="13sp" />
+            <Button
+                android:id="@+id/btnEditPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtPassengerCard"
+                android:layout_toLeftOf="@+id/btnEditBasicPassInfo"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:paddingVertical="10dp"
+                android:text="@string/edit_password"
+                android:textSize="13sp" />
+
+            <Button
+                android:id="@+id/btnEditBasicPassInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtPassengerCard"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:paddingVertical="10dp"
+                android:text="@string/edit_pass_info"
+                android:textSize="13sp" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
@@ -156,23 +168,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cardViewPass"
+        android:layout_marginHorizontal="10dp"
         android:layout_marginTop="20dp"
-        android:orientation="vertical"
-        android:layout_marginHorizontal="10dp">
+        android:orientation="vertical">
 
         <Button
+            android:id="@+id/btnEditCardInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_card_info"
+
+            />
+        <Button
+            android:id="@+id/btnFavouriteRoutes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/favorite_routes"
-            android:id="@+id/btnFavouriteRoutes"
 
             />
 
         <Button
+            android:id="@+id/btnPassengerReports"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/reports"
-            android:id="@+id/btnPassengerReports"/>
+            android:text="@string/reports" />
 
 
     </LinearLayout>
@@ -185,11 +204,11 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:text="@string/active_text"
-        android:textSize="21sp"
         android:letterSpacing="0.1"
+        android:text="@string/active_text"
         android:textColor="@color/uber_off_white"
-        android:textStyle="bold|italic"  />
+        android:textSize="21sp"
+        android:textStyle="bold|italic" />
 
 
 </RelativeLayout>

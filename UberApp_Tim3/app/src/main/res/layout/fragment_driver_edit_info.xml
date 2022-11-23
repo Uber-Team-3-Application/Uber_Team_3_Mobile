@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.DriverEditInfoFragment">
+    tools:context=".fragments.driver.DriverEditInfoFragment">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="10dp"
+            android:layout_marginTop="20dp"
             android:text="@string/change_info"
             android:textAlignment="center"
             android:textSize="21sp"
@@ -29,7 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="14dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="60dp"
             android:background="@color/white"
             app:cardCornerRadius="10dp">
 
@@ -110,7 +112,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginRight="10dp"
                     android:orientation="horizontal">
 
@@ -189,137 +191,11 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginRight="10dp"
-                    android:orientation="vertical">
 
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
-                        android:gravity="center"
-                        android:weightSum="12">
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:layout_weight="3"
-                            android:background="@color/uber_sagebrush" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="4"
-                            android:text="@string/change_password"
-                            android:textAlignment="center"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:layout_weight="3"
-                            android:background="@color/uber_sagebrush" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="6dp"
-                            android:text="@string/enter_old_password"
-                            android:textSize="14sp" />
-
-
-                        <EditText
-                            android:id="@+id/txtPassengerOldPassword"
-                            android:layout_width="160dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="88dp"
-                            android:inputType="textPassword"
-                            android:textSize="16sp"
-                            android:textStyle="bold|italic" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:src="@drawable/ic_hidden" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="6dp"
-                            android:text="@string/enter_new_password"
-                            android:textSize="14sp" />
-
-                        <EditText
-                            android:id="@+id/txtPassengerNewPassword"
-                            android:layout_width="160dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="81dp"
-                            android:inputType="textPassword"
-                            android:textSize="16sp"
-                            android:textStyle="bold|italic" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:src="@drawable/ic_hidden" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="6dp"
-                            android:text="@string/repeat_new_password"
-                            android:textSize="14sp" />
-
-                        <EditText
-                            android:id="@+id/txtPassengerRepeatPassword"
-                            android:layout_width="160dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="70dp"
-                            android:inputType="textPassword"
-                            android:textSize="16sp"
-                            android:textStyle="bold|italic" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:src="@drawable/ic_hidden" />
-                    </LinearLayout>
-
-                </LinearLayout>
                 <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:weightSum="12">
 
@@ -349,7 +225,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:orientation="horizontal">
 
@@ -372,35 +248,11 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginRight="10dp"
-                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:text="@string/vehicle_registration_number"
-                        android:textSize="14sp"
-                        android:layout_marginTop="-9dp"/>
-
-                    <EditText
-                        android:id="@+id/txtDriverEditCarRegistration"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="50dp"
-                        android:inputType="phone"
-                        android:text="@string/driver_license_number_real"
-                        android:textSize="16sp"
-                        android:textStyle="bold|italic" />
-
-                </LinearLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
 
                     <Button
                         android:id="@+id/btnCancelEditDriver"

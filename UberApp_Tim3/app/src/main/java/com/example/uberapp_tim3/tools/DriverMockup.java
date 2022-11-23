@@ -1,9 +1,7 @@
 package com.example.uberapp_tim3.tools;
 
 
-import android.media.Image;
-
-import com.example.uberapp_tim3.model.Driver;
+import com.example.uberapp_tim3.model.mockup.Driver;
 
 import java.util.ArrayList;
 import java.util.List;

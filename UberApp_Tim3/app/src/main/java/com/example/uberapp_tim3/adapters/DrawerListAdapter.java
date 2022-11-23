@@ -1,8 +1,6 @@
 package com.example.uberapp_tim3.adapters;
 
 import android.app.Activity;
-import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -10,14 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.model.Drive;
-import com.example.uberapp_tim3.model.Driver;
-import com.example.uberapp_tim3.model.NavItem;
-import com.example.uberapp_tim3.tools.DriverMockup;
+import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.tools.DrivesMockUp;
-
-import java.text.ParseException;
-import java.util.ArrayList;
 
 public class DrawerListAdapter extends BaseAdapter {
     private Activity activity;

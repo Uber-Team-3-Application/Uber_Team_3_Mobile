@@ -2,9 +2,9 @@ package com.example.uberapp_tim3.tools;
 
 import android.annotation.SuppressLint;
 
-import com.example.uberapp_tim3.model.Drive;
-import com.example.uberapp_tim3.model.Driver;
-import com.example.uberapp_tim3.model.Passenger;
+import com.example.uberapp_tim3.model.mockup.Drive;
+import com.example.uberapp_tim3.model.mockup.Driver;
+import com.example.uberapp_tim3.model.mockup.Passenger;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,7 +32,7 @@ public class DrivesMockUp {
                         6500.0,
                         comments,
                         PassengerMockup.getPassengers()
-                        )
+                )
         );
 
         drives.add(
