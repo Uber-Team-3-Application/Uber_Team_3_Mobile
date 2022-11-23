@@ -9,10 +9,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -91,6 +95,7 @@ public class DriverMainActivity extends AppCompatActivity {
 
         createNotificationChannel();
 
+
         if (savedInstanceState == null)
             selectItemFromDrawer(3);
 
@@ -106,6 +111,13 @@ public class DriverMainActivity extends AppCompatActivity {
 
     private void selectItemFromDrawer(int position) {
 
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            Dialog dialog = new Dialog(this);
+            dialog.setContentView(R.layout.popup_driver);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
+        }, 5000);
         if (position == 0) {
             FragmentTransition.to(DriverAccountFragment.newInstance(), this, true);
         } else if (position == 1) {
@@ -118,11 +130,15 @@ public class DriverMainActivity extends AppCompatActivity {
             this.finish();
         }
 
+
+
             mDrawerList.setItemChecked(position, true);
             if (position != 5) {
                 setTitle(mNavItems.get(position).getmTitle());
             }
             mDrawerLayout.closeDrawer(mDrawerPane);
+
+
 
     }
 

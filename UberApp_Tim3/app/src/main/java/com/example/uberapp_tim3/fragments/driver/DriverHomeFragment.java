@@ -34,7 +34,6 @@ public class DriverHomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view =  inflater.inflate(R.layout.fragment_driver_home, container, false);
-
         return view;
     }
 
