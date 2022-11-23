@@ -1,17 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
     android:orientation="vertical">
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/uber_off_white">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_search" />
+
+            <EditText
+                android:id="@+id/editTxtEmail"
+                android:layout_width="130dp"
+                android:layout_height="50dp"
+                android:hint="@string/search"
+                android:inputType="text" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_filter" />
+
+            <Spinner
+                android:id="@+id/filter"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout
+        android:id="@+id/supportInbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@color/uber_off_white">
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/shadow_background">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -23,10 +69,10 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="13dp"
-                android:src="@drawable/ic_baseline_person_24" />
+                android:src="@drawable/ic_support" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:orientation="vertical">
@@ -34,7 +80,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/contact_name"
+                    android:text="@string/support"
                     android:textColor="@color/uber_sagebrush"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -57,108 +103,32 @@
 
         </LinearLayout>
 
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/uber_off_white">
-
-        <LinearLayout
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:orientation="horizontal">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="13dp"
-                android:src="@drawable/ic_baseline_person_24" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/contact_name"
-                    android:textColor="@color/uber_sagebrush"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/last_message"
-                    android:textColor="@color/uber_lauren_green"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/time_and_date"
-                    android:textColor="@color/uber_lauren_green"
-                    android:textSize="15sp"
-                    android:textStyle="italic" />
-            </LinearLayout>
-
-        </LinearLayout>
-
+            android:src="@drawable/ic_pin"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="370dp"/>
     </RelativeLayout>
-    <RelativeLayout
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:background="@color/uber_sagebrush"/>
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/uber_off_white">
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:orientation="horizontal">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="13dp"
-                android:src="@drawable/ic_baseline_person_24" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/contact_name"
-                    android:textColor="@color/uber_sagebrush"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/last_message"
-                    android:textColor="@color/uber_lauren_green"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/time_and_date"
-                    android:textColor="@color/uber_lauren_green"
-                    android:textSize="15sp"
-                    android:textStyle="italic" />
-            </LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/inboxLayout">
 
         </LinearLayout>
-
-    </RelativeLayout>
+    </ScrollView>
 
 </LinearLayout>
