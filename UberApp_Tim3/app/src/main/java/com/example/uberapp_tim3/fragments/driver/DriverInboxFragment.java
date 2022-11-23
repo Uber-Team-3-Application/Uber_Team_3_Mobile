@@ -73,7 +73,7 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
             @Override
             public void onClick(View v)
             {
-                FragmentTransition.to(new ChatFragment(), getActivity(), false);            }
+                FragmentTransition.to(new ChatFragment(), getActivity(), true);            }
         };
     }
 
