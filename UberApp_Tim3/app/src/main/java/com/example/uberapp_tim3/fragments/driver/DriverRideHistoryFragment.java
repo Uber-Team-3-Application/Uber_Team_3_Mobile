@@ -28,7 +28,7 @@ public class DriverRideHistoryFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup vg, Bundle data) {
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.map_layout, vg, false);
+        return inflater.inflate(R.layout.list_layout, vg, false);
     }
 
     @Override

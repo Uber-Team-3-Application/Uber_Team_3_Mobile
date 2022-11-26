@@ -16,7 +16,7 @@ public class DriverInboxActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_driver_inbox);
+        setContentView(R.layout.fragment_driver_inbox);
 
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

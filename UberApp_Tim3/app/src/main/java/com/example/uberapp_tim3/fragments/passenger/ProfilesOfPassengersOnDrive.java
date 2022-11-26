@@ -27,7 +27,7 @@ public class ProfilesOfPassengersOnDrive extends ListFragment {
     public View onCreateView( LayoutInflater inflater,
                               ViewGroup container,
                               Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.map_layout, container, false);
+        return inflater.inflate(R.layout.list_layout, container, false);
     }
 
     @Override

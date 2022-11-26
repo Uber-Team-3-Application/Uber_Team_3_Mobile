@@ -52,7 +52,7 @@ public class DrawerListAdapter extends BaseAdapter {
         drive = DrivesMockUp.getDrives().get(position);
 
         if(convertView==null)
-            vi = activity.getLayoutInflater().inflate(R.layout.driver_list, null);
+            vi = activity.getLayoutInflater().inflate(R.layout.drives_list_item, null);
 
         TextView name = (TextView)vi.findViewById(R.id.name);
         TextView description = (TextView)vi.findViewById(R.id.description);

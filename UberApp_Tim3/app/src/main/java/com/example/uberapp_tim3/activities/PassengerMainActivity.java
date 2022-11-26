@@ -18,7 +18,7 @@ import com.example.uberapp_tim3.fragments.ChatFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerAccountFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerFavouriteRoutesFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerInboxFragment;
-import com.example.uberapp_tim3.fragments.passenger.PassengerMapFragment;
+import com.example.uberapp_tim3.fragments.passenger.PassengerHomeFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerReportFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerRideHistoryFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -48,7 +48,7 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
         createNotificationChannel();
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerMapFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerHomeFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
     }
@@ -62,7 +62,7 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
                 break;
             case R.id.nav_home:
                 setTitle("Home");
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerMapFragment()).addToBackStack(null).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerHomeFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_profile:
                 setTitle("Account");
