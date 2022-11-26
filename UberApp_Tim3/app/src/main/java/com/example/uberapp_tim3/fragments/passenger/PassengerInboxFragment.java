@@ -74,7 +74,7 @@ public class PassengerInboxFragment extends Fragment implements AdapterView.OnIt
             public void onClick(View v)
             {
                 //FragmentTransition.to(new ChatFragment(), getActivity(), true);
-               getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ChatFragment()).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ChatFragment()).addToBackStack(null).commit();
             }
         };
     }
