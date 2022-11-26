@@ -13,7 +13,7 @@ import androidx.fragment.app.ListFragment;
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.adapters.CommentsListAdapter;
 
-import com.example.uberapp_tim3.fragments.passanger.PassengerInfoProfile;
+import com.example.uberapp_tim3.fragments.passenger.PassengerInfoProfile;
 import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 

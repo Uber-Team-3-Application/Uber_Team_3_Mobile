@@ -1,4 +1,4 @@
-package com.example.uberapp_tim3.fragments.passanger;
+package com.example.uberapp_tim3.fragments.passenger;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

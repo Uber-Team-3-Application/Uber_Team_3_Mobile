@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/uber_surf_spray"
-    tools:context=".fragments.passanger.PassengerFinancialCardFragment">
+    tools:context=".fragments.passenger.PassengerFinancialCardFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

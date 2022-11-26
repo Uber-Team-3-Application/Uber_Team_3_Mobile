@@ -14,8 +14,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.fragments.passanger.PassengerInboxFragment;
-import com.example.uberapp_tim3.fragments.passanger.ProfilesOfPassengersOnDrive;
+import com.example.uberapp_tim3.fragments.passenger.PassengerInboxFragment;
+import com.example.uberapp_tim3.fragments.passenger.ProfilesOfPassengersOnDrive;
 import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 

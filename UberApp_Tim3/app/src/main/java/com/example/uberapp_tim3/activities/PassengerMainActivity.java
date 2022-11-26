@@ -15,13 +15,12 @@ import android.view.MenuItem;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.ChatFragment;
-import com.example.uberapp_tim3.fragments.passanger.PassengerAccountFragment;
-import com.example.uberapp_tim3.fragments.passanger.PassengerFavouriteRoutesFragment;
-import com.example.uberapp_tim3.fragments.passanger.PassengerInboxFragment;
-import com.example.uberapp_tim3.fragments.passanger.PassengerMapFragment;
-import com.example.uberapp_tim3.fragments.passanger.PassengerReportFragment;
-import com.example.uberapp_tim3.fragments.passanger.PassengerRideHistoryFragment;
-import com.example.uberapp_tim3.tools.FragmentTransition;
+import com.example.uberapp_tim3.fragments.passenger.PassengerAccountFragment;
+import com.example.uberapp_tim3.fragments.passenger.PassengerFavouriteRoutesFragment;
+import com.example.uberapp_tim3.fragments.passenger.PassengerInboxFragment;
+import com.example.uberapp_tim3.fragments.passenger.PassengerMapFragment;
+import com.example.uberapp_tim3.fragments.passenger.PassengerReportFragment;
+import com.example.uberapp_tim3.fragments.passenger.PassengerRideHistoryFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class PassengerMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
