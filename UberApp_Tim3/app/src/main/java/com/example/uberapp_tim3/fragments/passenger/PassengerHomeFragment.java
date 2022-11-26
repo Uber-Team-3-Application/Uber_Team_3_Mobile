@@ -1,4 +1,4 @@
-package com.example.uberapp_tim3.fragments.passanger;
+package com.example.uberapp_tim3.fragments.passenger;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,11 +11,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.uberapp_tim3.R;
 
-public class PassengerMapFragment extends Fragment {
+public class PassengerHomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_passenger_map, container, false);
+        return inflater.inflate(R.layout.fragment_passenger_home, container, false);
     }
 
     @Override

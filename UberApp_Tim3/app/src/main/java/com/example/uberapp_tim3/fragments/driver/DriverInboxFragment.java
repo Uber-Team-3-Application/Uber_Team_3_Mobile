@@ -3,7 +3,6 @@ package com.example.uberapp_tim3.fragments.driver;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,11 +12,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import com.example.uberapp_tim3.activities.PassengerMainActivity;
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.ChatFragment;
 import com.example.uberapp_tim3.tools.FragmentTransition;
@@ -35,7 +31,7 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.activity_passenger_inbox, container, false);
+        return inflater.inflate(R.layout.fragment_passenger_inbox, container, false);
     }
 
     @Override
@@ -81,7 +77,8 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
             @Override
             public void onClick(View v)
             {
-                    FragmentTransition.to(new ChatFragment(), getActivity(), true);            }
+                    FragmentTransition.to(new ChatFragment(), getActivity(), true);
+            }
         };
     }
 

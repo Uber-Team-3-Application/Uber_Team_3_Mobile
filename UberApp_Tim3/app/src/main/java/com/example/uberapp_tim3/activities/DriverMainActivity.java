@@ -50,7 +50,7 @@ public class DriverMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_driver_main);
+        setContentView(R.layout.fragment_driver_main);
         prepareMenu(mNavItems);
 
         mDrawerLayout = findViewById(R.id.drawerLayout);
@@ -117,7 +117,7 @@ public class DriverMainActivity extends AppCompatActivity {
             dialog.setContentView(R.layout.popup_driver);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.show();
-        }, 5000);
+        }, 50000);
         if (position == 0) {
             FragmentTransition.to(DriverAccountFragment.newInstance(), this, true);
         } else if (position == 1) {

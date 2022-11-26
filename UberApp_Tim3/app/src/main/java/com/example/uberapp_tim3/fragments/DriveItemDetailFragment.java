@@ -14,14 +14,14 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.fragments.passanger.PassengerInboxFragment;
-import com.example.uberapp_tim3.fragments.passanger.ProfilesOfPassengersOnDrive;
+import com.example.uberapp_tim3.fragments.driver.DriverInboxFragment;
+import com.example.uberapp_tim3.fragments.passenger.ProfilesOfPassengersOnDrive;
 import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 
-public class DriveItemDetail extends Fragment {
+public class DriveItemDetailFragment extends Fragment {
 
-    public DriveItemDetail() {
+    public DriveItemDetailFragment() {
         // Required empty public constructor
     }
 
@@ -92,7 +92,7 @@ public class DriveItemDetail extends Fragment {
         imgInbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransition.to(new PassengerInboxFragment(), getActivity(), true);
+                FragmentTransition.to(new DriverInboxFragment(), getActivity(), true);
 
             }
         });

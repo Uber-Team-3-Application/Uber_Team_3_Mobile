@@ -1,4 +1,4 @@
-package com.example.uberapp_tim3.fragments.passanger;
+package com.example.uberapp_tim3.fragments.passenger;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,7 +23,7 @@ public class PassengerAccountFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_passenger_account, container, false);
+        return inflater.inflate(R.layout.fragment_passenger_account, container, false);
     }
 
     @Override

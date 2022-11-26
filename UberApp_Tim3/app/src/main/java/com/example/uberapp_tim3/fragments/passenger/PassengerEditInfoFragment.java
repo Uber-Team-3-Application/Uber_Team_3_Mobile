@@ -1,4 +1,4 @@
-package com.example.uberapp_tim3.fragments.passanger;
+package com.example.uberapp_tim3.fragments.passenger;
 
 import android.os.Bundle;
 
@@ -10,9 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.RadioButton;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.model.mockup.Passenger;

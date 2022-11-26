@@ -31,7 +31,7 @@ public class DriverAccountFragment extends Fragment implements View.OnClickListe
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.activity_driver_account, container, false);
+        return inflater.inflate(R.layout.fragment_driver_account, container, false);
     }
 
     @Override

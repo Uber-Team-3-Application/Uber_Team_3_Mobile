@@ -1,4 +1,4 @@
-package com.example.uberapp_tim3.fragments.passanger;
+package com.example.uberapp_tim3.fragments.passenger;
 
 import android.os.Bundle;
 
@@ -13,7 +13,6 @@ import android.widget.ListView;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.adapters.PassengersListAdapter;
-import com.example.uberapp_tim3.fragments.passanger.PassengerInfoProfile;
 import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 
@@ -28,7 +27,7 @@ public class ProfilesOfPassengersOnDrive extends ListFragment {
     public View onCreateView( LayoutInflater inflater,
                               ViewGroup container,
                               Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.map_layout, container, false);
+        return inflater.inflate(R.layout.list_layout, container, false);
     }
 
     @Override
