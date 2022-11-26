@@ -11,7 +11,7 @@ import android.widget.ListView;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.adapters.DrawerListAdapter;
-import com.example.uberapp_tim3.fragments.DriveItemDetail;
+import com.example.uberapp_tim3.fragments.DriveItemDetailFragment;
 import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.tools.DrivesMockUp;
 import com.example.uberapp_tim3.tools.FragmentTransition;
@@ -52,7 +52,7 @@ public class DriverRideHistoryFragment extends ListFragment {
         Drive drive = DrivesMockUp.getDrives().get(position);
         Bundle args = new Bundle();
         args.putParcelable("driveInfo", drive);
-        DriveItemDetail driveItemDetail = new DriveItemDetail();
+        DriveItemDetailFragment driveItemDetail = new DriveItemDetailFragment();
         driveItemDetail.setArguments(args);
         FragmentTransition.to(driveItemDetail, getActivity(), true);
 
