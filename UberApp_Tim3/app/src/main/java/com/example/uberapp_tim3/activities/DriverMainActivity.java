@@ -12,6 +12,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -29,6 +30,8 @@ import com.example.uberapp_tim3.fragments.driver.DriverHomeFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverInboxFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverRideHistoryFragment;
 import com.example.uberapp_tim3.model.items.NavItem;
+import com.example.uberapp_tim3.services.DriverMessagesService;
+import com.example.uberapp_tim3.services.PassengerMessagesService;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 
 import java.util.ArrayList;
@@ -99,6 +102,7 @@ public class DriverMainActivity extends AppCompatActivity {
         if (savedInstanceState == null)
             selectItemFromDrawer(3);
 
+        setUpService();
 
     }
 
@@ -140,6 +144,13 @@ public class DriverMainActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private void setUpService(){
+        Intent alarmIntent = new Intent(this, DriverMessagesService.class);
+        startService(alarmIntent);
+        /*pendingIntent = PendingIntent.getService(this, 0, alarmIntent, 0);
+        manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);*/
     }
 
     private void prepareMenu(ArrayList<NavItem> mNavItems ) {

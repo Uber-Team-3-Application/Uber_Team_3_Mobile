@@ -7,8 +7,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -21,12 +25,18 @@ import com.example.uberapp_tim3.fragments.passenger.PassengerInboxFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerHomeFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerReportFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerRideHistoryFragment;
+import com.example.uberapp_tim3.services.PassengerMessagesService;
 import com.google.android.material.navigation.NavigationView;
 
 public class PassengerMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private final static String PASSENGER_CHANEL = "Passenger channel";
     private DrawerLayout drawer;
+    public static String SYNC_DATA = "SYNC_DATA";
+
+    //Sync stuff
+    private PendingIntent pendingIntent;
+    private AlarmManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +61,8 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerHomeFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
+
+        setUpService();
     }
 
     @Override
@@ -144,5 +156,12 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    private void setUpService(){
+        Intent alarmIntent = new Intent(this, PassengerMessagesService.class);
+        startService(alarmIntent);
+        /*pendingIntent = PendingIntent.getService(this, 0, alarmIntent, 0);
+        manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);*/
     }
 }
