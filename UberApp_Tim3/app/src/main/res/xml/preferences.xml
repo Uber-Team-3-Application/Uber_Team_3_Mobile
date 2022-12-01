@@ -1,4 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:allowDividerAbove="true"
+        android:key="user_settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="User Role">
+
+        <Preference
+            android:enabled="true"
+            android:dependency="pref_role"
+            android:key="pref_role"
+            android:icon="@drawable/icons_user"
+            android:title="Passenger"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:allowDividerAbove="true"
+        android:key="user_data"
+        android:icon="@drawable/ic_support"
+        android:title="Profile Information"
+        >
+        <Preference
+            android:key="pref_email"
+            android:dependency="pref_email"
+            android:icon="@drawable/ic_baseline_email_24"
+            android:title="example@mail.com"/>
+
+        <Preference
+            android:key="pref_name"
+            android:dependency="pref_last_name"
+            android:icon="@drawable/ic_baseline_person_24"
+            android:title="Marko"/>
+
+        <Preference
+            android:key="pref_last_name"
+            android:dependency="pref_last_name"
+            android:icon="@drawable/ic_baseline_person_24"
+            android:title="Markovic"/>
+    </PreferenceCategory>
 
 </PreferenceScreen>
