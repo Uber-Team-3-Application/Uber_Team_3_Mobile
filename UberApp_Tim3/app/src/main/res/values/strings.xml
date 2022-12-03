@@ -266,6 +266,21 @@
     <string name="ride_start_end_destination">Svetosavska 86 Kikinda - Atarska 7 Sombor</string>
     <string name="ride_price">6500 RSD</string>
     <string name="show_more">Click To Show More Info!</string>
+    <string name="car_rating">Car Rating</string>
+    <string name="driver_rating">Driver Rating</string>
+    <string name="comment">Comment</string>
+    <string name="basic_ride_information">Basic Ride Information</string>
+    <string name="laze_teleckog_12_novi_sad">Laze Teleckog 12, Novi Sad</string>
+    <string name="radnicka_3_novi_sad">Radnicka 3, Novi Sad</string>
+    <string name="_13_11_2022_13_30">13.11.2022 13:30</string>
+    <string name="_13_11_2022_14_00">13.11.2022 14:00</string>
+    <string name="_32km">32km</string>
+    <string name="_3000_rsd">3000 RSD</string>
+    <string name="order_again_for_now">Order Again for now</string>
+    <string name="order_again_for_later">Order Again for later</string>
+    <string name="mark_as_favourite">Mark as favourite</string>
+    <string name="other_passengers">Other Passengers:</string>
+    <string name="marko_markovic">Marko Markovic</string>
 
 
 </resources>

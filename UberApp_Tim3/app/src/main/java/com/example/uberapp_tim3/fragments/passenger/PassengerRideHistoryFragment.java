@@ -30,14 +30,6 @@ public class PassengerRideHistoryFragment extends ListFragment {
         // Required empty public constructor
     }
 
-    public static PassengerRideHistoryFragment newInstance() {
-
-        PassengerRideHistoryFragment mpf;
-        mpf = new PassengerRideHistoryFragment();
-        return mpf;
-    }
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
