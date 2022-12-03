@@ -27,7 +27,7 @@ public class DrivesMockUp {
                         "26.10.2022 12:34",
                         "26.10.2022 13:00",
                         2,
-                        "Svetosavka 86 Kikinda - Atarska 7 Sombor",
+                        "Rajfazenova 12, Novi Sad - Radnicka 3, Novi Sad",
                         128.0,
                         6500.0,
                         comments,
@@ -37,24 +37,24 @@ public class DrivesMockUp {
 
         drives.add(
                 new Drive(4,
-                        "26.10.2022 12:34",
-                        "26.10.2022 13:00",
+                        "27.10.2022 12:12",
+                        "27.10.2022 13:00",
                         2,
                         "Svetosavka 86 Kikinda - Atarska 7 Sombor",
                         128.0,
-                        6500.0,
+                        3000,
                         comments,
                         PassengerMockup.getPassengers()
                 )
         );
         drives.add(
                 new Drive(4,
-                        "26.10.2022 12:34",
-                        "26.10.2022 13:00",
+                        "26.10.2022 17:34",
+                        "24.10.2022 18:00",
                         2,
-                        "Svetosavka 86 Kikinda - Atarska 7 Sombor",
+                        "Laze Teleckog 4, Novi Sad - Joko Ono 3, Novi Sad",
                         128.0,
-                        6500.0,
+                        12000,
                         comments,
                         PassengerMockup.getPassengers()
                 )
