@@ -262,6 +262,10 @@
     <string name="baby_transport">Baby Transport</string>
     <string name="pet_transport">Pet Transport</string>
     <string name="notification_text">Your ride is at the destination!</string>
+    <string name="ride_time">25.10.2022. 12:34 - 26.10.2022. 13:00</string>
+    <string name="ride_start_end_destination">Svetosavska 86 Kikinda - Atarska 7 Sombor</string>
+    <string name="ride_price">6500 RSD</string>
+    <string name="show_more">Click To Show More Info!</string>
 
 
 </resources>

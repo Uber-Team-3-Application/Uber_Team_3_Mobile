@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.ChatFragment;
+import com.example.uberapp_tim3.fragments.CommentsFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerAccountFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerFavouriteRoutesFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerInboxFragment;
@@ -26,6 +28,8 @@ import com.example.uberapp_tim3.fragments.passenger.PassengerHomeFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerReportFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerRideHistoryFragment;
 import com.example.uberapp_tim3.services.PassengerMessagesService;
+import com.example.uberapp_tim3.tools.DrivesMockUp;
+import com.example.uberapp_tim3.tools.FragmentTransition;
 import com.google.android.material.navigation.NavigationView;
 
 public class PassengerMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -87,7 +91,6 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
             case R.id.nav_history:
                 setTitle("Ride History");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerRideHistoryFragment()).addToBackStack(null).commit();
-
                 break;
             case R.id.nav_favorite:
                 setTitle("Favourite Routes");
