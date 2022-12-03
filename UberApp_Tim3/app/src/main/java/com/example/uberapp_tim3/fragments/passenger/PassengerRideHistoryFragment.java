@@ -16,6 +16,7 @@ import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.adapters.CommentsListAdapter;
 import com.example.uberapp_tim3.adapters.DrawerListAdapter;
 import com.example.uberapp_tim3.adapters.PassengerRideHistoryAdapter;
+import com.example.uberapp_tim3.fragments.ChatFragment;
 import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.tools.DrivesMockUp;
 import com.example.uberapp_tim3.tools.FragmentTransition;
@@ -71,8 +72,7 @@ public class PassengerRideHistoryFragment extends ListFragment {
     public void onListItemClick(@NonNull ListView l, @NonNull View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
-        PassengerRideInfoFragment rideInfo = new PassengerRideInfoFragment();
-        FragmentTransition.to(rideInfo, requireActivity(), true);
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerRideInfoFragment()).addToBackStack(null).commit();
 
     }
 
