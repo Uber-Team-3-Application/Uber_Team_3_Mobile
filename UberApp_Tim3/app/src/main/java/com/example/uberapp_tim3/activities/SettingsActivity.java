@@ -2,11 +2,11 @@ package com.example.uberapp_tim3.activities;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceFragmentCompat;
 
 import android.os.Bundle;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.fragments.PrefsFragment;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -15,7 +15,8 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        FragmentTransition.to(new PrefsFragment(), this, true);
+        setContentView(R.layout.settings_layout);
+        FragmentTransition.to(PrefsFragment.newInstance(), this);
 
         ActionBar menu = getSupportActionBar();
         menu.setDisplayShowHomeEnabled(true);
@@ -31,5 +32,23 @@ public class SettingsActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    public static class PrefsFragment extends PreferenceFragmentCompat {
+
+        private static PrefsFragment newInstance() {
+            Bundle args = new Bundle();
+
+            PrefsFragment fragment = new PrefsFragment();
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Override
+        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+            addPreferencesFromResource(R.xml.preferences);
+        }
+
+
     }
 }
