@@ -18,20 +18,11 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.settings_layout);
         FragmentTransition.to(PrefsFragment.newInstance(), this);
 
-        ActionBar menu = getSupportActionBar();
-        menu.setDisplayShowHomeEnabled(true);
-        menu.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
+    protected void onResume() {
+        super.onResume();
     }
 
     public static class PrefsFragment extends PreferenceFragmentCompat {
@@ -48,7 +39,6 @@ public class SettingsActivity extends AppCompatActivity {
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             addPreferencesFromResource(R.xml.preferences);
         }
-
 
     }
 }
