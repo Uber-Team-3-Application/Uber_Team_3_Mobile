@@ -1,51 +1,72 @@
 package com.example.uberapp_tim3.model.drives;
 
-import java.util.ArrayList;
 
 public class Route {
-    private int id;
-    private Location startingPoint;
-    private Location endPoint;
-
+    private Long id;
+    private Location departure;
+    private Location destination;
+    private double totalKilometers;
+    private double price;
+    private int orderNumber;
 
     public Route() {
-        this.id = 0;
     }
 
-    public Route(int id, Location startingPoint, Location endPoint) {
+    public Route(Long id, Location departure, Location destination, double totalKilometers, double price, int orderNumber) {
         this.id = id;
-        this.startingPoint = startingPoint;
-        this.endPoint = endPoint;
+        this.departure = departure;
+        this.destination = destination;
+        this.totalKilometers = totalKilometers;
+        this.price = price;
+        this.orderNumber = orderNumber;
     }
 
-    public Route(Location startingPoint, Location endPoint) {
-        this.id = 0;
-        this.startingPoint = startingPoint;
-        this.endPoint = endPoint;
+    public double getTotalKilometers() {
+        return totalKilometers;
     }
 
-    public int getId() {
+    public void setTotalKilometers(double totalKilometers) {
+        this.totalKilometers = totalKilometers;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
 
-    public Location getStartingPoint() {
-        return startingPoint;
+    public Location getDeparture() {
+        return departure;
     }
 
-    public void setStartingPoint(Location startingPoint) {
-        this.startingPoint = startingPoint;
+    public void setDeparture(Location departure) {
+        this.departure = departure;
     }
 
-    public Location getEndPoint() {
-        return endPoint;
+    public Location getDestination() {
+        return destination;
     }
 
-    public void setEndPoint(Location endPoint) {
-        this.endPoint = endPoint;
+    public void setDestination(Location destination) {
+        this.destination = destination;
     }
 }

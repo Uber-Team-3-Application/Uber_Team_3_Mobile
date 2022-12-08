@@ -1,16 +1,16 @@
-package com.example.uberapp_tim3.model.items;
+package com.example.uberapp_tim3.model.users;
 
 import com.example.uberapp_tim3.model.users.Driver;
 
 import java.time.LocalTime;
 
-public class WorkingHour {
-    private int id;
+public class WorkingHours {
+    private Long id;
     private LocalTime startTime;
     private LocalTime endTime;
     private Driver driver;
 
-    public WorkingHour(int id, LocalTime startTime, LocalTime endTime, Driver driver) {
+    public WorkingHours(Long id, LocalTime startTime, LocalTime endTime, Driver driver) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -18,19 +18,18 @@ public class WorkingHour {
     }
 
 
-    public WorkingHour(LocalTime startTime, LocalTime endTime, Driver driver) {
-        this.id = 0;
+    public WorkingHours(LocalTime startTime, LocalTime endTime, Driver driver) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.driver = driver;
     }
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

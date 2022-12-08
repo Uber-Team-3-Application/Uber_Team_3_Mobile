@@ -29,9 +29,8 @@ import com.example.uberapp_tim3.fragments.driver.DriverAccountFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverHomeFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverInboxFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverRideHistoryFragment;
-import com.example.uberapp_tim3.model.items.NavItem;
+import com.example.uberapp_tim3.tools.NavItem;
 import com.example.uberapp_tim3.services.DriverMessagesService;
-import com.example.uberapp_tim3.services.PassengerMessagesService;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 
 import java.util.ArrayList;

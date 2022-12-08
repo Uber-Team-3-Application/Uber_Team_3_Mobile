@@ -7,6 +7,5 @@ import java.util.ArrayList;
 public enum VehicleName {
     STANDARD,
     LUXURY,
-    VAN;
-
+    VAN
 }

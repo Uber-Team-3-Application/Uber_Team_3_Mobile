@@ -3,60 +3,56 @@ package com.example.uberapp_tim3.model.vehicle;
 import com.example.uberapp_tim3.model.drives.Location;
 import com.example.uberapp_tim3.model.users.Driver;
 
-import java.util.ArrayList;
-
 public class Vehicle
 {
-    private int id;
+    private Long id;
     private String model;
     private String licencePlate;
-    private int numberOfPlaces;
+    private int numberOfSeats;
     private boolean babyTransport;
     private boolean petTransport;
     private TypeOfVehicle typeOfVehicle;
     private Driver driver;
-    private Location location;
+    private Location currentLocation;
 
     public Vehicle() {
-        this.id = 0;
         this.model = "";
         this.licencePlate = "";
-        this.numberOfPlaces = 0;
+        this.numberOfSeats = 0;
         this.babyTransport = false;
         this.petTransport = false;
     }
 
-    public Vehicle(int id, String model, String licencePlate, int numberOfPlaces, boolean babyTransport,
+    public Vehicle(Long id, String model, String licencePlate, int numberOfPlaces, boolean babyTransport,
                    boolean petTransport, TypeOfVehicle typeOfVehicle, Driver driver, Location location) {
         this.id = id;
         this.model = model;
         this.licencePlate = licencePlate;
-        this.numberOfPlaces = numberOfPlaces;
+        this.numberOfSeats = numberOfPlaces;
         this.babyTransport = babyTransport;
         this.petTransport = petTransport;
         this.typeOfVehicle = typeOfVehicle;
         this.driver = driver;
-        this.location = location;
+        this.currentLocation = location;
     }
 
     public Vehicle(String model, String licencePlate, int numberOfPlaces, boolean babyTransport,
                    boolean petTransport, TypeOfVehicle typeOfVehicle, Driver driver, Location location) {
-        this.id = 0;
         this.model = model;
         this.licencePlate = licencePlate;
-        this.numberOfPlaces = numberOfPlaces;
+        this.numberOfSeats = numberOfPlaces;
         this.babyTransport = babyTransport;
         this.petTransport = petTransport;
         this.typeOfVehicle = typeOfVehicle;
         this.driver = driver;
-        this.location = location;
+        this.currentLocation = location;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -76,12 +72,12 @@ public class Vehicle
         this.licencePlate = licencePlate;
     }
 
-    public int getNumberOfPlaces() {
-        return numberOfPlaces;
+    public int getNumberOfSeats() {
+        return numberOfSeats;
     }
 
-    public void setNumberOfPlaces(int numberOfPlaces) {
-        this.numberOfPlaces = numberOfPlaces;
+    public void setNumberOfSeats(int numberOfSeats) {
+        this.numberOfSeats = numberOfSeats;
     }
 
     public boolean isBabyTransport() {
@@ -117,10 +113,10 @@ public class Vehicle
     }
 
     public Location getLocations() {
-        return location;
+        return currentLocation;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setCurrentLocation(Location currentLocation) {
+        this.currentLocation = currentLocation;
     }
 }

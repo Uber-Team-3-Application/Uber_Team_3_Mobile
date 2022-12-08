@@ -5,19 +5,18 @@ import com.example.uberapp_tim3.model.users.User;
 import java.time.LocalDateTime;
 
 public class Rejection {
-    private int id;
+    private Long id;
     private User user;
     private String description;
     private LocalDateTime time;
-    private Drive drive;
+    private Ride drive;
 
     public Rejection( ) {
-        this.id = 0;
         this.description = "";
 
     }
 
-    public Rejection(int id, User user, String description, LocalDateTime time, Drive drive) {
+    public Rejection(Long id, User user, String description, LocalDateTime time, Ride drive) {
         this.id = id;
         this.user = user;
         this.description = description;
@@ -25,19 +24,18 @@ public class Rejection {
         this.drive = drive;
     }
 
-    public Rejection(User user, String description, LocalDateTime time, Drive drive) {
-        this.id = 0;
+    public Rejection(User user, String description, LocalDateTime time, Ride drive) {
         this.user = user;
         this.description = description;
         this.time = time;
         this.drive = drive;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -65,11 +63,11 @@ public class Rejection {
         this.time = time;
     }
 
-    public Drive getDrive() {
+    public Ride getDrive() {
         return drive;
     }
 
-    public void setDrive(Drive drive) {
+    public void setDrive(Ride drive) {
         this.drive = drive;
     }
 }

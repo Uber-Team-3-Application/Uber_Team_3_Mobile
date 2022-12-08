@@ -3,62 +3,48 @@ package com.example.uberapp_tim3.model.users;
 
 import android.media.Image;
 
-import com.example.uberapp_tim3.model.drives.Drive;
+import com.example.uberapp_tim3.model.drives.Ride;
 import com.example.uberapp_tim3.model.drives.FavouriteRoute;
-import com.example.uberapp_tim3.model.items.Message;
-import com.example.uberapp_tim3.model.items.PanicButton;
-import com.example.uberapp_tim3.model.drives.Payment;
-import com.example.uberapp_tim3.model.drives.Rejection;
-import com.example.uberapp_tim3.model.drives.Review;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Passenger extends User {
 
-    private ArrayList<FavouriteRoute> favouriteRoutes;
-    private ArrayList<Drive> drives;
+    private Set<FavouriteRoute> favouriteRoutes;
+    private Set<Ride> rides;
 
     public Passenger() {
         super();
-        this.favouriteRoutes = new ArrayList<>();
-        this.drives = new ArrayList<>();
+        this.favouriteRoutes = new HashSet<>();
+        this.rides = new HashSet<>();
     }
 
-    public Passenger(String name, String lastName, Image profilePicture, String phoneNumber, String emailAddress,
-                     String password, boolean isBlocked, String address, ArrayList<Message> receiverInbox,
-                     ArrayList<Message> senderInbox, ArrayList<PanicButton> panicButtons,
-                     ArrayList<FavouriteRoute> favouriteRoutes,
-                     ArrayList<Drive> drives) {
-        super(name, lastName, profilePicture, phoneNumber, emailAddress, password, isBlocked, address, receiverInbox, senderInbox, panicButtons);
+
+    public Passenger(Set<FavouriteRoute> favouriteRoutes, Set<Ride> rides) {
         this.favouriteRoutes = favouriteRoutes;
-        this.drives = drives;
+        this.rides = rides;
     }
 
-    public Passenger(int id, String name, String lastName, Image profilePicture, String phoneNumber,
-                     String emailAddress, String password, boolean isBlocked, String address,
-                     ArrayList<Message> receiverInbox, ArrayList<Message> senderInbox,
-                     ArrayList<PanicButton> panicButtons,
-                     ArrayList<FavouriteRoute> favouriteRoutes,
-                     ArrayList<Drive> drives) {
-        super(id, name, lastName, profilePicture, phoneNumber, emailAddress, password, isBlocked, address, receiverInbox, senderInbox, panicButtons);
+    public Passenger(Long id, String name, String lastName, Image profilePicture, String phoneNumber, String emailAddress, String password, boolean isBlocked, boolean isActive, String address, Set<FavouriteRoute> favouriteRoutes, Set<Ride> rides) {
+        super(id, name, lastName, profilePicture, phoneNumber, emailAddress, password, isBlocked, isActive, address);
         this.favouriteRoutes = favouriteRoutes;
-        this.drives = drives;
+        this.rides = rides;
     }
 
-    public ArrayList<FavouriteRoute> getFavouriteRoutes() {
+    public Set<FavouriteRoute> getFavouriteRoutes() {
         return favouriteRoutes;
     }
 
-    public void setFavouriteRoutes(ArrayList<FavouriteRoute> favouriteRoutes) {
+    public void setFavouriteRoutes(Set<FavouriteRoute> favouriteRoutes) {
         this.favouriteRoutes = favouriteRoutes;
     }
 
-
-    public ArrayList<Drive> getDrives() {
-        return drives;
+    public Set<Ride> getRides() {
+        return rides;
     }
 
-    public void setDrives(ArrayList<Drive> drives) {
-        this.drives = drives;
+    public void setRides(Set<Ride> rides) {
+        this.rides = rides;
     }
 }

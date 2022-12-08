@@ -1,4 +1,4 @@
-package com.example.uberapp_tim3.model.items;
+package com.example.uberapp_tim3.tools;
 import android.os.Parcel;
 import android.os.Parcelable;
 

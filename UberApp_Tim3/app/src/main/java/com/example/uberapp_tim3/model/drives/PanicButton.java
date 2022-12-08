@@ -1,23 +1,22 @@
-package com.example.uberapp_tim3.model.items;
+package com.example.uberapp_tim3.model.drives;
 
-import com.example.uberapp_tim3.model.drives.Drive;
+import com.example.uberapp_tim3.model.drives.Ride;
 import com.example.uberapp_tim3.model.users.User;
 
 import java.time.LocalDateTime;
 
 public class PanicButton {
-    private int id;
+    private Long id;
     private User user;
     private LocalDateTime time;
     private String description;
-    private Drive drive;
+    private Ride drive;
 
     public PanicButton() {
-        this.id = 0;
         this.description = "";
     }
 
-    public PanicButton(int id, User user, LocalDateTime time, String description, Drive drive) {
+    public PanicButton(Long id, User user, LocalDateTime time, String description, Ride drive) {
         this.id = id;
         this.user = user;
         this.time = time;
@@ -25,19 +24,18 @@ public class PanicButton {
         this.drive = drive;
     }
 
-    public PanicButton(User user, LocalDateTime time, String description, Drive drive) {
-        this.id = 0;
+    public PanicButton(User user, LocalDateTime time, String description, Ride drive) {
         this.user = user;
         this.time = time;
         this.description = description;
         this.drive = drive;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -65,11 +63,11 @@ public class PanicButton {
         this.description = description;
     }
 
-    public Drive getDrive() {
+    public Ride getDrive() {
         return drive;
     }
 
-    public void setDrive(Drive drive) {
+    public void setDrive(Ride drive) {
         this.drive = drive;
     }
 }

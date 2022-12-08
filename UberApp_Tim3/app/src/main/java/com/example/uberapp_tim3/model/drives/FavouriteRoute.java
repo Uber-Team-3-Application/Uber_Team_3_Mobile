@@ -3,39 +3,42 @@ package com.example.uberapp_tim3.model.drives;
 import com.example.uberapp_tim3.model.users.Passenger;
 
 public class FavouriteRoute {
-    private int id;
-    private Route route;
+    private Long id;
+    private Location departure;
+    private Location destination;
 
     public FavouriteRoute() {
-        super();
-        this.id = 0;
 
     }
 
-    public FavouriteRoute(Route route) {
-        this.id = 0;
-        this.route = route;
-    }
-
-    public FavouriteRoute(int id, Route route) {
+    public FavouriteRoute(Long id, Location departure, Location destination) {
+        this();
         this.id = id;
-        this.route = route;
+        this.departure = departure;
+        this.destination = destination;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Route getRoute() {
-        return route;
+    public Location getDeparture() {
+        return departure;
     }
 
-    public void setRoute(Route route) {
-        this.route = route;
+    public void setDeparture(Location departure) {
+        this.departure = departure;
     }
 
+    public Location getDestination() {
+        return destination;
+    }
+
+    public void setDestination(Location destination) {
+        this.destination = destination;
+    }
 }

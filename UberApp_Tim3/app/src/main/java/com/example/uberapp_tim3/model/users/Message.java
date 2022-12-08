@@ -1,27 +1,26 @@
-package com.example.uberapp_tim3.model.items;
+package com.example.uberapp_tim3.model.users;
 
 import com.example.uberapp_tim3.model.enums.MessageType;
-import com.example.uberapp_tim3.model.drives.Drive;
+import com.example.uberapp_tim3.model.drives.Ride;
 import com.example.uberapp_tim3.model.users.User;
 
 import java.time.LocalDateTime;
 
 public class Message {
-    private int id;
+    private Long id;
     private String text;
     private LocalDateTime timeOfSending;
     private MessageType messageType;
     private User receiver;
     private User sender;
-    private Drive drive;
+    private Ride drive;
 
     public Message() {
-        this.id = 0;
         this.text = "";
 
     }
 
-    public Message(int id, String text, LocalDateTime timeOfSending, MessageType messageType, User receiver, User sender, Drive drive) {
+    public Message(Long id, String text, LocalDateTime timeOfSending, MessageType messageType, User receiver, User sender, Ride drive) {
         this.id = id;
         this.text = text;
         this.timeOfSending = timeOfSending;
@@ -31,8 +30,8 @@ public class Message {
         this.drive = drive;
     }
 
-    public Message(String text, LocalDateTime timeOfSending, MessageType messageType, User receiver, User sender, Drive drive) {
-        this.id = 0;
+    public Message(String text, LocalDateTime timeOfSending, MessageType messageType, User receiver, User sender, Ride drive) {
+
         this.text = text;
         this.timeOfSending = timeOfSending;
         this.messageType = messageType;
@@ -41,11 +40,11 @@ public class Message {
         this.drive = drive;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -89,11 +88,11 @@ public class Message {
         this.sender = sender;
     }
 
-    public Drive getDrive() {
+    public Ride getDrive() {
         return drive;
     }
 
-    public void setDrive(Drive drive) {
+    public void setDrive(Ride drive) {
         this.drive = drive;
     }
 }

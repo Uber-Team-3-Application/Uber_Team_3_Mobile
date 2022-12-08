@@ -2,30 +2,18 @@ package com.example.uberapp_tim3.model.users;
 
 import android.media.Image;
 
-import com.example.uberapp_tim3.model.items.Message;
-import com.example.uberapp_tim3.model.items.PanicButton;
-import com.example.uberapp_tim3.model.drives.Rejection;
-
-import java.util.ArrayList;
-
 public class Admin extends User {
 
     public Admin() {
         super();
     }
 
-    public Admin(String name, String lastName, Image profilePicture, String phoneNumber,
-                 String emailAddress, String password, boolean isBlocked, String address,
-                 ArrayList<Message> receiverInbox, ArrayList<Message> senderInbox,
-                 ArrayList<PanicButton> panicButtons, ArrayList<Rejection> rejections) {
-        super(name, lastName, profilePicture, phoneNumber, emailAddress, password, isBlocked, address, receiverInbox, senderInbox, panicButtons);
+    public Admin(Long id, String name, String lastName, Image profilePicture, String phoneNumber, String emailAddress, String password, boolean isBlocked, boolean isActive, String address) {
+        super(id, name, lastName, profilePicture, phoneNumber, emailAddress, password, isBlocked, isActive, address);
     }
 
-    public Admin(int id, String name, String lastName, Image profilePicture, String phoneNumber,
-                 String emailAddress, String password, boolean isBlocked, String address,
-                 ArrayList<Message> receiverInbox, ArrayList<Message> senderInbox,
-                 ArrayList<PanicButton> panicButtons, ArrayList<Rejection> rejections) {
-        super(id, name, lastName, profilePicture, phoneNumber, emailAddress, password, isBlocked, address, receiverInbox, senderInbox, panicButtons);
+    public Admin(String name, String lastName, Image profilePicture, String phoneNumber, String emailAddress, String password, boolean isBlocked, boolean isActive, String address) {
+        super(name, lastName, profilePicture, phoneNumber, emailAddress, password, isBlocked, isActive, address);
     }
 
     @Override

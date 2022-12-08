@@ -5,32 +5,30 @@ import com.example.uberapp_tim3.model.enums.VehicleName;
 import java.util.ArrayList;
 
 public class TypeOfVehicle {
-    private int id;
+    private Long id;
     private VehicleName vehicleName;
     private double pricePerKilometer;
 
     public TypeOfVehicle() {
-        this.id  =0 ;
         this.pricePerKilometer = 0.0;
     }
 
-    public TypeOfVehicle(int id, VehicleName vehicleName, double pricePerKilometer) {
+    public TypeOfVehicle(Long id, VehicleName vehicleName, double pricePerKilometer) {
         this.id = id;
         this.vehicleName = vehicleName;
         this.pricePerKilometer = pricePerKilometer;
     }
 
     public TypeOfVehicle(VehicleName vehicleName, double pricePerKilometer) {
-        this.id = 0;
         this.vehicleName = vehicleName;
         this.pricePerKilometer = pricePerKilometer;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

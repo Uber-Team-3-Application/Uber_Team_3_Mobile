@@ -2,37 +2,38 @@ package com.example.uberapp_tim3.model.drives;
 import java.util.ArrayList;
 
 public class Location {
-    private int id;
+    private Long id;
     private double latitude;
     private double longitude;
+    private String address;
 
 
     public Location() {
         super();
-        this.id = 0;
         this.latitude = 0.0;
         this.longitude = 0.0;
     }
 
-
-    public Location(int id, double latitude, double longitude) {
+    public Location(Long id, double latitude, double longitude, String address) {
         this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;
-
+        this.address = address;
     }
 
-    public Location(double latitude, double longitude) {
-        this.id = 0;
-        this.latitude = latitude;
-        this.longitude = longitude;
+    public String getAddress() {
+        return address;
     }
 
-    public int getId() {
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

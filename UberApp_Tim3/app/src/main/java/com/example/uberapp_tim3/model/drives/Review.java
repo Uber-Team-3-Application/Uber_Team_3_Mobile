@@ -3,21 +3,20 @@ package com.example.uberapp_tim3.model.drives;
 import com.example.uberapp_tim3.model.users.Passenger;
 
 public class Review {
-    private int id;
+    private Long id;
     private double rateDriver;
     private double rateVehicle;
     private String comment;
     private Passenger passenger;
-    private Drive drive;
+    private Ride drive;
 
     public Review() {
-        this.id = 0;
         this.rateDriver = 0.0;
         this.rateVehicle = 0.0;
         this.comment = "";
     }
 
-    public Review(int id, double rateDriver, double rateVehicle, String comment, Passenger passenger, Drive drive) {
+    public Review(Long id, double rateDriver, double rateVehicle, String comment, Passenger passenger, Ride drive) {
         this.id = id;
         this.rateDriver = rateDriver;
         this.rateVehicle = rateVehicle;
@@ -27,8 +26,7 @@ public class Review {
         this.drive = drive;
     }
 
-    public Review(double rateDriver, double rateVehicle, String comment, Passenger passenger, Drive drive) {
-        this.id = 0;
+    public Review(double rateDriver, double rateVehicle, String comment, Passenger passenger, Ride drive) {
         this.rateDriver = rateDriver;
         this.rateVehicle = rateVehicle;
         this.comment = comment;
@@ -36,11 +34,11 @@ public class Review {
         this.drive = drive;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -77,11 +75,11 @@ public class Review {
         this.passenger = passenger;
     }
 
-    public Drive getDrive() {
+    public Ride getDrive() {
         return drive;
     }
 
-    public void setDrive(Drive drive) {
+    public void setDrive(Ride drive) {
         this.drive = drive;
     }
 
