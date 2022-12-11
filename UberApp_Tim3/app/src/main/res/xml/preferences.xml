@@ -40,4 +40,27 @@
             android:title="Markovic"/>
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="Auto data sync"
+        android:icon="@drawable/ic_action_refresh"
+        android:key="sync_settings">
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_sync"
+            android:summary="@string/pref_sync_summ"
+            android:title="@string/pref_sync_title" />
+
+        <ListPreference
+            android:dependency="@string/pref_sync"
+            android:dialogTitle="@string/pref_syncConnectionType"
+            android:entries="@array/pref_syncConnectionTypes_entries"
+            android:entryValues="@array/pref_syncConnectionTypes_values"
+            android:key="@string/pref_sync_list"
+            android:title="@string/pref_syncConnectionType"
+            android:summary="%s"
+            android:defaultValue="1"/>
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

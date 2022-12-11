@@ -9,22 +9,30 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.adapters.DrawerNavListAdapter;
+import com.example.uberapp_tim3.fragments.AccountSettingsFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverAccountFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverHomeFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverInboxFragment;
@@ -47,6 +55,13 @@ public class DriverMainActivity extends AppCompatActivity {
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mTitle;
+    public static String SYNC_DATA = "SYNC_DATA";
+
+    private String synctime;
+    private boolean allowSync;
+
+    private AlarmManager manager;
+    private SharedPreferences sharedPreferences;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -99,10 +114,44 @@ public class DriverMainActivity extends AppCompatActivity {
 
 
         if (savedInstanceState == null)
-            selectItemFromDrawer(3);
+            selectItemFromDrawer(4);
 
         setUpService();
+        consultPreferences();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //TODO: ACCOUNT SETTINGS
+
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //TODO: ACCOUNT SETTINGS
+    }
+
+    private void consultPreferences() {
+        sharedPreferences = getSharedPreferences("com.example.uberapp_tim3_preferences", Context.MODE_PRIVATE);
+        if(sharedPreferences.contains("pref_sync_list")){
+            synctime = sharedPreferences.getString("pref_sync_list", "1");
+            if(sharedPreferences.contains("pref_sync")){
+                allowSync = sharedPreferences.getBoolean("pref_sync", false);
+            }
+        }
+    }
+
+    private void setPreferences(){
+        sharedPreferences = getSharedPreferences("com.example.vezbe6_preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor sp_editor = sharedPreferences.edit();
+        if(!sharedPreferences.contains("pref_name")){
+            sp_editor.putString("pref_name", "Ressen");
+            sp_editor.commit();
+        }
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -127,21 +176,19 @@ public class DriverMainActivity extends AppCompatActivity {
             FragmentTransition.to(DriverRideHistoryFragment.newInstance(), this, true);
         } else if (position == 2) {
             FragmentTransition.to(DriverInboxFragment.newInstance(), this, true);
-        } else if (position == 3) {
-            FragmentTransition.to(DriverHomeFragment.newInstance(), this, false);
         } else if (position == 4) {
-            this.finish();
+            FragmentTransition.to(DriverHomeFragment.newInstance(), this, false);
+        } else if (position == 3) {
+            FragmentTransition.to(AccountSettingsFragment.newInstance(), this, true);
+        } else {
+            finish();
         }
-
-
 
             mDrawerList.setItemChecked(position, true);
             if (position != 5) {
                 setTitle(mNavItems.get(position).getmTitle());
             }
             mDrawerLayout.closeDrawer(mDrawerPane);
-
-
 
     }
 
@@ -156,9 +203,11 @@ public class DriverMainActivity extends AppCompatActivity {
         mNavItems.add(new NavItem(getString(R.string.driver_profile), getString(R.string.driver_profile), R.drawable.ic_baseline_person_24));
         mNavItems.add(new NavItem(getString(R.string.drive_history), getString(R.string.drive_history_long), R.drawable.ic_history));
         mNavItems.add(new NavItem(getString(R.string.driver_inbox), getString(R.string.driver_inbox_long), R.drawable.ic_message));
+        mNavItems.add(new NavItem(getString(R.string.preferences), getString(R.string.preferences_long), R.drawable.ic_baseline_settings_24));
         mNavItems.add(new NavItem(getString(R.string.driver_back), getString(R.string.driver_back_long), R.drawable.ic_home));
         mNavItems.add(new NavItem(getString(R.string.log_out) , getString(R.string.logout), R.drawable.ic_logout));
     }
+
 
 
 

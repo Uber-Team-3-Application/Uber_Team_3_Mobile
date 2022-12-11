@@ -2,6 +2,7 @@ package com.example.uberapp_tim3.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,6 +11,7 @@ import com.example.uberapp_tim3.R;
 import java.util.Timer;
 import java.util.TimerTask;
 
+@SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
 
     @Override

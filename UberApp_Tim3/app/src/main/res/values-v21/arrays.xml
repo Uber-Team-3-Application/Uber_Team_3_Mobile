@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string-array name="pref_syncConnectionTypes_entries">
+        <item>1 min</item>
+        <item>15 min</item>
+        <item>30 min</item>
+    </string-array>
+    
+    <string-array name="pref_syncConnectionTypes_values">
+        <item>1</item>
+        <item>15</item>
+        <item>30</item>
+    </string-array>
+    
+    <string-array name="pref_radiusConnectionTypes_entries">
+        <item>1 km</item>
+        <item>3 km</item>
+        <item>5 km</item>
+        <item>10 km</item>
+    </string-array>
+    
+    <string-array name="pref_radiusConnectionTypes_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>10</item>
+    </string-array>
+    
+</resources>
