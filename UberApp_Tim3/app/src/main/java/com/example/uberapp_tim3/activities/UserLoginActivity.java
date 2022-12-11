@@ -1,17 +1,24 @@
 package com.example.uberapp_tim3.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
 
 public class UserLoginActivity extends AppCompatActivity {
+
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +27,6 @@ public class UserLoginActivity extends AppCompatActivity {
 
         TextView tvRegister = findViewById(R.id.btnRegister);
         Button btnLogin = findViewById(R.id.btnLogin);
-
         tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,10 +41,15 @@ public class UserLoginActivity extends AppCompatActivity {
                 Intent intent;
                 String etUser = ((EditText) findViewById(R.id.editTxtEmail)).getText().toString();
                 String etPw = ((EditText)findViewById(R.id.editTxtPassword)).getText().toString();
-                if(etUser.equals("nebojsa") && etPw.equals("vuga"))
+                if(etUser.equals("nebojsa") && etPw.equals("vuga")){
+                    setSharedPreferences("PASSENGER", etUser);
+
                     intent = new Intent(UserLoginActivity.this, PassengerMainActivity.class);
-                else
+                }
+                else {
+                    setSharedPreferences("DRIVER", etUser);
                     intent = new Intent(UserLoginActivity.this, DriverMainActivity.class);
+                }
                 startActivity(intent);
             }
         });
@@ -54,6 +65,15 @@ public class UserLoginActivity extends AppCompatActivity {
                     password.setHint("password123");
             }
         });
+    }
+
+    private void setSharedPreferences(String role, String email){
+        this.sharedPreferences = getSharedPreferences("com.example.uberapp_tim3_preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor spEditor = this.sharedPreferences.edit();
+        spEditor.putString("pref_role", role);
+        spEditor.putString("pref_email", email);
+        spEditor.commit();
+
     }
     @Override
     protected void onStart() {

@@ -16,7 +16,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_layout);
-        FragmentTransition.to(PrefsFragment.newInstance(), this);
+        FragmentTransition.to(PrefsFragment.newInstance(), this, false);
 
     }
 
