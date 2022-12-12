@@ -9,7 +9,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceUtils {
-    public static final String SERVICE_API_PATH = "http://localhost:8082/api/";
+    public static final String SERVICE_API_PATH = "http://192.168.56.1:8082/api/";
     public static final String driver = "driver";
     public static final String passenger = "passenger";
     public static final String vehicle = "vehicle";

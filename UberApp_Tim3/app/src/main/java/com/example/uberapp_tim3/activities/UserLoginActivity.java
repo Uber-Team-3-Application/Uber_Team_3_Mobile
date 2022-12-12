@@ -84,7 +84,7 @@ public class UserLoginActivity extends AppCompatActivity {
     }
 
     public void getDriver(EditText username){
-        Call<DriverDTO> call = ServiceUtils.driverService.getDriver(Long.parseLong("2"));
+        Call<DriverDTO> call = ServiceUtils.driverService.getDriver(2L);
         call.enqueue(new Callback<DriverDTO>() {
             @Override
             public void onResponse(Call<DriverDTO> call, Response<DriverDTO> response) {
