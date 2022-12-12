@@ -8,9 +8,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceUtils {
     public static final String SERVICE_API_PATH = "http://localhost:8082/api/";
-    public static final String ADD = "add";
-    public static final String DELETE = "delete";
-    public static final String EDIT = "edit";
+    public static final String driver = "driver";
+    public static final String passenger = "passenger";
+    public static final String vehicle = "vehicle";
+    public static final String review = "review";
+    public static final String user = "user";
+    public static final String ride = "ride";
+    public static final String panic = "panic";
+    public static final String unregisteredUser = "unregisteredUser";
 
     public static OkHttpClient test(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
