@@ -31,7 +31,7 @@ public class Driver extends User {
         this.rides = rides;
     }
 
-    public Driver(Long id, String name, String lastName, Image profilePicture, String phoneNumber, String emailAddress, String password, boolean isBlocked, boolean isActive, String address, Set<Document> documents, String vehicleRegistrationNumber, Vehicle vehicle, Set<Ride> rides) {
+    public Driver(Long id, String name, String lastName, String profilePicture, String phoneNumber, String emailAddress, String password, boolean isBlocked, boolean isActive, String address, Set<Document> documents, String vehicleRegistrationNumber, Vehicle vehicle, Set<Ride> rides) {
         super(id, name, lastName, profilePicture, phoneNumber, emailAddress, password, isBlocked, isActive, address);
         this.documents = documents;
         this.vehicleRegistrationNumber = vehicleRegistrationNumber;

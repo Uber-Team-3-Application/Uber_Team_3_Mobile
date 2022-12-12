@@ -1,13 +1,12 @@
 package com.example.uberapp_tim3.model.users;
 
-import android.media.Image;
 
 public class User {
 
     private Long id;
     private String name;
     private String lastName;
-    private Image profilePicture;
+    private String profilePicture;
     private String phoneNumber;
     private String emailAddress;
     private String password;
@@ -20,7 +19,7 @@ public class User {
     public User() {
         this.isBlocked = false;
     }
-    public User(String name, String lastName, Image profilePicture, String phoneNumber, String emailAddress, String password, boolean isBlocked, boolean isActive, String address) {
+    public User(String name, String lastName, String profilePicture, String phoneNumber, String emailAddress, String password, boolean isBlocked, boolean isActive, String address) {
         this.name = name;
         this.lastName = lastName;
         this.profilePicture = profilePicture;
@@ -32,7 +31,7 @@ public class User {
         this.address = address;
     }
 
-    public User(Long id, String name, String lastName, Image profilePicture, String phoneNumber, String emailAddress, String password, boolean isBlocked, boolean isActive, String address) {
+    public User(Long id, String name, String lastName, String profilePicture, String phoneNumber, String emailAddress, String password, boolean isBlocked, boolean isActive, String address) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -77,11 +76,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Image getProfilePicture() {
+    public String getProfilePicture() {
         return profilePicture;
     }
 
-    public void setProfilePicture(Image profilePicture) {
+    public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
     }
 

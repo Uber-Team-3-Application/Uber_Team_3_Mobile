@@ -8,11 +8,11 @@ public class Admin extends User {
         super();
     }
 
-    public Admin(Long id, String name, String lastName, Image profilePicture, String phoneNumber, String emailAddress, String password, boolean isBlocked, boolean isActive, String address) {
+    public Admin(Long id, String name, String lastName, String profilePicture, String phoneNumber, String emailAddress, String password, boolean isBlocked, boolean isActive, String address) {
         super(id, name, lastName, profilePicture, phoneNumber, emailAddress, password, isBlocked, isActive, address);
     }
 
-    public Admin(String name, String lastName, Image profilePicture, String phoneNumber, String emailAddress, String password, boolean isBlocked, boolean isActive, String address) {
+    public Admin(String name, String lastName, String profilePicture, String phoneNumber, String emailAddress, String password, boolean isBlocked, boolean isActive, String address) {
         super(name, lastName, profilePicture, phoneNumber, emailAddress, password, isBlocked, isActive, address);
     }
 

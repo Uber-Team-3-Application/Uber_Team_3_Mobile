@@ -26,7 +26,7 @@ public class Passenger extends User {
         this.rides = rides;
     }
 
-    public Passenger(Long id, String name, String lastName, Image profilePicture, String phoneNumber, String emailAddress, String password, boolean isBlocked, boolean isActive, String address, Set<FavouriteRoute> favouriteRoutes, Set<Ride> rides) {
+    public Passenger(Long id, String name, String lastName, String profilePicture, String phoneNumber, String emailAddress, String password, boolean isBlocked, boolean isActive, String address, Set<FavouriteRoute> favouriteRoutes, Set<Ride> rides) {
         super(id, name, lastName, profilePicture, phoneNumber, emailAddress, password, isBlocked, isActive, address);
         this.favouriteRoutes = favouriteRoutes;
         this.rides = rides;
