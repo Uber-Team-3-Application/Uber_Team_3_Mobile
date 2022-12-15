@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.model.DTO.DriverDTO;
+import com.example.uberapp_tim3.model.mockup.Drive;
+import com.example.uberapp_tim3.services.DriverService;
 import com.example.uberapp_tim3.services.ServiceUtils;
 
 import retrofit2.Call;
@@ -25,15 +27,15 @@ import retrofit2.Response;
 public class UserLoginActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
 
+
         TextView tvRegister = findViewById(R.id.btnRegister);
         Button btnLogin = findViewById(R.id.btnLogin);
-        getDriver(findViewById(R.id.editTxtEmail));
+
         tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,23 +85,6 @@ public class UserLoginActivity extends AppCompatActivity {
 
     }
 
-    public void getDriver(EditText username){
-        Call<DriverDTO> call = ServiceUtils.driverService.getDriver(2L);
-        call.enqueue(new Callback<DriverDTO>() {
-            @Override
-            public void onResponse(Call<DriverDTO> call, Response<DriverDTO> response) {
-                if(!response.isSuccessful()) return;
-                    DriverDTO newDriver = response.body();
-                    
-            }
-
-            @Override
-            public void onFailure(Call<DriverDTO> call, Throwable t) {
-                Log.d("FAIIIL", t.getMessage());
-                Log.d("FAIIIL", "BLATRUC");
-            }
-        });
-    }
     @Override
     protected void onStart() {
         super.onStart();
