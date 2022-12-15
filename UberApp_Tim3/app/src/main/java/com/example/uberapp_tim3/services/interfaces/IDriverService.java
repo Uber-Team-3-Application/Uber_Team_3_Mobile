@@ -16,7 +16,7 @@ public interface IDriverService {
                     "Content-Type:application/json"
             }
     )
-    @GET(ServiceUtils.driver+"/{id}")
+    @GET(ServiceUtils.driver + "/{id}")
     Call<DriverDTO> getDriver(@Path("id") Long id);
 
 

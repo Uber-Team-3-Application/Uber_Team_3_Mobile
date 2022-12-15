@@ -90,13 +90,13 @@ public class UserLoginActivity extends AppCompatActivity {
             public void onResponse(Call<DriverDTO> call, Response<DriverDTO> response) {
                 if(!response.isSuccessful()) return;
                     DriverDTO newDriver = response.body();
-                    Log.d("REZ","Meesage recieved");
-                    username.setText(newDriver.getEmail());
+                    
             }
 
             @Override
             public void onFailure(Call<DriverDTO> call, Throwable t) {
-                Log.d("FAIIIL", "Grijeska");
+                Log.d("FAIIIL", t.getMessage());
+                Log.d("FAIIIL", "BLATRUC");
             }
         });
     }
