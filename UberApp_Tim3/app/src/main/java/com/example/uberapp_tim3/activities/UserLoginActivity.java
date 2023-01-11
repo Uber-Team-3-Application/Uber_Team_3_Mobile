@@ -37,6 +37,11 @@ public class UserLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
 
+        // demonstracija pozivanja - ovo ukloniti posle
+        Intent intent = new Intent(UserLoginActivity.this, MapActivity.class);
+        startActivity(intent);
+
+
         TextView tvRegister = findViewById(R.id.btnRegister);
         Button btnLogin = findViewById(R.id.btnLogin);
 
