@@ -13,6 +13,12 @@
             android:key="pref_role"
             android:icon="@drawable/icons_user"
             android:title="Passenger"/>
+        <Preference
+            android:enabled="true"
+            android:dependency="pref_role"
+            android:key="pref_id"
+            android:icon="@drawable/icons_user"
+            android:title="Passenger Id"/>
 
     </PreferenceCategory>
 
@@ -27,17 +33,6 @@
             android:icon="@drawable/ic_baseline_email_24"
             android:title="example@mail.com"/>
 
-        <Preference
-            android:key="pref_name"
-            android:dependency="pref_last_name"
-            android:icon="@drawable/ic_baseline_person_24"
-            android:title="Marko"/>
-
-        <Preference
-            android:key="pref_last_name"
-            android:dependency="pref_last_name"
-            android:icon="@drawable/ic_baseline_person_24"
-            android:title="Markovic"/>
     </PreferenceCategory>
 
     <PreferenceCategory

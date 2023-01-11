@@ -12,6 +12,7 @@ public class LoginDTO {
     public LoginDTO() {
     }
 
+
     public String getEmail() {
         return email;
     }

@@ -18,16 +18,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
@@ -37,11 +42,19 @@ import com.example.uberapp_tim3.fragments.driver.DriverAccountFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverHomeFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverInboxFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverRideHistoryFragment;
+import com.example.uberapp_tim3.model.DTO.CreatedDriverDTO;
+import com.example.uberapp_tim3.model.DTO.DriverDTO;
+import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.NavItem;
 import com.example.uberapp_tim3.services.DriverMessagesService;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class DriverMainActivity extends AppCompatActivity {
@@ -83,6 +96,7 @@ public class DriverMainActivity extends AppCompatActivity {
         mTitle = getTitle();
 
         Toolbar toolbar = findViewById(R.id.driver_main_toolbar);
+
         setSupportActionBar(toolbar);
         final ActionBar actionBar = getSupportActionBar();
 
@@ -91,6 +105,8 @@ public class DriverMainActivity extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);
             actionBar.setHomeButtonEnabled(true);
         }
+        sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+
 
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,
@@ -124,8 +140,46 @@ public class DriverMainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //TODO: ACCOUNT SETTINGS
+        String token = sharedPreferences.getString("pref_token", "");
+        String refreshToken = sharedPreferences.getString("pref_refreshToken", "");
 
+        getDriver(sharedPreferences.getLong("pref_id", 0));
+
+
+    }
+    public DriverDTO getDriver(Long id){
+
+        Call<DriverDTO> call = ServiceUtils.driverService.getDriver(id);
+        call.enqueue(new Callback<DriverDTO>() {
+            @Override
+            public void onResponse(Call<DriverDTO> call, Response<DriverDTO> response) {
+                if(!response.isSuccessful()) return;
+                DriverDTO driver = response.body();
+
+                TextView tvName = findViewById(R.id.userFullName);
+                String fullName = driver.getName() + " " + driver.getSurname();
+                tvName.setText(fullName);
+
+                TextView tvPhoneNumber = findViewById(R.id.userPhoneNumber);
+                tvPhoneNumber.setText(driver.getTelephoneNumber());
+
+                String base64Image = driver.getProfilePicture().split(",")[1];
+                byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+                CircleImageView cv = findViewById(R.id.userProfilePicture);
+                cv.setImageBitmap(decodedByte);
+
+
+            }
+
+            @Override
+            public void onFailure(Call<DriverDTO> call, Throwable t) {
+                Log.d("FAIIIL", t.getMessage());
+                Log.d("FAIIIL", "BLATRUC");
+            }
+        });
+        return null;
     }
 
 

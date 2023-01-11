@@ -1,5 +1,7 @@
 package com.example.uberapp_tim3.activities;
 
+import static androidx.preference.PreferenceManager.getDefaultSharedPreferences;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -16,9 +18,8 @@ import com.auth0.android.jwt.JWT;
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.model.DTO.LoginDTO;
 import com.example.uberapp_tim3.model.DTO.LoginResponseDTO;
-import com.example.uberapp_tim3.model.DTO.UserDTO;
+import com.example.uberapp_tim3.model.DTO.TokenDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
-import com.example.uberapp_tim3.services.UserService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,15 +31,11 @@ import retrofit2.Response;
 public class UserLoginActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
-    private UserService userService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
-
-        userService = new UserService();
-
 
         TextView tvRegister = findViewById(R.id.btnRegister);
         Button btnLogin = findViewById(R.id.btnLogin);
@@ -95,17 +92,20 @@ public class UserLoginActivity extends AppCompatActivity {
                 }
                 String email = jwt.getClaim("sub").asString();
                 Long id = jwt.getClaim("id").asLong();
-
+                TokenDTO tokenDTO = TokenDTO.getInstance();
+                tokenDTO.setToken(loginResponse.getToken());
+                tokenDTO.setRefreshToken(loginResponse.getRefreshToken());
                 Intent intent;
                 if(userRole.equalsIgnoreCase("passenger")){
                     setSharedPreferences("PASSENGER", email, id);
-
+                    setTokenPreference(loginResponse.getToken(), loginResponse.getRefreshToken());
                     intent = new Intent(UserLoginActivity.this, PassengerMainActivity.class);
                     startActivity(intent);
 
                 }
                 else if(userRole.equalsIgnoreCase("driver")) {
                     setSharedPreferences("DRIVER", email, id);
+                    setTokenPreference(loginResponse.getToken(), loginResponse.getRefreshToken());
                     intent = new Intent(UserLoginActivity.this, DriverMainActivity.class);
                     startActivity(intent);
 
@@ -121,13 +121,20 @@ public class UserLoginActivity extends AppCompatActivity {
 
     }
 
+    private void setTokenPreference(String token, String refreshToken) {
+        this.sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor spEditor = this.sharedPreferences.edit();
+        spEditor.putString("pref_token", token);
+        spEditor.putString("pref_refreshToken", refreshToken);
+    }
+
     private void setSharedPreferences(String role, String email, Long id){
-        this.sharedPreferences = getSharedPreferences("com.example.uberapp_tim3_preferences", Context.MODE_PRIVATE);
+        this.sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor spEditor = this.sharedPreferences.edit();
         spEditor.putString("pref_role", role);
         spEditor.putString("pref_email", email);
         spEditor.putLong("pref_id", id);
-        spEditor.commit();
+        spEditor.apply();
 
     }
 
