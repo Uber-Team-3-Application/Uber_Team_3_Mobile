@@ -11,10 +11,8 @@ import retrofit2.http.Path;
 public interface IDriverService {
 
     @Headers(
-            {
-                    "User-Agent: Mobile-Android",
-                    "Content-Type:application/json"
-            }
+            {"User-Agent: Mobile-Android",
+                "Content-Type:application/json"}
     )
     @GET(ServiceUtils.driver + "/{id}")
     Call<UserDTO> getDriver(@Path("id") Long id);

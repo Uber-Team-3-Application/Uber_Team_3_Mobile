@@ -1,9 +1,5 @@
 package com.example.uberapp_tim3.services;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
-import androidx.preference.PreferenceManager;
 
 import com.example.uberapp_tim3.BuildConfig;
 import com.example.uberapp_tim3.services.interfaces.IDriverService;
@@ -31,6 +27,8 @@ public class ServiceUtils {
     public static final String ride = "ride";
     public static final String panic = "panic";
     public static final String unregisteredUser = "unregisteredUser";
+
+
     public static OkHttpClient test(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);

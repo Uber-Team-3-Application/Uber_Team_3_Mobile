@@ -1,15 +1,32 @@
+
 package com.example.uberapp_tim3.model.DTO;
 
 import com.example.uberapp_tim3.model.users.Driver;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class UserDTO {
 
+    @SerializedName("id")
+    @Expose
     private Long id;
+    @SerializedName("name")
+    @Expose
     private String name;
+    @SerializedName("surname")
+    @Expose
     private String surname;
+    @SerializedName("profilePicture")
+    @Expose
     private String profilePicture;
+    @SerializedName("telephoneNumber")
+    @Expose
     private String telephoneNumber;
+    @SerializedName("email")
+    @Expose
     private String email;
+    @SerializedName("address")
+    @Expose
     private String address;
     private String password;
 
@@ -17,7 +34,7 @@ public class UserDTO {
     public UserDTO(){}
 
 
-    public UserDTO(Driver driver){
+    public UserDTO(Driver driver) {
         this.id = driver.getId();
         this.name = driver.getName();
         this.surname = driver.getLastName();
@@ -26,8 +43,9 @@ public class UserDTO {
         this.email = driver.getEmailAddress();
         this.address = driver.getAddress();
         this.password = driver.getPassword();
-
     }
+
+
 
     public Long getId() {
         return id;
@@ -85,11 +103,17 @@ public class UserDTO {
         this.address = address;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    public String toString() {
+        return "DriverDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", profilePicture='" + profilePicture + '\'' +
+                ", telephoneNumber='" + telephoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 }
