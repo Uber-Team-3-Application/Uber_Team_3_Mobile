@@ -14,9 +14,15 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.ChatFragment;
@@ -27,10 +33,18 @@ import com.example.uberapp_tim3.fragments.passenger.PassengerInboxFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerHomeFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerReportFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerRideHistoryFragment;
+import com.example.uberapp_tim3.model.DTO.PassengerDTO;
+import com.example.uberapp_tim3.model.DTO.UserDTO;
 import com.example.uberapp_tim3.services.PassengerMessagesService;
+import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.DrivesMockUp;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 import com.google.android.material.navigation.NavigationView;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PassengerMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -41,6 +55,8 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
     //Sync stuff
     private PendingIntent pendingIntent;
     private AlarmManager manager;
+
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +75,8 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
+        sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         createNotificationChannel();
 
         if (savedInstanceState == null) {
@@ -68,6 +86,9 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
 
         setUpService();
     }
+
+
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -141,6 +162,45 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
     @Override
     protected void onResume() {
         super.onResume();
+        this.getPassenger(sharedPreferences.getLong("pref_id", 0));
+    }
+
+
+    public PassengerDTO getPassenger(Long id){
+
+        Call<PassengerDTO> call = ServiceUtils.passengerService.getPassenger(id);
+        call.enqueue(new Callback<PassengerDTO>() {
+            @Override
+            public void onResponse(Call<PassengerDTO> call, Response<PassengerDTO> response) {
+                if(!response.isSuccessful()) return;
+                PassengerDTO passenger = response.body();
+
+                TextView tvName = findViewById(R.id.passengerNameNavigation);
+                String fullName = passenger.getName() + " " + passenger.getSurname();
+                tvName.setText(fullName);
+
+                TextView tvPhoneNumber = findViewById(R.id.passengerPhoneNavigation);
+                tvPhoneNumber.setText(passenger.getTelephoneNumber());
+
+                if(!passenger.getProfilePicture().contains(",")){return;}
+
+                String base64Image = passenger.getProfilePicture().split(",")[1];
+                byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+                CircleImageView cv = findViewById(R.id.passengerProfilePictureNavigation);
+                cv.setImageBitmap(decodedByte);
+
+
+            }
+
+            @Override
+            public void onFailure(Call<PassengerDTO> call, Throwable t) {
+                Log.d("FAIIIL", t.getMessage());
+                Log.d("FAIIIL", "BLATRUC");
+            }
+        });
+        return null;
     }
 
     @Override

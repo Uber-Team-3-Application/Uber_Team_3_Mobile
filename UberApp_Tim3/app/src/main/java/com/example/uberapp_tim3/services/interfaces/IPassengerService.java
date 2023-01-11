@@ -1,5 +1,6 @@
 package com.example.uberapp_tim3.services.interfaces;
 
+import com.example.uberapp_tim3.model.DTO.PassengerDTO;
 import com.example.uberapp_tim3.model.DTO.UserDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
 
@@ -8,7 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Path;
 
-public interface IDriverService {
+public interface IPassengerService {
 
     @Headers(
             {
@@ -16,8 +17,6 @@ public interface IDriverService {
                     "Content-Type:application/json"
             }
     )
-    @GET(ServiceUtils.driver + "/{id}")
-    Call<UserDTO> getDriver(@Path("id") Long id);
-
-
+    @GET(ServiceUtils.passenger + "/{id}")
+    Call<PassengerDTO> getPassenger(@Path("id") Long id);
 }

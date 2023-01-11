@@ -13,16 +13,13 @@ import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,7 +30,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.adapters.DrawerNavListAdapter;
@@ -42,8 +38,7 @@ import com.example.uberapp_tim3.fragments.driver.DriverAccountFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverHomeFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverInboxFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverRideHistoryFragment;
-import com.example.uberapp_tim3.model.DTO.CreatedDriverDTO;
-import com.example.uberapp_tim3.model.DTO.DriverDTO;
+import com.example.uberapp_tim3.model.DTO.UserDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.NavItem;
 import com.example.uberapp_tim3.services.DriverMessagesService;
@@ -140,21 +135,18 @@ public class DriverMainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        String token = sharedPreferences.getString("pref_token", "");
-        String refreshToken = sharedPreferences.getString("pref_refreshToken", "");
-
         getDriver(sharedPreferences.getLong("pref_id", 0));
 
 
     }
-    public DriverDTO getDriver(Long id){
+    public UserDTO getDriver(Long id){
 
-        Call<DriverDTO> call = ServiceUtils.driverService.getDriver(id);
-        call.enqueue(new Callback<DriverDTO>() {
+        Call<UserDTO> call = ServiceUtils.driverService.getDriver(id);
+        call.enqueue(new Callback<UserDTO>() {
             @Override
-            public void onResponse(Call<DriverDTO> call, Response<DriverDTO> response) {
+            public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
                 if(!response.isSuccessful()) return;
-                DriverDTO driver = response.body();
+                UserDTO driver = response.body();
 
                 TextView tvName = findViewById(R.id.userFullName);
                 String fullName = driver.getName() + " " + driver.getSurname();
@@ -162,6 +154,7 @@ public class DriverMainActivity extends AppCompatActivity {
 
                 TextView tvPhoneNumber = findViewById(R.id.userPhoneNumber);
                 tvPhoneNumber.setText(driver.getTelephoneNumber());
+                if(!driver.getProfilePicture().contains(",")){return;}
 
                 String base64Image = driver.getProfilePicture().split(",")[1];
                 byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
@@ -174,7 +167,7 @@ public class DriverMainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<DriverDTO> call, Throwable t) {
+            public void onFailure(Call<UserDTO> call, Throwable t) {
                 Log.d("FAIIIL", t.getMessage());
                 Log.d("FAIIIL", "BLATRUC");
             }

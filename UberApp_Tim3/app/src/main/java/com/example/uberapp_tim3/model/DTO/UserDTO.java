@@ -1,18 +1,32 @@
 package com.example.uberapp_tim3.model.DTO;
 
+import com.example.uberapp_tim3.model.users.Driver;
+
 public class UserDTO {
 
     private Long id;
+    private String name;
+    private String surname;
+    private String profilePicture;
+    private String telephoneNumber;
     private String email;
-    private String role;
+    private String address;
+    private String password;
 
-    public UserDTO() {
-    }
 
-    public UserDTO(Long id, String email, String role) {
-        this.id = id;
-        this.email = email;
-        this.role = role;
+    public UserDTO(){}
+
+
+    public UserDTO(Driver driver){
+        this.id = driver.getId();
+        this.name = driver.getName();
+        this.surname = driver.getLastName();
+        this.profilePicture = driver.getProfilePicture();
+        this.telephoneNumber = driver.getPhoneNumber();
+        this.email = driver.getEmailAddress();
+        this.address = driver.getAddress();
+        this.password = driver.getPassword();
+
     }
 
     public Long getId() {
@@ -23,6 +37,38 @@ public class UserDTO {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public String getTelephoneNumber() {
+        return telephoneNumber;
+    }
+
+    public void setTelephoneNumber(String telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -31,11 +77,19 @@ public class UserDTO {
         this.email = email;
     }
 
-    public String getRole() {
-        return role;
+    public String getAddress() {
+        return address;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
