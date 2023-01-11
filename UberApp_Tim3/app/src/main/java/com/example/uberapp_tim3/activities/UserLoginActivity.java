@@ -6,20 +6,38 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.auth0.android.jwt.JWT;
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.model.DTO.LoginDTO;
+import com.example.uberapp_tim3.model.DTO.LoginResponseDTO;
+import com.example.uberapp_tim3.model.DTO.UserDTO;
+import com.example.uberapp_tim3.services.ServiceUtils;
+import com.example.uberapp_tim3.services.UserService;
+
+import java.util.HashMap;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UserLoginActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
+    private UserService userService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
+
+        userService = new UserService();
 
 
         TextView tvRegister = findViewById(R.id.btnRegister);
@@ -36,21 +54,14 @@ public class UserLoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent;
+
                 String etUser = ((EditText) findViewById(R.id.editTxtEmail)).getText().toString();
                 String etPw = ((EditText)findViewById(R.id.editTxtPassword)).getText().toString();
-                if(etUser.equals("nebojsa") && etPw.equals("vuga")){
-                    setSharedPreferences("PASSENGER", etUser);
+                login(etUser, etPw);
 
-                    intent = new Intent(UserLoginActivity.this, PassengerMainActivity.class);
-                }
-                else {
-                    setSharedPreferences("DRIVER", etUser);
-                    intent = new Intent(UserLoginActivity.this, DriverMainActivity.class);
-                }
-                startActivity(intent);
             }
         });
+
 
         EditText password = findViewById(R.id.editTxtPassword);
         password.setHint("password123");
@@ -65,11 +76,57 @@ public class UserLoginActivity extends AppCompatActivity {
         });
     }
 
-    private void setSharedPreferences(String role, String email){
+
+    public void login(String email, String password){
+        LoginDTO loginDTO = new LoginDTO(email, password);
+        Call<LoginResponseDTO> call = ServiceUtils.userService.login(loginDTO);
+        call.enqueue(new Callback<LoginResponseDTO>() {
+            @Override
+            public void onResponse(Call<LoginResponseDTO> call, Response<LoginResponseDTO> response) {
+                if(!response.isSuccessful()) return;
+                LoginResponseDTO loginResponse = response.body();
+                String userRole = "";
+                JWT jwt = new JWT(loginResponse.getToken());
+                List<HashMap> role =
+                        jwt.getClaim("role").asList(HashMap.class);
+                for (Object values: role.get(0).values()){
+                    userRole = values.toString();
+                    break;
+                }
+                String email = jwt.getClaim("sub").asString();
+                Long id = jwt.getClaim("id").asLong();
+
+                Intent intent;
+                if(userRole.equalsIgnoreCase("passenger")){
+                    setSharedPreferences("PASSENGER", email, id);
+
+                    intent = new Intent(UserLoginActivity.this, PassengerMainActivity.class);
+                    startActivity(intent);
+
+                }
+                else if(userRole.equalsIgnoreCase("driver")) {
+                    setSharedPreferences("DRIVER", email, id);
+                    intent = new Intent(UserLoginActivity.this, DriverMainActivity.class);
+                    startActivity(intent);
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponseDTO> call, Throwable t) {
+                Log.d("Login Failed", t.getMessage());
+            }
+        });
+
+    }
+
+    private void setSharedPreferences(String role, String email, Long id){
         this.sharedPreferences = getSharedPreferences("com.example.uberapp_tim3_preferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor spEditor = this.sharedPreferences.edit();
         spEditor.putString("pref_role", role);
         spEditor.putString("pref_email", email);
+        spEditor.putLong("pref_id", id);
         spEditor.commit();
 
     }

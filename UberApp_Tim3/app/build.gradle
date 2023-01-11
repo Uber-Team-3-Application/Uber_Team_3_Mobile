@@ -2,6 +2,12 @@ plugins {
     id 'com.android.application'
 }
 
+def getLocalHost(){
+    Properties properties = new Properties();
+    properties.load(project.rootProject.file("local.properties").newDataInputStream());
+    return properties.getProperty("localhost");
+}
+
 android {
     namespace 'com.example.uberapp_tim3'
     compileSdk 32
@@ -14,6 +20,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "LOCALHOST", "\"" + getLocalHost() +"\""
     }
 
     buildTypes {

@@ -1,5 +1,6 @@
 package com.example.uberapp_tim3.services;
 
+import com.example.uberapp_tim3.BuildConfig;
 import com.example.uberapp_tim3.services.interfaces.IDriverService;
 import com.example.uberapp_tim3.services.interfaces.IUserService;
 
@@ -10,7 +11,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceUtils {
-    public static final String SERVICE_API_PATH = "http://192.168.1.2:8082/api/";
+    public static final String SERVICE_API_PATH = BuildConfig.LOCALHOST;
     public static final String driver = "driver";
     public static final String passenger = "passenger";
     public static final String vehicle = "vehicle";
