@@ -1,15 +1,8 @@
 package com.example.uberapp_tim3.services;
 
-import android.app.Service;
-import android.content.Intent;
-import android.os.IBinder;
 import android.util.Log;
-import android.widget.EditText;
-
-import androidx.annotation.Nullable;
 
 import com.example.uberapp_tim3.model.DTO.DriverDTO;
-import com.example.uberapp_tim3.model.mockup.Drive;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -1,6 +1,7 @@
 package com.example.uberapp_tim3.services;
 
 import com.example.uberapp_tim3.services.interfaces.IDriverService;
+import com.example.uberapp_tim3.services.interfaces.IUserService;
 
 import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
@@ -37,5 +38,6 @@ public class ServiceUtils {
             .build();
 
     public static IDriverService driverService = retrofit.create(IDriverService.class);
+    public static IUserService userService = retrofit.create(IUserService.class);
 
 }
