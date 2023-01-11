@@ -166,7 +166,7 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
     }
 
 
-    public PassengerDTO getPassenger(Long id){
+    public void getPassenger(Long id){
 
         Call<PassengerDTO> call = ServiceUtils.passengerService.getPassenger(id);
         call.enqueue(new Callback<PassengerDTO>() {
@@ -200,7 +200,6 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
                 Log.d("FAIIIL", "BLATRUC");
             }
         });
-        return null;
     }
 
     @Override

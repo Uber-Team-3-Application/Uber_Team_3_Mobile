@@ -4,8 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +20,19 @@ import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.EditPasswordFragment;
+import com.example.uberapp_tim3.model.DTO.PassengerDTO;
 import com.example.uberapp_tim3.model.mockup.Passenger;
+import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.PassengerMockup;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PassengerAccountFragment extends Fragment {
 
-
+    private SharedPreferences sharedPreferences;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -28,9 +41,55 @@ public class PassengerAccountFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         setTextViews();
         setOnClickListeners();
     }
+
+
+    public void getPassenger(Long id){
+
+        Call<PassengerDTO> call = ServiceUtils.passengerService.getPassenger(id);
+        call.enqueue(new Callback<PassengerDTO>() {
+            @Override
+            public void onResponse(Call<PassengerDTO> call, Response<PassengerDTO> response) {
+                if(!response.isSuccessful()) return;
+                PassengerDTO passenger = response.body();
+
+                TextView tvName = getActivity().findViewById(R.id.txtPassengerFullName);
+                String fullName = passenger.getName() + " " + passenger.getSurname();
+                tvName.setText(fullName);
+
+                TextView tvPhoneNumber = getActivity().findViewById(R.id.txtPassengerPhoneNumber);
+                tvPhoneNumber.setText(passenger.getTelephoneNumber());
+
+                TextView emailAddress = getActivity().findViewById(R.id.txtPassengerEmail);
+                emailAddress.setText(passenger.getEmail());
+
+                TextView homeAddress = getActivity().findViewById(R.id.txtPassengerAddress);
+                homeAddress.setText(passenger.getAddress());
+
+                if(!passenger.getProfilePicture().contains(",")){return;}
+
+                String base64Image = passenger.getProfilePicture().split(",")[1];
+                byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+                CircleImageView cv = getActivity().findViewById(R.id.imgAvatar);
+                cv.setImageBitmap(decodedByte);
+
+
+            }
+
+            @Override
+            public void onFailure(Call<PassengerDTO> call, Throwable t) {
+                Log.d("FAIIIL", t.getMessage());
+                Log.d("FAIIIL", "BLATRUC");
+            }
+        });
+
+    }
+
 
 
     private void setTextViews(){
@@ -81,6 +140,7 @@ public class PassengerAccountFragment extends Fragment {
     public void onResume() {
         super.onResume();
         requireActivity().setTitle("Profile");
+        this.getPassenger(sharedPreferences.getLong("pref_id", 0));
     }
 
     private void setOnClickListeners() {
