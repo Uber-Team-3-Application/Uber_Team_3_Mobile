@@ -14,7 +14,7 @@ public class PassengerDTO {
     private String address;
     private String password;
     private boolean isConfirmedMail;
-    private double ammountOfMoney;
+    private double amountOfMoney;
 
 
     public PassengerDTO(){}
@@ -29,7 +29,7 @@ public class PassengerDTO {
         this.address = address;
         this.password = password;
         this.isConfirmedMail = isConfirmedMail;
-        this.ammountOfMoney = ammountOfMoney;
+        this.amountOfMoney = ammountOfMoney;
     }
 
     public PassengerDTO(Passenger passenger){
@@ -44,6 +44,7 @@ public class PassengerDTO {
 
     }
 
+
     public boolean isConfirmedMail() {
         return isConfirmedMail;
     }
@@ -52,12 +53,12 @@ public class PassengerDTO {
         isConfirmedMail = confirmedMail;
     }
 
-    public double getAmmountOfMoney() {
-        return ammountOfMoney;
+    public double getAmountOfMoney() {
+        return amountOfMoney;
     }
 
-    public void setAmmountOfMoney(double ammountOfMoney) {
-        this.ammountOfMoney = ammountOfMoney;
+    public void setAmountOfMoney(double ammountOfMoney) {
+        this.amountOfMoney = ammountOfMoney;
     }
 
     public Long getId() {

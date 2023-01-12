@@ -36,12 +36,6 @@ public class UserLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
-
-        // demonstracija pozivanja - ovo ukloniti posle
-        Intent intent = new Intent(UserLoginActivity.this, MapActivity.class);
-        startActivity(intent);
-
-
         TextView tvRegister = findViewById(R.id.btnRegister);
         Button btnLogin = findViewById(R.id.btnLogin);
 
@@ -56,6 +50,8 @@ public class UserLoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                deleteTokenPreferences();
 
                 String etUser = ((EditText) findViewById(R.id.editTxtEmail)).getText().toString();
                 String etPw = ((EditText)findViewById(R.id.editTxtPassword)).getText().toString();
@@ -124,6 +120,15 @@ public class UserLoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void deleteTokenPreferences() {
+        TokenDTO tokenDTO = TokenDTO.getInstance();
+        tokenDTO.setToken(null);
+        tokenDTO.setRefreshToken(null);
+        this.sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor spEditor = this.sharedPreferences.edit();
+        spEditor.clear().commit();
     }
 
     private void setTokenPreference(String token, String refreshToken) {

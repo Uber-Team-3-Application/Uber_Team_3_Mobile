@@ -153,6 +153,7 @@ public class PassengerEditInfoFragment extends Fragment {
                 passenger.setSurname(tvSurname.getText().toString());
                 passenger.setId(sharedPreferences.getLong("pref_id", 102));
                 passenger.setProfilePicture(avatarBase64);
+
                 Call<PassengerDTO> call = ServiceUtils.passengerService.updatePassenger(passenger.getId(), passenger);
                 call.enqueue(new Callback<PassengerDTO>() {
                     @Override
