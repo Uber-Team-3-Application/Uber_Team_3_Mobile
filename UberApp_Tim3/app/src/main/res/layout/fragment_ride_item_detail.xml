@@ -237,22 +237,11 @@
 
 
                 <ImageView
-                    android:id="@+id/imgComments"
-                    android:layout_width="46dp"
-                    android:layout_height="43dp"
-                    android:layout_below="@id/lyRideReviews"
-                    android:layout_marginStart="65dp"
-                    android:layout_marginLeft="-85dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_toEndOf="@+id/imgAvatar"
-                    android:src="@drawable/ic_baseline_comment_24" />
-
-                <ImageView
                     android:id="@+id/imgInbox"
                     android:layout_width="46dp"
                     android:layout_height="43dp"
                     android:layout_below="@id/lyRideReviews"
-                    android:layout_marginStart="-5dp"
+                    android:layout_marginStart="25dp"
                     android:layout_marginTop="4dp"
                     android:layout_toEndOf="@+id/imgAvatar"
                     android:src="@drawable/ic_message" />
@@ -262,7 +251,7 @@
                     android:layout_width="52dp"
                     android:layout_height="46dp"
                     android:layout_below="@id/lyRideReviews"
-                    android:layout_marginStart="-75dp"
+                    android:layout_marginStart="-50dp"
                     android:layout_marginTop="2dp"
                     android:layout_toEndOf="@+id/imgAvatar"
                     android:src="@drawable/ic_baseline_group_24" />
