@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.auth0.android.jwt.JWT;
 import com.example.uberapp_tim3.R;
@@ -81,6 +82,10 @@ public class UserLoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginResponseDTO> call, Response<LoginResponseDTO> response) {
                 if(!response.isSuccessful()) return;
+                if(response.code() == 204){
+                    Toast.makeText(UserLoginActivity.this, "Email not confirmed!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 LoginResponseDTO loginResponse = response.body();
                 String userRole = "";
                 JWT jwt = new JWT(loginResponse.getToken());
