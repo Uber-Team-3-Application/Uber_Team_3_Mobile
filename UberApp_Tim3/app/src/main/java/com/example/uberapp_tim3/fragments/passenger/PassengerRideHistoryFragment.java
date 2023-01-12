@@ -3,8 +3,6 @@ package com.example.uberapp_tim3.fragments.passenger;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.ListFragment;
 
 import android.view.LayoutInflater;
@@ -13,13 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.adapters.CommentsListAdapter;
-import com.example.uberapp_tim3.adapters.DrawerListAdapter;
 import com.example.uberapp_tim3.adapters.PassengerRideHistoryAdapter;
-import com.example.uberapp_tim3.fragments.ChatFragment;
 import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.tools.DrivesMockUp;
-import com.example.uberapp_tim3.tools.FragmentTransition;
 
 import java.util.List;
 

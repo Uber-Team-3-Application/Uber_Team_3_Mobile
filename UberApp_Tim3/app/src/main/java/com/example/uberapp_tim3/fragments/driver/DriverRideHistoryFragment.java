@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.adapters.DrawerListAdapter;
+import com.example.uberapp_tim3.adapters.DriverRidesListAdapter;
 import com.example.uberapp_tim3.fragments.DriveItemDetailFragment;
 import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.tools.DrivesMockUp;
@@ -34,7 +34,8 @@ public class DriverRideHistoryFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DrawerListAdapter adapter = new DrawerListAdapter(getActivity());
+
+        DriverRidesListAdapter adapter = new DriverRidesListAdapter(getActivity());
         setListAdapter(adapter);
 
     }
