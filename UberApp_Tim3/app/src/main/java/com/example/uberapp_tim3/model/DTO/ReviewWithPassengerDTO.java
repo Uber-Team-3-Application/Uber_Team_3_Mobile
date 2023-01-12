@@ -4,11 +4,11 @@ public class ReviewWithPassengerDTO {
     private Long id;
     private int rating;
     private String comment;
-    private UserDTO passenger;
+    private RideUserDTO passenger;
 
     public ReviewWithPassengerDTO() {}
 
-    public ReviewWithPassengerDTO(Long id, int rating, String comment, UserDTO passenger) {
+    public ReviewWithPassengerDTO(Long id, int rating, String comment, RideUserDTO passenger) {
         this.id = id;
         this.rating = rating;
         this.comment = comment;
@@ -39,11 +39,11 @@ public class ReviewWithPassengerDTO {
         this.comment = comment;
     }
 
-    public UserDTO getPassenger() {
+    public RideUserDTO getPassenger() {
         return passenger;
     }
 
-    public void setPassenger(UserDTO passenger) {
+    public void setPassenger(RideUserDTO passenger) {
         this.passenger = passenger;
     }
 

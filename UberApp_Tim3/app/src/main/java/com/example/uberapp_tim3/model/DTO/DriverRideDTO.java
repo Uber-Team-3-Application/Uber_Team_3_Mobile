@@ -12,8 +12,8 @@ public class DriverRideDTO {
     private Date startTime;
     private  Date endTime;
     private  double totalCost;
-    private UserDTO driver;
-    private List<UserDTO> passengers;
+    private RideUserDTO driver;
+    private List<RideUserDTO> passengers;
     private  double estimatedTimeInMinutes;
     private  String vehicleType;
     private  boolean babyTransport;
@@ -33,7 +33,7 @@ public class DriverRideDTO {
     public DriverRideDTO() {
     }
 
-    public DriverRideDTO(Long id, Date startTime, Date endTime, double totalCost, UserDTO driver, List<UserDTO> passengers, double estimatedTimeInMinutes, String vehicleType, boolean babyTransport, boolean petTransport, DeductionDTO rejection, List<RouteDTO> locations, List<RideReviewDTO> reviews) {
+    public DriverRideDTO(Long id, Date startTime, Date endTime, double totalCost, RideUserDTO driver, List<RideUserDTO> passengers, double estimatedTimeInMinutes, String vehicleType, boolean babyTransport, boolean petTransport, DeductionDTO rejection, List<RouteDTO> locations, List<RideReviewDTO> reviews) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -81,19 +81,19 @@ public class DriverRideDTO {
         this.totalCost = totalCost;
     }
 
-    public UserDTO getDriver() {
+    public RideUserDTO getDriver() {
         return driver;
     }
 
-    public void setDriver(UserDTO driver) {
+    public void setDriver(RideUserDTO driver) {
         this.driver = driver;
     }
 
-    public List<UserDTO> getPassengers() {
+    public List<RideUserDTO> getPassengers() {
         return passengers;
     }
 
-    public void setPassengers(List<UserDTO> passengers) {
+    public void setPassengers(List<RideUserDTO> passengers) {
         this.passengers = passengers;
     }
 

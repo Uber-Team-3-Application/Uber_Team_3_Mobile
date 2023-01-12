@@ -1,5 +1,6 @@
 package com.example.uberapp_tim3.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.driver.DriverInboxFragment;
 import com.example.uberapp_tim3.fragments.passenger.ProfilesOfPassengersOnDrive;
+import com.example.uberapp_tim3.model.DTO.DeductionDTO;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.LocationDTO;
 import com.example.uberapp_tim3.model.DTO.ReviewWithPassengerDTO;
@@ -25,6 +28,8 @@ import com.example.uberapp_tim3.model.DTO.RideReviewDTO;
 import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.FragmentTransition;
+
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -124,9 +129,13 @@ public class DriveItemDetailFragment extends Fragment {
                     return;
                 }
                 DriverRideDTO rideDTO = response.body();
+                assert rideDTO != null;
                 setBasicRideInfo(rideDTO);
-                float rating =  getRating(rideDTO);
+                List<RideReviewDTO> reviews = rideDTO.getReviews();
+                float rating =  getRating(rideDTO, reviews);
                 simpleRatingBar.setRating(rating);
+                setPassengerReviews(reviews);
+
 
             }
 
@@ -138,9 +147,45 @@ public class DriveItemDetailFragment extends Fragment {
         });
     }
 
-    private float getRating(DriverRideDTO rideDTO) {
+    private void setPassengerReviews(List<RideReviewDTO> reviews) {
+        LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.lyRideReviews);
+        LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        for(RideReviewDTO review: reviews){
+            if(review.getDriverReview() != null) {
+                ReviewWithPassengerDTO driverReview = review.getDriverReview();
+                View driverRev;
+                driverRev = inflater.inflate(R.layout.review, (ViewGroup) getView(), false);
+                TextView emailDriverAddress = driverRev.findViewById(R.id.txtRideReviewPassengerEmail);
+                emailDriverAddress.setText(driverReview.getPassenger().getEmail());
+                RatingBar rbDriver = driverRev.findViewById(R.id.rbRideReviewRating);
+                rbDriver.setRating(driverReview.getRating());
+                rbDriver.setEnabled(false);
+                TextView txtComment = driverRev.findViewById(R.id.txtRideReviewPassengerComment);
+                txtComment.setText(driverReview.getComment());
+                TextView typeOfReview = driverRev.findViewById(R.id.txtTypeOfReview);
+                typeOfReview.setText("Driver review:");
+                linearLayout.addView(driverRev);
+            }
+            if(review.getVehicleReview() != null) {
+                ReviewWithPassengerDTO vehicleReview = review.getVehicleReview();
+                View vehicleRev;
+                vehicleRev = inflater.inflate(R.layout.review, (ViewGroup) getView(), false);
+                TextView emailVehicleAddress = vehicleRev.findViewById(R.id.txtRideReviewPassengerEmail);
+                emailVehicleAddress.setText(vehicleReview.getPassenger().getEmail());
+                RatingBar rbVehicle = vehicleRev.findViewById(R.id.rbRideReviewRating);
+                rbVehicle.setRating(vehicleReview.getRating());
+                rbVehicle.setEnabled(false);
+                TextView txtComment = vehicleRev.findViewById(R.id.txtRideReviewPassengerComment);
+                txtComment.setText(vehicleReview.getComment());
+                TextView typeOfReview = vehicleRev.findViewById(R.id.txtTypeOfReview);
+                typeOfReview.setText("Vehicle review:");
+                linearLayout.addView(vehicleRev);
+            }
+        }
+    }
+
+    private float getRating(DriverRideDTO rideDTO, List<RideReviewDTO> reviews) {
         float rating = 0;
-        List<RideReviewDTO> reviews = rideDTO.getReviews();
         if(reviews.size() == 0)
             return 0 ;
 
