@@ -1,5 +1,8 @@
 package com.example.uberapp_tim3.model.DTO;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +20,7 @@ public class DriverRideDTO {
     private  boolean petTransport;
     private  DeductionDTO rejection;
     private  List<RouteDTO> locations;
-
+    private List<RideReviewDTO> reviews;
     public DriverRideDTO() {
     }
 
@@ -131,4 +134,6 @@ public class DriverRideDTO {
     public void setLocations(List<RouteDTO> locations) {
         this.locations = locations;
     }
+
+
 }

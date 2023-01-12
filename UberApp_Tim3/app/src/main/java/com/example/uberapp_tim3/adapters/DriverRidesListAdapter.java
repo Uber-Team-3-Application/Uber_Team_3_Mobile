@@ -3,20 +3,24 @@ package com.example.uberapp_tim3.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.fragments.DriveItemDetailFragment;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.Paginated;
 import com.example.uberapp_tim3.model.DTO.RideUserDTO;
 import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.DrivesMockUp;
+import com.example.uberapp_tim3.tools.FragmentTransition;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,31 +29,12 @@ import retrofit2.Response;
 public class DriverRidesListAdapter extends BaseAdapter {
     private Activity activity;
     private Paginated<DriverRideDTO> rides;
-    private SharedPreferences sharedPreferences;
 
-    public DriverRidesListAdapter(Activity activity) {
-        sharedPreferences = activity.getSharedPreferences("preferences", Context.MODE_PRIVATE);
+    public DriverRidesListAdapter(Activity activity, Paginated<DriverRideDTO> rides) {
         this.activity = activity;
-        Call<Paginated<DriverRideDTO>> call = ServiceUtils.driverService.
-                getRides(sharedPreferences.getLong("pref_id", 0L), 0, 50, "timeOfStart,desc");
+        this.rides = rides;
+        notifyDataSetChanged();
 
-        call.enqueue(new Callback<Paginated<DriverRideDTO>>() {
-            @Override
-            public void onResponse(Call<Paginated<DriverRideDTO>> call, Response<Paginated<DriverRideDTO>> response) {
-                if(!response.isSuccessful()){
-                    rides = new Paginated<DriverRideDTO>(0);
-                    return;
-                }
-                rides = response.body();
-                notifyDataSetChanged();
-
-            }
-
-            @Override
-            public void onFailure(Call<Paginated<DriverRideDTO>> call, Throwable t) {
-                Log.d("Fail", "Failed fetching driver rides");
-            }
-        });
     }
 
     @Override
@@ -99,7 +84,6 @@ public class DriverRidesListAdapter extends BaseAdapter {
         name.setText(fromTo);
         String duration = drive.getStartTime().toString() + " - " + drive.getEndTime().toString();
         description.setText(duration);
-
         return  vi;
     }
 }
