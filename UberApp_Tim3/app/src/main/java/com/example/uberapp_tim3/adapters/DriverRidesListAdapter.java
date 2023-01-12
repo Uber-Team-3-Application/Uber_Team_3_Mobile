@@ -22,6 +22,9 @@ import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.DrivesMockUp;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -78,11 +81,17 @@ public class DriverRidesListAdapter extends BaseAdapter {
         ImageView image = (ImageView)vi.findViewById(R.id.item_icon);
 
         assert drive != null;
+
+
         String fromTo = drive.getLocations().get(0).getDeparture().getAddress() + " - " +
                         drive.getLocations().get(drive.getLocations().size() - 1).getDestination().getAddress();
 
         name.setText(fromTo);
-        String duration = drive.getStartTime().toString() + " - " + drive.getEndTime().toString();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+        Date startTime = drive.getStartTime();
+        Date endTime = drive.getEndTime();
+        String duration = sdf.format(startTime) + " - " + sdf.format(endTime);
         description.setText(duration);
         return  vi;
     }

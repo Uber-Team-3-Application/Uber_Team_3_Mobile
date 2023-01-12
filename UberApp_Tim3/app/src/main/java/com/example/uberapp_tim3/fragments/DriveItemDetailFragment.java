@@ -19,9 +19,13 @@ import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.driver.DriverInboxFragment;
 import com.example.uberapp_tim3.fragments.passenger.ProfilesOfPassengersOnDrive;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
+import com.example.uberapp_tim3.model.DTO.LocationDTO;
 import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.FragmentTransition;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -122,9 +126,17 @@ public class DriveItemDetailFragment extends Fragment {
                 txtEndStation.setText(rideDTO.getLocations()
                         .get(rideDTO.getLocations().size() - 1).getDestination().getAddress());
 
-                txtStartDriving.setText(rideDTO.getStartTime().toString());
-                txtEndDriving.setText(rideDTO.getEndTime().toString());
-                txtKmNum.setText("Unknown");
+                Date startTime = rideDTO.getStartTime();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                String start = sdf.format(startTime);
+                txtStartDriving.setText(start);
+                Date endTime = rideDTO.getEndTime();
+                String end = sdf.format(endTime);
+                txtEndDriving.setText(end);
+                double totalDistanceInKm = calculateDistance(rideDTO.getLocations().get(0).getDeparture(),
+                                                            rideDTO.getLocations().get(rideDTO.getLocations().size() - 1).getDestination());
+                String totalDistance = Double.toString(totalDistanceInKm) + " KM";
+                txtKmNum.setText(totalDistance);
                 String cost = Double.toString(rideDTO.getTotalCost());
                 txtPrice.setText(cost);
                 String totalPassengers = Integer.toString(rideDTO.getPassengers().size());
@@ -138,6 +150,18 @@ public class DriveItemDetailFragment extends Fragment {
                 Toast.makeText(getActivity(), "Something went wrong!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private double calculateDistance(LocationDTO departure, LocationDTO destination){
+        double theta = departure.getLongitude() - destination.getLongitude();
+        double dist = Math.sin(Math.toRadians(departure.getLatitude())) * Math.sin(Math.toRadians(destination.getLatitude()))
+                + Math.cos(Math.toRadians(departure.getLatitude())) * Math.cos(Math.toRadians(destination.getLatitude())) * Math.cos(Math.toRadians(theta));
+        dist = Math.acos(dist);
+        dist = Math.toDegrees(dist);
+        dist = dist * 60 * 1.1515;
+        dist = dist * 1.609344;
+        double scale = Math.pow(10, 2);
+        return Math.round(dist * scale) / scale;
     }
 
     private void setListenerForInbox(ImageView imgInbox, Drive drive) {
