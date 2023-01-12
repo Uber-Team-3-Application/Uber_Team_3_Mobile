@@ -32,6 +32,7 @@ import com.example.uberapp_tim3.tools.FragmentTransition;
 import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -94,6 +95,7 @@ public class DriveItemDetailFragment extends Fragment {
         imgInbox = view.findViewById(R.id.imgInbox);
         getRideInfo(bundle);
 
+        this.setListenerForProfiles(imgProfiles);
 
     }
 
@@ -215,7 +217,7 @@ public class DriveItemDetailFragment extends Fragment {
         return Math.round(dist * scale) / scale;
     }
 
-    private void setListenerForInbox(ImageView imgInbox, Drive drive) {
+    private void setListenerForInbox(ImageView imgInbox) {
         imgInbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -225,13 +227,19 @@ public class DriveItemDetailFragment extends Fragment {
         });
     }
 
-    private void setListenerForProfiles(ImageView imgProfiles, Drive drive) {
+    private void setListenerForProfiles(ImageView imgProfiles) {
 
         imgProfiles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle args = new Bundle();
-                args.putLong("rideId", rideDTO.getId());
+                StringBuilder ids = new StringBuilder();
+                for(int i =0;i<rideDTO.getPassengers().size();i++){
+                    ids.append(Long.toString(rideDTO.getPassengers().get(i).getId()));
+                    if(i != rideDTO.getPassengers().size() - 1) ids.append(" ");
+                }
+                args.putString("passIds", ids.toString());
+
                 ProfilesOfPassengersOnDrive profiles = new ProfilesOfPassengersOnDrive();
                 profiles.setArguments(args);
                 FragmentTransition.to(profiles, getActivity(), true);

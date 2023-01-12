@@ -6,15 +6,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.ListFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.adapters.PassengersListAdapter;
 import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.tools.FragmentTransition;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.&laquo;
@@ -36,9 +41,16 @@ public class ProfilesOfPassengersOnDrive extends ListFragment {
         Bundle bundle  = this.getArguments();
 
         assert bundle != null;
-        Drive drive = bundle.getParcelable("driveInfo");
-        PassengersListAdapter profiles = new PassengersListAdapter(getActivity(), drive.getPassengerList());
-        setListAdapter(profiles);
+        String idsBundle = bundle.getString("passIds");
+        String ids[] = idsBundle.split(" ");
+        List<Long> passengerIds = new ArrayList<>();
+        for(int i =0;i<ids.length;i++){
+            passengerIds.add(Long.parseLong(ids[i].trim()));
+        }
+
+
+        //PassengersListAdapter profiles = new PassengersListAdapter(getActivity(), drive.getPassengerList());
+        //setListAdapter(profiles);
     }
 
     @Override
