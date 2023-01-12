@@ -28,13 +28,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DriveItemDetailFragment extends Fragment {
-    private TextView viewStartStation;
+    private TextView txtStartStation;
     private TextView txtEndStation;
     private TextView txtStartDriving;
     private TextView txtEndDriving;
     private TextView txtPassengerNum;
     private TextView txtKmNum;
-    private TextView priceView;
+    private TextView txtPrice;
     private RatingBar simpleRatingBar;
     private  ImageView imgComments;
     private  ImageView imgProfiles;
@@ -67,7 +67,7 @@ public class DriveItemDetailFragment extends Fragment {
         Bundle bundle = this.getArguments();
 
         assert bundle != null;
-         viewStartStation = view.findViewById(R.id.txtStartDrivingStation);
+        txtStartStation = view.findViewById(R.id.txtStartDrivingStation);
         //viewStartStation.setText(drive.getrelation().split("-")[0]);
 
         txtEndStation = view.findViewById(R.id.txtEndDrivingStation);
@@ -89,7 +89,7 @@ public class DriveItemDetailFragment extends Fragment {
         //simpleRatingBar.setEnabled(false);
         //simpleRatingBar.setRating(drive.getRate());
 
-        priceView = view.findViewById(R.id.txtPriceOfDrive);
+        txtPrice = view.findViewById(R.id.txtPriceOfDrive);
         //priceView.setText(String.valueOf(drive.getPrice()));
 
         imgComments = view.findViewById(R.id.imgComments);
@@ -107,7 +107,7 @@ public class DriveItemDetailFragment extends Fragment {
     }
 
     private void getRideInfo(Bundle bundle) {
-        Long driveId = bundle.getParcelable("driveId");
+        Long driveId = bundle.getLong("driveId");
         Call<DriverRideDTO> call = ServiceUtils.rideService.getRide(driveId);
         call.enqueue(new Callback<DriverRideDTO>() {
             @Override
@@ -116,7 +116,19 @@ public class DriveItemDetailFragment extends Fragment {
                     Toast.makeText(getActivity(), "Cant fetch ride!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                DriverRideDTO rideDTO = response.body();
+                txtStartStation.setText(rideDTO.getLocations()
+                        .get(0).getDeparture().getAddress());
+                txtEndStation.setText(rideDTO.getLocations()
+                        .get(rideDTO.getLocations().size() - 1).getDestination().getAddress());
 
+                txtStartDriving.setText(rideDTO.getStartTime().toString());
+                txtEndDriving.setText(rideDTO.getEndTime().toString());
+                txtKmNum.setText("Unknown");
+                String cost = Double.toString(rideDTO.getTotalCost());
+                txtPrice.setText(cost);
+                String totalPassengers = Integer.toString(rideDTO.getPassengers().size());
+                txtPassengerNum.setText(totalPassengers);
 
             }
 
