@@ -1,6 +1,5 @@
 package com.example.uberapp_tim3.activities;
 
-import static androidx.preference.PreferenceManager.getDefaultSharedPreferences;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -231,11 +231,11 @@ public class DriverMainActivity extends AppCompatActivity {
             finish();
         }
 
-            mDrawerList.setItemChecked(position, true);
-            if (position != 5) {
-                setTitle(mNavItems.get(position).getmTitle());
-            }
-            mDrawerLayout.closeDrawer(mDrawerPane);
+        mDrawerList.setItemChecked(position, true);
+        if (position != 5) {
+            setTitle(mNavItems.get(position).getmTitle());
+        }
+        mDrawerLayout.closeDrawer(mDrawerPane);
 
     }
 
