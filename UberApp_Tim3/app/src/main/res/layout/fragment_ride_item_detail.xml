@@ -191,11 +191,23 @@
                     android:textSize="16sp"
                     android:textStyle="bold|italic" />
 
+                <TextView
+                    android:id="@+id/txtOverallReview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtPriceOfDrive"
+                    android:layout_alignStart="@+id/priceOfDrive"
+                    android:layout_marginStart="125dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Overal review"
+                    android:textSize="16sp"
+                    android:textStyle="bold|italic" />
+
                 <RatingBar
                     android:id="@+id/simpleRatingBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/priceOfDrive"
+                    android:layout_below="@id/txtOverallReview"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
                     android:theme="@style/RatingBar" />
