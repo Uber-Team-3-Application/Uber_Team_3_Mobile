@@ -51,6 +51,7 @@ public class DriveItemDetailFragment extends Fragment {
     private  ImageView imgComments;
     private  ImageView imgProfiles;
     private  ImageView imgInbox;
+    private DriverRideDTO rideDTO;
 
     public DriveItemDetailFragment() {
         // Required empty public constructor
@@ -80,39 +81,17 @@ public class DriveItemDetailFragment extends Fragment {
 
         assert bundle != null;
         txtStartStation = view.findViewById(R.id.txtStartDrivingStation);
-        //viewStartStation.setText(drive.getrelation().split("-")[0]);
-
         txtEndStation = view.findViewById(R.id.txtEndDrivingStation);
-        //txtEndStation.setText(drive.getrelation().split("-")[1]);
-
         txtStartDriving = view.findViewById(R.id.txtStartDriving);
-        //txtStartDriving.setText(drive.getStartDrive());
-
         txtEndDriving = view.findViewById(R.id.txtEndDriving);
-        //txtEndDriving.setText(drive.getEndDrive());
-
         txtPassengerNum = view.findViewById(R.id.txtPassengerNum);
-        //txtPassengerNum.setText(String.valueOf(drive.getNumberOfPassengers()));
-
         txtKmNum = view.findViewById(R.id.txtKilometersNum);
-        //txtKmNum.setText(String.valueOf(drive.getKm()));
-
         simpleRatingBar = view.findViewById(R.id.simpleRatingBar);
         simpleRatingBar.setEnabled(false);
-        //simpleRatingBar.setRating(drive.getRate());
-
         txtPrice = view.findViewById(R.id.txtPriceOfDrive);
-        //priceView.setText(String.valueOf(drive.getPrice()));
-
-        imgComments = view.findViewById(R.id.imgComments);
-        //setListenerForComments(imgComments, drive);
-
-
         imgProfiles = view.findViewById(R.id.imgProfiles);
-        //setListenerForProfiles(imgProfiles, drive);
 
         imgInbox = view.findViewById(R.id.imgInbox);
-        //setListenerForInbox(imgInbox, drive);
         getRideInfo(bundle);
 
 
@@ -128,7 +107,7 @@ public class DriveItemDetailFragment extends Fragment {
                     Toast.makeText(getActivity(), "Cant fetch ride!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                DriverRideDTO rideDTO = response.body();
+                rideDTO = response.body();
                 assert rideDTO != null;
                 setBasicRideInfo(rideDTO);
                 List<RideReviewDTO> reviews = rideDTO.getReviews();
@@ -252,7 +231,7 @@ public class DriveItemDetailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Bundle args = new Bundle();
-                args.putParcelable("driveInfo", drive);
+                args.putLong("rideId", rideDTO.getId());
                 ProfilesOfPassengersOnDrive profiles = new ProfilesOfPassengersOnDrive();
                 profiles.setArguments(args);
                 FragmentTransition.to(profiles, getActivity(), true);
@@ -261,19 +240,5 @@ public class DriveItemDetailFragment extends Fragment {
 
     }
 
-    private void setListenerForComments(ImageView imgComments, Drive drive) {
-        imgComments.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Bundle args = new Bundle();
-                args.putParcelable("driveInfo", drive);
-                CommentsFragment commentsFragment = new CommentsFragment();
-                commentsFragment.setArguments(args);
-                FragmentTransition.to(commentsFragment, getActivity(), true);
-
-            }
-        });
-    }
 
 }
