@@ -20,12 +20,15 @@ import com.example.uberapp_tim3.fragments.driver.DriverInboxFragment;
 import com.example.uberapp_tim3.fragments.passenger.ProfilesOfPassengersOnDrive;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.LocationDTO;
+import com.example.uberapp_tim3.model.DTO.ReviewWithPassengerDTO;
+import com.example.uberapp_tim3.model.DTO.RideReviewDTO;
 import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -90,7 +93,7 @@ public class DriveItemDetailFragment extends Fragment {
         //txtKmNum.setText(String.valueOf(drive.getKm()));
 
         simpleRatingBar = view.findViewById(R.id.simpleRatingBar);
-        //simpleRatingBar.setEnabled(false);
+        simpleRatingBar.setEnabled(false);
         //simpleRatingBar.setRating(drive.getRate());
 
         txtPrice = view.findViewById(R.id.txtPriceOfDrive);
@@ -121,26 +124,9 @@ public class DriveItemDetailFragment extends Fragment {
                     return;
                 }
                 DriverRideDTO rideDTO = response.body();
-                txtStartStation.setText(rideDTO.getLocations()
-                        .get(0).getDeparture().getAddress());
-                txtEndStation.setText(rideDTO.getLocations()
-                        .get(rideDTO.getLocations().size() - 1).getDestination().getAddress());
-
-                Date startTime = rideDTO.getStartTime();
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                String start = sdf.format(startTime);
-                txtStartDriving.setText(start);
-                Date endTime = rideDTO.getEndTime();
-                String end = sdf.format(endTime);
-                txtEndDriving.setText(end);
-                double totalDistanceInKm = calculateDistance(rideDTO.getLocations().get(0).getDeparture(),
-                                                            rideDTO.getLocations().get(rideDTO.getLocations().size() - 1).getDestination());
-                String totalDistance = Double.toString(totalDistanceInKm) + " KM";
-                txtKmNum.setText(totalDistance);
-                String cost = Double.toString(rideDTO.getTotalCost());
-                txtPrice.setText(cost);
-                String totalPassengers = Integer.toString(rideDTO.getPassengers().size());
-                txtPassengerNum.setText(totalPassengers);
+                setBasicRideInfo(rideDTO);
+                float rating =  getRating(rideDTO);
+                simpleRatingBar.setRating(rating);
 
             }
 
@@ -150,6 +136,47 @@ public class DriveItemDetailFragment extends Fragment {
                 Toast.makeText(getActivity(), "Something went wrong!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private float getRating(DriverRideDTO rideDTO) {
+        float rating = 0;
+        List<RideReviewDTO> reviews = rideDTO.getReviews();
+        if(reviews.size() == 0)
+            return 0 ;
+
+        int totalNumOfReviews = reviews.size() * 2;
+        int totalReviewScore = 0;
+        for(int i =0;i<reviews.size();i++){
+            ReviewWithPassengerDTO driverReview = reviews.get(i).getDriverReview();
+            ReviewWithPassengerDTO vehicleReview = reviews.get(i).getVehicleReview();
+            totalReviewScore += vehicleReview.getRating();
+            totalReviewScore += driverReview.getRating();
+        }
+        rating = totalReviewScore/totalNumOfReviews;
+        return rating;
+    }
+
+    private void setBasicRideInfo(DriverRideDTO rideDTO) {
+        txtStartStation.setText(rideDTO.getLocations()
+                .get(0).getDeparture().getAddress());
+        txtEndStation.setText(rideDTO.getLocations()
+                .get(rideDTO.getLocations().size() - 1).getDestination().getAddress());
+
+        Date startTime = rideDTO.getStartTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        String start = sdf.format(startTime);
+        txtStartDriving.setText(start);
+        Date endTime = rideDTO.getEndTime();
+        String end = sdf.format(endTime);
+        txtEndDriving.setText(end);
+        double totalDistanceInKm = calculateDistance(rideDTO.getLocations().get(0).getDeparture(),
+                                                    rideDTO.getLocations().get(rideDTO.getLocations().size() - 1).getDestination());
+        String totalDistance = Double.toString(totalDistanceInKm) + " KM";
+        txtKmNum.setText(totalDistance);
+        String cost = Double.toString(rideDTO.getTotalCost());
+        txtPrice.setText(cost);
+        String totalPassengers = Integer.toString(rideDTO.getPassengers().size());
+        txtPassengerNum.setText(totalPassengers);
     }
 
     private double calculateDistance(LocationDTO departure, LocationDTO destination){

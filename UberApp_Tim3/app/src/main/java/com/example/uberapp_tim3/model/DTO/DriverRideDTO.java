@@ -21,10 +21,19 @@ public class DriverRideDTO {
     private  DeductionDTO rejection;
     private  List<RouteDTO> locations;
     private List<RideReviewDTO> reviews;
+
+    public List<RideReviewDTO> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<RideReviewDTO> reviews) {
+        this.reviews = reviews;
+    }
+
     public DriverRideDTO() {
     }
 
-    public DriverRideDTO(Long id, Date startTime, Date endTime, double totalCost, UserDTO driver, List<UserDTO> passengers, double estimatedTimeInMinutes, String vehicleType, boolean babyTransport, boolean petTransport, DeductionDTO rejection, List<RouteDTO> locations) {
+    public DriverRideDTO(Long id, Date startTime, Date endTime, double totalCost, UserDTO driver, List<UserDTO> passengers, double estimatedTimeInMinutes, String vehicleType, boolean babyTransport, boolean petTransport, DeductionDTO rejection, List<RouteDTO> locations, List<RideReviewDTO> reviews) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -37,6 +46,7 @@ public class DriverRideDTO {
         this.petTransport = petTransport;
         this.rejection = rejection;
         this.locations = locations;
+        this.reviews = reviews;
     }
 
     public Long getId() {
