@@ -92,7 +92,8 @@ public class DriveItemDetailFragment extends Fragment {
         txtPrice = view.findViewById(R.id.txtPriceOfDrive);
 
         imgInbox = view.findViewById(R.id.imgInbox);
-        getRideInfo(bundle);
+        this.setListenerForInbox(imgInbox);
+        this.getRideInfo(bundle);
 
     }
 
@@ -216,7 +217,7 @@ public class DriveItemDetailFragment extends Fragment {
                                                     rideDTO.getLocations().get(rideDTO.getLocations().size() - 1).getDestination());
         String totalDistance = Double.toString(totalDistanceInKm) + " KM";
         txtKmNum.setText(totalDistance);
-        String cost = Double.toString(rideDTO.getTotalCost());
+        String cost = Double.toString(rideDTO.getTotalCost()) + " RSD";
         txtPrice.setText(cost);
         String totalPassengers = Integer.toString(rideDTO.getPassengers().size());
         txtPassengerNum.setText(totalPassengers);
