@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -59,6 +60,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
 
     }
 
+
     /**
      * Kada zelmo da dobijamo informacije o lokaciji potrebno je da specificiramo
      * po kom kriterijumu zelimo da dobijamo informacije GSP, MOBILNO(WIFI, MObilni internet), GPS+MOBILNO
@@ -83,6 +85,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         //VODITI RACUNA OVO JE ASINHRONA OPERACIJA
         //LOKACIJE MOGU DA SE DOBIJU PRE MAPE I OBRATNO
         mMapFragment.getMapAsync(this);
+
     }
 
     private void showLocationDialog() {
@@ -207,44 +210,44 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         }
     }
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode,
-//                                           String permissions[], int[] grantResults) {
-//        switch (requestCode) {
-//            case MY_PERMISSIONS_REQUEST_LOCATION: {
-//                // If request is cancelled, the result arrays are empty.
-//                if (grantResults.length > 0
-//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//
-//                    // permission was granted, yay! Do the
-//                    // location-related task you need to do.
-//                    if (ContextCompat.checkSelfPermission(requireActivity(),
-//                            Manifest.permission.ACCESS_FINE_LOCATION)
-//                            == PackageManager.PERMISSION_GRANTED) {
-//
-//                        //Request location updates:
-//                        locationManager.requestLocationUpdates(provider, 0, 0, this);
-//                    }
-//
-//                } else if (grantResults.length > 0
-//                        && grantResults[1] == PackageManager.PERMISSION_GRANTED){
-//
-//                    // permission denied, boo! Disable the
-//                    // functionality that depends on this permission.
-//                    if (ContextCompat.checkSelfPermission(getActivity(),
-//                            Manifest.permission.ACCESS_COARSE_LOCATION)
-//                            == PackageManager.PERMISSION_GRANTED) {
-//
-//                        //Request location updates:
-//                        locationManager.requestLocationUpdates(provider, 0, 0, this);
-//                    }
-//
-//                }
-//                return;
-//            }
-//
-//        }
-//    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(requireActivity(),
+                            Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+
+                        //Request location updates:
+                        locationManager.requestLocationUpdates(provider, 0, 0, this);
+                    }
+
+                } else if (grantResults.length > 0
+                        && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    if (ContextCompat.checkSelfPermission(getActivity(),
+                            Manifest.permission.ACCESS_COARSE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+
+                        //Request location updates:
+                        locationManager.requestLocationUpdates(provider, 0, 0, this);
+                    }
+
+                }
+                return;
+            }
+
+        }
+    }
 
 
     /**
@@ -280,6 +283,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
                 }
             }
         }
+
 
         //ako zelimo da rucno postavljamo markere to radimo
         //dodavajuci click listener
@@ -338,6 +342,14 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         }
     }
 
+    @SuppressLint("MissingPermission")
+    private void setCurrentLocationOnMap() {
+        Location location = locationManager.getLastKnownLocation(provider);
+        if (location != null) {
+            LatLng currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 15));
+        }
+    }
     private void addMarker(Location location) {
         LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
 

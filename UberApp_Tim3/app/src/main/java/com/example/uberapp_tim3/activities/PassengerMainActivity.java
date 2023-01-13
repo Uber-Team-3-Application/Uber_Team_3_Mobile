@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.ChatFragment;
 import com.example.uberapp_tim3.fragments.CommentsFragment;
+import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerAccountFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerFavouriteRoutesFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerInboxFragment;
@@ -58,6 +60,7 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
 
     private SharedPreferences sharedPreferences;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,9 +70,6 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
         setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setItemIconTintList(null);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
         drawer.addDrawerListener(toggle);
@@ -79,15 +79,16 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
         sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         createNotificationChannel();
 
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerHomeFragment()).commit();
+            //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerHomeFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
 
         setUpService();
     }
-
-
 
 
     @Override
@@ -134,11 +135,6 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
         }
     }
 
-    public void openChat() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ChatFragment()).addToBackStack(null).commit();
-    }
-
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -174,7 +170,7 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
             public void onResponse(Call<PassengerDTO> call, Response<PassengerDTO> response) {
                 if(!response.isSuccessful()) return;
                 PassengerDTO passenger = response.body();
-
+                assert passenger != null;
                 TextView tvName = findViewById(R.id.passengerNameNavigation);
                 String fullName = passenger.getName() + " " + passenger.getSurname();
                 tvName.setText(fullName);

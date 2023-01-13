@@ -55,8 +55,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
                 String etUser = ((EditText) findViewById(R.id.editTxtEmail)).getText().toString();
                 String etPw = ((EditText)findViewById(R.id.editTxtPassword)).getText().toString();
-//                login(etUser, etPw);
-                login("mirko@gmail.com", "Mirko123");
+                login(etUser, etPw);
 
             }
         });
