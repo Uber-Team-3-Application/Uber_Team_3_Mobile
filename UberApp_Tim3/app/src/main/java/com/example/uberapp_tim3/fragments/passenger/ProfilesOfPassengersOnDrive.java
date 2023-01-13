@@ -41,13 +41,8 @@ public class ProfilesOfPassengersOnDrive extends ListFragment {
         Bundle bundle  = this.getArguments();
 
         assert bundle != null;
-        String idsBundle = bundle.getString("passIds");
-        String ids[] = idsBundle.split(" ");
-        List<Long> passengerIds = new ArrayList<>();
-        for(int i =0;i<ids.length;i++){
-            passengerIds.add(Long.parseLong(ids[i].trim()));
-        }
-
+        Long passengerID= bundle.getLong("passengerID");
+        // find passengers
 
         //PassengersListAdapter profiles = new PassengersListAdapter(getActivity(), drive.getPassengerList());
         //setListAdapter(profiles);

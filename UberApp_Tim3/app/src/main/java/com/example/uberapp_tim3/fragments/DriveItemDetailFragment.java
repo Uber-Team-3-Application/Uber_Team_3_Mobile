@@ -19,12 +19,14 @@ import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.driver.DriverInboxFragment;
+import com.example.uberapp_tim3.fragments.passenger.PassengerInfoProfile;
 import com.example.uberapp_tim3.fragments.passenger.ProfilesOfPassengersOnDrive;
 import com.example.uberapp_tim3.model.DTO.DeductionDTO;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.LocationDTO;
 import com.example.uberapp_tim3.model.DTO.ReviewWithPassengerDTO;
 import com.example.uberapp_tim3.model.DTO.RideReviewDTO;
+import com.example.uberapp_tim3.model.DTO.RideUserDTO;
 import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.FragmentTransition;
@@ -49,8 +51,6 @@ public class DriveItemDetailFragment extends Fragment {
     private TextView txtKmNum;
     private TextView txtPrice;
     private RatingBar simpleRatingBar;
-    private  ImageView imgComments;
-    private  ImageView imgProfiles;
     private  ImageView imgInbox;
     private DriverRideDTO rideDTO;
 
@@ -90,12 +90,9 @@ public class DriveItemDetailFragment extends Fragment {
         simpleRatingBar = view.findViewById(R.id.simpleRatingBar);
         simpleRatingBar.setEnabled(false);
         txtPrice = view.findViewById(R.id.txtPriceOfDrive);
-        imgProfiles = view.findViewById(R.id.imgProfiles);
 
         imgInbox = view.findViewById(R.id.imgInbox);
         getRideInfo(bundle);
-
-        this.setListenerForProfiles(imgProfiles);
 
     }
 
@@ -116,6 +113,7 @@ public class DriveItemDetailFragment extends Fragment {
                 float rating =  getRating(rideDTO, reviews);
                 simpleRatingBar.setRating(rating);
                 setPassengerReviews(reviews);
+                setPassengers(rideDTO.getPassengers());
 
 
             }
@@ -126,6 +124,25 @@ public class DriveItemDetailFragment extends Fragment {
                 Toast.makeText(getActivity(), "Something went wrong!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void setPassengers(List<RideUserDTO> passengers) {
+        //lyRidePassengers
+        LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.lyRidePassengers);
+        LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        int order = 1;
+        for(RideUserDTO passenger: passengers){
+            View passengerView = inflater.inflate(R.layout.passenger_item, (ViewGroup) getView(), false);
+            TextView twOrderNumber = passengerView.findViewById(R.id.txtRidePassengerOrder);
+            String orderText = Integer.toString(order) + ".";
+            twOrderNumber.setText(orderText);
+            setListenerForProfiles(passengerView, passenger.getId());
+            TextView twEmail = passengerView.findViewById(R.id.txtRidePassengerEmail);
+            twEmail.setText(passenger.getEmail());
+            order++;
+            linearLayout.addView(passengerView);
+        }
+
     }
 
     private void setPassengerReviews(List<RideReviewDTO> reviews) {
@@ -227,22 +244,17 @@ public class DriveItemDetailFragment extends Fragment {
         });
     }
 
-    private void setListenerForProfiles(ImageView imgProfiles) {
+    private void setListenerForProfiles(View profileView, Long passengerId) {
 
-        imgProfiles.setOnClickListener(new View.OnClickListener() {
+        profileView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle args = new Bundle();
-                StringBuilder ids = new StringBuilder();
-                for(int i =0;i<rideDTO.getPassengers().size();i++){
-                    ids.append(Long.toString(rideDTO.getPassengers().get(i).getId()));
-                    if(i != rideDTO.getPassengers().size() - 1) ids.append(" ");
-                }
-                args.putString("passIds", ids.toString());
+                args.putLong("passengerId", passengerId);
 
-                ProfilesOfPassengersOnDrive profiles = new ProfilesOfPassengersOnDrive();
-                profiles.setArguments(args);
-                FragmentTransition.to(profiles, getActivity(), true);
+                PassengerInfoProfile profile = new PassengerInfoProfile();
+                profile.setArguments(args);
+                FragmentTransition.to(profile, getActivity(), true);
             }
         });
 

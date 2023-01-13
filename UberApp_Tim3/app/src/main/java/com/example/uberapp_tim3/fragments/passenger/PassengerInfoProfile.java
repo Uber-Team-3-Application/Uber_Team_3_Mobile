@@ -29,6 +29,11 @@ public class PassengerInfoProfile extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         setTextViews();
+        Bundle bundle  = this.getArguments();
+
+        assert bundle != null;
+        Long passengerID= bundle.getLong("passengerID");
+        setTextViews();
 
     }
 

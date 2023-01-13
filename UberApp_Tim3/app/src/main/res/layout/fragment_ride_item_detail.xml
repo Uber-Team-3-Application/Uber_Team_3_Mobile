@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginVertical="10dp"
         android:layout_marginHorizontal="12dp"
+        android:layout_marginVertical="10dp"
         android:background="@color/white"
         app:cardCornerRadius="10dp">
 
@@ -38,6 +38,25 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
                     android:src="@drawable/route" />
+
+                <TextView
+                    android:id="@+id/txtInbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/imgAvatar"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="60dp"
+                    android:text="@string/inbox"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/imgInbox"
+                    android:layout_width="46dp"
+                    android:layout_height="43dp"
+                    android:layout_toRightOf="@id/txtInbox"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="50dp"
+                    android:src="@drawable/ic_message" />
 
                 <TextView
                     android:id="@+id/startDrivingStation"
@@ -149,10 +168,32 @@
 
 
                 <TextView
-                    android:id="@+id/passengerNum"
+                    android:id="@+id/priceOfDrive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/kilometersNum"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/price"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtPriceOfDrive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/kilometersNum"
+                    android:layout_alignStart="@+id/priceOfDrive"
+                    android:layout_marginStart="125dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold|italic" />
+
+
+                <TextView
+                    android:id="@+id/passengerNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/priceOfDrive"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
                     android:linksClickable="true"
@@ -163,43 +204,35 @@
                     android:id="@+id/txtPassengerNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/kilometersNum"
+                    android:layout_below="@id/priceOfDrive"
                     android:layout_alignStart="@+id/passengerNum"
                     android:layout_marginStart="125dp"
                     android:layout_marginTop="20dp"
                     android:textSize="16sp"
                     android:textStyle="bold|italic" />
 
-                <TextView
-                    android:id="@+id/priceOfDrive"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/lyRidePassengers"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/passengerNum"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/price"
-                    android:textSize="16sp" />
+                    android:layout_below="@+id/txtPassengerNum"
+                    android:layout_marginVertical="10dp"
+                    android:orientation="vertical"
+                    android:gravity="center">
 
-                <TextView
-                    android:id="@+id/txtPriceOfDrive"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/passengerNum"
-                    android:layout_alignStart="@+id/priceOfDrive"
-                    android:layout_marginStart="125dp"
-                    android:layout_marginTop="20dp"
-                    android:textSize="16sp"
-                    android:textStyle="bold|italic" />
+
+                </LinearLayout>
+
 
                 <TextView
                     android:id="@+id/txtOverallReview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/txtPriceOfDrive"
+                    android:layout_below="@id/lyRidePassengers"
                     android:layout_alignStart="@+id/priceOfDrive"
-                    android:layout_marginStart="125dp"
+                    android:layout_marginStart="120dp"
                     android:layout_marginTop="20dp"
-                    android:text="Overal review"
+                    android:text="Overall review"
                     android:textSize="16sp"
                     android:textStyle="bold|italic" />
 
@@ -236,25 +269,6 @@
                 </LinearLayout>
 
 
-                <ImageView
-                    android:id="@+id/imgInbox"
-                    android:layout_width="46dp"
-                    android:layout_height="43dp"
-                    android:layout_below="@id/lyRideReviews"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_toEndOf="@+id/imgAvatar"
-                    android:src="@drawable/ic_message" />
-
-                <ImageView
-                    android:id="@+id/imgProfiles"
-                    android:layout_width="52dp"
-                    android:layout_height="46dp"
-                    android:layout_below="@id/lyRideReviews"
-                    android:layout_marginStart="-50dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_toEndOf="@+id/imgAvatar"
-                    android:src="@drawable/ic_baseline_group_24" />
 
 
             </RelativeLayout>
