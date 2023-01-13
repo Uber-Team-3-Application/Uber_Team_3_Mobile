@@ -85,7 +85,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         mMapFragment.getMapAsync(this);
     }
 
-    private void showLocatonDialog() {
+    private void showLocationDialog() {
         if (dialog == null) {
             dialog = new LocationDialog(getActivity()).prepareDialog();
         } else {
@@ -109,7 +109,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         Log.i("wqqqq", String.valueOf(wifi));
         if (!gps && !wifi) {
             Log.i("ASD", "ASDresumemap");
-            showLocatonDialog();
+            showLocationDialog();
         } else {
             if (checkLocationPermission()) {
                 if (ContextCompat.checkSelfPermission(requireContext(),

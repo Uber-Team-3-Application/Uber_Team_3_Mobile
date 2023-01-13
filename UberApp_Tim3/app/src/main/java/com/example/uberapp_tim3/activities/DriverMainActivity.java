@@ -63,9 +63,6 @@ public class DriverMainActivity extends AppCompatActivity {
 
     private final static String DRIVER_CHANEL = "Driver channel";
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-
-
-
     private ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
     private DrawerLayout mDrawerLayout;
     private RelativeLayout mDrawerPane;
@@ -250,13 +247,6 @@ public class DriverMainActivity extends AppCompatActivity {
 
     private void selectItemFromDrawer(int position) {
 
-//        Handler handler = new Handler();
-//        handler.postDelayed(() -> {
-//            Dialog dialog = new Dialog(this);
-//            dialog.setContentView(R.layout.popup_driver);
-//            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//            dialog.show();
-//        }, 50000);
         if (position == 0) {
             FragmentTransition.to(DriverAccountFragment.newInstance(), this, true);
         } else if (position == 1) {
@@ -264,8 +254,7 @@ public class DriverMainActivity extends AppCompatActivity {
         } else if (position == 2) {
             FragmentTransition.to(DriverInboxFragment.newInstance(), this, true);
         } else if (position == 4) {
-            FragmentTransition.to(MapFragment.newInstance(), this, false);
-//            FragmentTransition.to(DriverHomeFragment.newInstance(), this, false);
+            FragmentTransition.to(MapFragment.newInstance(), this, true);
         } else if (position == 3) {
             FragmentTransition.to(AccountSettingsFragment.newInstance(), this, true);
         } else {
@@ -329,9 +318,6 @@ public class DriverMainActivity extends AppCompatActivity {
 
         }
     }
-
-
-
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
