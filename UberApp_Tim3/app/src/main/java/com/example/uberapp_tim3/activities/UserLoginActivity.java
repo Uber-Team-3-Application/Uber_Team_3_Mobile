@@ -55,7 +55,8 @@ public class UserLoginActivity extends AppCompatActivity {
 
                 String etUser = ((EditText) findViewById(R.id.editTxtEmail)).getText().toString();
                 String etPw = ((EditText)findViewById(R.id.editTxtPassword)).getText().toString();
-                login(etUser, etPw);
+//                login(etUser, etPw);
+                login("mirko@gmail.com", "Mirko123");
 
             }
         });
@@ -79,6 +80,7 @@ public class UserLoginActivity extends AppCompatActivity {
         LoginDTO loginDTO = new LoginDTO(email, password);
         Call<LoginResponseDTO> call = ServiceUtils.userService.login(loginDTO);
         call.enqueue(new Callback<LoginResponseDTO>() {
+
             @Override
             public void onResponse(Call<LoginResponseDTO> call, Response<LoginResponseDTO> response) {
                 if(!response.isSuccessful()) return;
@@ -86,6 +88,8 @@ public class UserLoginActivity extends AppCompatActivity {
                     Toast.makeText(UserLoginActivity.this, "Email not confirmed!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+
                 LoginResponseDTO loginResponse = response.body();
                 String userRole = "";
                 JWT jwt = new JWT(loginResponse.getToken());
@@ -95,12 +99,17 @@ public class UserLoginActivity extends AppCompatActivity {
                     userRole = values.toString();
                     break;
                 }
+
+
                 String email = jwt.getClaim("sub").asString();
                 Long id = jwt.getClaim("id").asLong();
                 TokenDTO tokenDTO = TokenDTO.getInstance();
                 tokenDTO.setToken(loginResponse.getToken());
                 tokenDTO.setRefreshToken(loginResponse.getRefreshToken());
                 Intent intent;
+
+
+
                 if(userRole.equalsIgnoreCase("passenger")){
                     setSharedPreferences("PASSENGER", email, id);
                     setTokenPreference(loginResponse.getToken(), loginResponse.getRefreshToken());

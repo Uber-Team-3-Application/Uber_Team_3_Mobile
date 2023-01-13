@@ -24,6 +24,7 @@ public class PassengerRegisterActivity extends AppCompatActivity {
         btnPassengerMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO : PROVERA PODATAKA, KONTAKT SA BAZOM
                 Intent intent = new Intent(PassengerRegisterActivity.this, PassengerMainActivity.class);
                 startActivity(intent);
                 finish();
