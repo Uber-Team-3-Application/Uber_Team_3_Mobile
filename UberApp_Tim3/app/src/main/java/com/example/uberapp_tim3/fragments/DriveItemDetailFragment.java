@@ -19,12 +19,14 @@ import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.driver.DriverInboxFragment;
+import com.example.uberapp_tim3.fragments.passenger.PassengerInfoProfile;
 import com.example.uberapp_tim3.fragments.passenger.ProfilesOfPassengersOnDrive;
 import com.example.uberapp_tim3.model.DTO.DeductionDTO;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.LocationDTO;
 import com.example.uberapp_tim3.model.DTO.ReviewWithPassengerDTO;
 import com.example.uberapp_tim3.model.DTO.RideReviewDTO;
+import com.example.uberapp_tim3.model.DTO.RideUserDTO;
 import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.FragmentTransition;
@@ -32,6 +34,7 @@ import com.example.uberapp_tim3.tools.FragmentTransition;
 import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -48,9 +51,8 @@ public class DriveItemDetailFragment extends Fragment {
     private TextView txtKmNum;
     private TextView txtPrice;
     private RatingBar simpleRatingBar;
-    private  ImageView imgComments;
-    private  ImageView imgProfiles;
     private  ImageView imgInbox;
+    private DriverRideDTO rideDTO;
 
     public DriveItemDetailFragment() {
         // Required empty public constructor
@@ -80,41 +82,18 @@ public class DriveItemDetailFragment extends Fragment {
 
         assert bundle != null;
         txtStartStation = view.findViewById(R.id.txtStartDrivingStation);
-        //viewStartStation.setText(drive.getrelation().split("-")[0]);
-
         txtEndStation = view.findViewById(R.id.txtEndDrivingStation);
-        //txtEndStation.setText(drive.getrelation().split("-")[1]);
-
         txtStartDriving = view.findViewById(R.id.txtStartDriving);
-        //txtStartDriving.setText(drive.getStartDrive());
-
         txtEndDriving = view.findViewById(R.id.txtEndDriving);
-        //txtEndDriving.setText(drive.getEndDrive());
-
         txtPassengerNum = view.findViewById(R.id.txtPassengerNum);
-        //txtPassengerNum.setText(String.valueOf(drive.getNumberOfPassengers()));
-
         txtKmNum = view.findViewById(R.id.txtKilometersNum);
-        //txtKmNum.setText(String.valueOf(drive.getKm()));
-
         simpleRatingBar = view.findViewById(R.id.simpleRatingBar);
         simpleRatingBar.setEnabled(false);
-        //simpleRatingBar.setRating(drive.getRate());
-
         txtPrice = view.findViewById(R.id.txtPriceOfDrive);
-        //priceView.setText(String.valueOf(drive.getPrice()));
-
-        imgComments = view.findViewById(R.id.imgComments);
-        //setListenerForComments(imgComments, drive);
-
-
-        imgProfiles = view.findViewById(R.id.imgProfiles);
-        //setListenerForProfiles(imgProfiles, drive);
 
         imgInbox = view.findViewById(R.id.imgInbox);
-        //setListenerForInbox(imgInbox, drive);
-        getRideInfo(bundle);
-
+        this.setListenerForInbox(imgInbox);
+        this.getRideInfo(bundle);
 
     }
 
@@ -128,13 +107,14 @@ public class DriveItemDetailFragment extends Fragment {
                     Toast.makeText(getActivity(), "Cant fetch ride!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                DriverRideDTO rideDTO = response.body();
+                rideDTO = response.body();
                 assert rideDTO != null;
                 setBasicRideInfo(rideDTO);
                 List<RideReviewDTO> reviews = rideDTO.getReviews();
                 float rating =  getRating(rideDTO, reviews);
                 simpleRatingBar.setRating(rating);
                 setPassengerReviews(reviews);
+                setPassengers(rideDTO.getPassengers());
 
 
             }
@@ -145,6 +125,25 @@ public class DriveItemDetailFragment extends Fragment {
                 Toast.makeText(getActivity(), "Something went wrong!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void setPassengers(List<RideUserDTO> passengers) {
+        //lyRidePassengers
+        LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.lyRidePassengers);
+        LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        int order = 1;
+        for(RideUserDTO passenger: passengers){
+            View passengerView = inflater.inflate(R.layout.passenger_item, (ViewGroup) getView(), false);
+            TextView twOrderNumber = passengerView.findViewById(R.id.txtRidePassengerOrder);
+            String orderText = Integer.toString(order) + ".";
+            twOrderNumber.setText(orderText);
+            setListenerForProfiles(passengerView, passenger.getId());
+            TextView twEmail = passengerView.findViewById(R.id.txtRidePassengerEmail);
+            twEmail.setText(passenger.getEmail());
+            order++;
+            linearLayout.addView(passengerView);
+        }
+
     }
 
     private void setPassengerReviews(List<RideReviewDTO> reviews) {
@@ -218,7 +217,7 @@ public class DriveItemDetailFragment extends Fragment {
                                                     rideDTO.getLocations().get(rideDTO.getLocations().size() - 1).getDestination());
         String totalDistance = Double.toString(totalDistanceInKm) + " KM";
         txtKmNum.setText(totalDistance);
-        String cost = Double.toString(rideDTO.getTotalCost());
+        String cost = Double.toString(rideDTO.getTotalCost()) + " RSD";
         txtPrice.setText(cost);
         String totalPassengers = Integer.toString(rideDTO.getPassengers().size());
         txtPassengerNum.setText(totalPassengers);
@@ -236,7 +235,7 @@ public class DriveItemDetailFragment extends Fragment {
         return Math.round(dist * scale) / scale;
     }
 
-    private void setListenerForInbox(ImageView imgInbox, Drive drive) {
+    private void setListenerForInbox(ImageView imgInbox) {
         imgInbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -246,34 +245,21 @@ public class DriveItemDetailFragment extends Fragment {
         });
     }
 
-    private void setListenerForProfiles(ImageView imgProfiles, Drive drive) {
+    private void setListenerForProfiles(View profileView, Long passengerId) {
 
-        imgProfiles.setOnClickListener(new View.OnClickListener() {
+        profileView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle args = new Bundle();
-                args.putParcelable("driveInfo", drive);
-                ProfilesOfPassengersOnDrive profiles = new ProfilesOfPassengersOnDrive();
-                profiles.setArguments(args);
-                FragmentTransition.to(profiles, getActivity(), true);
+                args.putLong("passengerId", passengerId);
+
+                PassengerInfoProfile profile = new PassengerInfoProfile();
+                profile.setArguments(args);
+                FragmentTransition.to(profile, getActivity(), true);
             }
         });
 
     }
 
-    private void setListenerForComments(ImageView imgComments, Drive drive) {
-        imgComments.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Bundle args = new Bundle();
-                args.putParcelable("driveInfo", drive);
-                CommentsFragment commentsFragment = new CommentsFragment();
-                commentsFragment.setArguments(args);
-                FragmentTransition.to(commentsFragment, getActivity(), true);
-
-            }
-        });
-    }
 
 }
