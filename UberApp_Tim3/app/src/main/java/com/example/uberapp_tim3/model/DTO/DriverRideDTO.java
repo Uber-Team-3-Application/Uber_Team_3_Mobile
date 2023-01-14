@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import java.util.Date;
 import java.util.List;
 
-public class DriverRideDTO {
+public class DriverRideDTO implements Parcelable {
 
     private  Long id;
     private Date startTime;
@@ -21,6 +21,35 @@ public class DriverRideDTO {
     private  DeductionDTO rejection;
     private  List<RouteDTO> locations;
     private List<RideReviewDTO> reviews;
+
+    /**
+     * Added parceable implementation to we can be able
+     * to send data through fragments using Bundle
+     * */
+    protected DriverRideDTO(Parcel in) {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readLong();
+        }
+        totalCost = in.readDouble();
+        estimatedTimeInMinutes = in.readDouble();
+        vehicleType = in.readString();
+        babyTransport = in.readByte() != 0;
+        petTransport = in.readByte() != 0;
+    }
+
+    public static final Creator<DriverRideDTO> CREATOR = new Creator<DriverRideDTO>() {
+        @Override
+        public DriverRideDTO createFromParcel(Parcel in) {
+            return new DriverRideDTO(in);
+        }
+
+        @Override
+        public DriverRideDTO[] newArray(int size) {
+            return new DriverRideDTO[size];
+        }
+    };
 
     public List<RideReviewDTO> getReviews() {
         return reviews;
@@ -146,4 +175,23 @@ public class DriverRideDTO {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        if (id == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeLong(id);
+        }
+        parcel.writeDouble(totalCost);
+        parcel.writeDouble(estimatedTimeInMinutes);
+        parcel.writeString(vehicleType);
+        parcel.writeByte((byte) (babyTransport ? 1 : 0));
+        parcel.writeByte((byte) (petTransport ? 1 : 0));
+    }
 }
