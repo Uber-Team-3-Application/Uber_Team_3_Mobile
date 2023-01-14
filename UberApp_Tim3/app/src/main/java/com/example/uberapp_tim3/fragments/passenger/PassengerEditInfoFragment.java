@@ -1,11 +1,15 @@
 package com.example.uberapp_tim3.fragments.passenger;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +18,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,13 +29,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.model.DTO.PassengerDTO;
 import com.example.uberapp_tim3.model.mockup.Passenger;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.PassengerMockup;
+import com.google.android.gms.maps.model.Circle;
 
 import org.w3c.dom.Text;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -50,21 +61,19 @@ public class PassengerEditInfoFragment extends Fragment {
     private TextView tvNumber;
     private String avatarBase64;
     public PassengerEditInfoFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        imgAvatar = getActivity().findViewById(R.id.imgEditPassengerAvatar);
-        btnChangeAvatar = getActivity().findViewById(R.id.btnChangePassengerAvatar);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         requireActivity().setTitle(R.string.edit_info);
+        imgAvatar = getActivity().findViewById(R.id.imgEditPassengerAvatar);
         this.getPassenger(this.sharedPreferences.getLong("pref_id", 0));
     }
 
@@ -98,15 +107,12 @@ public class PassengerEditInfoFragment extends Fragment {
                 String base64Image = passenger.getProfilePicture().split(",")[1];
                 byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-
-                imgAvatar = getActivity().findViewById(R.id.imgEditPassengerAvatar);
                 imgAvatar.setImageBitmap(decodedByte);
             }
 
             @Override
             public void onFailure(Call<PassengerDTO> call, Throwable t) {
-                Log.d("FAIIIL", t.getMessage());
-                Log.d("FAIIIL", "BLATRUC");
+                Log.d("FAIL", t.getMessage());
             }
         });
 
@@ -122,16 +128,59 @@ public class PassengerEditInfoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         fillViews();
+        imgAvatar = getActivity().findViewById(R.id.imgEditPassengerAvatar);
+        btnChangeAvatar = getActivity().findViewById(R.id.btnChangePassengerAvatar);
         setOnClickListeners();
         super.onViewCreated(view, savedInstanceState);
     }
+
+    private void getImageFromAlbum(){
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, 100);
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK && requestCode == 100){
+            assert data != null;
+            Uri imageUri = data.getData();
+            Glide.with(getContext()).load(imageUri).into(imgAvatar);
+
+//            InputStream imageStream = null;
+//            try {
+//                imageStream = getContext().getContentResolver().openInputStream(imageUri);
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//            Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+//            imgAvatar.setImageBitmap(selectedImage);
+//            imgAvatar.invalidate();
+//            avatarBase64 = "data:image/jpeg;base64," + convertUriToBase64(imageUri);
+        }
+
+    }
+    private String convertUriToBase64(Uri imageUri) {
+        try {
+            InputStream inputStream = requireContext().getContentResolver().openInputStream(imageUri);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+            return Base64.encodeToString(byteArray, Base64.DEFAULT);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 
     private void setOnClickListeners() {
         btnChangeAvatar = getActivity().findViewById(R.id.btnChangePassengerAvatar);
         btnChangeAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                getImageFromAlbum();
             }
         });
 
@@ -152,8 +201,15 @@ public class PassengerEditInfoFragment extends Fragment {
                 passenger.setName(tvName.getText().toString());
                 passenger.setSurname(tvSurname.getText().toString());
                 passenger.setId(sharedPreferences.getLong("pref_id", 102));
-                passenger.setProfilePicture(avatarBase64);
 
+                imgAvatar.buildDrawingCache();
+                Bitmap bmap = imgAvatar.getDrawingCache();
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                bmap.compress(Bitmap.CompressFormat.PNG,100,bos);
+                byte[] bb = bos.toByteArray();
+                String image = Base64.encodeToString(bb, 100);
+                Log.d("Avatar", image);
+                passenger.setProfilePicture("data:image/jpeg;base64," + image);
                 Call<PassengerDTO> call = ServiceUtils.passengerService.updatePassenger(passenger.getId(), passenger);
                 call.enqueue(new Callback<PassengerDTO>() {
                     @Override
@@ -161,12 +217,20 @@ public class PassengerEditInfoFragment extends Fragment {
                         if(!response.isSuccessful()){
                             Toast.makeText(null, "Something went wrong!", Toast.LENGTH_SHORT).show();
                         }
+                        PassengerDTO passengerDTO = response.body();
+                        assert passengerDTO != null;
                         TextView tvName = getActivity().findViewById(R.id.passengerNameNavigation);
-                        String fullName = passenger.getName() + " " + passenger.getSurname();
+                        String fullName = passengerDTO.getName() + " " + passengerDTO.getSurname();
                         tvName.setText(fullName);
 
                         TextView tvPhoneNumber = getActivity().findViewById(R.id.passengerPhoneNavigation);
-                        tvPhoneNumber.setText(passenger.getTelephoneNumber());
+                        tvPhoneNumber.setText(passengerDTO.getTelephoneNumber());
+                        CircleImageView cv = getActivity().findViewById(R.id.passengerProfilePictureNavigation);
+                        String base64Image = passengerDTO.getProfilePicture().split(",")[1];
+                        byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        cv.setImageBitmap(decodedByte);
+
                         getActivity().getSupportFragmentManager().popBackStackImmediate();
 
                     }
