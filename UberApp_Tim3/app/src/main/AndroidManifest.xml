@@ -80,6 +80,14 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".activities.PassengerMainActivity"
+            android:exported="true"
+            android:label="Home">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".fragments.passenger.PassengerInboxFragment"
             android:exported="false"
             android:label="My Inbox">
@@ -91,14 +99,6 @@
             android:name=".fragments.passenger.PassengerAccountFragment"
             android:exported="false"
             android:label="My Account">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".activities.PassengerMainActivity"
-            android:exported="false"
-            android:label="Passenger">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

@@ -1,3 +1,4 @@
+
 package com.example.uberapp_tim3.activities;
 
 import androidx.annotation.NonNull;
@@ -17,8 +18,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
@@ -27,6 +30,7 @@ import android.widget.TextView;
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.ChatFragment;
 import com.example.uberapp_tim3.fragments.CommentsFragment;
+import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerAccountFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerFavouriteRoutesFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerInboxFragment;
@@ -35,6 +39,7 @@ import com.example.uberapp_tim3.fragments.passenger.PassengerReportFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerRideHistoryFragment;
 import com.example.uberapp_tim3.model.DTO.PassengerDTO;
 import com.example.uberapp_tim3.model.DTO.UserDTO;
+import com.example.uberapp_tim3.model.users.User;
 import com.example.uberapp_tim3.services.PassengerMessagesService;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.DrivesMockUp;
@@ -55,7 +60,8 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
     //Sync stuff
     private PendingIntent pendingIntent;
     private AlarmManager manager;
-
+    private NavigationView navigationView;
+    private boolean isLoaded = false;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -67,7 +73,7 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
         setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
 
@@ -77,13 +83,8 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
 
 
         sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+
         createNotificationChannel();
-
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerHomeFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_home);
-        }
-
         setUpService();
     }
 
@@ -99,7 +100,7 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
                 break;
             case R.id.nav_home:
                 setTitle("Home");
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerHomeFragment()).addToBackStack(null).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MapFragment.newInstance()).addToBackStack(null).commit();
                 break;
             case R.id.nav_profile:
                 setTitle("Account");
@@ -162,25 +163,34 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
     @Override
     protected void onResume() {
         super.onResume();
-        this.getPassenger(sharedPreferences.getLong("pref_id", 0));
+        this.getPassenger(sharedPreferences.getLong("pref_id", 0L));
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean wifi = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        Log.i("wwww", String.valueOf(gps));
+        Log.i("wqqqq", String.valueOf(wifi));
     }
 
 
-    public void getPassenger(Long id){
+    public PassengerDTO getPassenger(Long id){
 
         Call<PassengerDTO> call = ServiceUtils.passengerService.getPassenger(id);
         call.enqueue(new Callback<PassengerDTO>() {
             @Override
-            public void onResponse(Call<PassengerDTO> call, Response<PassengerDTO> response) {
+            public void onResponse(@NonNull Call<PassengerDTO> call, @NonNull Response<PassengerDTO> response) {
                 if(!response.isSuccessful()) return;
+                setMapFragment();
                 PassengerDTO passenger = response.body();
 
                 TextView tvName = findViewById(R.id.passengerNameNavigation);
+                assert passenger != null;
                 String fullName = passenger.getName() + " " + passenger.getSurname();
                 tvName.setText(fullName);
 
                 TextView tvPhoneNumber = findViewById(R.id.passengerPhoneNavigation);
                 tvPhoneNumber.setText(passenger.getTelephoneNumber());
+
 
                 if(!passenger.getProfilePicture().contains(",")){return;}
 
@@ -191,7 +201,6 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
                 CircleImageView cv = findViewById(R.id.passengerProfilePictureNavigation);
                 cv.setImageBitmap(decodedByte);
 
-
             }
 
             @Override
@@ -200,6 +209,12 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
                 Log.d("FAIIIL", "BLATRUC");
             }
         });
+        return null;
+    }
+
+    private void setMapFragment() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MapFragment.newInstance()).commit();
+        navigationView.setCheckedItem(R.id.nav_home);
     }
 
     @Override

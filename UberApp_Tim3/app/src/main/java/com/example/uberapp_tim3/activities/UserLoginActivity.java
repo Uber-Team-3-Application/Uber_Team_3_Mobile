@@ -57,7 +57,6 @@ public class UserLoginActivity extends AppCompatActivity {
                 String etPw = ((EditText)findViewById(R.id.editTxtPassword)).getText().toString();
                 login(etUser, etPw);
 
-
             }
         });
 
