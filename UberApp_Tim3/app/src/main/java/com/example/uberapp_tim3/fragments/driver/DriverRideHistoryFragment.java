@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.ListFragment;
 
 import android.util.Log;
@@ -15,13 +16,18 @@ import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.adapters.DriverRidesListAdapter;
+import com.example.uberapp_tim3.fragments.DrawRouteFragment;
 import com.example.uberapp_tim3.fragments.DriveItemDetailFragment;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.Paginated;
+import com.example.uberapp_tim3.model.DTO.RouteDTO;
 import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.DrivesMockUp;
 import com.example.uberapp_tim3.tools.FragmentTransition;
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -84,11 +90,13 @@ public class DriverRideHistoryFragment extends ListFragment {
         super.onListItemClick(l, v, position, id);
 
         DriverRideDTO drive = rides.getResults().get(position);
+
         Bundle args = new Bundle();
         args.putLong("driveId", drive.getId());
         DriveItemDetailFragment driveItemDetail = new DriveItemDetailFragment();
         driveItemDetail.setArguments(args);
-        FragmentTransition.to(driveItemDetail, getActivity(), true);
+        FragmentTransition.to(driveItemDetail, requireActivity(), true);
+
 
     }
 
