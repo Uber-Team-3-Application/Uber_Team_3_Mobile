@@ -147,17 +147,7 @@ public class PassengerEditInfoFragment extends Fragment {
             assert data != null;
             Uri imageUri = data.getData();
             Glide.with(getContext()).load(imageUri).into(imgAvatar);
-
-//            InputStream imageStream = null;
-//            try {
-//                imageStream = getContext().getContentResolver().openInputStream(imageUri);
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            }
-//            Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-//            imgAvatar.setImageBitmap(selectedImage);
-//            imgAvatar.invalidate();
-//            avatarBase64 = "data:image/jpeg;base64," + convertUriToBase64(imageUri);
+            
         }
 
     }
