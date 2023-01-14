@@ -1,5 +1,6 @@
 package com.example.uberapp_tim3.fragments.passenger;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -17,11 +18,10 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.fragments.ChatFragment;
+import com.example.uberapp_tim3.fragments.DrawRouteFragment;
+import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.mockup.Drive;
-import com.example.uberapp_tim3.model.mockup.Driver;
 import com.example.uberapp_tim3.tools.DrivesMockUp;
-import com.example.uberapp_tim3.tools.FragmentTransition;
 
 import java.util.List;
 
@@ -49,13 +49,17 @@ public class PassengerRideInfoFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        SetViews();
+        Bundle bundle = this.getArguments();
+        DriverRideDTO rideDTO = null;
+        if (bundle != null)
+            rideDTO = bundle.getParcelable("ride");
+        SetViews(rideDTO);
         setOnClickListeners();
         fillOtherPassengers();
     }
 
-    private void SetViews() {
+    @SuppressLint("SetTextI18n")
+    private void SetViews(DriverRideDTO ride) {
         RatingBar passengerRideInfoDriverRating = getActivity().findViewById(R.id.passengerRideInfoDriverRating);
         passengerRideInfoDriverRating.setNumStars(4);
 
@@ -64,7 +68,14 @@ public class PassengerRideInfoFragment extends Fragment {
 
         EditText txtComment = getActivity().findViewById(R.id.passRideInfoComment);
         txtComment.setText("Voznja je bila ok brt, al auto malo los");
+
+        assert ride != null;
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(
+                R.id.map_route_fragment_container,new DrawRouteFragment(ride)
+        ).commit();
+
     }
+
 
     private void setOnClickListeners(){
         ImageView imgInbox = getActivity().findViewById(R.id.imgInbox);
