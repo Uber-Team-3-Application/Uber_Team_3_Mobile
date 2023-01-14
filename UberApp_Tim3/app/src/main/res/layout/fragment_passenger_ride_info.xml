@@ -326,13 +326,15 @@
                     android:textAlignment="center"
                     android:textSize="20sp"
                     android:textStyle="bold|italic" />
+                
 
-                <ImageView
+                <FrameLayout
+                    android:id="@+id/map_route_fragment_container"
                     android:layout_width="330dp"
                     android:layout_height="300dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginBottom="20dp"
-                    android:src="@drawable/ride_route" />
+                    />
 
 
                 <LinearLayout
