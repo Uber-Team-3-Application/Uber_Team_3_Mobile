@@ -315,6 +315,18 @@
                 android:text="@string/panic"
                 android:textSize="15sp" />
             </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <Button
+                    android:id="@+id/btnReportProblem"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="REPORT PROBLEM"
+                    android:textSize="15sp" />
+            </RelativeLayout>
 
 
         </LinearLayout>

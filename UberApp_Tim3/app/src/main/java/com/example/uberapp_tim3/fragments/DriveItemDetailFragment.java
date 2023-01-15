@@ -1,5 +1,6 @@
 package com.example.uberapp_tim3.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -55,7 +56,6 @@ public class DriveItemDetailFragment extends Fragment {
     private DriverRideDTO rideDTO;
 
     public DriveItemDetailFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -66,7 +66,6 @@ public class DriveItemDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_ride_item_detail, container, false);
     }
 
@@ -102,7 +101,7 @@ public class DriveItemDetailFragment extends Fragment {
         Call<DriverRideDTO> call = ServiceUtils.rideService.getRide(driveId);
         call.enqueue(new Callback<DriverRideDTO>() {
             @Override
-            public void onResponse(Call<DriverRideDTO> call, Response<DriverRideDTO> response) {
+            public void onResponse(@NonNull Call<DriverRideDTO> call, @NonNull Response<DriverRideDTO> response) {
                 if(!response.isSuccessful()){
                     Toast.makeText(getActivity(), "Cant fetch ride!", Toast.LENGTH_SHORT).show();
                     return;
@@ -120,7 +119,7 @@ public class DriveItemDetailFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<DriverRideDTO> call, Throwable t) {
+            public void onFailure(@NonNull Call<DriverRideDTO> call, @NonNull Throwable t) {
                 Log.d("FAIL", "FAIL");
                 Toast.makeText(getActivity(), "Something went wrong!", Toast.LENGTH_SHORT).show();
             }
@@ -129,13 +128,13 @@ public class DriveItemDetailFragment extends Fragment {
 
     private void setPassengers(List<RideUserDTO> passengers) {
         //lyRidePassengers
-        LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.lyRidePassengers);
-        LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LinearLayout linearLayout = (LinearLayout) requireView().findViewById(R.id.lyRidePassengers);
+        LayoutInflater inflater = (LayoutInflater)requireView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         int order = 1;
         for(RideUserDTO passenger: passengers){
-            View passengerView = inflater.inflate(R.layout.passenger_item, (ViewGroup) getView(), false);
+            View passengerView = inflater.inflate(R.layout.passenger_item, (ViewGroup) requireView(), false);
             TextView twOrderNumber = passengerView.findViewById(R.id.txtRidePassengerOrder);
-            String orderText = Integer.toString(order) + ".";
+            String orderText = order + ".";
             twOrderNumber.setText(orderText);
             setListenerForProfiles(passengerView, passenger.getId());
             TextView twEmail = passengerView.findViewById(R.id.txtRidePassengerEmail);
@@ -146,14 +145,15 @@ public class DriveItemDetailFragment extends Fragment {
 
     }
 
+    @SuppressLint("SetTextI18n")
     private void setPassengerReviews(List<RideReviewDTO> reviews) {
-        LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.lyRideReviews);
-        LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LinearLayout linearLayout = (LinearLayout) requireView().findViewById(R.id.lyRideReviews);
+        LayoutInflater inflater = (LayoutInflater)requireView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         for(RideReviewDTO review: reviews){
             if(review.getDriverReview() != null) {
                 ReviewWithPassengerDTO driverReview = review.getDriverReview();
                 View driverRev;
-                driverRev = inflater.inflate(R.layout.review, (ViewGroup) getView(), false);
+                driverRev = inflater.inflate(R.layout.review, (ViewGroup) requireView(), false);
                 TextView emailDriverAddress = driverRev.findViewById(R.id.txtRideReviewPassengerEmail);
                 emailDriverAddress.setText(driverReview.getPassenger().getEmail());
                 RatingBar rbDriver = driverRev.findViewById(R.id.rbRideReviewRating);
@@ -207,7 +207,7 @@ public class DriveItemDetailFragment extends Fragment {
                 .get(rideDTO.getLocations().size() - 1).getDestination().getAddress());
 
         Date startTime = rideDTO.getStartTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         String start = sdf.format(startTime);
         txtStartDriving.setText(start);
         Date endTime = rideDTO.getEndTime();
@@ -215,9 +215,9 @@ public class DriveItemDetailFragment extends Fragment {
         txtEndDriving.setText(end);
         double totalDistanceInKm = calculateDistance(rideDTO.getLocations().get(0).getDeparture(),
                                                     rideDTO.getLocations().get(rideDTO.getLocations().size() - 1).getDestination());
-        String totalDistance = Double.toString(totalDistanceInKm) + " KM";
+        String totalDistance = totalDistanceInKm + " KM";
         txtKmNum.setText(totalDistance);
-        String cost = Double.toString(rideDTO.getTotalCost()) + " RSD";
+        String cost = rideDTO.getTotalCost() + " RSD";
         txtPrice.setText(cost);
         String totalPassengers = Integer.toString(rideDTO.getPassengers().size());
         txtPassengerNum.setText(totalPassengers);
@@ -239,7 +239,7 @@ public class DriveItemDetailFragment extends Fragment {
         imgInbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransition.to(new DriverInboxFragment(), getActivity(), true);
+                FragmentTransition.to(new DriverInboxFragment(), requireActivity(), true);
 
             }
         });
@@ -255,7 +255,7 @@ public class DriveItemDetailFragment extends Fragment {
 
                 PassengerInfoProfile profile = new PassengerInfoProfile();
                 profile.setArguments(args);
-                FragmentTransition.to(profile, getActivity(), true);
+                FragmentTransition.to(profile, requireActivity(), true);
             }
         });
 

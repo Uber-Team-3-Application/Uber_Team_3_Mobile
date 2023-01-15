@@ -1,9 +1,11 @@
 package com.example.uberapp_tim3.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -15,6 +17,7 @@ import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,11 +29,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,14 +41,12 @@ import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.adapters.DrawerNavListAdapter;
+import com.example.uberapp_tim3.dialogs.RejectionDialog;
 import com.example.uberapp_tim3.fragments.AccountSettingsFragment;
 import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverAccountFragment;
-import com.example.uberapp_tim3.fragments.driver.DriverCurrentRideFragment;
-import com.example.uberapp_tim3.fragments.driver.DriverHomeFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverInboxFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverRideHistoryFragment;
-import com.example.uberapp_tim3.fragments.passenger.PassengerRideInfoFragment;
 import com.example.uberapp_tim3.model.DTO.DriverActivityDTO;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.UserDTO;
@@ -146,11 +147,11 @@ public class DriverMainActivity extends AppCompatActivity {
         Call<String> call = ServiceUtils.driverService.changeActivity(id, new DriverActivityDTO(isActive));
         call.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                 Toast.makeText(getApplicationContext(), "You are active!", Toast.LENGTH_SHORT).show();
             }
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
                 Log.d("Fail", t.getMessage());
             }
         });
@@ -184,7 +185,7 @@ public class DriverMainActivity extends AppCompatActivity {
         Call<UserDTO> call = ServiceUtils.driverService.getDriver(id);
         call.enqueue(new Callback<UserDTO>() {
             @Override
-            public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
+            public void onResponse(@NonNull Call<UserDTO> call, @NonNull Response<UserDTO> response) {
                 if(!response.isSuccessful()) return;
                 UserDTO driver = response.body();
 
@@ -207,7 +208,7 @@ public class DriverMainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<UserDTO> call, Throwable t) {
+            public void onFailure(@NonNull Call<UserDTO> call, @NonNull Throwable t) {
                 Log.d("FAIIIL", t.getMessage());
                 Log.d("FAIIIL", "BLATRUC");
             }
@@ -237,7 +238,7 @@ public class DriverMainActivity extends AppCompatActivity {
         SharedPreferences.Editor sp_editor = sharedPreferences.edit();
         if(!sharedPreferences.contains("pref_name")){
             sp_editor.putString("pref_name", "Ressen");
-            sp_editor.commit();
+            sp_editor.apply();
         }
     }
 
@@ -250,6 +251,7 @@ public class DriverMainActivity extends AppCompatActivity {
 
     private void selectItemFromDrawer(int position) {
 
+
         if (position == 0) {
             FragmentTransition.to(DriverAccountFragment.newInstance(), this, true);
         } else if (position == 1) {
@@ -258,37 +260,37 @@ public class DriverMainActivity extends AppCompatActivity {
             FragmentTransition.to(DriverInboxFragment.newInstance(), this, true);
         } else if (position == 4) {
             FragmentTransition.to(MapFragment.newInstance(), this, true);
-        } else if (position == 3) {
-            Call<DriverRideDTO> call = ServiceUtils.rideService.getRide(1L);
-            //FragmentTransition.to(AccountSettingsFragment.newInstance(), this, true);
-            call.enqueue(new Callback<DriverRideDTO>() {
-                @Override
-                public void onResponse(Call<DriverRideDTO> call, Response<DriverRideDTO> response) {
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("ride", response.body());
-                    DriverCurrentRideFragment rideInfoFragment = new DriverCurrentRideFragment();
-                    rideInfoFragment.setArguments(bundle);
-                    FragmentTransition.to(rideInfoFragment, DriverMainActivity.this, true);
-
-                }
-
-                @Override
-                public void onFailure(Call<DriverRideDTO> call, Throwable t) {
-
-                }
-            });
-
-        } else {
-            finish();
-        }
+        } else if (position == 3)
+//            FragmentTransition.to(AccountSettingsFragment.newInstance(), this, true);
+            callNewRide();
 
         mDrawerList.setItemChecked(position, true);
         if (position != 5) {
             setTitle(mNavItems.get(position).getmTitle());
         }
         mDrawerLayout.closeDrawer(mDrawerPane);
-
     }
+
+    /**
+     * Metoda napravljena radi improvizacije porucivanja voznje */
+    private void callNewRide() {
+        Call<DriverRideDTO> call = ServiceUtils.rideService.getRide(1L);
+
+        call.enqueue(new Callback<DriverRideDTO>() {
+            @Override
+            public void onResponse(@NonNull Call<DriverRideDTO> call, @NonNull Response<DriverRideDTO> response) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("ride", response.body());
+                setNewRide(response.body());
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<DriverRideDTO> call, @NonNull Throwable t) {
+
+            }
+        });
+    }
+
 
     private void setUpService(){
         Intent alarmIntent = new Intent(this, DriverMessagesService.class);
@@ -308,7 +310,7 @@ public class DriverMainActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+                                           @NonNull String permissions[], @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_LOCATION: {
@@ -339,6 +341,63 @@ public class DriverMainActivity extends AppCompatActivity {
 
         }
     }
+
+
+    public void setNewRide(DriverRideDTO rideDTO) {
+
+        View inflatedView = getLayoutInflater().inflate(R.layout.popup_driver, null);
+        String startAddress = rideDTO.getLocations().get(0).getDeparture().getAddress();
+        String endAddress = rideDTO.getLocations().get(rideDTO.getLocations().size()-1).getDestination().getAddress();
+
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(inflatedView);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        TextView startStation = (TextView) inflatedView.findViewById(R.id.txtStartStationPopup);
+        startStation.setText(startAddress);
+        TextView endStation = (TextView) inflatedView.findViewById(R.id.txtEndStationPopup);
+        endStation.setText(endAddress);
+        TextView passengersNum  = (TextView) inflatedView.findViewById(R.id.txtNumPassengersPopup);
+        passengersNum.setText(String.valueOf(rideDTO.getPassengers().size()));
+        TextView price = (TextView) inflatedView.findViewById(R.id.txtPricePopup);
+        price.setText(String.valueOf(rideDTO.getTotalCost()));
+        Button accept = (Button) inflatedView.findViewById(R.id.btnAcceptDrive);
+        Button decline = (Button) inflatedView.findViewById(R.id.btnDeclineDrive);
+        setListeners(accept, decline, dialog);
+        setNotification(startAddress, endAddress);
+        dialog.show();
+
+    }
+
+    private void setNotification(String start, String end) {
+        Intent intent = new Intent(this, DriverMainActivity.class);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,DRIVER_CHANEL)
+                .setSmallIcon(R.drawable.ic_baseline_notifications_24)
+                .setContentTitle("New Ride")
+                .setContentText(start + " - " + end)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, builder.build());
+    }
+
+    private void setListeners(Button accept, Button decline, Dialog mainDialog) {
+        accept.setOnClickListener(view -> {
+
+        });
+
+        decline.setOnClickListener(view -> {
+            RejectionDialog dialog = new RejectionDialog(this, mainDialog);
+            dialog.show();
+        });
+
+    }
+
+
+
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

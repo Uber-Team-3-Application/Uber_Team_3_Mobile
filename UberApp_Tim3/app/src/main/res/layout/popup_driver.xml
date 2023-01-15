@@ -2,6 +2,7 @@
 <!-- POPUP -->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="380dp"
     android:layout_height="390dp"
     android:layout_gravity="center"
@@ -52,6 +53,7 @@
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/txtStartStationPopup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/startStationPopup"
@@ -74,6 +76,7 @@
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/txtEndStationPopup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/startStationPopup"
@@ -98,6 +101,7 @@
 
 
         <TextView
+            android:id="@+id/txtNumPassengersPopup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/endStationPopup"
@@ -121,6 +125,7 @@
 
 
         <TextView
+            android:id="@+id/txtPricePopup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/numPassengersPopup"

@@ -13,9 +13,7 @@ import com.example.uberapp_tim3.R;
 public class LocationDialog extends AlertDialog.Builder{
 
 	public LocationDialog(Context context) {
-
 		super(context);
-
 		setUpDialog();
 	}
 

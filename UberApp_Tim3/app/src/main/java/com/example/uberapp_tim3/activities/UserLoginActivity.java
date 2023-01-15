@@ -1,6 +1,7 @@
 package com.example.uberapp_tim3.activities;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -55,7 +56,9 @@ public class UserLoginActivity extends AppCompatActivity {
 
                 String etUser = ((EditText) findViewById(R.id.editTxtEmail)).getText().toString();
                 String etPw = ((EditText)findViewById(R.id.editTxtPassword)).getText().toString();
-                login("markopreradovic@gmail.com","Marko123");
+//                login("markopreradovic@gmail.com","Marko123");
+                login("mirko@gmail.com","Mirko123");
+
 //                login(etUser, etPw);
 
             }
@@ -82,7 +85,7 @@ public class UserLoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<LoginResponseDTO>() {
 
             @Override
-            public void onResponse(Call<LoginResponseDTO> call, Response<LoginResponseDTO> response) {
+            public void onResponse(@NonNull Call<LoginResponseDTO> call, @NonNull Response<LoginResponseDTO> response) {
                 if(!response.isSuccessful()) return;
                 if(response.code() == 204){
                     Toast.makeText(UserLoginActivity.this, "Email not confirmed!", Toast.LENGTH_SHORT).show();
