@@ -128,10 +128,10 @@ public class ConfirmRideFragment extends Fragment {
         }
         LocalDateTime scheduledTime = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            scheduledTime = LocalDateTime.parse(dateTime, formatter);
+            if(dateTime != null) scheduledTime = LocalDateTime.parse(dateTime, formatter);
+            else scheduledTime = LocalDateTime.now();
         }
-        CreateRideDTO createRideDTO = new CreateRideDTO(users, locations, vehicleType, babyTransport, petTransport, scheduledTime);
-        return createRideDTO;
+        return new CreateRideDTO(users, locations, vehicleType, babyTransport, petTransport, scheduledTime);
     }
 
     private LocationDTO getLocation(String address) throws IOException {
