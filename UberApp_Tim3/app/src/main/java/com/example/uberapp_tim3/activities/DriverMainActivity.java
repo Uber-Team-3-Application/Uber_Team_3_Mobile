@@ -6,6 +6,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.app.RemoteInput;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -29,6 +31,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -272,16 +275,14 @@ public class DriverMainActivity extends AppCompatActivity {
     }
 
     /**
-     * Metoda napravljena radi improvizacije porucivanja voznje */
+     * Metoda napravljena radi improvizacije porucivanja voznje  --- POSLE JE IZBRISATI*/
     private void callNewRide() {
         Call<DriverRideDTO> call = ServiceUtils.rideService.getRide(1L);
 
         call.enqueue(new Callback<DriverRideDTO>() {
             @Override
             public void onResponse(@NonNull Call<DriverRideDTO> call, @NonNull Response<DriverRideDTO> response) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("ride", response.body());
-                setNewRide(response.body());
+                setNotification(response.body());
             }
 
             @Override
@@ -343,33 +344,16 @@ public class DriverMainActivity extends AppCompatActivity {
     }
 
 
-    public void setNewRide(DriverRideDTO rideDTO) {
 
-        View inflatedView = getLayoutInflater().inflate(R.layout.popup_driver, null);
-        String startAddress = rideDTO.getLocations().get(0).getDeparture().getAddress();
-        String endAddress = rideDTO.getLocations().get(rideDTO.getLocations().size()-1).getDestination().getAddress();
 
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(inflatedView);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        TextView startStation = (TextView) inflatedView.findViewById(R.id.txtStartStationPopup);
-        startStation.setText(startAddress);
-        TextView endStation = (TextView) inflatedView.findViewById(R.id.txtEndStationPopup);
-        endStation.setText(endAddress);
-        TextView passengersNum  = (TextView) inflatedView.findViewById(R.id.txtNumPassengersPopup);
-        passengersNum.setText(String.valueOf(rideDTO.getPassengers().size()));
-        TextView price = (TextView) inflatedView.findViewById(R.id.txtPricePopup);
-        price.setText(String.valueOf(rideDTO.getTotalCost()));
-        Button accept = (Button) inflatedView.findViewById(R.id.btnAcceptDrive);
-        Button decline = (Button) inflatedView.findViewById(R.id.btnDeclineDrive);
-        setListeners(accept, decline, dialog);
-        setNotification(startAddress, endAddress);
-        dialog.show();
 
-    }
+    private void setNotification(DriverRideDTO rideDTO) {
+        String start = rideDTO.getLocations().get(0).getDeparture().getAddress();
+        String end = rideDTO.getLocations().get(rideDTO.getLocations().size()-1).getDestination().getAddress();
 
-    private void setNotification(String start, String end) {
-        Intent intent = new Intent(this, DriverMainActivity.class);
+
+        Intent intent = new Intent(this, NewRideNotificationActivity.class);
+        intent.putExtra("ride",  rideDTO);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -382,22 +366,8 @@ public class DriverMainActivity extends AppCompatActivity {
 
         NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, builder.build());
-    }
-
-    private void setListeners(Button accept, Button decline, Dialog mainDialog) {
-        accept.setOnClickListener(view -> {
-
-        });
-
-        decline.setOnClickListener(view -> {
-            RejectionDialog dialog = new RejectionDialog(this, mainDialog);
-            dialog.show();
-        });
 
     }
-
-
-
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
