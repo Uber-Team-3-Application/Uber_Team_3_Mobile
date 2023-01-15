@@ -26,5 +26,11 @@
         <item>3</item>
         <item>10</item>
     </string-array>
+
+    <string-array name="vehicle_type_array">
+        <item>Standard</item>
+        <item>Lux</item>
+        <item>Van</item>
+    </string-array>
     
 </resources>
