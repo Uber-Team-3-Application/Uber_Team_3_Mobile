@@ -13,13 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginVertical="20dp"
         android:background="@color/white"
         app:cardCornerRadius="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:paddingBottom="20dp">
 
 
@@ -116,21 +116,5 @@
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
-
-
-
-    <TextView
-        android:id="@+id/txtDriverBlocked"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:text="@string/active_text"
-        android:textSize="21sp"
-        android:letterSpacing="0.1"
-        android:textColor="@color/uber_off_white"
-        android:textStyle="bold|italic" />
-
 
 </RelativeLayout>

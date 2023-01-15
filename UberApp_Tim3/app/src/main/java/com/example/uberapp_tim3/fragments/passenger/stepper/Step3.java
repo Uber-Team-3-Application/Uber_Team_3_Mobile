@@ -65,10 +65,12 @@ public class Step3 extends Step<String> {
     }
 
     private boolean isValidEmailAddresses() {
-        String[] emailAddressesArray = emailAddresses.split(",");
-        for (String email : emailAddressesArray) {
-            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                return false;
+        if(emailAddresses != null && emailAddresses.contains(",")) {
+            String[] emailAddressesArray = emailAddresses.split(",");
+            for (String email : emailAddressesArray) {
+                if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches()) {
+                    return false;
+                }
             }
         }
         return true;
@@ -76,7 +78,9 @@ public class Step3 extends Step<String> {
 
     @Override
     public String getStepData() {
-        return emailAddresses;
+        if(emailAddresses != null) return emailAddresses;
+
+        return "";
     }
 
     @Override

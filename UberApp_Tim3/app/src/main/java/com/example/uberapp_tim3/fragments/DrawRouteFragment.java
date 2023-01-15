@@ -1,13 +1,20 @@
 package com.example.uberapp_tim3.fragments;
 
+import android.Manifest;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -38,6 +45,7 @@ import java.util.List;
 
 public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
 
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private GoogleMap mMap;
     private final String TAG = "so47492459";
     private SupportMapFragment mMapFragment;
@@ -50,16 +58,11 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
         RouteDTO start = drive.getLocations().get(0);
         RouteDTO end = drive.getLocations().get(drive.getLocations().size()-1);
         this.departure = new LatLng(start.getDeparture().getLatitude(), start.getDeparture().getLongitude());
-        this.destination = new LatLng(end.getDestination().getLatitude(), end.getDeparture().getLongitude());
+        this.destination = new LatLng(end.getDestination().getLatitude(), end.getDestination().getLongitude());
         this.departureAddress = start.getDeparture().getAddress();
         this.destinationAddress = end.getDestination().getAddress();
     }
-//
-//    public static DrawRouteFragment newInstance(DriverRideDTO ride) {
-//
-//        DrawRouteFragment mpf = new DrawRouteFragment(ride);
-//        return mpf;
-//    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,9 +73,12 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
         super.onResume();
         mMapFragment = SupportMapFragment.newInstance();
 
+        Button btnGetARide = getActivity().findViewById(R.id.btnGetARide);
+        btnGetARide.setVisibility(View.INVISIBLE);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.map_container, mMapFragment).commit();
         mMapFragment.getMapAsync(this);
+
     }
 
     @Override
@@ -82,17 +88,62 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
 
         return view;
     }
+
+    public boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("Allow user location")
+                        .setMessage("To continue working we need your locations....Allow now?")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions(getActivity(),
+                                        new String[]{
+                                                Manifest.permission.ACCESS_FINE_LOCATION,
+                                                Manifest.permission.ACCESS_COARSE_LOCATION},
+                                        MY_PERMISSIONS_REQUEST_LOCATION);
+                            }
+                        })
+                        .create()
+                        .show();
+
+
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
 
-        mMap.addMarker(new MarkerOptions().position(departure).title(destinationAddress));
-        mMap.addMarker(new MarkerOptions().position(destination).title(departureAddress));
+        mMap.addMarker(new MarkerOptions().position(departure).title(departureAddress));
+        mMap.addMarker(new MarkerOptions().position(destination).title(destinationAddress));
 
         //Define list to get all latlng for the route
         List<LatLng> path = new ArrayList();
 
-
+        if(checkLocationPermission()) {
+            mMap.setMyLocationEnabled(true);
+        }
         //Execute Directions API request
         GeoApiContext context = new GeoApiContext.Builder()
                 .apiKey(BuildConfig.MAPS_API_KEY)
