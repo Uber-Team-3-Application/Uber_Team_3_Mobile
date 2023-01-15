@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragments.driver.DriverCurrentRideFragment">
+    tools:context=".fragments.passenger.stepper.ConfirmRideFragment">
 
     <FrameLayout
         android:id="@+id/currentRideContainerDriver"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="250dp"
         android:background="@color/uber_toolbar" />
 
     <ScrollView
@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingTop="10dp"
-                android:text="@string/drive_information"
+                android:text="DRIVE INFORMATION"
                 android:textColor="@color/uber_toolbar"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -45,68 +45,105 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-
-                    android:text="Chosen TIme"
+                    android:text="Departure and Destination"
                     android:textSize="20sp"
                     android:textStyle="bold|italic" />
 
-                <TextView
-                    android:id="@+id/txtDriverCurrentRideEndTime"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="6dp"
-                    android:text="26.10.2022 13:34 (expected time)"
-                    android:textColor="@color/uber_toolbar"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="6dp"
+                        android:text="Departure: "
+                        android:textColor="@color/uber_toolbar"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/departure"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="6dp"
+                        android:text="Episkopa Save 14, Kragujevac"
+                        android:textColor="@color/uber_toolbar"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="6dp"
+                        android:text="Destination: "
+                        android:textColor="@color/uber_toolbar"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/destination"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="6dp"
+                        android:text="Bregalnicka 27, Kragujevac"
+                        android:textColor="@color/uber_toolbar"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:paddingTop="10dp"
-                    android:text="Departure"
+                    android:text="Vehicle type"
                     android:textSize="20sp"
                     android:textStyle="bold|italic" />
 
-                <TextView
-                    android:id="@+id/txtDriverCurrentRideDeparture"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="6dp"
-                    android:text="Svetosavksa 86 Kikinda"
-                    android:textColor="@color/uber_toolbar"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="6dp"
+                        android:text="Vehicle type: "
+                        android:textColor="@color/uber_toolbar"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/vehicleType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="6dp"
+                        android:text="Standard"
+                        android:textColor="@color/uber_toolbar"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:paddingTop="10dp"
-                    android:text="Destination"
-                    android:textSize="20sp"
-                    android:textStyle="bold|italic" />
-
-                <TextView
-                    android:id="@+id/txtDriverCurrentRideDestination"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="6dp"
-                    android:text="Atarska 7 Sombor"
-                    android:textColor="@color/uber_toolbar"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
-                    android:text="Additional info"
+                    android:text="Chosen passengers"
                     android:textSize="20sp"
                     android:textStyle="bold|italic" />
 
@@ -126,12 +163,48 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/txtDriverCurrentRidePassengerCount"
+                        android:id="@+id/chosenPassengers"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
                         android:paddingTop="6dp"
-                        android:text="2"
+                        android:text="none"
+                        android:textColor="@color/uber_toolbar"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:text="Aditional info"
+                    android:textSize="20sp"
+                    android:textStyle="bold|italic" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="6dp"
+                        android:text="Scheduled time: "
+                        android:textColor="@color/uber_toolbar"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/chosenTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="6dp"
+                        android:text="26.10.2022 13:34"
                         android:textColor="@color/uber_toolbar"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -153,7 +226,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/txtDriverCurrentRidePrice"
+                        android:id="@+id/petTransport"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
@@ -182,7 +255,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/txtDriverCurrentRideElapsedTime"
+                        android:id="@+id/babyTransport"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
@@ -200,13 +273,13 @@
                     android:orientation="vertical">
 
                     <Button
-                        android:id="@+id/btnLogin"
+                        android:id="@+id/btnOrderARide"
                         android:layout_width="160dp"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginTop="10dp"
-                        android:text="Ordern a ride"
+                        android:layout_marginTop="20dp"
+                        android:text="Order a ride"
                         android:textSize="15sp" />
                 </RelativeLayout>
 
