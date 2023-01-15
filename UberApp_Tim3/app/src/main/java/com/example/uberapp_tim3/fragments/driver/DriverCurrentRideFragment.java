@@ -92,6 +92,30 @@ public class DriverCurrentRideFragment extends Fragment {
         btnPanic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Call<Long> call = ServiceUtils.userService.getAdminId();
+                call.enqueue(new Callback<Long>() {
+                    @Override
+                    public void onResponse(Call<Long> call, Response<Long> response) {
+                        if(!response.isSuccessful()) return;
+                        Long adminId = response.body();
+                        assert  adminId != null;
+                        Long senderId = preferences.getLong("pref_id", 0);
+                        Long receiverId = adminId;
+                        Long rideId = rideDTO.getId();
+                        String messageType = "PANIC";
+                        MessageBundleDTO messageBundleDTO = new MessageBundleDTO(senderId, receiverId, rideId, messageType);
+                        Bundle args = new Bundle();
+                        args.putParcelable("message", messageBundleDTO);
+                        ChatFragment chatFragment = new ChatFragment();
+                        chatFragment.setArguments(args);
+                        FragmentTransition.to(chatFragment, requireActivity(), true);
+                    }
+
+                    @Override
+                    public void onFailure(Call<Long> call, Throwable t) {
+                        Log.d("ERROR", "error bro");
+                    }
+                });
 
             }
         });
