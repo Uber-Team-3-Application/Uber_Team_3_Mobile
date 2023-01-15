@@ -17,8 +17,10 @@ import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.DrawRouteFragment;
+import com.example.uberapp_tim3.fragments.passenger.PassengerInfoProfile;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.RideUserDTO;
+import com.example.uberapp_tim3.tools.FragmentTransition;
 import com.google.maps.model.Unit;
 
 import java.text.SimpleDateFormat;
@@ -62,6 +64,13 @@ public class DriverCurrentRideFragment extends Fragment {
         setFinishRideListener();
         setPanicListener();
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable);
+    }
+
 
     private void setPanicListener() {
         Button btnPanic = getActivity().findViewById(R.id.btnDriverCurrentRidePanic);
@@ -108,8 +117,15 @@ public class DriverCurrentRideFragment extends Fragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onResume() {
+        super.onResume();
+        requireActivity().setTitle("Current Ride");
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         handler.removeCallbacks(runnable);
     }
 
@@ -144,6 +160,11 @@ public class DriverCurrentRideFragment extends Fragment {
         tvPrice.setText(totalCost);
 
 
+        setPassengers(rideDTO);
+
+    }
+
+    private void setPassengers(DriverRideDTO rideDTO) {
         LinearLayout lyPassengers = getActivity().findViewById(R.id.lyDriverCurrentRidePassengers);
         LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         int order = 1;
@@ -152,18 +173,33 @@ public class DriverCurrentRideFragment extends Fragment {
             TextView twOrderNumber = passengerView.findViewById(R.id.txtRidePassengerOrder);
             String orderText = Integer.toString(order) + ".";
             twOrderNumber.setText(orderText);
+            setListenerForProfiles(passengerView, passenger.getId());
             TextView twEmail = passengerView.findViewById(R.id.txtRidePassengerEmail);
             twEmail.setText(passenger.getEmail());
             order++;
             lyPassengers.addView(passengerView);
         }
+    }
+
+    private void setListenerForProfiles(View profileView, Long passengerId) {
+
+        profileView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle args = new Bundle();
+                args.putLong("passengerId", passengerId);
+
+                PassengerInfoProfile profile = new PassengerInfoProfile();
+                profile.setArguments(args);
+                FragmentTransition.to(profile, getActivity(), true);
+            }
+        });
 
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
