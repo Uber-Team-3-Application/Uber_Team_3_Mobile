@@ -126,4 +126,17 @@ public class Step4 extends Step<String> {
     }
 
 
+    public boolean isPetTransport() {
+        if(petTransport.isChecked()) return true;
+        else return false;
+    }
+
+    public boolean isBabyTransport() {
+        if(babyTransport.isChecked()) return true;
+        else return false;
+    }
+
+    public String getDateTime() {
+        return dateTimeTextView.getText().toString();
+    }
 }

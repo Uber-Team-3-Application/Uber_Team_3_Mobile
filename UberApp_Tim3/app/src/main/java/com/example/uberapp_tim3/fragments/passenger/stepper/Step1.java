@@ -1,7 +1,10 @@
 package com.example.uberapp_tim3.fragments.passenger.stepper;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -13,6 +16,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
+import java.util.List;
 
 import ernestoyaquello.com.verticalstepperform.Step;
 
@@ -113,11 +119,11 @@ public class Step1 extends Step<String> {
         // This will be called automatically whenever the step is marked as uncompleted.
     }
 
-    public Location getDepartureLocation() {
-        return departureLocation;
+    public String getDeparture() {
+        return this.departure.getText().toString();
     }
-    public Location getDestinationLocation() {
-        return destinationLocation;
+    public String getDestination() {
+        return this.destination.getText().toString();
     }
     public Step1(String stepTitle) {
         super(stepTitle);
@@ -140,7 +146,25 @@ public class Step1 extends Step<String> {
 
     @Override
     protected IsDataValid isStepDataValid(String stepData) {
-        return null;
+        Geocoder geocoder = new Geocoder(getContext());
+        List<Address> addresses = null;
+        try {
+            addresses = geocoder.getFromLocationName(departure.getText().toString(), 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (addresses != null && addresses.size() > 0) {
+            try {
+                addresses = geocoder.getFromLocationName(destination.getText().toString(), 1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (addresses != null && addresses.size() > 0) {
+            return new IsDataValid(true, "");
+            }
+        }
+        return  new IsDataValid(false, "Wrong address");
     }
 
 }

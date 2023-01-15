@@ -3,6 +3,7 @@ package com.example.uberapp_tim3.services.interfaces;
 import com.example.uberapp_tim3.model.DTO.ChangePasswordDTO;
 import com.example.uberapp_tim3.model.DTO.LoginDTO;
 import com.example.uberapp_tim3.model.DTO.LoginResponseDTO;
+import com.example.uberapp_tim3.model.users.User;
 import com.example.uberapp_tim3.model.DTO.MessageFullDTO;
 import com.example.uberapp_tim3.model.DTO.Paginated;
 import com.example.uberapp_tim3.model.DTO.SendMessageDTO;
@@ -23,6 +24,8 @@ public interface IUserService {
     @PUT(ServiceUtils.user + "/{id}/changePassword")
     Call<String> changePassword(@Path("id") Long id, @Body ChangePasswordDTO changePasswordDTO);
 
+    @GET(ServiceUtils.user + "/email")
+    User findByEmail(@Body String email);
     @POST(ServiceUtils.user + "/{id}/message")
     Call<MessageFullDTO> sendMessage(@Path("id") Long id, @Body SendMessageDTO sendMessageDTO);
 
@@ -31,7 +34,5 @@ public interface IUserService {
 
     @GET(ServiceUtils.user + "/admin-user")
     Call<Long> getAdminId();
-
-
 
 }

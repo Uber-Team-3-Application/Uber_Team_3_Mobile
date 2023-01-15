@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.viewmodel.CreationExtras;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.fragments.passenger.PassengerReportFragment;
 
 import ernestoyaquello.com.verticalstepperform.Step;
 import ernestoyaquello.com.verticalstepperform.VerticalStepperFormView;
@@ -56,6 +57,18 @@ public class PassengerOrderARide extends Fragment implements StepperFormListener
     public void onCompletedForm() {
         // This method will be called when the user clicks on the last confirmation button of the
         // form in an attempt to save or send the data.
+        Bundle bundle = new Bundle();
+        bundle.putString("departure", step1.getDeparture());
+        bundle.putString("destination", step1.getDestination());
+        bundle.putString("dateTme", step4.getDateTime());
+        bundle.putString("passengers", step3.getStepData());
+        bundle.putBoolean("babyTransport", step4.isBabyTransport());
+        bundle.putBoolean("petTransport", step4.isPetTransport());
+        bundle.putString("vehicleType", step2.getStepData());
+        ConfirmRideFragment fragment = new ConfirmRideFragment();
+        fragment.setArguments(bundle);
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack(null).commit();
+
     }
 
     @Override
