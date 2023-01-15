@@ -142,29 +142,7 @@ public class ChatFragment extends Fragment {
                         }
                         assert response.body() != null;
                         List<MessageFullDTO> messages = response.body().getResults();
-                        LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.chatLayout);
-                        linearLayout.removeAllViews();
-                        for(MessageFullDTO message: messages) {
-                            if(!message.getType().equalsIgnoreCase(messageType)
-                                    || message.getRideId() != rideId
-                                    || (message.getSenderId() != senderId && message.getSenderId() != receiverId)
-                                    || (message.getReceiverId() != senderId && message.getReceiverId() != receiverId))
-                                return;
-
-                            LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                            View itemBox;
-                            if (Objects.equals(message.getSenderId(), senderId)){
-                                itemBox = inflater.inflate(R.layout.sent_message, (ViewGroup) getView(), false);
-                                TextView content = (TextView) itemBox.findViewById(R.id.sent_msg);
-                                content.setText(message.getMessage());
-                            }
-                            else{
-                                itemBox = inflater.inflate(R.layout.recived_message, (ViewGroup) getView(), false);
-                                TextView content = (TextView) itemBox.findViewById(R.id.recived_msg);
-                                content.setText(message.getMessage());
-                            }
-                            linearLayout.addView(itemBox);
-                        }
+                        addMessagesToLayout(messages);
 
                     }
 
@@ -178,5 +156,34 @@ public class ChatFragment extends Fragment {
             }
         }, 0);
 
+    }
+
+    private void addMessagesToLayout(List<MessageFullDTO> messages) {
+        LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.chatLayout);
+        linearLayout.removeAllViews();
+        for(MessageFullDTO message: messages) {
+
+            if(isMessageInvalid(message)) return;
+            LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View itemBox;
+            if (Objects.equals(message.getSenderId(), senderId)){
+                itemBox = inflater.inflate(R.layout.sent_message, (ViewGroup) getView(), false);
+                TextView content = (TextView) itemBox.findViewById(R.id.sent_msg);
+                content.setText(message.getMessage());
+            }
+            else{
+                itemBox = inflater.inflate(R.layout.recived_message, (ViewGroup) getView(), false);
+                TextView content = (TextView) itemBox.findViewById(R.id.recived_msg);
+                content.setText(message.getMessage());
+            }
+            linearLayout.addView(itemBox);
+        }
+    }
+
+    private boolean isMessageInvalid(MessageFullDTO message) {
+        return !message.getType().equalsIgnoreCase(messageType)
+                || !Objects.equals(message.getRideId(), rideId)
+                || (!Objects.equals(message.getSenderId(), senderId) && !Objects.equals(message.getSenderId(), receiverId))
+                || (!Objects.equals(message.getReceiverId(), senderId) && !Objects.equals(message.getReceiverId(), receiverId));
     }
 }
