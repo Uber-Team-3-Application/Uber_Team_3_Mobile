@@ -29,6 +29,9 @@ public interface IUserService {
     @GET(ServiceUtils.user + "/{id}/message")
     Call<Paginated<MessageFullDTO>> getMessages(@Path("id") Long id);
 
+    @GET(ServiceUtils.user + "/admin-user")
+    Call<Long> getAdminId();
+
 
 
 }
