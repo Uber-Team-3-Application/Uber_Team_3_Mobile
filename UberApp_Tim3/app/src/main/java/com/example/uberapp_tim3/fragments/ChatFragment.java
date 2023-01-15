@@ -80,8 +80,6 @@ public class ChatFragment extends Fragment {
     }
 
     private void setOnClickListenerForButtonSendMessage() {
-        receiverId = 1L;
-        rideId = 1L;
         btnSendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,7 +90,7 @@ public class ChatFragment extends Fragment {
                 SendMessageDTO sendMessageDTO = new SendMessageDTO();
                 sendMessageDTO.setMessage(message);
                 sendMessageDTO.setRideId(rideId);
-                sendMessageDTO.setType("RIDE");
+                sendMessageDTO.setType(messageType);
 
                 Call<MessageFullDTO> call = ServiceUtils.userService.sendMessage(receiverId, sendMessageDTO);
                 call.enqueue(new Callback<MessageFullDTO>() {
@@ -123,6 +121,12 @@ public class ChatFragment extends Fragment {
         TextView content = (TextView) itemBox.findViewById(R.id.sent_msg);
         content.setText(message);
         linearLayout.addView(itemBox);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacksAndMessages(null);
     }
 
     private void loadMessages() {
@@ -158,13 +162,24 @@ public class ChatFragment extends Fragment {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
     private void addMessagesToLayout(List<MessageFullDTO> messages) {
         LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.chatLayout);
         linearLayout.removeAllViews();
+        LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         for(MessageFullDTO message: messages) {
 
             if(isMessageInvalid(message)) return;
-            LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
             View itemBox;
             if (Objects.equals(message.getSenderId(), senderId)){
                 itemBox = inflater.inflate(R.layout.sent_message, (ViewGroup) getView(), false);

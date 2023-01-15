@@ -2,6 +2,7 @@ package com.example.uberapp_tim3.fragments.driver;
 
 import android.app.Service;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,10 +22,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.fragments.ChatFragment;
 import com.example.uberapp_tim3.fragments.DrawRouteFragment;
 import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerInfoProfile;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
+import com.example.uberapp_tim3.model.DTO.MessageBundleDTO;
 import com.example.uberapp_tim3.model.DTO.RideUserDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.FragmentTransition;
@@ -48,6 +51,7 @@ public class DriverCurrentRideFragment extends Fragment {
     private String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private int elapsedTime = 0;
     DriverRideDTO rideDTO = null;
+    private SharedPreferences preferences;
     public DriverCurrentRideFragment() {
         // Required empty public constructor
     }
@@ -63,7 +67,7 @@ public class DriverCurrentRideFragment extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null)
             rideDTO = bundle.getParcelable("ride");
-
+        preferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
 
         setViews(rideDTO);
         initializeTime();
@@ -201,6 +205,7 @@ public class DriverCurrentRideFragment extends Fragment {
             String orderText = Integer.toString(order) + ".";
             twOrderNumber.setText(orderText);
             setListenerForProfiles(passengerView, passenger.getId());
+            setPassengerMessagesView(passenger.getEmail(), passenger.getId());
             TextView twEmail = passengerView.findViewById(R.id.txtRidePassengerEmail);
             twEmail.setText(passenger.getEmail());
             order++;
@@ -217,12 +222,42 @@ public class DriverCurrentRideFragment extends Fragment {
                 args.putLong("passengerId", passengerId);
                 PassengerInfoProfile profile = new PassengerInfoProfile();
                 profile.setArguments(args);
+
                 requireActivity().getSupportFragmentManager().beginTransaction().replace(
                         R.id.lySelectedPassengerProfile, profile
                 ).commit();
+
+
             }
         });
 
+
+    }
+
+    private void setPassengerMessagesView(String email, Long id) {
+        LinearLayout lyPassengers = getActivity().findViewById(R.id.lySendMessageToPassenger);
+        LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View passengerView = inflater.inflate(R.layout.passenger_send_message, (ViewGroup) getView(), false);
+        TextView txtRidePassengerOrder = passengerView.findViewById(R.id.txtRidePassengerOrder);
+        txtRidePassengerOrder.setText(email);
+        passengerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Long senderId = preferences.getLong("pref_id", 0);
+                Long receiverId = id;
+                Long rideId = rideDTO.getId();
+                String messageType = "RIDE";
+                MessageBundleDTO messageBundleDTO = new MessageBundleDTO(senderId, receiverId, rideId, messageType);
+                Bundle args = new Bundle();
+                args.putParcelable("message", messageBundleDTO);
+                ChatFragment chatFragment = new ChatFragment();
+                chatFragment.setArguments(args);
+                FragmentTransition.to(chatFragment, requireActivity(), true);
+
+            }
+        });
+        lyPassengers.addView(passengerView);
     }
 
     @Override
