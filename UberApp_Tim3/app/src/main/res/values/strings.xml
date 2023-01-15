@@ -301,5 +301,7 @@
     <string name="good_news_sync">Good news, everything is sync now.</string>
     <string name="new_comments">New comments</string>
     <string name="get_a_ride">Order A Ride</string>
+    <string name="drive_information">DRIVE INFORMATION</string>
+    <string name="elapsed_time">Elapsed time:</string>
 
 </resources>

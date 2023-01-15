@@ -58,7 +58,7 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
         RouteDTO start = drive.getLocations().get(0);
         RouteDTO end = drive.getLocations().get(drive.getLocations().size()-1);
         this.departure = new LatLng(start.getDeparture().getLatitude(), start.getDeparture().getLongitude());
-        this.destination = new LatLng(end.getDestination().getLatitude(), end.getDeparture().getLongitude());
+        this.destination = new LatLng(end.getDestination().getLatitude(), end.getDestination().getLongitude());
         this.departureAddress = start.getDeparture().getAddress();
         this.destinationAddress = end.getDestination().getAddress();
     }
