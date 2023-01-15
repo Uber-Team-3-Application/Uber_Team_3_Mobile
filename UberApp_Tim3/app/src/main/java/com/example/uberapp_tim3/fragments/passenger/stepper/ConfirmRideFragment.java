@@ -1,5 +1,7 @@
 package com.example.uberapp_tim3.fragments.passenger.stepper;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -40,6 +42,7 @@ public class ConfirmRideFragment extends Fragment {
     Boolean babyTransport;
     Boolean petTransport;
     Button btnOrderARide;
+    private SharedPreferences preferences;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.passenger_confirm_ride, container, false);
@@ -69,6 +72,7 @@ public class ConfirmRideFragment extends Fragment {
         vehicleType = getArguments().getString("vehicleType");
         babyTransport = getArguments().getBoolean("babyTransport");
         petTransport = getArguments().getBoolean("petTransport");
+        preferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
 
         TextView departureView = getView().findViewById(R.id.departure);
         departureView.setText(departure);
@@ -102,14 +106,12 @@ public class ConfirmRideFragment extends Fragment {
     }
 
     private CreateRideDTO getCreatedRide() throws IOException {
-        String[] passengersEmails;
-        Set<PassengerEmailDTO> users = new HashSet<>();;
-        if(passengers.contains(",")) {
-            passengersEmails = passengers.split(",");
-            for (String email : passengersEmails) {
-                User user = ServiceUtils.userService.findByEmail(email);
-                users.add(new PassengerEmailDTO(user.getId(), user.getEmailAddress()));
-            }
+        Set<PassengerEmailDTO> users = new HashSet<>();
+        passengers += "," + preferences.getString("email", "0");
+        String[] passengersEmails = passengers.split(",");
+        for (String email : passengersEmails) {
+            User user = ServiceUtils.userService.findByEmail(email);
+            users.add(new PassengerEmailDTO(user.getId(), user.getEmailAddress()));
         }
         RouteDTO routeDTO = new RouteDTO(getLocation(departure), getLocation(destination));
         LinkedHashSet<RouteDTO> locations = new LinkedHashSet<>();
