@@ -8,9 +8,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -30,6 +32,11 @@ import java.util.Objects;
  * create an instance of this fragment.
  */
 public class PassengerCurrentRideFragment extends Fragment {
+    private TextView tvHours, tvMinutes, tvSeconds;
+    private String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    private int elapsedTime = 0;
+    private Handler handler = new Handler();
+    private Runnable runnable;
 
 
 
@@ -55,7 +62,56 @@ public class PassengerCurrentRideFragment extends Fragment {
         if (bundle != null)
             rideDTO = bundle.getParcelable("ride");
         setViews(rideDTO);
+
+        initializeTime();
+        startMeasuringTime();
+        setPanicListener();
     }
+
+
+
+    private void setPanicListener() {
+
+        Button btnPanic = requireView().findViewById(R.id.btnPanic);
+        btnPanic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+    }
+
+    private void initializeTime(){
+        tvHours = requireView().findViewById(R.id.tv_hour);
+        tvMinutes = requireView().findViewById(R.id.tv_minute);
+        tvSeconds = requireView().findViewById(R.id.tv_second);
+    }
+
+
+    private void startMeasuringTime() {
+        runnable = new Runnable() {
+            @SuppressLint("DefaultLocale")
+            @Override
+            public void run() {
+                try {
+                    handler.postDelayed(this, 1000);
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+                    int hours  = elapsedTime/3600;
+                    int minutes = elapsedTime/60;
+                    int seconds = elapsedTime % 60;
+                    tvHours.setText(String.format("%02d", hours));
+                    tvMinutes.setText(String.format("%02d", minutes));
+                    tvSeconds.setText(String.format("%02d", seconds));
+                    elapsedTime++;
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        handler.postDelayed(runnable, 0);
+    }
+
 
     private void setViews(DriverRideDTO rideDTO) {
         assert rideDTO != null;
@@ -109,5 +165,12 @@ public class PassengerCurrentRideFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_passenger_current_ride, container, false);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacks(runnable);
+
     }
 }
