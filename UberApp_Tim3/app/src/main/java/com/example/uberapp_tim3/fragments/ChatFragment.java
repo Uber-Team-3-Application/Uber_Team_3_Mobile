@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.model.DTO.MessageBundleDTO;
 import com.example.uberapp_tim3.model.DTO.MessageFullDTO;
 import com.example.uberapp_tim3.model.DTO.Paginated;
 import com.example.uberapp_tim3.model.DTO.SendMessageDTO;
@@ -62,6 +63,16 @@ public class ChatFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Bundle bundle = this.getArguments();
+        MessageBundleDTO messageBundleDTO = null;
+        if(bundle == null ) return;
+
+        messageBundleDTO = bundle.getParcelable("message");
+        this.receiverId = messageBundleDTO.getReceiverId();
+        this.senderId = messageBundleDTO.getSenderId();
+        this.rideId = messageBundleDTO.getRideId();
+        this.messageType = messageBundleDTO.getMessageType();
+
         btnSendMessage = getActivity().findViewById(R.id.btnSendMessage);
         txtSendMessage = getActivity().findViewById(R.id.txtSendMessage);
         setOnClickListenerForButtonSendMessage();
@@ -115,9 +126,7 @@ public class ChatFragment extends Fragment {
     }
 
     private void loadMessages() {
-        //TODO IZMENITI PREKO BUNDLE I TIH GLUPOSTI
 
-        this.senderId = 4L;
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -136,6 +145,12 @@ public class ChatFragment extends Fragment {
                         LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.chatLayout);
                         linearLayout.removeAllViews();
                         for(MessageFullDTO message: messages) {
+                            if(!message.getType().equalsIgnoreCase(messageType)
+                                    || message.getRideId() != rideId
+                                    || (message.getSenderId() != senderId && message.getSenderId() != receiverId)
+                                    || (message.getReceiverId() != senderId && message.getReceiverId() != receiverId))
+                                return;
+
                             LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             View itemBox;
                             if (Objects.equals(message.getSenderId(), senderId)){
