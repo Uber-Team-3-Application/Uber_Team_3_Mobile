@@ -51,10 +51,6 @@ public class NewRideNotificationActivity extends AppCompatActivity {
         });
     }
 
-    public void endActivity() {
-        finish();
-    }
-
 
     @Override
     protected void onStart() {
