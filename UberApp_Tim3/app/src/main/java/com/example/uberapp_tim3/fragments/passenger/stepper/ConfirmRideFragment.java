@@ -21,6 +21,7 @@ import com.example.uberapp_tim3.model.DTO.CreateRideDTO;
 import com.example.uberapp_tim3.model.DTO.LocationDTO;
 import com.example.uberapp_tim3.model.DTO.PassengerEmailDTO;
 import com.example.uberapp_tim3.model.DTO.RouteDTO;
+import com.example.uberapp_tim3.model.DTO.UserDTO;
 import com.example.uberapp_tim3.model.users.User;
 import com.example.uberapp_tim3.services.ServiceUtils;
 
@@ -107,11 +108,16 @@ public class ConfirmRideFragment extends Fragment {
 
     private CreateRideDTO getCreatedRide() throws IOException {
         Set<PassengerEmailDTO> users = new HashSet<>();
-        passengers += "," + preferences.getString("email", "0");
+        if(passengers.contains(",")) {
+            passengers += ",";
+        }
+        passengers += preferences.getString("pref_email", "0");
+
         String[] passengersEmails = passengers.split(",");
+
         for (String email : passengersEmails) {
-            User user = ServiceUtils.userService.findByEmail(email);
-            users.add(new PassengerEmailDTO(user.getId(), user.getEmailAddress()));
+            UserDTO user = ServiceUtils.userService.findByEmail(email);
+            users.add(new PassengerEmailDTO(user.getId(), user.getEmail()));
         }
         RouteDTO routeDTO = new RouteDTO(getLocation(departure), getLocation(destination));
         LinkedHashSet<RouteDTO> locations = new LinkedHashSet<>();

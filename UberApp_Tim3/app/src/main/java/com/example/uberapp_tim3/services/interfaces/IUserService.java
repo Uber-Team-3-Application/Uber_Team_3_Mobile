@@ -26,7 +26,7 @@ public interface IUserService {
     Call<String> changePassword(@Path("id") Long id, @Body ChangePasswordDTO changePasswordDTO);
 
     @GET(ServiceUtils.user + "/email")
-    User findByEmail(@Body String email);
+    UserDTO findByEmail(@Body String email);
 
     @GET(ServiceUtils.user + "/{id}/user")
     Call<UserDTO> findById(@Path("id") Long id);
