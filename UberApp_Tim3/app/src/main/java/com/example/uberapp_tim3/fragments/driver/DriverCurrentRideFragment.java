@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -188,10 +189,11 @@ public class DriverCurrentRideFragment extends Fragment {
             public void onClick(View view) {
                 Bundle args = new Bundle();
                 args.putLong("passengerId", passengerId);
-
                 PassengerInfoProfile profile = new PassengerInfoProfile();
                 profile.setArguments(args);
-                FragmentTransition.to(profile, getActivity(), true);
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(
+                        R.id.lySelectedPassengerProfile, profile
+                ).commit();
             }
         });
 
