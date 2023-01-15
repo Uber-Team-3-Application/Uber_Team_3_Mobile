@@ -54,6 +54,7 @@ public class PassengerAccountFragment extends Fragment {
             @Override
             public void onResponse(Call<PassengerDTO> call, Response<PassengerDTO> response) {
                 if(!response.isSuccessful()) return;
+
                 PassengerDTO passenger = response.body();
 
                 TextView tvName = getActivity().findViewById(R.id.txtPassengerFullName);

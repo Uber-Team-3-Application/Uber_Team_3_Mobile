@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
@@ -21,29 +20,22 @@ import android.graphics.BitmapFactory;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.fragments.ChatFragment;
-import com.example.uberapp_tim3.fragments.CommentsFragment;
 import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerAccountFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerFavouriteRoutesFragment;
-import com.example.uberapp_tim3.fragments.passenger.PassengerInboxFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerHomeFragment;
+import com.example.uberapp_tim3.fragments.passenger.PassengerInboxFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerReportFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerRideHistoryFragment;
 import com.example.uberapp_tim3.model.DTO.PassengerDTO;
-import com.example.uberapp_tim3.model.DTO.UserDTO;
-import com.example.uberapp_tim3.model.users.User;
 import com.example.uberapp_tim3.services.PassengerMessagesService;
 import com.example.uberapp_tim3.services.ServiceUtils;
-import com.example.uberapp_tim3.tools.DrivesMockUp;
-import com.example.uberapp_tim3.tools.FragmentTransition;
 import com.google.android.material.navigation.NavigationView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -61,7 +53,6 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
     private PendingIntent pendingIntent;
     private AlarmManager manager;
     private NavigationView navigationView;
-    private boolean isLoaded = false;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -83,6 +74,7 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
 
 
         sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        this.getPassenger(sharedPreferences.getLong("pref_id", 0L));
 
         createNotificationChannel();
         setUpService();
@@ -134,12 +126,6 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
             super.onBackPressed();
         }
     }
-
-    public void openChat() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ChatFragment()).addToBackStack(null).commit();
-    }
-
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -163,7 +149,6 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
     @Override
     protected void onResume() {
         super.onResume();
-        this.getPassenger(sharedPreferences.getLong("pref_id", 0L));
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
@@ -173,7 +158,7 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
     }
 
 
-    public PassengerDTO getPassenger(Long id){
+    private void getPassenger(Long id){
 
         Call<PassengerDTO> call = ServiceUtils.passengerService.getPassenger(id);
         call.enqueue(new Callback<PassengerDTO>() {
@@ -181,6 +166,7 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
             public void onResponse(@NonNull Call<PassengerDTO> call, @NonNull Response<PassengerDTO> response) {
                 if(!response.isSuccessful()) return;
                 setMapFragment();
+
                 PassengerDTO passenger = response.body();
 
                 TextView tvName = findViewById(R.id.passengerNameNavigation);
@@ -209,11 +195,11 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
                 Log.d("FAIIIL", "BLATRUC");
             }
         });
-        return null;
     }
 
     private void setMapFragment() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MapFragment.newInstance()).commit();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MapFragment.newInstance()).addToBackStack(null).commit();
         navigationView.setCheckedItem(R.id.nav_home);
     }
 

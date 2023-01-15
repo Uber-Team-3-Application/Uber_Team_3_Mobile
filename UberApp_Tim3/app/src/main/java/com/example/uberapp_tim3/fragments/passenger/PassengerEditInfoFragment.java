@@ -42,6 +42,7 @@ import org.w3c.dom.Text;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -73,8 +74,6 @@ public class PassengerEditInfoFragment extends Fragment {
     public void onResume() {
         super.onResume();
         requireActivity().setTitle(R.string.edit_info);
-        imgAvatar = getActivity().findViewById(R.id.imgEditPassengerAvatar);
-        this.getPassenger(this.sharedPreferences.getLong("pref_id", 0));
     }
 
     public void getPassenger(Long id){
@@ -83,9 +82,13 @@ public class PassengerEditInfoFragment extends Fragment {
         call.enqueue(new Callback<PassengerDTO>() {
             @Override
             public void onResponse(Call<PassengerDTO> call, Response<PassengerDTO> response) {
-                if(!response.isSuccessful()) return;
+                if(!response.isSuccessful()){
+                    Log.e("Response Error", "ERROR");
+                    return;
+                }
                 PassengerDTO passenger = response.body();
 
+                assert passenger != null;
                 tvName = getActivity().findViewById(R.id.txtPassengerEditFirstName);
                 tvName.setText(passenger.getName());
 
@@ -127,10 +130,11 @@ public class PassengerEditInfoFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
-        fillViews();
         imgAvatar = getActivity().findViewById(R.id.imgEditPassengerAvatar);
         btnChangeAvatar = getActivity().findViewById(R.id.btnChangePassengerAvatar);
         setOnClickListeners();
+        this.getPassenger(this.sharedPreferences.getLong("pref_id", 0));
+
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -146,24 +150,11 @@ public class PassengerEditInfoFragment extends Fragment {
         if(resultCode == RESULT_OK && requestCode == 100){
             assert data != null;
             Uri imageUri = data.getData();
-            Glide.with(getContext()).load(imageUri).into(imgAvatar);
+            Glide.with(requireContext()).load(imageUri).into(imgAvatar);
             
         }
 
     }
-    private String convertUriToBase64(Uri imageUri) {
-        try {
-            InputStream inputStream = requireContext().getContentResolver().openInputStream(imageUri);
-            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream.toByteArray();
-            return Base64.encodeToString(byteArray, Base64.DEFAULT);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
 
     private void setOnClickListeners() {
         btnChangeAvatar = getActivity().findViewById(R.id.btnChangePassengerAvatar);
@@ -232,20 +223,6 @@ public class PassengerEditInfoFragment extends Fragment {
                 });
             }
         });
-
-    }
-
-
-
-    private void fillViews() {
-
-        Passenger passenger = PassengerMockup.getPassengers().get(0);
-
-        ((EditText) getActivity().findViewById(R.id.txtPassengerEditFirstName)).setText(passenger.getName());
-        ((EditText) getActivity().findViewById(R.id.txtPassengerEditLastName)).setText(passenger.getLastName());
-        ((EditText) getActivity().findViewById(R.id.txtPassengerEditPhoneNumber)).setText(passenger.getPhoneNumber());
-
-        ((EditText) getActivity().findViewById(R.id.txtHomeAddressEdit)).setText(passenger.getAddress());
 
     }
 
