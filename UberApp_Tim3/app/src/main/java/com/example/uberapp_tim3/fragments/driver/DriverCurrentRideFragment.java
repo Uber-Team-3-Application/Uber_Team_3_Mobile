@@ -1,13 +1,16 @@
 package com.example.uberapp_tim3.fragments.driver;
 
+import android.app.Service;
 import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +18,15 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.DrawRouteFragment;
+import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerInfoProfile;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.RideUserDTO;
+import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 import com.google.maps.model.Unit;
 
@@ -30,6 +36,10 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 import java.util.Date;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class DriverCurrentRideFragment extends Fragment {
 
     private TextView tvHours, tvMinutes, tvSeconds;
@@ -37,6 +47,7 @@ public class DriverCurrentRideFragment extends Fragment {
     private Runnable runnable;
     private String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private int elapsedTime = 0;
+    DriverRideDTO rideDTO = null;
     public DriverCurrentRideFragment() {
         // Required empty public constructor
     }
@@ -50,7 +61,6 @@ public class DriverCurrentRideFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = this.getArguments();
-        DriverRideDTO rideDTO = null;
         if (bundle != null)
             rideDTO = bundle.getParcelable("ride");
 
@@ -89,7 +99,23 @@ public class DriverCurrentRideFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 handler.removeCallbacks(runnable);
+                Call<DriverRideDTO> call = ServiceUtils.rideService.endRide(rideDTO.getId());
+                call.enqueue(new Callback<DriverRideDTO>() {
+                    @Override
+                    public void onResponse(Call<DriverRideDTO> call, Response<DriverRideDTO> response) {
+                        if(!response.isSuccessful()){
+                            Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        Toast.makeText(getContext(), "Ride successfully finished!", Toast.LENGTH_SHORT).show();
+                        FragmentTransition.to(MapFragment.newInstance(), getActivity(), true);
+                    }
 
+                    @Override
+                    public void onFailure(Call<DriverRideDTO> call, Throwable t) {
+                        Log.d("Ride finish fail", "Something went wrong");
+                    }
+                });
             }
         });
     }
