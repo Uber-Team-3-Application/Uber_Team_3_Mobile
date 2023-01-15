@@ -3,7 +3,6 @@ package com.example.uberapp_tim3.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -178,27 +177,33 @@ public class ChatFragment extends Fragment {
         LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         for(MessageFullDTO message: messages) {
 
-            if(isMessageInvalid(message)) return;
+            if(isMessageInvalid(message)) continue;
 
-            View itemBox;
-            if (Objects.equals(message.getSenderId(), senderId)){
-                itemBox = inflater.inflate(R.layout.sent_message, (ViewGroup) getView(), false);
-                TextView content = (TextView) itemBox.findViewById(R.id.sent_msg);
-                content.setText(message.getMessage());
-            }
-            else{
-                itemBox = inflater.inflate(R.layout.recived_message, (ViewGroup) getView(), false);
-                TextView content = (TextView) itemBox.findViewById(R.id.recived_msg);
-                content.setText(message.getMessage());
-            }
-            linearLayout.addView(itemBox);
+            AddMessageToAppropriateSide(linearLayout, inflater, message);
         }
+
+    }
+
+    private void AddMessageToAppropriateSide(LinearLayout linearLayout, LayoutInflater inflater, MessageFullDTO message) {
+        View itemBox;
+        if (Objects.equals(message.getSenderId(), senderId)){
+            itemBox = inflater.inflate(R.layout.sent_message, (ViewGroup) getView(), false);
+            TextView content = (TextView) itemBox.findViewById(R.id.sent_msg);
+            content.setText(message.getMessage());
+        }
+        else{
+            itemBox = inflater.inflate(R.layout.recived_message, (ViewGroup) getView(), false);
+            TextView content = (TextView) itemBox.findViewById(R.id.recived_msg);
+            content.setText(message.getMessage());
+        }
+        linearLayout.addView(itemBox);
     }
 
     private boolean isMessageInvalid(MessageFullDTO message) {
-        return !message.getType().equalsIgnoreCase(messageType)
-                || !Objects.equals(message.getRideId(), rideId)
-                || (!Objects.equals(message.getSenderId(), senderId) && !Objects.equals(message.getSenderId(), receiverId))
-                || (!Objects.equals(message.getReceiverId(), senderId) && !Objects.equals(message.getReceiverId(), receiverId));
+        if(!message.getType().equalsIgnoreCase(messageType)) return true;
+        if(!Objects.equals(message.getRideId(), rideId)) return true;
+
+        if (message.getSenderId() != senderId && message.getSenderId() != receiverId) return true;
+        return message.getReceiverId() != senderId && message.getReceiverId() != receiverId;
     }
 }
