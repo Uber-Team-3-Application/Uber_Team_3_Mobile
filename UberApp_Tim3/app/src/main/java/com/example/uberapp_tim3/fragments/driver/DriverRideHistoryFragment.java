@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.ListFragment;
 
@@ -46,14 +47,15 @@ public class DriverRideHistoryFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup vg, Bundle data) {
         setHasOptionsMenu(true);
-        sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        sharedPreferences = requireActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
 
         Call<Paginated<DriverRideDTO>> call = ServiceUtils.driverService.
                 getRides(sharedPreferences.getLong("pref_id", 0L), 0, 50, "timeOfStart,desc");
 
         call.enqueue(new Callback<Paginated<DriverRideDTO>>() {
             @Override
-            public void onResponse(Call<Paginated<DriverRideDTO>> call, Response<Paginated<DriverRideDTO>> response) {
+            public void onResponse(@NonNull Call<Paginated<DriverRideDTO>> call,
+                                   @NonNull Response<Paginated<DriverRideDTO>> response) {
 
                 if(!response.isSuccessful()){
                     rides = new Paginated<DriverRideDTO>(0);
@@ -66,7 +68,7 @@ public class DriverRideHistoryFragment extends ListFragment {
             }
 
             @Override
-            public void onFailure(Call<Paginated<DriverRideDTO>> call, Throwable t) {
+            public void onFailure(@NonNull Call<Paginated<DriverRideDTO>> call, @NonNull Throwable t) {
                 Log.d("Fail", "Failed fetching driver rides");
             }
         });
@@ -86,7 +88,7 @@ public class DriverRideHistoryFragment extends ListFragment {
     }
 
     @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
+    public void onListItemClick(@NonNull ListView l, @NonNull View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
         DriverRideDTO drive = rides.getResults().get(position);

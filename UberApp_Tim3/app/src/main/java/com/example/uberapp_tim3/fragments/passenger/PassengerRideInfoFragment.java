@@ -24,13 +24,13 @@ import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.tools.DrivesMockUp;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class PassengerRideInfoFragment extends Fragment {
 
 
     public PassengerRideInfoFragment() {
-        // Required empty public constructor
     }
 
 
@@ -42,7 +42,6 @@ public class PassengerRideInfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_passenger_ride_info, container, false);
     }
 
@@ -60,13 +59,13 @@ public class PassengerRideInfoFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void SetViews(DriverRideDTO ride) {
-        RatingBar passengerRideInfoDriverRating = getActivity().findViewById(R.id.passengerRideInfoDriverRating);
+        RatingBar passengerRideInfoDriverRating = requireActivity().findViewById(R.id.passengerRideInfoDriverRating);
         passengerRideInfoDriverRating.setNumStars(4);
 
-        RatingBar passengerRideInfoCarRating = getActivity().findViewById(R.id.passengerRideInfoCarRating);
+        RatingBar passengerRideInfoCarRating = requireActivity().findViewById(R.id.passengerRideInfoCarRating);
         passengerRideInfoCarRating.setNumStars(3);
 
-        EditText txtComment = getActivity().findViewById(R.id.passRideInfoComment);
+        EditText txtComment = requireActivity().findViewById(R.id.passRideInfoComment);
         txtComment.setText("Voznja je bila ok brt, al auto malo los");
 
         assert ride != null;
@@ -78,29 +77,29 @@ public class PassengerRideInfoFragment extends Fragment {
 
 
     private void setOnClickListeners(){
-        ImageView imgInbox = getActivity().findViewById(R.id.imgInbox);
+        ImageView imgInbox = requireActivity().findViewById(R.id.imgInbox);
 
-        ImageView imgDriver = getActivity().findViewById(R.id.imgDriver);
+        ImageView imgDriver = requireActivity().findViewById(R.id.imgDriver);
 
         imgInbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerInboxFragment()).addToBackStack(null).commit();
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerInboxFragment()).addToBackStack(null).commit();
 
             }
         });
         imgDriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerInfoProfile()).addToBackStack(null).commit();
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerInfoProfile()).addToBackStack(null).commit();
 
             }
         });
     }
 
     private void fillOtherPassengers(){
-        LinearLayout ly = getActivity().findViewById(R.id.lyOtherPassengers);
-        LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LinearLayout ly = requireActivity().findViewById(R.id.lyOtherPassengers);
+        LayoutInflater inflater = (LayoutInflater) requireView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         List<Drive> drives = DrivesMockUp.getDrives();
         for(int i =1;i<drives.get(0).getPassengerList().size();i++){
