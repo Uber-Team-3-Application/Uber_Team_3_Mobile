@@ -1,13 +1,17 @@
 package com.example.uberapp_tim3.fragments;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,11 +25,13 @@ import com.example.uberapp_tim3.model.DTO.MessageBundleDTO;
 import com.example.uberapp_tim3.model.DTO.MessageFullDTO;
 import com.example.uberapp_tim3.model.DTO.Paginated;
 import com.example.uberapp_tim3.model.DTO.SendMessageDTO;
+import com.example.uberapp_tim3.model.DTO.UserDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
 
 import java.util.List;
 import java.util.Objects;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,7 +41,9 @@ public class ChatFragment extends Fragment {
     public LinearLayout mainLayout;
     public String[] messages;
     public ViewGroup container;
-
+    TextView txtContactName;
+    CircleImageView imgAvatar;
+    ImageView imgViewGoBackChat;
 
     private Button btnSendMessage;
     private TextView txtSendMessage;
@@ -72,10 +80,60 @@ public class ChatFragment extends Fragment {
         this.rideId = messageBundleDTO.getRideId();
         this.messageType = messageBundleDTO.getMessageType();
 
+        txtContactName = getActivity().findViewById(R.id.contactName);
+        imgAvatar = getActivity().findViewById(R.id.imgChatAvatar);
         btnSendMessage = getActivity().findViewById(R.id.btnSendMessage);
         txtSendMessage = getActivity().findViewById(R.id.txtSendMessage);
+
+        if(!messageType.equalsIgnoreCase("panic")) {
+            setUserName(this.receiverId);
+        }else{
+            txtContactName.setText("SUPPORT");
+
+        }
         setOnClickListenerForButtonSendMessage();
+        setOnClickListenerForBack();
         loadMessages();
+    }
+
+    private void setOnClickListenerForBack() {
+        imgViewGoBackChat = getView().findViewById(R.id.imgViewGoBackChat);
+        imgViewGoBackChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().popBackStackImmediate();
+
+            }
+        });
+    }
+
+    private void setUserName(Long receiverId) {
+        Call<UserDTO> call = ServiceUtils.userService.findById(receiverId);
+        call.enqueue(new Callback<UserDTO>() {
+            @Override
+            public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
+                if(!response.isSuccessful()) return;
+                UserDTO user = response.body();
+                assert user != null;
+
+                String fullName = user.getName() + " " + user.getSurname();
+                txtContactName.setText(fullName);
+
+                String profilePicture = user.getProfilePicture();
+                if(profilePicture.contains(",")) {
+                    String base64Image = profilePicture.split(",")[1];
+                    byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    imgAvatar.setImageBitmap(decodedByte);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserDTO> call, Throwable t) {
+                Log.d("User error", "Couldn't find user!");
+
+            }
+        });
     }
 
     private void setOnClickListenerForButtonSendMessage() {
