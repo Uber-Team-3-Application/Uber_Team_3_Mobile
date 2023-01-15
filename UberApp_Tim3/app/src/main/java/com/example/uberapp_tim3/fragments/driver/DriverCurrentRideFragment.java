@@ -6,20 +6,31 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.DrawRouteFragment;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
+import com.google.maps.model.Unit;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
+import java.util.Date;
 
 public class DriverCurrentRideFragment extends Fragment {
 
-
+    private TextView tvHours, tvMinutes, tvSeconds;
+    private Handler handler = new Handler();
+    private Runnable runnable;
+    private String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    private int elapsedTime = 0;
     public DriverCurrentRideFragment() {
         // Required empty public constructor
     }
@@ -36,7 +47,57 @@ public class DriverCurrentRideFragment extends Fragment {
         DriverRideDTO rideDTO = null;
         if (bundle != null)
             rideDTO = bundle.getParcelable("ride");
+
+
         setViews(rideDTO);
+        initializeTime();
+        startMeasuringTime();
+        setOnClickListeners();
+    }
+
+    private void setOnClickListeners(){
+        Button finishRide = getActivity().findViewById(R.id.btnFinishRideDriver);
+        finishRide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handler.removeCallbacks(runnable);
+
+            }
+        });
+    }
+    private void startMeasuringTime() {
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    handler.postDelayed(this, 1000);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+                    int hours  = elapsedTime/3600;
+                    int minutes = elapsedTime/60;
+                    int seconds = elapsedTime % 60;
+                    tvHours.setText(String.format("%02d", hours));
+                    tvMinutes.setText(String.format("%02d", minutes));
+                    tvSeconds.setText(String.format("%02d", seconds));
+                    elapsedTime++;
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        handler.postDelayed(runnable, 0);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        handler.removeCallbacks(runnable);
+    }
+
+    private void initializeTime(){
+        tvHours = getActivity().findViewById(R.id.tv_hour);
+        tvMinutes = getActivity().findViewById(R.id.tv_minute);
+        tvSeconds = getActivity().findViewById(R.id.tv_second);
     }
 
     private void setViews(DriverRideDTO rideDTO) {

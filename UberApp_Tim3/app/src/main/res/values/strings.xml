@@ -303,5 +303,6 @@
     <string name="get_a_ride">Order A Ride</string>
     <string name="drive_information">DRIVE INFORMATION</string>
     <string name="elapsed_time">Elapsed time:</string>
+    <string name="panic">PANIC</string>
 
 </resources>

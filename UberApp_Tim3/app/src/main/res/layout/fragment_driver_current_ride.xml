@@ -6,12 +6,6 @@
     android:orientation="vertical"
     tools:context=".fragments.driver.DriverCurrentRideFragment">
 
-    <FrameLayout
-        android:id="@+id/currentRideContainerDriver"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="@color/uber_toolbar" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,188 +13,294 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingVertical="12dp"
-            android:paddingLeft="6dp">
+            android:orientation="vertical">
 
-            <TextView
+            <FrameLayout
+                android:id="@+id/currentRideContainerDriver"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingVertical="10dp"
-                android:text="@string/drive_information"
-                android:textColor="@color/uber_toolbar"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_height="560dp"
+                android:background="@color/uber_toolbar" />
 
 
             <LinearLayout
-                android:id="@+id/lyRideInformation"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingVertical="12dp"
+                android:paddingLeft="6dp">
+
+                <Button
+                    android:id="@+id/btnFinishRideDriver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Finish ride"
+                    android:layout_marginLeft="130dp"
+                    android:layout_marginBottom="4dp"/>
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="16dp"
-                    android:text="Start and End time"
-
-                    android:textSize="20sp"
-                    android:textStyle="bold|italic" />
-
-                <TextView
-                    android:id="@+id/txtDriverCurrentRideStartTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
-                    android:text="26.10.2022 12:34"
+                    android:layout_marginLeft="150dp"
+                    android:paddingTop="20dp"
+                    android:text="@string/elapsed_time"
                     android:textColor="@color/uber_toolbar"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/txtDriverCurrentRideEndTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
-                    android:text="26.10.2022 13:34 (expected time)"
-                    android:textColor="@color/uber_toolbar"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="16dp"
-                    android:text="Departure and Destination"
-                    android:textSize="20sp"
-                    android:textStyle="bold|italic" />
-
-                <TextView
-                    android:id="@+id/txtDriverCurrentRideDeparture"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="14dp"
-                    android:paddingTop="10dp"
-                    android:text="Svetosavksa 86 Kikinda"
-                    android:textColor="@color/uber_toolbar"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txtDriverCurrentRideDestination"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="14dp"
-                    android:paddingTop="6dp"
-                    android:text="Atarska 7 Sombor"
-                    android:textColor="@color/uber_toolbar"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="16dp"
-                    android:text="Other ride info"
-                    android:textSize="20sp"
-                    android:textStyle="bold|italic" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="20dp"
-                        android:text="Total Passengers: "
-                        android:textColor="@color/uber_toolbar"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/txtDriverCurrentRidePassengerCount"
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:id="@+id/tv_hour"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="00"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_hour_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Hour"
+                            android:textSize="20dp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="20dp"
-                        android:text="2"
-                        android:textColor="@color/uber_toolbar"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_minute"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="00"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_minute_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Minute"
+                            android:textSize="20dp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_second"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="00"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_second_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Second"
+                            android:textSize="20dp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="20dp"
-                        android:text="Price: "
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:paddingVertical="10dp"
+                        android:text="@string/drive_information"
                         android:textColor="@color/uber_toolbar"
-                        android:textSize="16sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/txtDriverCurrentRidePrice"
+                    <Button
+                        android:id="@+id/btnDriverCurrentRidePanic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="20dp"
-                        android:text="6400 RSD"
-                        android:textColor="@color/uber_toolbar"
-                        android:textSize="16sp"
+                        android:layout_marginLeft="20dp"
+                        android:gravity="center"
+                        android:paddingHorizontal="20dp"
+                        android:paddingVertical="12dp"
+                        android:text="@string/panic"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
-
 
                 </LinearLayout>
+
 
                 <LinearLayout
+                    android:id="@+id/lyRideInformation"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
-                        android:paddingTop="20dp"
-                        android:text="@string/elapsed_time"
+                        android:paddingTop="16dp"
+                        android:text="Start and End time"
+
+                        android:textSize="20sp"
+                        android:textStyle="bold|italic" />
+
+                    <TextView
+                        android:id="@+id/txtDriverCurrentRideStartTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:text="26.10.2022 12:34"
                         android:textColor="@color/uber_toolbar"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/txtDriverCurrentRideElapsedTime"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/txtDriverCurrentRideEndTime"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
-                        android:paddingTop="20dp"
-                        android:text="10:00 "
+                        android:paddingTop="10dp"
+                        android:text="26.10.2022 13:34 (expected time)"
                         android:textColor="@color/uber_toolbar"
                         android:textSize="16sp"
                         android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="16dp"
+                        android:text="Departure and Destination"
+                        android:textSize="20sp"
+                        android:textStyle="bold|italic" />
+
+                    <TextView
+                        android:id="@+id/txtDriverCurrentRideDeparture"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="14dp"
+                        android:paddingTop="10dp"
+                        android:text="Svetosavksa 86 Kikinda"
+                        android:textColor="@color/uber_toolbar"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtDriverCurrentRideDestination"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="14dp"
+                        android:paddingTop="6dp"
+                        android:text="Atarska 7 Sombor"
+                        android:textColor="@color/uber_toolbar"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="16dp"
+                        android:text="Other ride info"
+                        android:textSize="20sp"
+                        android:textStyle="bold|italic" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="20dp"
+                            android:text="Total Passengers: "
+                            android:textColor="@color/uber_toolbar"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txtDriverCurrentRidePassengerCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="20dp"
+                            android:text="2"
+                            android:textColor="@color/uber_toolbar"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="20dp"
+                            android:text="Price: "
+                            android:textColor="@color/uber_toolbar"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txtDriverCurrentRidePrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="20dp"
+                            android:text="6400 RSD"
+                            android:textColor="@color/uber_toolbar"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
 
 
                 </LinearLayout>
+
 
             </LinearLayout>
-
-
         </LinearLayout>
     </ScrollView>
 
