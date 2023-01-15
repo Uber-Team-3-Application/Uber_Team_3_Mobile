@@ -1,5 +1,6 @@
 package com.example.uberapp_tim3.fragments.driver;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,11 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.DrawRouteFragment;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
+import com.example.uberapp_tim3.model.DTO.RideUserDTO;
 import com.google.maps.model.Unit;
 
 import java.text.SimpleDateFormat;
@@ -56,6 +59,21 @@ public class DriverCurrentRideFragment extends Fragment {
     }
 
     private void setOnClickListeners(){
+        setFinishRideListener();
+        setPanicListener();
+    }
+
+    private void setPanicListener() {
+        Button btnPanic = getActivity().findViewById(R.id.btnDriverCurrentRidePanic);
+        btnPanic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+    }
+
+    private void setFinishRideListener() {
         Button finishRide = getActivity().findViewById(R.id.btnFinishRideDriver);
         finishRide.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +83,7 @@ public class DriverCurrentRideFragment extends Fragment {
             }
         });
     }
+
     private void startMeasuringTime() {
         runnable = new Runnable() {
             @Override
@@ -123,6 +142,21 @@ public class DriverCurrentRideFragment extends Fragment {
         tvPassengers.setText(totalPassengers);
         String totalCost = Double.toString(rideDTO.getTotalCost());
         tvPrice.setText(totalCost);
+
+
+        LinearLayout lyPassengers = getActivity().findViewById(R.id.lyDriverCurrentRidePassengers);
+        LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        int order = 1;
+        for(RideUserDTO passenger: rideDTO.getPassengers()){
+            View passengerView = inflater.inflate(R.layout.passenger_item, (ViewGroup) getView(), false);
+            TextView twOrderNumber = passengerView.findViewById(R.id.txtRidePassengerOrder);
+            String orderText = Integer.toString(order) + ".";
+            twOrderNumber.setText(orderText);
+            TextView twEmail = passengerView.findViewById(R.id.txtRidePassengerEmail);
+            twEmail.setText(passenger.getEmail());
+            order++;
+            lyPassengers.addView(passengerView);
+        }
 
     }
 
