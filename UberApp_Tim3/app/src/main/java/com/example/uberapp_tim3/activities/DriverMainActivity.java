@@ -41,10 +41,13 @@ import com.example.uberapp_tim3.adapters.DrawerNavListAdapter;
 import com.example.uberapp_tim3.fragments.AccountSettingsFragment;
 import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverAccountFragment;
+import com.example.uberapp_tim3.fragments.driver.DriverCurrentRideFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverHomeFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverInboxFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverRideHistoryFragment;
+import com.example.uberapp_tim3.fragments.passenger.PassengerRideInfoFragment;
 import com.example.uberapp_tim3.model.DTO.DriverActivityDTO;
+import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.UserDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.NavItem;
@@ -256,7 +259,25 @@ public class DriverMainActivity extends AppCompatActivity {
         } else if (position == 4) {
             FragmentTransition.to(MapFragment.newInstance(), this, true);
         } else if (position == 3) {
-            FragmentTransition.to(AccountSettingsFragment.newInstance(), this, true);
+            Call<DriverRideDTO> call = ServiceUtils.rideService.getRide(1L);
+            //FragmentTransition.to(AccountSettingsFragment.newInstance(), this, true);
+            call.enqueue(new Callback<DriverRideDTO>() {
+                @Override
+                public void onResponse(Call<DriverRideDTO> call, Response<DriverRideDTO> response) {
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("ride", response.body());
+                    DriverCurrentRideFragment rideInfoFragment = new DriverCurrentRideFragment();
+                    rideInfoFragment.setArguments(bundle);
+                    FragmentTransition.to(rideInfoFragment, DriverMainActivity.this, true);
+
+                }
+
+                @Override
+                public void onFailure(Call<DriverRideDTO> call, Throwable t) {
+
+                }
+            });
+
         } else {
             finish();
         }

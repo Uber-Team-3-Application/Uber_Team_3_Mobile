@@ -10,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface IRideService {
@@ -19,4 +20,6 @@ public interface IRideService {
 
     @POST(ServiceUtils.ride)
     Call<CreatedRideDTO> createARide(@Body CreateRideDTO createdRideDTO);
+    @PUT(ServiceUtils.ride + "/{id}/end")
+    Call<DriverRideDTO> endRide(@Path("id") Long id);
 }

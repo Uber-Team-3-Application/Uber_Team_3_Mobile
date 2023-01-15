@@ -288,7 +288,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-//        map.setMyLocationEnabled(true);
+         map.setMyLocationEnabled(true);
         Location location = null;
 
         if (provider == null) {
