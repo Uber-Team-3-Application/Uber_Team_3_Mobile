@@ -2,23 +2,49 @@ package com.example.uberapp_tim3.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.model.DTO.MessageFullDTO;
+import com.example.uberapp_tim3.model.DTO.Paginated;
+import com.example.uberapp_tim3.model.DTO.SendMessageDTO;
+import com.example.uberapp_tim3.services.ServiceUtils;
+
+import java.util.List;
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ChatFragment extends Fragment {
 
     public LinearLayout mainLayout;
     public String[] messages;
     public ViewGroup container;
+
+
+    private Button btnSendMessage;
+    private TextView txtSendMessage;
+    private Long receiverId;
+    private Long rideId;
+    private Long senderId;
+    private String messageType;
+    private Handler handler = new Handler();
+    final int delay = 2000;
 
     @Nullable
     @Override
@@ -36,29 +62,106 @@ public class ChatFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //mainLayout = (LinearLayout)getView().findViewById(R.id.chatLayout);
+        btnSendMessage = getActivity().findViewById(R.id.btnSendMessage);
+        txtSendMessage = getActivity().findViewById(R.id.txtSendMessage);
+        setOnClickListenerForButtonSendMessage();
         loadMessages();
     }
 
-    private void loadMessages() {
-        messages = new String[]{"Hello", "Hi", "When will you be here?", "I am right around the corner!"};
-        int k = 1;
+    private void setOnClickListenerForButtonSendMessage() {
+        receiverId = 1L;
+        rideId = 1L;
+        btnSendMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String message = txtSendMessage.getText().toString().trim();
+
+                if(message.equalsIgnoreCase("")) return;
+                txtSendMessage.setText("");
+                SendMessageDTO sendMessageDTO = new SendMessageDTO();
+                sendMessageDTO.setMessage(message);
+                sendMessageDTO.setRideId(rideId);
+                sendMessageDTO.setType("RIDE");
+
+                Call<MessageFullDTO> call = ServiceUtils.userService.sendMessage(receiverId, sendMessageDTO);
+                call.enqueue(new Callback<MessageFullDTO>() {
+                    @Override
+                    public void onResponse(Call<MessageFullDTO> call, Response<MessageFullDTO> response) {
+                        if(!response.isSuccessful()){
+                            Toast.makeText(getContext(), "Couldn't send message", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        MessageFullDTO messageFullDTO = response.body();
+                        assert  messageFullDTO != null;
+                        addNewMessageToView(messageFullDTO.getMessage());
+                    }
+
+                    @Override
+                    public void onFailure(Call<MessageFullDTO> call, Throwable t) {
+                        Log.d("Messagge error", "Couldn't send message!");
+                    }
+                });
+            }
+        });
+    }
+
+    private void addNewMessageToView(String message) {
         LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.chatLayout);
-        for(String message: messages) {
-            LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View itemBox;
-            if (k%2==1){
-                itemBox = inflater.inflate(R.layout.sent_message, (ViewGroup) getView(), false);
-                TextView content = (TextView) itemBox.findViewById(R.id.sent_msg);
-                content.setText(message);
+        LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View itemBox = inflater.inflate(R.layout.sent_message, (ViewGroup) getView(), false);
+        TextView content = (TextView) itemBox.findViewById(R.id.sent_msg);
+        content.setText(message);
+        linearLayout.addView(itemBox);
+    }
+
+    private void loadMessages() {
+        //TODO IZMENITI PREKO BUNDLE I TIH GLUPOSTI
+
+        this.senderId = 4L;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                Call<Paginated<MessageFullDTO>> call = ServiceUtils.userService.getMessages(senderId);
+
+                call.enqueue(new Callback<Paginated<MessageFullDTO>>() {
+                    @Override
+                    public void onResponse(Call<Paginated<MessageFullDTO>> call, Response<Paginated<MessageFullDTO>> response) {
+                        if(!response.isSuccessful()){
+                            Toast.makeText(getContext(), "Couldn't fetch messages", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        assert response.body() != null;
+                        List<MessageFullDTO> messages = response.body().getResults();
+                        LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.chatLayout);
+                        linearLayout.removeAllViews();
+                        for(MessageFullDTO message: messages) {
+                            LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            View itemBox;
+                            if (Objects.equals(message.getSenderId(), senderId)){
+                                itemBox = inflater.inflate(R.layout.sent_message, (ViewGroup) getView(), false);
+                                TextView content = (TextView) itemBox.findViewById(R.id.sent_msg);
+                                content.setText(message.getMessage());
+                            }
+                            else{
+                                itemBox = inflater.inflate(R.layout.recived_message, (ViewGroup) getView(), false);
+                                TextView content = (TextView) itemBox.findViewById(R.id.recived_msg);
+                                content.setText(message.getMessage());
+                            }
+                            linearLayout.addView(itemBox);
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Paginated<MessageFullDTO>> call, Throwable t) {
+                        Log.d("Messagge error", "Couldn't send message!");
+
+                    }
+                });
+                handler.postDelayed(this, delay);
             }
-            else{
-                itemBox = inflater.inflate(R.layout.recived_message, (ViewGroup) getView(), false);
-                TextView content = (TextView) itemBox.findViewById(R.id.recived_msg);
-                content.setText(message);
-            }
-            linearLayout.addView(itemBox);
-            k++;
-        }
+        }, 0);
+
     }
 }
