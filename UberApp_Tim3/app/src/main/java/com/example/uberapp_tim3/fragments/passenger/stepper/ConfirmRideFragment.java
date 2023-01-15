@@ -16,16 +16,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.model.DTO.CreateRideDTO;
-import com.example.uberapp_tim3.model.DTO.CreatedRideDTO;
 import com.example.uberapp_tim3.model.DTO.LocationDTO;
 import com.example.uberapp_tim3.model.DTO.PassengerEmailDTO;
 import com.example.uberapp_tim3.model.DTO.RouteDTO;
-import com.example.uberapp_tim3.model.DTO.UserDTO;
-import com.example.uberapp_tim3.model.drives.Location;
 import com.example.uberapp_tim3.model.users.User;
 import com.example.uberapp_tim3.services.ServiceUtils;
-
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -98,7 +93,7 @@ public class ConfirmRideFragment extends Fragment {
             public void onClick(View view) {
 
                 try {
-                    ServiceUtils.rideService.createARide(createRideDTO());
+                    ServiceUtils.rideService.createARide(getCreatedRide());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -106,12 +101,15 @@ public class ConfirmRideFragment extends Fragment {
         });
     }
 
-    private CreateRideDTO createRideDTO() throws IOException {
-        String[] passengersEmails = passengers.split(",");
-        Set<PassengerEmailDTO> users = new HashSet<>();
-        for (String email: passengersEmails) {
-            User user = ServiceUtils.userService.findByEmail(email);
-            users.add(new PassengerEmailDTO(user.getId(), user.getEmailAddress()));
+    private CreateRideDTO getCreatedRide() throws IOException {
+        String[] passengersEmails;
+        Set<PassengerEmailDTO> users = new HashSet<>();;
+        if(passengers.contains(",")) {
+            passengersEmails = passengers.split(",");
+            for (String email : passengersEmails) {
+                User user = ServiceUtils.userService.findByEmail(email);
+                users.add(new PassengerEmailDTO(user.getId(), user.getEmailAddress()));
+            }
         }
         RouteDTO routeDTO = new RouteDTO(getLocation(departure), getLocation(destination));
         LinkedHashSet<RouteDTO> locations = new LinkedHashSet<>();
