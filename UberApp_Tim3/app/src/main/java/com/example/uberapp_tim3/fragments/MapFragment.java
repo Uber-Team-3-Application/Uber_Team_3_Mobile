@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -14,7 +15,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -36,13 +41,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapFragment extends Fragment implements LocationListener, OnMapReadyCallback {
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-
+    private SharedPreferences sharedPreferences;
     private LocationManager locationManager;
     private String provider;
     private SupportMapFragment mMapFragment;
     private AlertDialog dialog;
     private Marker home;
     private GoogleMap map;
+    private Button btnGetARide;
 
     public static MapFragment newInstance() {
         MapFragment mpf = new MapFragment();
@@ -56,6 +62,7 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
 
     }
 
@@ -83,6 +90,15 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         //VODITI RACUNA OVO JE ASINHRONA OPERACIJA
         //LOKACIJE MOGU DA SE DOBIJU PRE MAPE I OBRATNO
         mMapFragment.getMapAsync(this);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        btnGetARide = getActivity().findViewById(R.id.btnGetARide);
+        if(sharedPreferences.getString("pref_role", "").equalsIgnoreCase("driver"))
+            btnGetARide.setVisibility(View.INVISIBLE);
     }
 
     private void showLocationDialog() {

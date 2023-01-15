@@ -300,5 +300,6 @@
     <string name="autosync">Automatic Sync</string>
     <string name="good_news_sync">Good news, everything is sync now.</string>
     <string name="new_comments">New comments</string>
+    <string name="get_a_ride">Order A Ride</string>
 
 </resources>
