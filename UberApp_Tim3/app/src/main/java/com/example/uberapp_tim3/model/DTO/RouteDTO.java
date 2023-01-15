@@ -1,6 +1,9 @@
 package com.example.uberapp_tim3.model.DTO;
 
-public class RouteDTO {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class RouteDTO implements Parcelable {
 
     private Long id;
     private LocationDTO departure;
@@ -19,6 +22,28 @@ public class RouteDTO {
         this.departure = departure;
         this.destination = destination;
     }
+
+    protected RouteDTO(Parcel in) {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readLong();
+        }
+        departure = in.readParcelable(LocationDTO.class.getClassLoader());
+        destination = in.readParcelable(LocationDTO.class.getClassLoader());
+    }
+
+    public static final Creator<RouteDTO> CREATOR = new Creator<RouteDTO>() {
+        @Override
+        public RouteDTO createFromParcel(Parcel in) {
+            return new RouteDTO(in);
+        }
+
+        @Override
+        public RouteDTO[] newArray(int size) {
+            return new RouteDTO[size];
+        }
+    };
 
     public Long getId() {
         return id;
@@ -42,5 +67,22 @@ public class RouteDTO {
 
     public void setDestination(LocationDTO destination) {
         this.destination = destination;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        if (id == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeLong(id);
+        }
+        parcel.writeParcelable(departure, i);
+        parcel.writeParcelable(destination, i);
     }
 }

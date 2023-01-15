@@ -1,6 +1,9 @@
 package com.example.uberapp_tim3.model.DTO;
 
-public class ReviewWithPassengerDTO {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class ReviewWithPassengerDTO implements Parcelable {
     private Long id;
     private int rating;
     private String comment;
@@ -14,6 +17,47 @@ public class ReviewWithPassengerDTO {
         this.comment = comment;
         this.passenger = passenger;
     }
+
+    protected ReviewWithPassengerDTO(Parcel in) {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readLong();
+        }
+        rating = in.readInt();
+        comment = in.readString();
+        passenger = in.readParcelable(RideUserDTO.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (id == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeLong(id);
+        }
+        dest.writeInt(rating);
+        dest.writeString(comment);
+        dest.writeParcelable(passenger, flags);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<ReviewWithPassengerDTO> CREATOR = new Creator<ReviewWithPassengerDTO>() {
+        @Override
+        public ReviewWithPassengerDTO createFromParcel(Parcel in) {
+            return new ReviewWithPassengerDTO(in);
+        }
+
+        @Override
+        public ReviewWithPassengerDTO[] newArray(int size) {
+            return new ReviewWithPassengerDTO[size];
+        }
+    };
 
     public Long getId() {
         return id;

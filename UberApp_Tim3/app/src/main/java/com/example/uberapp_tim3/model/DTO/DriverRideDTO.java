@@ -22,10 +22,7 @@ public class DriverRideDTO implements Parcelable {
     private  List<RouteDTO> locations;
     private List<RideReviewDTO> reviews;
 
-    /**
-     * Added parceable implementation to we can be able
-     * to send data through fragments using Bundle
-     * */
+
     protected DriverRideDTO(Parcel in) {
         if (in.readByte() == 0) {
             id = null;
@@ -33,10 +30,15 @@ public class DriverRideDTO implements Parcelable {
             id = in.readLong();
         }
         totalCost = in.readDouble();
+        driver = in.readParcelable(RideUserDTO.class.getClassLoader());
+        passengers = in.createTypedArrayList(RideUserDTO.CREATOR);
         estimatedTimeInMinutes = in.readDouble();
         vehicleType = in.readString();
         babyTransport = in.readByte() != 0;
         petTransport = in.readByte() != 0;
+        rejection = in.readParcelable(DeductionDTO.class.getClassLoader());
+        locations = in.createTypedArrayList(RouteDTO.CREATOR);
+        reviews = in.createTypedArrayList(RideReviewDTO.CREATOR);
     }
 
     public static final Creator<DriverRideDTO> CREATOR = new Creator<DriverRideDTO>() {
@@ -176,6 +178,25 @@ public class DriverRideDTO implements Parcelable {
 
 
     @Override
+    public String toString() {
+        return "DriverRideDTO{" +
+                "id=" + id +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", totalCost=" + totalCost +
+                ", driver=" + driver +
+                ", passengers=" + passengers +
+                ", estimatedTimeInMinutes=" + estimatedTimeInMinutes +
+                ", vehicleType='" + vehicleType + '\'' +
+                ", babyTransport=" + babyTransport +
+                ", petTransport=" + petTransport +
+                ", rejection=" + rejection +
+                ", locations=" + locations +
+                ", reviews=" + reviews +
+                '}';
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -189,9 +210,14 @@ public class DriverRideDTO implements Parcelable {
             parcel.writeLong(id);
         }
         parcel.writeDouble(totalCost);
+        parcel.writeParcelable(driver, i);
+        parcel.writeTypedList(passengers);
         parcel.writeDouble(estimatedTimeInMinutes);
         parcel.writeString(vehicleType);
         parcel.writeByte((byte) (babyTransport ? 1 : 0));
         parcel.writeByte((byte) (petTransport ? 1 : 0));
+        parcel.writeParcelable(rejection, i);
+        parcel.writeTypedList(locations);
+        parcel.writeTypedList(reviews);
     }
 }

@@ -1,6 +1,9 @@
 package com.example.uberapp_tim3.model.DTO;
 
-public class LocationDTO {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class LocationDTO  implements Parcelable {
 
     private String address;
     private double latitude;
@@ -14,6 +17,24 @@ public class LocationDTO {
         this.latitude = latitude;
         this.longitude = longitude;
     }
+
+    protected LocationDTO(Parcel in) {
+        address = in.readString();
+        latitude = in.readDouble();
+        longitude = in.readDouble();
+    }
+
+    public static final Creator<LocationDTO> CREATOR = new Creator<LocationDTO>() {
+        @Override
+        public LocationDTO createFromParcel(Parcel in) {
+            return new LocationDTO(in);
+        }
+
+        @Override
+        public LocationDTO[] newArray(int size) {
+            return new LocationDTO[size];
+        }
+    };
 
     public String getAddress() {
         return address;
@@ -37,5 +58,17 @@ public class LocationDTO {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(address);
+        parcel.writeDouble(latitude);
+        parcel.writeDouble(longitude);
     }
 }
