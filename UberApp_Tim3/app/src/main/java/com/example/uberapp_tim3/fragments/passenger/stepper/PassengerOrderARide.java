@@ -37,6 +37,7 @@ public class PassengerOrderARide extends Fragment implements StepperFormListener
         verticalStepperForm
                 .setup(this, step1, step2, step3, step4)
                 .init();
+
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
