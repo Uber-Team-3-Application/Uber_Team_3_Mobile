@@ -81,8 +81,6 @@ public class PassengerInfoProfile extends Fragment {
         TextView txtAddress = getView().findViewById(R.id.txtDriverHomeAddress);
         txtAddress.setText(passenger.getAddress());
 
-        TextView tvBlocked = getView().findViewById(R.id.txtDriverBlocked);
-        tvBlocked.setText("");
         ImageView imgPassengerInfoAvatar = getActivity().findViewById(R.id.imgPassengerInfoAvatar);
         if(!passenger.getProfilePicture().contains(",")){return;}
         String base64Image = passenger.getProfilePicture().split(",")[1];
