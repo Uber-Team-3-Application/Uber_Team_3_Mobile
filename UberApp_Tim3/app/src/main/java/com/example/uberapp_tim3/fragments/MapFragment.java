@@ -28,6 +28,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.dialogs.LocationDialog;
+import com.example.uberapp_tim3.fragments.passenger.PassengerEditInfoFragment;
+import com.example.uberapp_tim3.fragments.passenger.stepper.PassengerOrderARide;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -99,6 +101,21 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
         btnGetARide = getActivity().findViewById(R.id.btnGetARide);
         if(sharedPreferences.getString("pref_role", "").equalsIgnoreCase("driver"))
             btnGetARide.setVisibility(View.INVISIBLE);
+        else{
+            setOnClickListenerForButtonRide();
+        }
+    }
+
+
+    private void setOnClickListenerForButtonRide() {
+        btnGetARide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerOrderARide()).addToBackStack(null).commit();
+
+            }
+        });
     }
 
     private void showLocationDialog() {

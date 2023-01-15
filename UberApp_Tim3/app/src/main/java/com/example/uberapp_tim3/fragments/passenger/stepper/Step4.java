@@ -94,8 +94,16 @@ public class Step4 extends Step<String> {
 
     @Override
     public String getStepData() {
-        return babyTransport.isChecked() + "," + petTransport.isChecked() + "," + selectedDateTime.getTimeInMillis();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
+        if(selectedDateTime != null){
+            String selectedDateTimeFormatted = dateFormat.format(selectedDateTime.getTime());
+            return Boolean.toString(babyTransport.isChecked()) + "," + Boolean.toString(petTransport.isChecked()) + "," + selectedDateTimeFormatted;
+        }else{
+            return Boolean.toString(babyTransport.isChecked()) + "," + Boolean.toString(petTransport.isChecked());
+
+        }
     }
+
 
     @Override
     public String getStepDataAsHumanReadableString() {
