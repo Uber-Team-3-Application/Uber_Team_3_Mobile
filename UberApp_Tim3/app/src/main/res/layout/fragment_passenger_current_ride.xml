@@ -6,15 +6,21 @@
     android:orientation="vertical"
     tools:context=".fragments.passenger.PassengerCurrentRideFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
     <FrameLayout
         android:id="@+id/currentRideContainerDriver"
         android:layout_width="match_parent"
         android:layout_height="560dp"
         android:background="@color/uber_toolbar" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -170,7 +176,7 @@
                     android:paddingTop="10dp"
                     android:text="Svetosavksa 86 Kikinda"
                     android:textColor="@color/uber_toolbar"
-                    android:textSize="22sp"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -181,7 +187,7 @@
                     android:paddingTop="6dp"
                     android:text="Atarska 7 Sombor"
                     android:textColor="@color/uber_toolbar"
-                    android:textSize="22sp"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -285,18 +291,17 @@
                     android:textSize="20sp"
                     android:textStyle="bold|italic" />
 
-                <LinearLayout
-                    android:id="@+id/lyRideDriver"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="10dp"
-                    android:orientation="vertical"
-                    android:gravity="center"/>
+                    android:id="@+id/lyDriverRideProfile"
+                    android:layout_marginTop="6dp">
+                </FrameLayout>
 
 
             </LinearLayout>
+
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -313,7 +318,7 @@
 
 
         </LinearLayout>
+        </LinearLayout>
     </ScrollView>
-
 
 </LinearLayout>
