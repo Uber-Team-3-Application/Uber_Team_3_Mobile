@@ -1,7 +1,9 @@
 package com.example.uberapp_tim3.fragments.driver;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -91,6 +93,13 @@ public class DriverInfoProfile extends Fragment {
         byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         imgdriverInfoAvatar.setImageBitmap(decodedByte);
+
+        ImageView call = requireView().findViewById(R.id.callPhone);
+        call.setOnClickListener(view -> {
+            Intent dialIntent = new Intent(Intent.ACTION_DIAL);
+            dialIntent.setData(Uri.parse("tel:" +driver.getTelephoneNumber()));
+            startActivity(dialIntent);
+        });
     }
 
 
