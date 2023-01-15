@@ -28,6 +28,7 @@ public class UserDTO {
     @SerializedName("address")
     @Expose
     private String address;
+
     private String password;
 
 
