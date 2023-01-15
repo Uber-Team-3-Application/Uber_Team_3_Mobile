@@ -27,15 +27,19 @@ import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.MapFragment;
+import com.example.uberapp_tim3.fragments.driver.DriverCurrentRideFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerAccountFragment;
+import com.example.uberapp_tim3.fragments.passenger.PassengerCurrentRideFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerFavouriteRoutesFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerHomeFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerInboxFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerReportFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerRideHistoryFragment;
+import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.PassengerDTO;
 import com.example.uberapp_tim3.services.PassengerMessagesService;
 import com.example.uberapp_tim3.services.ServiceUtils;
+import com.example.uberapp_tim3.tools.FragmentTransition;
 import com.google.android.material.navigation.NavigationView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -110,9 +114,28 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
                 setTitle("Favourite Routes");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerFavouriteRoutesFragment()).addToBackStack(null).commit();
                 break;
-            case R.id.nav_logout:
-                this.finish();
+            case R.id.nav_logout: {
+                Call<DriverRideDTO> call = ServiceUtils.rideService.getRide(1L);
+                //FragmentTransition.to(AccountSettingsFragment.newInstance(), this, true);
+                call.enqueue(new Callback<DriverRideDTO>() {
+                    @Override
+                    public void onResponse(Call<DriverRideDTO> call, Response<DriverRideDTO> response) {
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("ride", response.body());
+                        PassengerCurrentRideFragment rideInfoFragment = new PassengerCurrentRideFragment();
+                        rideInfoFragment.setArguments(bundle);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, rideInfoFragment).addToBackStack(null).commit();
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<DriverRideDTO> call, Throwable t) {
+
+                    }
+                });
+//                this.finish();
                 break;
+            }
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.DrawRouteFragment;
+import com.example.uberapp_tim3.fragments.driver.DriverInfoProfile;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.tools.DrivesMockUp;
@@ -92,8 +93,11 @@ public class PassengerRideInfoFragment extends Fragment {
         imgDriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerInfoProfile()).addToBackStack(null).commit();
-
+                Bundle args = new Bundle();
+//                args.putLong("driverId", driver.getId()); //TODO: PROSLEDITI ID VOZACA
+                DriverInfoProfile profile = new DriverInfoProfile();
+                profile.setArguments(args);
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, profile).addToBackStack(null).commit();
             }
         });
     }
