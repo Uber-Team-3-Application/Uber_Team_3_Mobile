@@ -148,6 +148,7 @@ public class PassengerCurrentRideFragment extends Fragment {
         requireActivity().getSupportFragmentManager().beginTransaction().replace(
                 R.id.lyDriverRideProfile, profile
         ).commit();
+
     }
 
     @Override
