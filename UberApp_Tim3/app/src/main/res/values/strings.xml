@@ -306,5 +306,6 @@
     <string name="departure_and_destination">Departure and Destination</string>
     <string name="driver">Driver</string>
     <string name="panic">PANIC</string>
+    <string name="chat_with_the_driver">Chat with the driver</string>
 
 </resources>

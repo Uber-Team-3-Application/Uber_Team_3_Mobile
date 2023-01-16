@@ -2,6 +2,7 @@ package com.example.uberapp_tim3.fragments.passenger;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,14 +14,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.fragments.ChatFragment;
 import com.example.uberapp_tim3.fragments.DrawRouteFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverCurrentRideFragment;
+import com.example.uberapp_tim3.fragments.driver.DriverEditInfoFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverInfoProfile;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
+import com.example.uberapp_tim3.model.DTO.MessageBundleDTO;
 import com.example.uberapp_tim3.model.DTO.RideUserDTO;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 
@@ -38,6 +43,8 @@ public class PassengerCurrentRideFragment extends Fragment {
     private int elapsedTime = 0;
     private Handler handler = new Handler();
     private Runnable runnable;
+    private ImageView imgChatWithDriver;
+    private SharedPreferences sharedPreferences;
 
 
 
@@ -60,6 +67,9 @@ public class PassengerCurrentRideFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = this.getArguments();
         DriverRideDTO rideDTO = null;
+        sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        imgChatWithDriver = getActivity().findViewById(R.id.imgChatWithDriver);
+
         if (bundle != null)
             rideDTO = bundle.getParcelable("ride");
         setViews(rideDTO);
@@ -138,8 +148,28 @@ public class PassengerCurrentRideFragment extends Fragment {
         String totalCost = Double.toString(rideDTO.getTotalCost());
         tvPrice.setText(totalCost);
         setDriver(rideDTO.getDriver());
+        setInbox(rideDTO);
     }
-    
+
+    private void setInbox(DriverRideDTO rideDTO) {
+        imgChatWithDriver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Long senderId = sharedPreferences.getLong("pref_id", 0);
+                Long receiverId = rideDTO.getDriver().getId();
+                Long rideId = rideDTO.getId();
+                String messageType = "RIDE";
+                MessageBundleDTO messageBundleDTO = new MessageBundleDTO(senderId, receiverId, rideId, messageType);
+                Bundle args = new Bundle();
+                args.putParcelable("message", messageBundleDTO);
+                ChatFragment chatFragment = new ChatFragment();
+                chatFragment.setArguments(args);
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, chatFragment).addToBackStack(null).commit();
+
+            }
+        });
+    }
+
     private void setDriver(RideUserDTO driver) {
         Bundle args = new Bundle();
         args.putLong("driverId", driver.getId());
