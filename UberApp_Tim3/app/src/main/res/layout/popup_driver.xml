@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/uber_surf_spray"
+    android:background="@color/white"
     tools:context=".activities.NewRideNotificationActivity">
 
 <!-- POPUP -->
@@ -14,6 +14,7 @@
         android:layout_height="match_parent" >
 
 <RelativeLayout
+    android:id="@+id/newRidePopup"
     android:layout_width="380dp"
     android:layout_height="390dp"
     android:layout_gravity="center"

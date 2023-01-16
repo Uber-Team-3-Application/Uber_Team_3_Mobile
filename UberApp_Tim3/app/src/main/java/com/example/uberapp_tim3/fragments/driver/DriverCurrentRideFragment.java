@@ -205,8 +205,9 @@ public class DriverCurrentRideFragment extends Fragment {
         TextView tvPrice = getActivity().findViewById(R.id.txtDriverCurrentRidePrice);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        tvStartTime.setText(sdf.format(rideDTO.getStartTime()));
-        tvEndTIme.setText(sdf.format(rideDTO.getEndTime()));
+        Date today = new Date();
+        tvStartTime.setText(sdf.format(today));
+        tvEndTIme.setText(sdf.format(new Date(today.getTime() + 1024)));
         tvDeparture.setText(rideDTO.getLocations().get(0).getDeparture().getAddress());
         tvDestination.setText(rideDTO.getLocations().get(rideDTO.getLocations().size() - 1).getDestination().getAddress());
         String totalPassengers = Integer.toString(rideDTO.getPassengers().size());

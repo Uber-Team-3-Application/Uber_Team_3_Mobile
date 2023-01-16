@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
@@ -54,6 +55,8 @@ public class NewRideNotificationActivity extends AppCompatActivity {
             Log.i("RRIDE", ride.toString());
             Bundle args = new Bundle();
             args.putParcelable("ride", ride);
+            RelativeLayout newRidePopup = findViewById(R.id.newRidePopup);
+            newRidePopup.setVisibility(View.INVISIBLE);
             DriverCurrentRideFragment currentRideFragment = new DriverCurrentRideFragment();
             currentRideFragment.setArguments(args);
             FragmentTransition.to(currentRideFragment, this, true);
