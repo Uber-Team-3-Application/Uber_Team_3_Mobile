@@ -77,19 +77,22 @@ public class ChatFragment extends Fragment {
         messageBundleDTO = bundle.getParcelable("message");
         this.receiverId = messageBundleDTO.getReceiverId();
         this.senderId = messageBundleDTO.getSenderId();
-        this.rideId = messageBundleDTO.getRideId();
         this.messageType = messageBundleDTO.getMessageType();
+        if(!this.messageType.equalsIgnoreCase("support")){
+            this.rideId = messageBundleDTO.getRideId();
+        }else{
+            this.rideId = 0L;
+        }
 
         txtContactName = getActivity().findViewById(R.id.contactName);
         imgAvatar = getActivity().findViewById(R.id.imgChatAvatar);
         btnSendMessage = getActivity().findViewById(R.id.btnSendMessage);
         txtSendMessage = getActivity().findViewById(R.id.txtSendMessage);
 
-        if(!messageType.equalsIgnoreCase("panic")) {
+        if(!messageType.equalsIgnoreCase("panic") && !messageType.equalsIgnoreCase("support")) {
             setUserName(this.receiverId);
         }else{
             txtContactName.setText("SUPPORT");
-
         }
         setOnClickListenerForButtonSendMessage();
         setOnClickListenerForBack();
@@ -258,9 +261,15 @@ public class ChatFragment extends Fragment {
     }
 
     private boolean isMessageInvalid(MessageFullDTO message) {
-        if(!message.getType().equalsIgnoreCase(messageType)) return true;
-        if(!Objects.equals(message.getRideId(), rideId)) return true;
-
+        if(messageType.equalsIgnoreCase("panic") || messageType.equalsIgnoreCase("support")){
+            if(!message.getType().equalsIgnoreCase("panic") && !message.getType().equalsIgnoreCase("support"))
+                return true;
+        }else {
+            if (!message.getType().equalsIgnoreCase(messageType)) return true;
+        }
+        if(this.rideId != 0L && this.rideId != null) {
+            if (!Objects.equals(message.getRideId(), rideId)) return true;
+        }
         if (message.getSenderId() != senderId && message.getSenderId() != receiverId) return true;
         return message.getReceiverId() != senderId && message.getReceiverId() != receiverId;
     }
