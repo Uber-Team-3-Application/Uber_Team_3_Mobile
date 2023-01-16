@@ -113,6 +113,8 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
             case R.id.nav_favorite:
                 //setTitle("Favourite Routes");
                 //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerFavouriteRoutesFragment()).addToBackStack(null).commit();
+                setTitle("Current Ride");
+
                 Call<DriverRideDTO> call = ServiceUtils.rideService.getRide(1L);
                 //FragmentTransition.to(AccountSettingsFragment.newInstance(), this, true);
                 call.enqueue(new Callback<DriverRideDTO>() {

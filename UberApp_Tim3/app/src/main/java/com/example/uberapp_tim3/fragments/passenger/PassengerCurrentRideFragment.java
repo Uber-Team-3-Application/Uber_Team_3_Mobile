@@ -124,6 +124,14 @@ public class PassengerCurrentRideFragment extends Fragment {
     }
 
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable);
+
+
+    }
+
     private void setViews(DriverRideDTO rideDTO) {
         assert rideDTO != null;
         requireActivity().getSupportFragmentManager().beginTransaction().replace(
