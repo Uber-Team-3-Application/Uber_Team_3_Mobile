@@ -150,6 +150,7 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
                 setNotificationMessage(linearLayout,
                         sdf, messageDisplayDTOS.get(i), inflater);
 
+
             }else if(messageDisplayDTOS.get(i).getMessageType().equalsIgnoreCase("ride")){
                 setPassengerMessage(linearLayout,
                         sdf, messageDisplayDTOS.get(i), inflater);
@@ -159,6 +160,11 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
 
     private void filterThroughMessagesAndSet(List<MessageDisplayDTO> messageDisplayDTOS, MessageFullDTO message) {
         boolean isUpdated = false;
+        if(message.getReceiverId() == preferences.getLong("pref_id", 0)){
+            Long receiverId = message.getReceiverId();
+            message.setReceiverId(message.getSenderId());
+            message.setSenderId(receiverId);
+        }
         for(MessageDisplayDTO messageDisplayDTO: messageDisplayDTOS){
             if(messageDisplayDTO.getReceiverId() == message.getReceiverId()){
                 messageDisplayDTO.setLastMessage(message.getMessage());
@@ -193,7 +199,25 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
         String date = sdf.format(messageDisplayDTO.getLastMessageTime());
         TextView messageDate = passengerMessage.findViewById(R.id.time_and_date);
         messageDate.setText(date);
+        setOnClickListener(passengerMessage, messageDisplayDTO);
         linearLayout.addView(passengerMessage);
+    }
+
+    private void setOnClickListener(View messageView, MessageDisplayDTO message) {
+            messageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Long senderId = preferences.getLong("pref_id", 0);
+                    Long receiverId = message.getReceiverId();
+                    String messageType = message.getMessageType();
+                    MessageBundleDTO messageBundleDTO = new MessageBundleDTO(senderId, receiverId, message.getRideId(), messageType);
+                    Bundle args = new Bundle();
+                    args.putParcelable("message", messageBundleDTO);
+                    ChatFragment chatFragment = new ChatFragment();
+                    chatFragment.setArguments(args);
+                    FragmentTransition.to(chatFragment, requireActivity(), true);
+                }
+            });
     }
 
     private void setNotificationMessage(LinearLayout linearLayout, SimpleDateFormat sdf, MessageDisplayDTO messageDisplayDTO, LayoutInflater inflater) {
@@ -205,17 +229,6 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
         TextView notificationDate = notificationMessage.findViewById(R.id.time_and_date);
         notificationDate.setText(date);
         linearLayout.addView(notificationDate);
-    }
-
-    private View.OnClickListener ClickOnInbox() {
-        return new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                    FragmentTransition.to(new ChatFragment(), getActivity(), true);
-            }
-        };
     }
 
     @Override
