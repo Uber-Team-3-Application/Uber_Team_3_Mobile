@@ -111,10 +111,8 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerRideHistoryFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_favorite:
-                setTitle("Favourite Routes");
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerFavouriteRoutesFragment()).addToBackStack(null).commit();
-                break;
-            case R.id.nav_logout: {
+                //setTitle("Favourite Routes");
+                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerFavouriteRoutesFragment()).addToBackStack(null).commit();
                 Call<DriverRideDTO> call = ServiceUtils.rideService.getRide(1L);
                 //FragmentTransition.to(AccountSettingsFragment.newInstance(), this, true);
                 call.enqueue(new Callback<DriverRideDTO>() {
@@ -133,7 +131,9 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
 
                     }
                 });
-//                this.finish();
+                break;
+            case R.id.nav_logout: {
+                this.finish();
                 break;
             }
         }
