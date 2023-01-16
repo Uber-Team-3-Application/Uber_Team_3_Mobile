@@ -8,6 +8,11 @@
     tools:context=".activities.NewRideNotificationActivity">
 
 <!-- POPUP -->
+    <RelativeLayout
+        android:id="@+id/mainContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
 <RelativeLayout
     android:layout_width="380dp"
     android:layout_height="390dp"
@@ -169,4 +174,5 @@
         android:textStyle="italic"/>
 
 </RelativeLayout>
+    </RelativeLayout>
 </LinearLayout>

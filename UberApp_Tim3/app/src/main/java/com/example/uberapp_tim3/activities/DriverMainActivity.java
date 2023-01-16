@@ -349,6 +349,7 @@ public class DriverMainActivity extends AppCompatActivity {
 
         }
     }
+    
 
     public void doTransition(DriverRideDTO ride){
         Bundle bundle = new Bundle();

@@ -30,6 +30,7 @@ public class NewRideNotificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.popup_driver);
 
+
         DriverRideDTO ride = (DriverRideDTO) getIntent().getParcelableExtra("ride");
         String start = ride.getLocations().get(0).getDeparture().getAddress();
         String end = ride.getLocations().get(ride.getLocations().size()-1).getDestination().getAddress();
@@ -50,12 +51,13 @@ public class NewRideNotificationActivity extends AppCompatActivity {
 
     private void setListeners(Button accept, Button decline, DriverRideDTO ride) {
         accept.setOnClickListener(view -> {
+            Log.i("RRIDE", ride.toString());
             Bundle args = new Bundle();
             args.putParcelable("ride", ride);
             DriverCurrentRideFragment currentRideFragment = new DriverCurrentRideFragment();
             currentRideFragment.setArguments(args);
-
             FragmentTransition.to(currentRideFragment, this, true);
+
         });
 
         decline.setOnClickListener(view -> {
