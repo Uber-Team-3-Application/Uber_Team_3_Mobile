@@ -11,6 +11,7 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="70dp"
         android:layout_height="70dp"
+        android:id="@+id/passengerProfilePictureNavigation"
         android:src="@drawable/person" />
 
     <TextView
@@ -19,12 +20,14 @@
         android:paddingTop="10dp"
         android:textStyle="bold"
         android:text="@string/user_name"
+        android:id="@+id/passengerNameNavigation"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/mobile"
+        android:id="@+id/passengerPhoneNavigation"
         android:textStyle="italic"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 </LinearLayout>

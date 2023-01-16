@@ -4,13 +4,13 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.model.Passenger;
+import com.example.uberapp_tim3.model.DTO.PassengerDTO;
+import com.example.uberapp_tim3.model.mockup.Passenger;
 
 
 import java.util.List;
@@ -18,9 +18,9 @@ import java.util.List;
 public class PassengersListAdapter extends BaseAdapter {
 
     private Activity activity;
-    private List<Passenger> passengerList;
+    private List<PassengerDTO> passengerList;
 
-    public PassengersListAdapter(FragmentActivity activity, List<Passenger> passengerList) {
+    public PassengersListAdapter(FragmentActivity activity, List<PassengerDTO> passengerList) {
         this.activity = activity;
         this.passengerList = passengerList;
 
@@ -44,8 +44,8 @@ public class PassengersListAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         View vi=view;
-        Passenger passenger = passengerList.get(i);
-        String info = passenger.getName() + " " + passenger.getLastName();
+        PassengerDTO passenger = passengerList.get(i);
+        String info = passenger.getName() + " " + passenger.getSurname();
         if(view==null)
             vi = activity.getLayoutInflater().inflate(R.layout.profiles_of_passengers_on_drive_list, null);
 

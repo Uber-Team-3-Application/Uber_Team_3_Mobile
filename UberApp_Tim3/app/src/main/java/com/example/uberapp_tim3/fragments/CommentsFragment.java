@@ -13,10 +13,9 @@ import androidx.fragment.app.ListFragment;
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.adapters.CommentsListAdapter;
 
-import com.example.uberapp_tim3.model.Drive;
+import com.example.uberapp_tim3.fragments.passenger.PassengerInfoProfile;
+import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.tools.FragmentTransition;
-
-import java.util.Objects;
 
 
 public class CommentsFragment extends ListFragment {
@@ -36,7 +35,7 @@ public class CommentsFragment extends ListFragment {
     public View onCreateView( LayoutInflater inflater,
                               ViewGroup container,
                               Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.map_layout, container, false);
+        return inflater.inflate(R.layout.list_layout, container, false);
     }
 
 

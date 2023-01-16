@@ -6,25 +6,25 @@
     android:layout_height="match_parent"
 
     android:background="@color/uber_green_lily"
-    tools:context=".fragments.PassengerInfoProfile">
+    tools:context=".fragments.passenger.PassengerInfoProfile">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/relLayoutDriverAcc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginVertical="20dp"
         android:background="@color/white"
         app:cardCornerRadius="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:paddingBottom="20dp">
 
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgAvatar"
+                android:id="@+id/imgPassengerInfoAvatar"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:layout_marginStart="10dp"
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="100dp"
-                android:layout_toEndOf="@+id/imgAvatar"
+                android:layout_toEndOf="@+id/imgPassengerInfoAvatar"
                 android:text="@string/driver_full_name"
                 android:textSize="24sp"
                 android:textStyle="bold|italic" />
@@ -49,7 +49,7 @@
                 android:id="@+id/txtDrivPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imgAvatar"
+                android:layout_below="@+id/imgPassengerInfoAvatar"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/driver_phone_number"
@@ -59,7 +59,7 @@
                 android:id="@+id/txtdriverPhoneNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imgAvatar"
+                android:layout_below="@+id/imgPassengerInfoAvatar"
                 android:layout_alignStart="@+id/txtDrivPhone"
                 android:layout_marginStart="144dp"
                 android:layout_marginTop="20dp"
@@ -113,70 +113,8 @@
                 android:textSize="16sp"
                 android:textStyle="bold|italic" />
 
-
-            <TextView
-                android:id="@+id/txtDrivLicense"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtDrivHomeAddress"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/driver_license_number"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/txtDriverLicense"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtDriverHomeAddress"
-                android:layout_alignStart="@+id/txtDrivLicense"
-                android:layout_marginStart="144dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/driver_license_number_real"
-                android:textSize="16sp"
-                android:textStyle="bold|italic" />
-
-
-            <TextView
-                android:id="@+id/txtCarReg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtDriverLicense"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/vehicle_registration_number"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/txtCarRegistration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtDriverLicense"
-                android:layout_alignStart="@+id/txtCarReg"
-                android:layout_marginStart="144dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/vehicle_registration_real_number"
-                android:textSize="16sp"
-                android:textStyle="bold|italic" />
-
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
-
-
-
-    <TextView
-        android:id="@+id/txtDriverBlocked"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:text="@string/active_text"
-        android:textSize="21sp"
-        android:letterSpacing="0.1"
-        android:textColor="@color/uber_off_white"
-        android:textStyle="bold|italic" />
-
 
 </RelativeLayout>
