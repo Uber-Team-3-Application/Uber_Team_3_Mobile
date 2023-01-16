@@ -139,21 +139,20 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
         List<MessageDisplayDTO> messageDisplayDTOS = new ArrayList<>();
         for(MessageFullDTO message: messages){
             filterThroughMessagesAndSet(messageDisplayDTOS, message);
-
         }
 
         LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.inboxLayout);
         LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        for(MessageDisplayDTO messageDisplayDTO: messageDisplayDTOS){
-            if(messageDisplayDTO.getMessageType().equalsIgnoreCase("ride") && messageDisplayDTO.getReceiverId() == null){
+        for(int i =messageDisplayDTOS.size() - 1; i >=0;i--){
+            if(messageDisplayDTOS.get(i).getMessageType().equalsIgnoreCase("ride") && messageDisplayDTOS.get(i).getRideId() == null){
                 setNotificationMessage(linearLayout,
-                        sdf, messageDisplayDTOS.get(messageDisplayDTOS.size() - 1), inflater);
+                        sdf, messageDisplayDTOS.get(i), inflater);
 
-            }else if(messageDisplayDTO.getMessageType().equalsIgnoreCase("ride")){
+            }else if(messageDisplayDTOS.get(i).getMessageType().equalsIgnoreCase("ride")){
                 setPassengerMessage(linearLayout,
-                        sdf, messageDisplayDTOS.get(messageDisplayDTOS.size() - 1), inflater);
+                        sdf, messageDisplayDTOS.get(i), inflater);
             }
         }
     }
