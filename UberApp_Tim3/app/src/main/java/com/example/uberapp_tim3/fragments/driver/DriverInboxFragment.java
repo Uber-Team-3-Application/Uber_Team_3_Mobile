@@ -30,6 +30,7 @@ import com.example.uberapp_tim3.tools.FragmentTransition;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -144,9 +145,17 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
         LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.inboxLayout);
         LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        for(int i =messageDisplayDTOS.size() - 1; i >=0;i--){
-            if(messageDisplayDTOS.get(i).getMessageType().equalsIgnoreCase("ride") && messageDisplayDTOS.get(i).getRideId() == null){
+        for(int i =0;i<messageDisplayDTOS.size() - 1;i++){
+            for(int j =i;j<messageDisplayDTOS.size();j++){
+                if(messageDisplayDTOS.get(j).getLastMessageTime().after(messageDisplayDTOS.get(i).getLastMessageTime())){
+                    Collections.swap(messageDisplayDTOS, i, j);
+                }
+            }
+        }
+        for(int i =0; i < messageDisplayDTOS.size(); i++){
+            if(messageDisplayDTOS.get(i).getMessageType().equalsIgnoreCase("ride") && messageDisplayDTOS.get(i).getRideId() == 0){
                 setNotificationMessage(linearLayout,
                         sdf, messageDisplayDTOS.get(i), inflater);
 
@@ -160,20 +169,37 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
 
     private void filterThroughMessagesAndSet(List<MessageDisplayDTO> messageDisplayDTOS, MessageFullDTO message) {
         boolean isUpdated = false;
-        if(message.getReceiverId() == preferences.getLong("pref_id", 0)){
+        Log.d("MESSAGE INFO", message.getMessage());
+
+        if(message.getReceiverId() == preferences.getLong("pref_id", 0) && message.getRideId() != 0){
             Long receiverId = message.getReceiverId();
             message.setReceiverId(message.getSenderId());
             message.setSenderId(receiverId);
         }
+        if(message.getType().equalsIgnoreCase("ride")
+                && message.getRideId() == 0
+                && message.getReceiverId() == preferences.getLong("pref_id", 0)){
+
+            messageDisplayDTOS.add(new MessageDisplayDTO(
+                    message.getReceiverId(),
+                    "Name",
+                    "Picture",
+                    message.getTimeOfSending(),
+                    message.getMessage(),
+                    message.getType(),
+                    message.getRideId()
+            ));
+            return;
+        }
         for(MessageDisplayDTO messageDisplayDTO: messageDisplayDTOS){
-            if(messageDisplayDTO.getReceiverId() == message.getReceiverId()){
+            if(messageDisplayDTO.getReceiverId() == message.getReceiverId() && !message.getType().equalsIgnoreCase("support")){
                 messageDisplayDTO.setLastMessage(message.getMessage());
                 messageDisplayDTO.setLastMessageTime(message.getTimeOfSending());
                 isUpdated = true;
                 break;
             }
         }
-        if(!isUpdated) {
+        if(!isUpdated && !message.getType().equalsIgnoreCase("support")) {
             messageDisplayDTOS.add(new MessageDisplayDTO(
                     message.getReceiverId(),
                     "Name",
@@ -228,7 +254,7 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
         String date = sdf.format(messageDisplayDTO.getLastMessageTime());
         TextView notificationDate = notificationMessage.findViewById(R.id.time_and_date);
         notificationDate.setText(date);
-        linearLayout.addView(notificationDate);
+        linearLayout.addView(notificationMessage);
     }
 
     @Override

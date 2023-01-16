@@ -80,4 +80,17 @@ public class MessageDisplayDTO {
     public void setMessageType(String messageType) {
         this.messageType = messageType;
     }
+
+    @Override
+    public String toString() {
+        return "MessageDisplayDTO{" +
+                "receiverId=" + receiverId +
+                ", contactName='" + contactName + '\'' +
+                ", contactPicture='" + contactPicture + '\'' +
+                ", lastMessageTime=" + lastMessageTime +
+                ", lastMessage='" + lastMessage + '\'' +
+                ", messageType='" + messageType + '\'' +
+                ", rideId=" + rideId +
+                '}';
+    }
 }
