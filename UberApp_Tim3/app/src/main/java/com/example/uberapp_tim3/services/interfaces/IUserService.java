@@ -16,6 +16,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface IUserService {
 
@@ -26,7 +27,7 @@ public interface IUserService {
     Call<String> changePassword(@Path("id") Long id, @Body ChangePasswordDTO changePasswordDTO);
 
     @GET(ServiceUtils.user + "/email")
-    UserDTO findByEmail(@Body String email);
+    Call<UserDTO> findByEmail(@Query("email") String email);
 
     @GET(ServiceUtils.user + "/{id}/user")
     Call<UserDTO> findById(@Path("id") Long id);

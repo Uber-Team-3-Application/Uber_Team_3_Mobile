@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +19,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.model.DTO.CreateRideDTO;
+import com.example.uberapp_tim3.model.DTO.CreatedRideDTO;
+import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.LocationDTO;
 import com.example.uberapp_tim3.model.DTO.PassengerEmailDTO;
 import com.example.uberapp_tim3.model.DTO.RouteDTO;
@@ -32,6 +35,10 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ConfirmRideFragment extends Fragment {
 
@@ -98,7 +105,19 @@ public class ConfirmRideFragment extends Fragment {
             public void onClick(View view) {
 
                 try {
-                    ServiceUtils.rideService.createARide(getCreatedRide());
+                    Call<CreatedRideDTO> call =ServiceUtils.rideService.createARide(getCreatedRide());
+                    call.enqueue(new Callback<CreatedRideDTO>() {
+                        @Override
+                        public void onResponse(Call<CreatedRideDTO> call, Response<CreatedRideDTO> response) {
+                            if(!response.isSuccessful()) return;
+                            Toast.makeText(getActivity(), "Successfully created ride", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onFailure(Call<CreatedRideDTO> call, Throwable t) {
+
+                        }
+                    });
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -116,8 +135,21 @@ public class ConfirmRideFragment extends Fragment {
         String[] passengersEmails = passengers.split(",");
 
         for (String email : passengersEmails) {
-            UserDTO user = ServiceUtils.userService.findByEmail(email);
-            users.add(new PassengerEmailDTO(user.getId(), user.getEmail()));
+            Call<UserDTO> call = ServiceUtils.userService.findByEmail(email);
+            call.enqueue(new Callback<UserDTO>() {
+                @Override
+                public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
+                    assert  response != null;
+                    UserDTO user = response.body();
+                    users.add(new PassengerEmailDTO(user.getId(), user.getEmail()));
+                }
+
+                @Override
+                public void onFailure(Call<UserDTO> call, Throwable t) {
+
+                }
+            });
+
         }
         RouteDTO routeDTO = new RouteDTO(getLocation(departure), getLocation(destination));
         LinkedHashSet<RouteDTO> locations = new LinkedHashSet<>();
