@@ -17,6 +17,7 @@ android:background="@drawable/shadow_background">
         android:background="#0c43c4"
         android:layout_marginLeft="4dp"/>
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgChatUserAvatar"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="13dp"

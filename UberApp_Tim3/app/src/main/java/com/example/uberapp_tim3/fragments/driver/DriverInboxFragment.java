@@ -6,8 +6,11 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +28,8 @@ import com.example.uberapp_tim3.model.DTO.MessageBundleDTO;
 import com.example.uberapp_tim3.model.DTO.MessageDisplayDTO;
 import com.example.uberapp_tim3.model.DTO.MessageFullDTO;
 import com.example.uberapp_tim3.model.DTO.Paginated;
+import com.example.uberapp_tim3.model.DTO.RideUserDTO;
+import com.example.uberapp_tim3.model.DTO.UserDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 
@@ -33,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -147,14 +153,12 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
 
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        for(int i =0;i<messageDisplayDTOS.size() - 1;i++){
-            for(int j =i;j<messageDisplayDTOS.size();j++){
-                if(messageDisplayDTOS.get(j).getLastMessageTime().after(messageDisplayDTOS.get(i).getLastMessageTime())){
-                    Collections.swap(messageDisplayDTOS, i, j);
-                }
-            }
-        }
-        for(int i =0; i < messageDisplayDTOS.size(); i++){
+        orderMessagesByDate(messageDisplayDTOS);
+        setViewsForMessages(messageDisplayDTOS, linearLayout, inflater, sdf);
+    }
+
+    private void setViewsForMessages(List<MessageDisplayDTO> messageDisplayDTOS, LinearLayout linearLayout, LayoutInflater inflater, SimpleDateFormat sdf) {
+        for(int i = 0; i < messageDisplayDTOS.size(); i++){
             if(messageDisplayDTOS.get(i).getMessageType().equalsIgnoreCase("notification")){
                 setNotificationMessage(linearLayout,
                         sdf, messageDisplayDTOS.get(i), inflater);
@@ -163,6 +167,16 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
             }else if(messageDisplayDTOS.get(i).getMessageType().equalsIgnoreCase("ride")){
                 setPassengerMessage(linearLayout,
                         sdf, messageDisplayDTOS.get(i), inflater);
+            }
+        }
+    }
+
+    private void orderMessagesByDate(List<MessageDisplayDTO> messageDisplayDTOS) {
+        for(int i = 0; i< messageDisplayDTOS.size() - 1; i++){
+            for(int j = i; j< messageDisplayDTOS.size(); j++){
+                if(messageDisplayDTOS.get(j).getLastMessageTime().after(messageDisplayDTOS.get(i).getLastMessageTime())){
+                    Collections.swap(messageDisplayDTOS, i, j);
+                }
             }
         }
     }
@@ -225,7 +239,38 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
         lastMessage.setText(messageDisplayDTO.getLastMessage());
         String date = sdf.format(messageDisplayDTO.getLastMessageTime());
         TextView messageDate = passengerMessage.findViewById(R.id.time_and_date);
-        messageDate.setText(date);
+        
+        Call<UserDTO> call = ServiceUtils.userService.findById(messageDisplayDTO.getReceiverId());
+        call.enqueue(new Callback<UserDTO>() {
+            @Override
+            public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
+                if(!response.isSuccessful()){
+                    Log.d("User Error", "Something went wrong fetching user");
+                    return;
+                }
+                assert response.body() != null;
+                UserDTO user = response.body();
+                TextView contactName = passengerMessage.findViewById(R.id.contact_name);
+                String fullName = user.getName() + " " + user.getSurname();
+                contactName.setText(fullName);
+
+                if(!user.getProfilePicture().contains(",")){return;}
+
+                String base64Image = user.getProfilePicture().split(",")[1];
+                byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+                CircleImageView cv = passengerMessage.findViewById(R.id.imgChatUserAvatar);
+                cv.setImageBitmap(decodedByte);
+
+
+            }
+
+            @Override
+            public void onFailure(Call<UserDTO> call, Throwable t) {
+                Log.d("User Error", "Couldnt fetch user");
+            }
+        });
         setOnClickListener(passengerMessage, messageDisplayDTO);
         linearLayout.addView(passengerMessage);
     }
