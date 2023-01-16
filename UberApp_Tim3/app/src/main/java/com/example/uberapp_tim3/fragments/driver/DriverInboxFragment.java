@@ -146,7 +146,7 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
         LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         for(int i =0;i<messageDisplayDTOS.size() - 1;i++){
             for(int j =i;j<messageDisplayDTOS.size();j++){
                 if(messageDisplayDTOS.get(j).getLastMessageTime().after(messageDisplayDTOS.get(i).getLastMessageTime())){
@@ -155,7 +155,7 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
             }
         }
         for(int i =0; i < messageDisplayDTOS.size(); i++){
-            if(messageDisplayDTOS.get(i).getMessageType().equalsIgnoreCase("ride") && messageDisplayDTOS.get(i).getRideId() == 0){
+            if(messageDisplayDTOS.get(i).getMessageType().equalsIgnoreCase("notification")){
                 setNotificationMessage(linearLayout,
                         sdf, messageDisplayDTOS.get(i), inflater);
 
@@ -171,13 +171,14 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
         boolean isUpdated = false;
         Log.d("MESSAGE INFO", message.getMessage());
 
-        if(message.getReceiverId() == preferences.getLong("pref_id", 0) && message.getRideId() != 0){
+        if(message.getReceiverId() == preferences.getLong("pref_id", 0)
+                && message.getRideId() != 0
+                && !message.getType().equalsIgnoreCase("notification")){
             Long receiverId = message.getReceiverId();
             message.setReceiverId(message.getSenderId());
             message.setSenderId(receiverId);
         }
-        if(message.getType().equalsIgnoreCase("ride")
-                && message.getRideId() == 0
+        if(message.getType().equalsIgnoreCase("notification")
                 && message.getReceiverId() == preferences.getLong("pref_id", 0)){
 
             messageDisplayDTOS.add(new MessageDisplayDTO(
