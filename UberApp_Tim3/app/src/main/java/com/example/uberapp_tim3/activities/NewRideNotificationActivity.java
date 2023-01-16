@@ -11,12 +11,19 @@ import android.widget.TextView;
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.dialogs.LocationDialog;
 import com.example.uberapp_tim3.dialogs.RejectionDialog;
+import com.example.uberapp_tim3.fragments.MapFragment;
+import com.example.uberapp_tim3.fragments.driver.DriverAccountFragment;
+import com.example.uberapp_tim3.fragments.driver.DriverCurrentRideFragment;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
+import com.example.uberapp_tim3.model.users.Driver;
+import com.example.uberapp_tim3.tools.FragmentTransition;
 
 public class NewRideNotificationActivity extends AppCompatActivity {
 
 
-    public NewRideNotificationActivity() {}
+    public NewRideNotificationActivity() {
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +43,19 @@ public class NewRideNotificationActivity extends AppCompatActivity {
         price.setText(String.valueOf(ride.getTotalCost()));
         Button accept = (Button) findViewById(R.id.btnAcceptDrive);
         Button decline = (Button) findViewById(R.id.btnDeclineDrive);
-        setListeners(accept, decline);
+        setListeners(accept, decline, ride);
 
     }
 
-    private void setListeners(Button accept, Button decline) {
-        accept.setOnClickListener(view -> {
 
+    private void setListeners(Button accept, Button decline, DriverRideDTO ride) {
+        accept.setOnClickListener(view -> {
+            Bundle args = new Bundle();
+            args.putParcelable("ride", ride);
+            DriverCurrentRideFragment currentRideFragment = new DriverCurrentRideFragment();
+            currentRideFragment.setArguments(args);
+
+            FragmentTransition.to(currentRideFragment, this, true);
         });
 
         decline.setOnClickListener(view -> {

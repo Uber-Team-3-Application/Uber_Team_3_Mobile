@@ -11,6 +11,7 @@ import androidx.core.app.RemoteInput;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 
 import android.Manifest;
@@ -48,6 +49,7 @@ import com.example.uberapp_tim3.dialogs.RejectionDialog;
 import com.example.uberapp_tim3.fragments.AccountSettingsFragment;
 import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverAccountFragment;
+import com.example.uberapp_tim3.fragments.driver.DriverCurrentRideFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverInboxFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverRideHistoryFragment;
 import com.example.uberapp_tim3.model.DTO.DriverActivityDTO;
@@ -82,8 +84,13 @@ public class DriverMainActivity extends AppCompatActivity {
 
     private AlarmManager manager;
     private SharedPreferences sharedPreferences;
+    static DriverMainActivity driverMainActivity;
 
 
+    public static DriverMainActivity getInstance(){
+        if(driverMainActivity == null) driverMainActivity = new DriverMainActivity();
+        return driverMainActivity;
+    }
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -343,6 +350,14 @@ public class DriverMainActivity extends AppCompatActivity {
         }
     }
 
+    public void doTransition(DriverRideDTO ride){
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("ride", ride);
+        DriverCurrentRideFragment driverCurrentRideFragment = new DriverCurrentRideFragment();
+        driverCurrentRideFragment.setArguments(bundle);
+        FragmentTransition.to(driverCurrentRideFragment, this, true);
+
+    }
 
 
 
@@ -350,7 +365,6 @@ public class DriverMainActivity extends AppCompatActivity {
     private void setNotification(DriverRideDTO rideDTO) {
         String start = rideDTO.getLocations().get(0).getDeparture().getAddress();
         String end = rideDTO.getLocations().get(rideDTO.getLocations().size()-1).getDestination().getAddress();
-
 
         Intent intent = new Intent(this, NewRideNotificationActivity.class);
         intent.putExtra("ride",  rideDTO);
