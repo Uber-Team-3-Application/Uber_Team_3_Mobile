@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,10 +46,12 @@ import retrofit2.Response;
 
 public class DriverInboxFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    private Spinner dropdown;
+    private Spinner spinnerChangeMessageType;
     private RelativeLayout rlSupportInbox;
     private SharedPreferences preferences;
     private EditText editTextSearch;
+    private LinearLayout inboxItemsLayout;
+    private List<MessageFullDTO> messages;
     private static final String[] items = {"All", "Support", "Passengers" , "Notifications"};
 
     public static Fragment newInstance() {
@@ -65,21 +69,81 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
     public void onResume() {
         super.onResume();
         requireActivity().setTitle(R.string.inbox);
+        editTextSearch.setText("");
+//        inboxItemsLayout.removeAllViews();
+//        setMessages(messages);
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        dropdown = (Spinner) getView().findViewById(R.id.spFilterInbox);
+        spinnerChangeMessageType = (Spinner) getView().findViewById(R.id.spFilterInbox);
         editTextSearch = getView().findViewById(R.id.etTxtSearchInbox);
         preferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         ArrayAdapter<String>adapter = new ArrayAdapter<>(getView().getContext(), android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dropdown.setAdapter(adapter);
-        dropdown.setOnItemSelectedListener(this);
+        spinnerChangeMessageType.setAdapter(adapter);
+        spinnerChangeMessageType.setOnItemSelectedListener(this);
         rlSupportInbox = getActivity().findViewById(R.id.supportInbox);
         setOnClickForSupportInbox();
         loadInbox();
+        setSpinnerListener();
+        setSearchListener();
+    }
+
+    private void setSearchListener() {
+        editTextSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(charSequence.length() == 0) {
+                    inboxItemsLayout.removeAllViews();
+                    setMessages(messages);
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    if(charSequence.length() == 0) {
+                        inboxItemsLayout.removeAllViews();
+                        setMessages(messages);
+                        return;}
+                    String text = charSequence.toString().trim();
+                    if(text.equalsIgnoreCase("")) return;
+                    List<MessageFullDTO> newMessages = new ArrayList<>();
+                    for(MessageFullDTO message: messages){
+                        if(message.getMessage().toLowerCase().contains(text.toLowerCase()))
+                            newMessages.add(message);
+                    }
+                    inboxItemsLayout.removeAllViews();
+                    setMessages(newMessages);
+//                    for(int index =0;index<inboxItemsLayout.getChildCount();index++){
+//                        View view = inboxItemsLayout.getChildAt(index);
+//
+//                    }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+
+    private void setSpinnerListener() {
+        spinnerChangeMessageType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // TODO restore all messages
+            }
+        });
+
     }
 
     private void setOnClickForSupportInbox() {
@@ -125,7 +189,8 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
                     return;
                 }
                 assert response.body() != null;
-                setMessages(response);
+                messages = response.body().getResults();
+                setMessages(messages);
             }
 
             @Override
@@ -136,21 +201,20 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
 
     }
 
-    private void setMessages(Response<Paginated<MessageFullDTO>> response) {
+    private void setMessages(List<MessageFullDTO> messages) {
 
-        List<MessageFullDTO> messages = response.body().getResults();
         List<MessageDisplayDTO> messageDisplayDTOS = new ArrayList<>();
         for(MessageFullDTO message: messages){
             filterThroughMessagesAndSet(messageDisplayDTOS, message);
         }
 
-        LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.inboxLayout);
+        inboxItemsLayout = (LinearLayout) getView().findViewById(R.id.inboxLayout);
         LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         orderMessagesByDate(messageDisplayDTOS);
-        setViewsForMessages(messageDisplayDTOS, linearLayout, inflater, sdf);
+        setViewsForMessages(messageDisplayDTOS, inboxItemsLayout, inflater, sdf);
     }
 
     private void setViewsForMessages(List<MessageDisplayDTO> messageDisplayDTOS, LinearLayout linearLayout, LayoutInflater inflater, SimpleDateFormat sdf) {
