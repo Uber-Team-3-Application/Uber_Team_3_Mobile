@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -28,7 +28,6 @@ import com.example.uberapp_tim3.model.DTO.MessageBundleDTO;
 import com.example.uberapp_tim3.model.DTO.MessageDisplayDTO;
 import com.example.uberapp_tim3.model.DTO.MessageFullDTO;
 import com.example.uberapp_tim3.model.DTO.Paginated;
-import com.example.uberapp_tim3.model.DTO.RideUserDTO;
 import com.example.uberapp_tim3.model.DTO.UserDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.FragmentTransition;
@@ -48,6 +47,7 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
     private Spinner dropdown;
     private RelativeLayout rlSupportInbox;
     private SharedPreferences preferences;
+    private EditText editTextSearch;
     private static final String[] items = {"All", "Support", "Passengers" , "Notifications"};
 
     public static Fragment newInstance() {
@@ -70,9 +70,10 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        dropdown = (Spinner) getView().findViewById(R.id.filter);
+        dropdown = (Spinner) getView().findViewById(R.id.spFilterInbox);
+        editTextSearch = getView().findViewById(R.id.etTxtSearchInbox);
         preferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
-        ArrayAdapter<String>adapter = new ArrayAdapter<String>(getView().getContext(), android.R.layout.simple_spinner_item, items);
+        ArrayAdapter<String>adapter = new ArrayAdapter<>(getView().getContext(), android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropdown.setAdapter(adapter);
         dropdown.setOnItemSelectedListener(this);
@@ -82,37 +83,34 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
     }
 
     private void setOnClickForSupportInbox() {
-        rlSupportInbox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Call<Long> call = ServiceUtils.userService.getAdminId();
-                call.enqueue(new Callback<Long>() {
-                    @Override
-                    public void onResponse(Call<Long> call, Response<Long> response) {
-                        if(!response.isSuccessful()){
-                            Log.d("Message Error", "Something went wrong");
-                            return;
-                        }
-                        Long senderId = preferences.getLong("pref_id", 0);
-                        assert response.body() != null;
-                        Long receiverId = response.body();
-                        String messageType = "SUPPORT";
-                        MessageBundleDTO messageBundleDTO = new MessageBundleDTO(senderId, receiverId, null, messageType);
-                        Bundle args = new Bundle();
-                        args.putParcelable("message", messageBundleDTO);
-                        ChatFragment chatFragment = new ChatFragment();
-                        chatFragment.setArguments(args);
-                        FragmentTransition.to(chatFragment, requireActivity(), true);
+        rlSupportInbox.setOnClickListener(view -> {
+            Call<Long> call = ServiceUtils.userService.getAdminId();
+            call.enqueue(new Callback<Long>() {
+                @Override
+                public void onResponse(@NonNull Call<Long> call, @NonNull Response<Long> response) {
+                    if(!response.isSuccessful()){
+                        Log.d("Message Error", "Something went wrong");
+                        return;
                     }
+                    Long senderId = preferences.getLong("pref_id", 0);
+                    assert response.body() != null;
+                    Long receiverId = response.body();
+                    String messageType = "SUPPORT";
+                    MessageBundleDTO messageBundleDTO = new MessageBundleDTO(senderId, receiverId, null, messageType);
+                    Bundle args = new Bundle();
+                    args.putParcelable("message", messageBundleDTO);
+                    ChatFragment chatFragment = new ChatFragment();
+                    chatFragment.setArguments(args);
+                    FragmentTransition.to(chatFragment, requireActivity(), true);
+                }
 
-                    @Override
-                    public void onFailure(Call<Long> call, Throwable t) {
-                        Log.d("Couldnt fetch admin", "Admin error");
-                    }
-                });
+                @Override
+                public void onFailure(@NonNull Call<Long> call, @NonNull Throwable t) {
+                    Log.d("Couldnt fetch admin", "Admin error");
+                }
+            });
 
 
-            }
         });
     }
 
@@ -121,12 +119,12 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
         Call<Paginated<MessageFullDTO>> call = ServiceUtils.userService.getMessages(preferences.getLong("pref_id", 0));
         call.enqueue(new Callback<Paginated<MessageFullDTO>>() {
             @Override
-            public void onResponse(Call<Paginated<MessageFullDTO>> call, Response<Paginated<MessageFullDTO>> response) {
+            public void onResponse(@NonNull Call<Paginated<MessageFullDTO>> call, @NonNull Response<Paginated<MessageFullDTO>> response) {
                 if(!response.isSuccessful()){
                     Log.d("Message Error", "Something went wrong with messages");
                     return;
                 }
-                assert response != null;
+                assert response.body() != null;
                 setMessages(response);
             }
 
@@ -139,8 +137,6 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
     }
 
     private void setMessages(Response<Paginated<MessageFullDTO>> response) {
-
-        List<Long> userIds = new ArrayList<>();
 
         List<MessageFullDTO> messages = response.body().getResults();
         List<MessageDisplayDTO> messageDisplayDTOS = new ArrayList<>();
@@ -166,7 +162,7 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
 
             }else if(messageDisplayDTOS.get(i).getMessageType().equalsIgnoreCase("ride")){
                 setPassengerMessage(linearLayout,
-                        sdf, messageDisplayDTOS.get(i), inflater);
+                        messageDisplayDTOS.get(i), inflater);
             }
         }
     }
@@ -229,7 +225,7 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
 
     }
 
-    private void setPassengerMessage(LinearLayout linearLayout, SimpleDateFormat sdf, MessageDisplayDTO messageDisplayDTO, LayoutInflater inflater) {
+    private void setPassengerMessage(LinearLayout linearLayout, MessageDisplayDTO messageDisplayDTO, LayoutInflater inflater) {
 
         View passengerMessage = inflater.inflate(R.layout.inbox_list_item, (ViewGroup) getView(), false);
         TextView contactName = passengerMessage.findViewById(R.id.contact_name);
@@ -237,13 +233,11 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
         contactName.setText(name);
         TextView lastMessage = passengerMessage.findViewById(R.id.last_message);
         lastMessage.setText(messageDisplayDTO.getLastMessage());
-        String date = sdf.format(messageDisplayDTO.getLastMessageTime());
-        TextView messageDate = passengerMessage.findViewById(R.id.time_and_date);
-        
+
         Call<UserDTO> call = ServiceUtils.userService.findById(messageDisplayDTO.getReceiverId());
         call.enqueue(new Callback<UserDTO>() {
             @Override
-            public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
+            public void onResponse(@NonNull Call<UserDTO> call, @NonNull Response<UserDTO> response) {
                 if(!response.isSuccessful()){
                     Log.d("User Error", "Something went wrong fetching user");
                     return;
@@ -267,7 +261,7 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
             }
 
             @Override
-            public void onFailure(Call<UserDTO> call, Throwable t) {
+            public void onFailure(@NonNull Call<UserDTO> call, @NonNull Throwable t) {
                 Log.d("User Error", "Couldnt fetch user");
             }
         });
@@ -276,19 +270,16 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
     }
 
     private void setOnClickListener(View messageView, MessageDisplayDTO message) {
-            messageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Long senderId = preferences.getLong("pref_id", 0);
-                    Long receiverId = message.getReceiverId();
-                    String messageType = message.getMessageType();
-                    MessageBundleDTO messageBundleDTO = new MessageBundleDTO(senderId, receiverId, message.getRideId(), messageType);
-                    Bundle args = new Bundle();
-                    args.putParcelable("message", messageBundleDTO);
-                    ChatFragment chatFragment = new ChatFragment();
-                    chatFragment.setArguments(args);
-                    FragmentTransition.to(chatFragment, requireActivity(), true);
-                }
+            messageView.setOnClickListener(view -> {
+                Long senderId = preferences.getLong("pref_id", 0);
+                Long receiverId = message.getReceiverId();
+                String messageType = message.getMessageType();
+                MessageBundleDTO messageBundleDTO = new MessageBundleDTO(senderId, receiverId, message.getRideId(), messageType);
+                Bundle args = new Bundle();
+                args.putParcelable("message", messageBundleDTO);
+                ChatFragment chatFragment = new ChatFragment();
+                chatFragment.setArguments(args);
+                FragmentTransition.to(chatFragment, requireActivity(), true);
             });
     }
 
@@ -308,9 +299,7 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
 
         switch (position) {
             case 0:
-                break;
             case 1:
-                break;
             case 2:
                 break;
         }
