@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:layout_margin="10dp"
-    android:background="@color/uber_off_white">
+    android:background="@color/uber_toolbar"
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/tvFavouriteRouteName"
@@ -13,28 +14,95 @@
         android:gravity="center"
         android:paddingVertical="10dp"
         android:text="@string/favourite_name"
+        android:textColor="#FFF07A"
         android:textSize="16sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/lyFromFavouriteRoute"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
+
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:text="From"
             android:layout_marginHorizontal="10dp"
-            android:textSize="14sp"
-        />
+            android:text="From"
+            android:textColor="#F3F0D6"
+            android:textSize="14sp" />
+
         <TextView
             android:id="@+id/txtFromFavouriteRoute"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bulevar oslobodjenja 46"
+            android:textColor="#F1E49E"
             android:textSize="14sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lyToFavouriteRoute"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:text="To"
+            android:textColor="#F3F0D6"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtToFavouriteRoute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bulevar oslobodjenja 46"
+            android:textColor="#F1E49E"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lyVehicleType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:text="Type"
+            android:textColor="#F3F0D6"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtVehicleTypeFavouriteRoute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="STANDARD"
+            android:textColor="#F1E49E"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lyAdditionalInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
 
     </LinearLayout>
 
