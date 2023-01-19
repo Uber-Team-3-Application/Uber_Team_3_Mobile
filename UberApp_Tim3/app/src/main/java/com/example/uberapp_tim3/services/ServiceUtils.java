@@ -4,6 +4,7 @@ package com.example.uberapp_tim3.services;
 import com.example.uberapp_tim3.BuildConfig;
 import com.example.uberapp_tim3.services.interfaces.IDriverService;
 import com.example.uberapp_tim3.services.interfaces.IPassengerService;
+import com.example.uberapp_tim3.services.interfaces.IReviewService;
 import com.example.uberapp_tim3.services.interfaces.IRideService;
 import com.example.uberapp_tim3.services.interfaces.IUserService;
 
@@ -53,5 +54,6 @@ public class ServiceUtils {
     public static IUserService userService = retrofit.create(IUserService.class);
     public static IPassengerService passengerService = retrofit.create(IPassengerService.class);
     public static IRideService rideService = retrofit.create(IRideService.class);
+    public static IReviewService reviewService = retrofit.create(IReviewService.class);
 
 }

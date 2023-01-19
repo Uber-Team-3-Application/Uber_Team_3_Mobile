@@ -11,8 +11,28 @@ public class MessageFullDTO {
     private String message;
     private String type;
     private Long rideId;
+    private String userFullName;
 
     public MessageFullDTO() {
+    }
+
+    public String getUserFullName() {
+        return userFullName;
+    }
+
+    public void setUserFullName(String userFullName) {
+        this.userFullName = userFullName;
+    }
+
+    public MessageFullDTO(Long id, Date timeOfSending, Long senderId, Long receiverId, String message, String type, Long rideId, String userFullName) {
+        this.id = id;
+        this.timeOfSending = timeOfSending;
+        this.senderId = senderId;
+        this.receiverId = receiverId;
+        this.message = message;
+        this.type = type;
+        this.rideId = rideId;
+        this.userFullName = userFullName;
     }
 
     public MessageFullDTO(Long id, Date timeOfSending, Long senderId, Long receiverId, String message, String type, Long rideId) {

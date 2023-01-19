@@ -59,9 +59,9 @@ public class UserLoginActivity extends AppCompatActivity {
 
 
 //                login("markopreradovic@gmail.com","Marko123");
-               // login("mirko@gmail.com","Mirko123");
+                login("mirko@gmail.com","Mirko123");
 
-                login(etUser, etPw);
+                //login(etUser, etPw);
 
 
             }

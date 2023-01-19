@@ -109,11 +109,25 @@ public class DriveItemDetailFragment extends Fragment {
                 rideDTO = response.body();
                 assert rideDTO != null;
                 setBasicRideInfo(rideDTO);
-                List<RideReviewDTO> reviews = rideDTO.getReviews();
-                float rating =  getRating(rideDTO, reviews);
-                simpleRatingBar.setRating(rating);
-                setPassengerReviews(reviews);
                 setPassengers(rideDTO.getPassengers());
+                Call<List<RideReviewDTO>> reviewCall = ServiceUtils.reviewService.getReviews(rideDTO.getId());
+                reviewCall.enqueue(new Callback<List<RideReviewDTO>>() {
+                    @Override
+                    public void onResponse(Call<List<RideReviewDTO>> call, Response<List<RideReviewDTO>> response) {
+                        if(!response.isSuccessful()) return;
+                        assert response.body() != null;
+                        List<RideReviewDTO> reviews = response.body();
+                        float rating =  getRating(rideDTO, reviews);
+                        simpleRatingBar.setRating(rating);
+                        setPassengerReviews(reviews);
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<RideReviewDTO>> call, Throwable t) {
+
+                    }
+                });
+
 
 
             }
@@ -185,6 +199,7 @@ public class DriveItemDetailFragment extends Fragment {
 
     private float getRating(DriverRideDTO rideDTO, List<RideReviewDTO> reviews) {
         float rating = 0;
+        if(reviews == null) return 0;
         if(reviews.size() == 0)
             return 0 ;
 

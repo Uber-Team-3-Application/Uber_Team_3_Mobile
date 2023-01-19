@@ -39,7 +39,7 @@ public class PassengerInboxFragment extends Fragment implements AdapterView.OnIt
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        dropdown = (Spinner) getView().findViewById(R.id.filter);
+        dropdown = (Spinner) getView().findViewById(R.id.spFilterInbox);
 
         ArrayAdapter<String>adapter = new ArrayAdapter<String>(getView().getContext(), android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
