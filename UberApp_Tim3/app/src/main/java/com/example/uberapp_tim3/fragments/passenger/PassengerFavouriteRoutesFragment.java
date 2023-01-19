@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.model.DTO.FavouriteRideDTO;
@@ -22,6 +23,7 @@ import com.example.uberapp_tim3.services.ServiceUtils;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -102,13 +104,53 @@ public class PassengerFavouriteRoutesFragment extends Fragment {
             to.setText(ride.getLocations().get(ride.getLocations().size() - 1).getAddress());
             vehicleType.setText(ride.getVehicleType());
 
+
             setAdditionalInfo(ride, singleRide);
 
+            Button btnOrderAgain = singleRide.findViewById(R.id.btnOrderRideAgainFromFavourites);
+            Button btnRemoveFromFavourites = singleRide.findViewById(R.id.btnRemoveFromFavouriteRide);
+
+            setOnClickListeners(btnOrderAgain, btnRemoveFromFavourites, ride);
+
             favouriteRoutesLayout.addView(singleRide);
-
-
         }
 
+    }
+
+    private void setOnClickListeners(Button btnOrderAgain, Button btnRemoveFromFavourites, FavouriteRideDTO ride) {
+
+        setBtnOrderAgainClickListener(btnOrderAgain, ride);
+        setBtnRemoveFromFavouritesOnClickListener(btnRemoveFromFavourites, ride);
+    }
+
+    private void setBtnRemoveFromFavouritesOnClickListener(Button btnRemoveFromFavourites, FavouriteRideDTO ride) {
+        btnRemoveFromFavourites.setOnClickListener(view -> {
+            Call<ResponseBody> call = ServiceUtils.rideService.deleteFavouriteRide(ride.getId());
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if(!response.isSuccessful()){
+                        Toast.makeText(getActivity(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    favouriteRoutesLayout.removeAllViews();
+                    loadFavouriteRoutes();
+
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.d("Delete fail", "Coudlnt delete favourite ride");
+                }
+            });
+        });
+    }
+
+    private void setBtnOrderAgainClickListener(Button btnOrderAgain, FavouriteRideDTO ride) {
+
+        btnOrderAgain.setOnClickListener(view -> {
+            Toast.makeText(getActivity(), "Cant order rn, not implemented dude!", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void setAdditionalInfo(FavouriteRideDTO ride, View singleRide) {
