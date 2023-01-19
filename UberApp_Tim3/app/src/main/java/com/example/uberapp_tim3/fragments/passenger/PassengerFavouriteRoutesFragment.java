@@ -45,12 +45,12 @@ public class PassengerFavouriteRoutesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button btnBack = getActivity().findViewById(R.id.btnRouteGoBack);
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().getSupportFragmentManager().popBackStackImmediate();
-            }
-        });
+//        Button btnBack = getActivity().findViewById(R.id.btnRouteGoBack);
+//        btnBack.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                getActivity().getSupportFragmentManager().popBackStackImmediate();
+//            }
+//        });
     }
 }
