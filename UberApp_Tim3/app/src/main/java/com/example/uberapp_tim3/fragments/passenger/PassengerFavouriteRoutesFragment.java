@@ -100,8 +100,8 @@ public class PassengerFavouriteRoutesFragment extends Fragment {
             TextView vehicleType = singleRide.findViewById(R.id.txtVehicleTypeFavouriteRoute);
 
             favouriteName.setText(ride.getFavoriteName());
-            from.setText(ride.getLocations().get(0).getAddress());
-            to.setText(ride.getLocations().get(ride.getLocations().size() - 1).getAddress());
+            from.setText(ride.getLocations().get(0).getDeparture().getAddress());
+            to.setText(ride.getLocations().get(0).getDestination().getAddress());
             vehicleType.setText(ride.getVehicleType());
 
 

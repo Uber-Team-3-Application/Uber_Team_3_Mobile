@@ -6,7 +6,7 @@ public class FavouriteRideDTO {
 
     private Long id;
     private String favoriteName;
-    private List<LocationDTO> locations;
+    private List<RouteDTO> locations;
     private List<RideUserDTO> passengers;
     private String vehicleType;
     private boolean babyTransport;
@@ -16,7 +16,8 @@ public class FavouriteRideDTO {
     public FavouriteRideDTO() {
     }
 
-    public FavouriteRideDTO(Long id, String favoriteName, List<LocationDTO> locations, List<RideUserDTO> passengers, String vehicleType, boolean babyTransport, boolean petTransport) {
+
+    public FavouriteRideDTO(Long id, String favoriteName, List<RouteDTO> locations, List<RideUserDTO> passengers, String vehicleType, boolean babyTransport, boolean petTransport) {
         this.id = id;
         this.favoriteName = favoriteName;
         this.locations = locations;
@@ -24,6 +25,14 @@ public class FavouriteRideDTO {
         this.vehicleType = vehicleType;
         this.babyTransport = babyTransport;
         this.petTransport = petTransport;
+    }
+
+    public List<RouteDTO> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(List<RouteDTO> locations) {
+        this.locations = locations;
     }
 
     public Long getId() {
@@ -42,13 +51,6 @@ public class FavouriteRideDTO {
         this.favoriteName = favoriteName;
     }
 
-    public List<LocationDTO> getLocations() {
-        return locations;
-    }
-
-    public void setLocations(List<LocationDTO> locations) {
-        this.locations = locations;
-    }
 
     public List<RideUserDTO> getPassengers() {
         return passengers;
