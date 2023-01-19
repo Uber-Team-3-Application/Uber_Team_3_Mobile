@@ -52,6 +52,7 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
     private EditText editTextSearch;
     private LinearLayout inboxItemsLayout;
     private List<MessageFullDTO> messages;
+    private List<MessageDisplayDTO> messageDisplayDTOS;
     private static final String[] items = {"All", "Support", "Passengers" , "Notifications"};
 
     public static Fragment newInstance() {
@@ -70,8 +71,7 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
         super.onResume();
         requireActivity().setTitle(R.string.inbox);
         editTextSearch.setText("");
-//        inboxItemsLayout.removeAllViews();
-//        setMessages(messages);
+
 
     }
 
@@ -96,10 +96,6 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
         editTextSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.length() == 0) {
-                    inboxItemsLayout.removeAllViews();
-                    setMessages(messages);
-                }
             }
 
             @Override
@@ -110,17 +106,26 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
                         return;}
                     String text = charSequence.toString().trim();
                     if(text.equalsIgnoreCase("")) return;
+
                     List<MessageFullDTO> newMessages = new ArrayList<>();
                     for(MessageFullDTO message: messages){
                         if(message.getMessage().toLowerCase().contains(text.toLowerCase()))
                             newMessages.add(message);
+                        else{
+                            for(MessageDisplayDTO displayMessage: messageDisplayDTOS){
+                                //TODO
+                                if(displayMessage.getContactName().toLowerCase().contains(text.toLowerCase())
+                                        && displayMessage.getRideId() == message.getRideId()
+                                        && displayMessage.getMessageType().equalsIgnoreCase("ride")){
+                                    message.setUserFullName(displayMessage.getContactName());
+                                    newMessages.add(message);
+                                }
+                            }
+                        }
                     }
                     inboxItemsLayout.removeAllViews();
                     setMessages(newMessages);
-//                    for(int index =0;index<inboxItemsLayout.getChildCount();index++){
-//                        View view = inboxItemsLayout.getChildAt(index);
-//
-//                    }
+
             }
 
             @Override
@@ -203,7 +208,7 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
 
     private void setMessages(List<MessageFullDTO> messages) {
 
-        List<MessageDisplayDTO> messageDisplayDTOS = new ArrayList<>();
+        messageDisplayDTOS = new ArrayList<>();
         for(MessageFullDTO message: messages){
             filterThroughMessagesAndSet(messageDisplayDTOS, message);
         }
@@ -311,6 +316,7 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
                 TextView contactName = passengerMessage.findViewById(R.id.contact_name);
                 String fullName = user.getName() + " " + user.getSurname();
                 contactName.setText(fullName);
+                messageDisplayDTO.setContactName(fullName);
 
                 if(!user.getProfilePicture().contains(",")){return;}
 
