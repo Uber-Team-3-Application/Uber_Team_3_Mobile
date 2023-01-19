@@ -54,7 +54,8 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
     private LinearLayout inboxItemsLayout;
     private List<MessageFullDTO> messages;
     private List<MessageDisplayDTO> messageDisplayDTOS;
-    private static final String[] items = {"All", "Support", "Passengers" , "Notifications"};
+    private static final String[] items = {"All", "Passengers" , "Notifications"};
+    private String selectedTypeOfMessages = "All";
 
     public static Fragment newInstance() {
         return new DriverInboxFragment();
@@ -143,12 +144,16 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
         spinnerChangeMessageType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+                if(messages.size() == 0) return;
+                editTextSearch.setText("");
+                selectedTypeOfMessages = items[i];
+                inboxItemsLayout.removeAllViews();
+                setMessages(messages);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                // TODO restore all messages
+
             }
         });
 
@@ -225,14 +230,21 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
         setViewsForMessages(messageDisplayDTOS, inboxItemsLayout, inflater, sdf);
     }
 
+    /*
+    *
+    *
+    * */
     private void setViewsForMessages(List<MessageDisplayDTO> messageDisplayDTOS, LinearLayout linearLayout, LayoutInflater inflater, SimpleDateFormat sdf) {
+
         for(int i = 0; i < messageDisplayDTOS.size(); i++){
-            if(messageDisplayDTOS.get(i).getMessageType().equalsIgnoreCase("notification")){
+            if(messageDisplayDTOS.get(i).getMessageType().equalsIgnoreCase("notification")
+                && (!selectedTypeOfMessages.equalsIgnoreCase("passengers"))){
                 setNotificationMessage(linearLayout,
                         sdf, messageDisplayDTOS.get(i), inflater);
 
 
-            }else if(messageDisplayDTOS.get(i).getMessageType().equalsIgnoreCase("ride")){
+            }else if(messageDisplayDTOS.get(i).getMessageType().equalsIgnoreCase("ride")
+                    && (!selectedTypeOfMessages.equalsIgnoreCase("notifications"))){
                 setPassengerMessage(linearLayout,
                         messageDisplayDTOS.get(i), inflater);
 
@@ -375,12 +387,6 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
     @Override
     public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 
-        switch (position) {
-            case 0:
-            case 1:
-            case 2:
-                break;
-        }
     }
 
     @Override
