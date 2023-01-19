@@ -3,6 +3,7 @@ package com.example.uberapp_tim3.model.DTO;
 import java.util.Date;
 
 public class MessageDisplayDTO {
+    private Long id;
     private Long receiverId;
     private String contactName;
     private String contactPicture;
@@ -62,6 +63,24 @@ public class MessageDisplayDTO {
         this.rideId = rideId;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public MessageDisplayDTO(Long id, Long receiverId, String contactName, String contactPicture, Date lastMessageTime, String lastMessage, String messageType, Long rideId) {
+        this.id = id;
+        this.receiverId = receiverId;
+        this.contactName = contactName;
+        this.contactPicture = contactPicture;
+        this.lastMessageTime = lastMessageTime;
+        this.lastMessage = lastMessage;
+        this.messageType = messageType;
+        this.rideId = rideId;
+    }
 
     public MessageDisplayDTO(Long receiverId, String contactName, String contactPicture, Date lastMessageTime, String lastMessage, String messageType, Long rideId) {
         this.receiverId = receiverId;

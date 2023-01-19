@@ -38,6 +38,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -70,7 +71,9 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
     public void onResume() {
         super.onResume();
         requireActivity().setTitle(R.string.inbox);
+        inboxItemsLayout.removeAllViews();
         editTextSearch.setText("");
+
 
 
     }
@@ -103,7 +106,8 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
                     if(charSequence.length() == 0) {
                         inboxItemsLayout.removeAllViews();
                         setMessages(messages);
-                        return;}
+                        return;
+                    }
                     String text = charSequence.toString().trim();
                     if(text.equalsIgnoreCase("")) return;
 
@@ -112,16 +116,15 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
                         if(message.getMessage().toLowerCase().contains(text.toLowerCase()))
                             newMessages.add(message);
                         else{
-                            for(MessageDisplayDTO displayMessage: messageDisplayDTOS){
-                                //TODO
-                                if(displayMessage.getContactName().toLowerCase().contains(text.toLowerCase())
-                                        && displayMessage.getRideId() == message.getRideId()
-                                        && displayMessage.getMessageType().equalsIgnoreCase("ride")){
-                                    message.setUserFullName(displayMessage.getContactName());
+                            for (MessageDisplayDTO messageDisplayDTO: messageDisplayDTOS){
+                                if(messageDisplayDTO.getId() == message.getId()
+                                        && messageDisplayDTO.getContactName().toLowerCase().contains(text.toLowerCase())) {
                                     newMessages.add(message);
+                                    break;
                                 }
                             }
                         }
+
                     }
                     inboxItemsLayout.removeAllViews();
                     setMessages(newMessages);
@@ -232,6 +235,7 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
             }else if(messageDisplayDTOS.get(i).getMessageType().equalsIgnoreCase("ride")){
                 setPassengerMessage(linearLayout,
                         messageDisplayDTOS.get(i), inflater);
+
             }
         }
     }
@@ -261,6 +265,7 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
                 && message.getReceiverId() == preferences.getLong("pref_id", 0)){
 
             messageDisplayDTOS.add(new MessageDisplayDTO(
+                    message.getId(),
                     message.getReceiverId(),
                     "Name",
                     "Picture",
@@ -272,15 +277,18 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
             return;
         }
         for(MessageDisplayDTO messageDisplayDTO: messageDisplayDTOS){
-            if(messageDisplayDTO.getReceiverId() == message.getReceiverId() && !message.getType().equalsIgnoreCase("support")){
+            if(messageDisplayDTO.getReceiverId() == message.getReceiverId()
+                    && !message.getType().equalsIgnoreCase("support")){
                 messageDisplayDTO.setLastMessage(message.getMessage());
                 messageDisplayDTO.setLastMessageTime(message.getTimeOfSending());
+                messageDisplayDTO.setId(message.getId());
                 isUpdated = true;
                 break;
             }
         }
         if(!isUpdated && !message.getType().equalsIgnoreCase("support")) {
             messageDisplayDTOS.add(new MessageDisplayDTO(
+                    message.getId(),
                     message.getReceiverId(),
                     "Name",
                     "Picture",
