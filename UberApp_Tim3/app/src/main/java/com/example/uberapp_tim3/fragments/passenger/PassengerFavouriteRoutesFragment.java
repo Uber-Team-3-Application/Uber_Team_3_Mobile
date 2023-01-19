@@ -102,23 +102,26 @@ public class PassengerFavouriteRoutesFragment extends Fragment {
             to.setText(ride.getLocations().get(ride.getLocations().size() - 1).getAddress());
             vehicleType.setText(ride.getVehicleType());
 
-
-            boolean isPet = ride.isPetTransport();
-            boolean isBaby = ride.isBabyTransport();
-
-            LinearLayout lyAdditionalInfo = singleRide.findViewById(R.id.lyAdditionalInfo);
-            if(!isBaby && !isPet) lyAdditionalInfo.setVisibility(View.INVISIBLE);
-
-            ImageView babyView = lyAdditionalInfo.findViewById(R.id.imgChild);
-            ImageView petView = lyAdditionalInfo.findViewById(R.id.imgPets);
-
-            if(!isBaby) babyView.setVisibility(View.INVISIBLE);
-            if(!isPet) petView.setVisibility(View.INVISIBLE);
+            setAdditionalInfo(ride, singleRide);
 
             favouriteRoutesLayout.addView(singleRide);
 
 
         }
 
+    }
+
+    private void setAdditionalInfo(FavouriteRideDTO ride, View singleRide) {
+        boolean isPet = ride.isPetTransport();
+        boolean isBaby = ride.isBabyTransport();
+
+        LinearLayout lyAdditionalInfo = singleRide.findViewById(R.id.lyAdditionalInfo);
+        if(!isBaby && !isPet) lyAdditionalInfo.setVisibility(View.INVISIBLE);
+
+        ImageView babyView = lyAdditionalInfo.findViewById(R.id.imgChild);
+        ImageView petView = lyAdditionalInfo.findViewById(R.id.imgPets);
+
+        if(!isBaby) babyView.setVisibility(View.INVISIBLE);
+        if(!isPet) petView.setVisibility(View.INVISIBLE);
     }
 }
