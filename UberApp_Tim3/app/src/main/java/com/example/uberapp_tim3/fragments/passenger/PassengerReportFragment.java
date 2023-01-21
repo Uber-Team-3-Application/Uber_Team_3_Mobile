@@ -113,6 +113,11 @@ public class PassengerReportFragment extends Fragment {
                     Log.d("Report response failure", "FAIL MONEY SPENT PER DAY");
                     return;
                 }
+        
+                assert  response.body() != null;
+                ReportSumAverageDTO report = response.body();
+                setSpentPerDayReport(report);
+
             }
 
             @Override
@@ -121,6 +126,7 @@ public class PassengerReportFragment extends Fragment {
             }
         });
     }
+
 
     private void getKilometersPerDay(ReportRequestDTO reportRequestDTO) {
         reportRequestDTO.setTypeOfReport("KILOMETERS_PER_DAY");
@@ -132,6 +138,10 @@ public class PassengerReportFragment extends Fragment {
                     Log.d("Report response failure", "FAIL KILOMETERS PER DAY");
                     return;
                 }
+                assert  response.body() != null;
+                ReportSumAverageDTO report = response.body();
+                setKilometersPerDayReport(report);
+
             }
 
             @Override
@@ -151,6 +161,10 @@ public class PassengerReportFragment extends Fragment {
                     Log.d("Report response failure", "FAIL RIDES PER DAY");
                     return;
                 }
+
+                assert  response.body() != null;
+                ReportSumAverageDTO report = response.body();
+                setRidesPerDayReport(report);
             }
 
             @Override
@@ -158,6 +172,37 @@ public class PassengerReportFragment extends Fragment {
                 Log.d("Report fetch failure", "FAIL RIDES PER DAY");
             }
         });
+    }
+
+    private void setKilometersPerDayReport(ReportSumAverageDTO report) {
+        TextView txtTotal = getActivity().findViewById(R.id.txtTotalKilometersPerDayInTimePeriod);
+        TextView txtAverage = getActivity().findViewById(R.id.txtAverageKilometersPerDay);
+        setTextViewsForReports(report, txtTotal, txtAverage);
+
+    }
+
+
+    private void setSpentPerDayReport(ReportSumAverageDTO report) {
+        TextView txtTotal = getActivity().findViewById(R.id.txtTotalSpentPerDayInTimePeriod);
+        TextView txtAverage = getActivity().findViewById(R.id.txtAverageSpentPerDay);
+        setTextViewsForReports(report, txtTotal, txtAverage);
+
+    }
+
+
+    private void setRidesPerDayReport(ReportSumAverageDTO report) {
+        TextView txtTotal = getActivity().findViewById(R.id.txtTotalRidesInTimePeriod);
+        TextView txtAverage = getActivity().findViewById(R.id.txtAverageRidesPerDay);
+        setTextViewsForReports(report, txtTotal, txtAverage);
+    }
+
+    private void setTextViewsForReports(ReportSumAverageDTO report, TextView txtTotal, TextView txtAverage) {
+        double total = (double) Math.round(report.getSum() * 100) / 100;
+        double average = (double) Math.round(report.getAverage() * 100) / 100;
+        String totalToString = Double.toString(total);
+        String averageToString = Double.toString(average);
+        txtTotal.setText(totalToString);
+        txtAverage.setText(averageToString);
     }
 
     private void setViews() {
