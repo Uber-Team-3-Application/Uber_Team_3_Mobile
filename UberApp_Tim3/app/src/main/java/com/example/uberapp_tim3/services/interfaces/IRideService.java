@@ -3,6 +3,8 @@ package com.example.uberapp_tim3.services.interfaces;
 import com.example.uberapp_tim3.model.DTO.CreateRideDTO;
 import com.example.uberapp_tim3.model.DTO.CreatedRideDTO;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
+import com.example.uberapp_tim3.model.DTO.ReportRequestDTO;
+import com.example.uberapp_tim3.model.DTO.ReportSumAverageDTO;
 import com.example.uberapp_tim3.model.drives.Ride;
 import com.example.uberapp_tim3.services.ServiceUtils;
 
@@ -22,4 +24,7 @@ public interface IRideService {
     Call<CreatedRideDTO> createARide(@Body CreateRideDTO createdRideDTO);
     @PUT(ServiceUtils.ride + "/{id}/end")
     Call<DriverRideDTO> endRide(@Path("id") Long id);
+
+    @GET(ServiceUtils.ride + "/rides-report")
+    Call<ReportSumAverageDTO> getReport(ReportRequestDTO reportRequestDTO);
 }

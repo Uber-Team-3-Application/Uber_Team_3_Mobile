@@ -1,7 +1,10 @@
 package com.example.uberapp_tim3.fragments.passenger;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,10 @@ import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.model.DTO.ReportRequestDTO;
+import com.example.uberapp_tim3.model.DTO.ReportSumAverageDTO;
+import com.example.uberapp_tim3.services.ServiceUtils;
+import com.example.uberapp_tim3.services.interfaces.IRideService;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.YAxis;
@@ -24,13 +31,18 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 import java.util.ArrayList;
+import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PassengerReportFragment extends Fragment {
     TextView selectedDate;
     Button calendarButton;
     HorizontalBarChart ridesPerDayChart, kilometersPerDayChart;
     PieChart spentPerDayChart;
-
+    private SharedPreferences preferences;
 
     @Nullable
     @Override
@@ -50,30 +62,110 @@ public class PassengerReportFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        selectedDate = getView().findViewById(R.id.text);
-        calendarButton = getView().findViewById(R.id.calendar);
-        ridesPerDayChart = (HorizontalBarChart) getView().findViewById(R.id.ridesPerDayChart);
-        kilometersPerDayChart = (HorizontalBarChart) getView().findViewById(R.id.kilometersPerDayChart);
-        spentPerDayChart = (PieChart) getView().findViewById(R.id.spentPerDayChart);
-        YAxis yAxis = horizontalBarChart.getAxisLeft();
-        yAxis.setAxisMaximum(5000f);
-        yAxis.setAxisMinimum(0f);
-        horizontalBarChart.notifyDataSetChanged();
-        horizontalBarChart.getXAxis().setDrawGridLines(false);
+        setViews();
+        preferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
+//        YAxis yAxis = horizontalBarChart.getAxisLeft();
+//        yAxis.setAxisMaximum(5000f);
+//        yAxis.setAxisMinimum(0f);
+//        horizontalBarChart.notifyDataSetChanged();
+//        horizontalBarChart.getXAxis().setDrawGridLines(false);
         MaterialDatePicker materialDatePicker = MaterialDatePicker.Builder.dateRangePicker().setTitleText("Select").setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(), MaterialDatePicker.todayInUtcMilliseconds())).build();
         calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 materialDatePicker.show(getActivity().getSupportFragmentManager(), "Tag_picker");
-                materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
-                    @Override
-                    public void onPositiveButtonClick(Object selection) {
-                        selectedDate.setText(materialDatePicker.getHeaderText());
-                        setChartData();
-                    }
+                materialDatePicker.addOnPositiveButtonClickListener(selection -> {
+                    selectedDate.setText(materialDatePicker.getHeaderText());
+                    setChartData();
                 });
             }
         });
+    }
+
+    private void getReports(Date from, Date to){
+        String typeOfReport = "RIDES_PER_DAY";
+        ReportRequestDTO reportRequestDTO = new ReportRequestDTO(
+            preferences.getLong("pref_id", 0),
+                preferences.getString("pref_role", ""),
+                typeOfReport,
+                from,
+                to
+        );
+
+        
+        getRidesPerDay(reportRequestDTO);
+
+        getKilometersPerDay(reportRequestDTO);
+
+        getSpentPerDay(reportRequestDTO);
+
+
+    }
+
+    private void getSpentPerDay(ReportRequestDTO reportRequestDTO) {
+        //TODO : mozda monej earned
+        reportRequestDTO.setTypeOfReport("MONEY_SPENT_PER_DAY");
+        Call<ReportSumAverageDTO> callSpentPerDay = ServiceUtils.rideService.getReport(reportRequestDTO);
+        callSpentPerDay.enqueue(new Callback<ReportSumAverageDTO>() {
+            @Override
+            public void onResponse(Call<ReportSumAverageDTO> call, Response<ReportSumAverageDTO> response) {
+                if(!response.isSuccessful()){
+                    Log.d("Report response failure", "FAIL MONEY SPENT PER DAY");
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ReportSumAverageDTO> call, Throwable t) {
+                Log.d("Report fetch failure", "FAIL SPENT PER DAY");
+            }
+        });
+    }
+
+    private void getKilometersPerDay(ReportRequestDTO reportRequestDTO) {
+        reportRequestDTO.setTypeOfReport("KILOMETERS_PER_DAY");
+        Call<ReportSumAverageDTO> callKilometersPerDay = ServiceUtils.rideService.getReport(reportRequestDTO);
+        callKilometersPerDay.enqueue(new Callback<ReportSumAverageDTO>() {
+            @Override
+            public void onResponse(Call<ReportSumAverageDTO> call, Response<ReportSumAverageDTO> response) {
+                if(!response.isSuccessful()){
+                    Log.d("Report response failure", "FAIL KILOMETERS PER DAY");
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ReportSumAverageDTO> call, Throwable t) {
+                Log.d("Report fetch failure", "FAIL KILOMETERS PER DAY");
+
+            }
+        });
+    }
+
+    private void getRidesPerDay(ReportRequestDTO reportRequestDTO) {
+        Call<ReportSumAverageDTO> callRidesPerDay = ServiceUtils.rideService.getReport(reportRequestDTO);
+        callRidesPerDay.enqueue(new Callback<ReportSumAverageDTO>() {
+            @Override
+            public void onResponse(Call<ReportSumAverageDTO> call, Response<ReportSumAverageDTO> response) {
+                if(!response.isSuccessful()){
+                    Log.d("Report response failure", "FAIL RIDES PER DAY");
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ReportSumAverageDTO> call, Throwable t) {
+                Log.d("Report fetch failure", "FAIL RIDES PER DAY");
+            }
+        });
+    }
+
+    private void setViews() {
+        selectedDate = getView().findViewById(R.id.text);
+        calendarButton = getView().findViewById(R.id.calendar);
+        ridesPerDayChart = (HorizontalBarChart) getView().findViewById(R.id.ridesPerDayChart);
+        kilometersPerDayChart = (HorizontalBarChart) getView().findViewById(R.id.kilometersPerDayChart);
+        spentPerDayChart = (PieChart) getView().findViewById(R.id.spentPerDayChart);
     }
 
     private void setChartData() {
@@ -91,7 +183,7 @@ public class PassengerReportFragment extends Fragment {
         set.setColors(new int[] {Color.rgb(170, 174, 159), Color.rgb(156, 168, 158), Color.rgb(77, 112, 109)});
         BarData data = new BarData(set);
         data.setBarWidth(barWidth);
-        horizontalBarChart.setData(data);
-        horizontalBarChart.notifyDataSetChanged();
+       // horizontalBarChart.setData(data);
+        //horizontalBarChart.notifyDataSetChanged();
     }
 }
