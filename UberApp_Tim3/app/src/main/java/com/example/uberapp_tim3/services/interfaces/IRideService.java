@@ -25,6 +25,6 @@ public interface IRideService {
     @PUT(ServiceUtils.ride + "/{id}/end")
     Call<DriverRideDTO> endRide(@Path("id") Long id);
 
-    @GET(ServiceUtils.ride + "/rides-report")
-    Call<ReportSumAverageDTO> getReport(ReportRequestDTO reportRequestDTO);
+    @POST(ServiceUtils.ride + "/rides-report")
+    Call<ReportSumAverageDTO> getReport(@Body ReportRequestDTO reportRequestDTO);
 }

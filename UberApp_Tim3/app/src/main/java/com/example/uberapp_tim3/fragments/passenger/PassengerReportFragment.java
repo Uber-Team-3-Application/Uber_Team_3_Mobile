@@ -20,15 +20,12 @@ import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.model.DTO.ReportRequestDTO;
 import com.example.uberapp_tim3.model.DTO.ReportSumAverageDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
-import com.example.uberapp_tim3.services.interfaces.IRideService;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -69,16 +66,18 @@ public class PassengerReportFragment extends Fragment {
 //        yAxis.setAxisMinimum(0f);
 //        horizontalBarChart.notifyDataSetChanged();
 //        horizontalBarChart.getXAxis().setDrawGridLines(false);
-        MaterialDatePicker materialDatePicker = MaterialDatePicker.Builder.dateRangePicker().setTitleText("Select").setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(), MaterialDatePicker.todayInUtcMilliseconds())).build();
-        calendarButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                materialDatePicker.show(getActivity().getSupportFragmentManager(), "Tag_picker");
-                materialDatePicker.addOnPositiveButtonClickListener(selection -> {
-                    selectedDate.setText(materialDatePicker.getHeaderText());
-                    setChartData();
-                });
-            }
+        MaterialDatePicker<Pair<Long, Long>> materialDatePicker = MaterialDatePicker.Builder.dateRangePicker().setTitleText("Select").setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(), MaterialDatePicker.todayInUtcMilliseconds())).build();
+        calendarButton.setOnClickListener(view1 -> {
+            materialDatePicker.show(getActivity().getSupportFragmentManager(), "Tag_picker");
+            materialDatePicker.addOnPositiveButtonClickListener(selection -> {
+                selectedDate.setText(materialDatePicker.getHeaderText());
+                Long startDate = selection.first;
+                Long endDate = selection.second;
+                //TODO:PARSE IT
+                Date from = new Date(startDate);
+                Date to = new Date(endDate);
+                getReports(from, to);
+            });
         });
     }
 
@@ -92,7 +91,6 @@ public class PassengerReportFragment extends Fragment {
                 to
         );
 
-        
         getRidesPerDay(reportRequestDTO);
 
         getKilometersPerDay(reportRequestDTO);
