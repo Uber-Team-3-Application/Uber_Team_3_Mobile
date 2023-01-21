@@ -7,13 +7,13 @@ public class ReportRequestDTO {
     private Long driverId;
     private String role;
     private String typeOfReport;
-    private Date from;
-    private Date to;
+    private String from;
+    private String to;
 
     public ReportRequestDTO() {
     }
 
-    public ReportRequestDTO(Long driverId, String role, String typeOfReport, Date from, Date to) {
+    public ReportRequestDTO(Long driverId, String role, String typeOfReport, String from, String to) {
         this.driverId = driverId;
         this.role = role;
         this.typeOfReport = typeOfReport;
@@ -45,19 +45,19 @@ public class ReportRequestDTO {
         this.typeOfReport = typeOfReport;
     }
 
-    public Date getFrom() {
+    public String getFrom() {
         return from;
     }
 
-    public void setFrom(Date from) {
+    public void setFrom(String from) {
         this.from = from;
     }
 
-    public Date getTo() {
+    public String getTo() {
         return to;
     }
 
-    public void setTo(Date to) {
+    public void setTo(String to) {
         this.to = to;
     }
 }

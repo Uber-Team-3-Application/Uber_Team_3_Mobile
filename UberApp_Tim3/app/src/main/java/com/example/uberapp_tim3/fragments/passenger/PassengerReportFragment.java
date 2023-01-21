@@ -1,5 +1,6 @@
 package com.example.uberapp_tim3.fragments.passenger;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -22,13 +23,25 @@ import com.example.uberapp_tim3.model.DTO.ReportSumAverageDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.datepicker.MaterialDatePicker;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,11 +74,6 @@ public class PassengerReportFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setViews();
         preferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
-//        YAxis yAxis = horizontalBarChart.getAxisLeft();
-//        yAxis.setAxisMaximum(5000f);
-//        yAxis.setAxisMinimum(0f);
-//        horizontalBarChart.notifyDataSetChanged();
-//        horizontalBarChart.getXAxis().setDrawGridLines(false);
         MaterialDatePicker<Pair<Long, Long>> materialDatePicker = MaterialDatePicker.Builder.dateRangePicker().setTitleText("Select").setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(), MaterialDatePicker.todayInUtcMilliseconds())).build();
         calendarButton.setOnClickListener(view1 -> {
             materialDatePicker.show(getActivity().getSupportFragmentManager(), "Tag_picker");
@@ -73,15 +81,15 @@ public class PassengerReportFragment extends Fragment {
                 selectedDate.setText(materialDatePicker.getHeaderText());
                 Long startDate = selection.first;
                 Long endDate = selection.second;
-                //TODO:PARSE IT
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Date from = new Date(startDate);
                 Date to = new Date(endDate);
-                getReports(from, to);
+                getReports(sdf.format(from), sdf.format(to));
             });
         });
     }
 
-    private void getReports(Date from, Date to){
+    private void getReports(String from, String to){
         String typeOfReport = "RIDES_PER_DAY";
         ReportRequestDTO reportRequestDTO = new ReportRequestDTO(
             preferences.getLong("pref_id", 0),
@@ -101,7 +109,6 @@ public class PassengerReportFragment extends Fragment {
     }
 
     private void getSpentPerDay(ReportRequestDTO reportRequestDTO) {
-        //TODO : mozda monej earned
         reportRequestDTO.setTypeOfReport("MONEY_SPENT_PER_DAY");
         Call<ReportSumAverageDTO> callSpentPerDay = ServiceUtils.rideService.getReport(reportRequestDTO);
         callSpentPerDay.enqueue(new Callback<ReportSumAverageDTO>() {
@@ -176,6 +183,7 @@ public class PassengerReportFragment extends Fragment {
         TextView txtTotal = getActivity().findViewById(R.id.txtTotalKilometersPerDayInTimePeriod);
         TextView txtAverage = getActivity().findViewById(R.id.txtAverageKilometersPerDay);
         setTextViewsForReports(report, txtTotal, txtAverage);
+        setChart(report.getResult(), "KILOMETERS_PER_DAY");
 
     }
 
@@ -184,6 +192,8 @@ public class PassengerReportFragment extends Fragment {
         TextView txtTotal = getActivity().findViewById(R.id.txtTotalSpentPerDayInTimePeriod);
         TextView txtAverage = getActivity().findViewById(R.id.txtAverageSpentPerDay);
         setTextViewsForReports(report, txtTotal, txtAverage);
+        setChart(report.getResult(), "SPENT_PER_DAY");
+
 
     }
 
@@ -192,7 +202,36 @@ public class PassengerReportFragment extends Fragment {
         TextView txtTotal = getActivity().findViewById(R.id.txtTotalRidesInTimePeriod);
         TextView txtAverage = getActivity().findViewById(R.id.txtAverageRidesPerDay);
         setTextViewsForReports(report, txtTotal, txtAverage);
+        setChart(report.getResult(), "RIDES_PER_DAY");
     }
+
+    private void setChart(Map<Date, Double> report, String typeOfChart) {
+
+
+        ArrayList<BarEntry> pieEntries = new ArrayList<>();
+        for(Map.Entry<Date, Double> entry: report.entrySet()){
+            pieEntries.add(new BarEntry(entry.getKey().getTime(), entry.getValue().floatValue()));
+        }
+        if(!typeOfChart.equalsIgnoreCase("spent_per_day")){
+            BarDataSet barDataSet = new BarDataSet(pieEntries, "");
+            BarData barData = new BarData(barDataSet);
+            ridesPerDayChart.setData(barData);
+            barDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+            barDataSet.setValueTextColor(Color.BLACK);
+            barDataSet.setValueTextSize(18f);
+            XAxis xAxis = ridesPerDayChart.getXAxis();
+            xAxis.setValueFormatter(new IAxisValueFormatter() {
+
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    return new SimpleDateFormat("dd/MM/yyyy").format(new Date((long) value));
+
+                }
+            });
+
+        }
+    }
+
 
     private void setTextViewsForReports(ReportSumAverageDTO report, TextView txtTotal, TextView txtAverage) {
         double total = (double) Math.round(report.getSum() * 100) / 100;
@@ -211,22 +250,4 @@ public class PassengerReportFragment extends Fragment {
         spentPerDayChart = (PieChart) getView().findViewById(R.id.spentPerDayChart);
     }
 
-    private void setChartData() {
-        ArrayList<BarEntry> yValues = new ArrayList<>();
-        float barWidth = 8.5f;
-        float barSpace = 10f;
-        int i = 30;
-        for(int j = 0; j < i; j++){
-            float value = (float) (Math.random()*5000);
-            yValues.add(new BarEntry(j * barSpace, value));
-        }
-
-        BarDataSet set;
-        set = new BarDataSet(yValues, "Spent");
-        set.setColors(new int[] {Color.rgb(170, 174, 159), Color.rgb(156, 168, 158), Color.rgb(77, 112, 109)});
-        BarData data = new BarData(set);
-        data.setBarWidth(barWidth);
-       // horizontalBarChart.setData(data);
-        //horizontalBarChart.notifyDataSetChanged();
-    }
 }
