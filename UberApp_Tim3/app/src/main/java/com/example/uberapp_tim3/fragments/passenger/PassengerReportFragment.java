@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.uberapp_tim3.R;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -27,7 +28,9 @@ import java.util.ArrayList;
 public class PassengerReportFragment extends Fragment {
     TextView selectedDate;
     Button calendarButton;
-    HorizontalBarChart horizontalBarChart;
+    HorizontalBarChart ridesPerDayChart, kilometersPerDayChart;
+    PieChart spentPerDayChart;
+
 
     @Nullable
     @Override
@@ -49,11 +52,12 @@ public class PassengerReportFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         selectedDate = getView().findViewById(R.id.text);
         calendarButton = getView().findViewById(R.id.calendar);
-        horizontalBarChart = (HorizontalBarChart) getView().findViewById(R.id.chart);
+        ridesPerDayChart = (HorizontalBarChart) getView().findViewById(R.id.ridesPerDayChart);
+        kilometersPerDayChart = (HorizontalBarChart) getView().findViewById(R.id.kilometersPerDayChart);
+        spentPerDayChart = (PieChart) getView().findViewById(R.id.spentPerDayChart);
         YAxis yAxis = horizontalBarChart.getAxisLeft();
         yAxis.setAxisMaximum(5000f);
         yAxis.setAxisMinimum(0f);
-        setChartData(0);
         horizontalBarChart.notifyDataSetChanged();
         horizontalBarChart.getXAxis().setDrawGridLines(false);
         MaterialDatePicker materialDatePicker = MaterialDatePicker.Builder.dateRangePicker().setTitleText("Select").setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(), MaterialDatePicker.todayInUtcMilliseconds())).build();
@@ -65,18 +69,18 @@ public class PassengerReportFragment extends Fragment {
                     @Override
                     public void onPositiveButtonClick(Object selection) {
                         selectedDate.setText(materialDatePicker.getHeaderText());
-                        setChartData(30);
+                        setChartData();
                     }
                 });
             }
         });
     }
 
-    private void setChartData(int i) {
+    private void setChartData() {
         ArrayList<BarEntry> yValues = new ArrayList<>();
         float barWidth = 8.5f;
         float barSpace = 10f;
-
+        int i = 30;
         for(int j = 0; j < i; j++){
             float value = (float) (Math.random()*5000);
             yValues.add(new BarEntry(j * barSpace, value));
