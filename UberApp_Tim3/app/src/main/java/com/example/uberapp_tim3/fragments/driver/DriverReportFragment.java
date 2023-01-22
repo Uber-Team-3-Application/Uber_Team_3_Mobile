@@ -14,7 +14,7 @@ import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 
 import com.example.uberapp_tim3.R;
-import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class DriverReportFragment extends Fragment {
     TextView selectedDate;
     Button calendarButton;
-    BarChart BarChart;
+    HorizontalBarChart HorizontalBarChart;
 
     @Nullable
     @Override
@@ -40,13 +40,13 @@ public class DriverReportFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         selectedDate = getView().findViewById(R.id.text);
         calendarButton = getView().findViewById(R.id.calendar);
-        BarChart = (BarChart) getView().findViewById(R.id.chart);
-        YAxis yAxis = BarChart.getAxisLeft();
+        HorizontalBarChart = (HorizontalBarChart) getView().findViewById(R.id.chart);
+        YAxis yAxis = HorizontalBarChart.getAxisLeft();
         yAxis.setAxisMaximum(5000f);
         yAxis.setAxisMinimum(0f);
         setChartData(0);
-        BarChart.notifyDataSetChanged();
-        BarChart.getXAxis().setDrawGridLines(false);
+        HorizontalBarChart.notifyDataSetChanged();
+        HorizontalBarChart.getXAxis().setDrawGridLines(false);
         MaterialDatePicker materialDatePicker = MaterialDatePicker.Builder.dateRangePicker().setTitleText("Select").setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(), MaterialDatePicker.todayInUtcMilliseconds())).build();
         calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +78,7 @@ public class DriverReportFragment extends Fragment {
         set.setColors(new int[] {Color.rgb(170, 174, 159), Color.rgb(156, 168, 158), Color.rgb(77, 112, 109)});
         BarData data = new BarData(set);
         data.setBarWidth(barWidth);
-        BarChart.setData(data);
-        BarChart.notifyDataSetChanged();
+        HorizontalBarChart.setData(data);
+        HorizontalBarChart.notifyDataSetChanged();
     }
 }

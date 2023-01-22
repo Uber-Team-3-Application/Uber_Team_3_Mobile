@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,24 +22,31 @@ import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.model.DTO.ReportRequestDTO;
 import com.example.uberapp_tim3.model.DTO.ReportSumAverageDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
-import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.google.android.material.datepicker.MaterialDatePicker;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,7 +59,7 @@ import retrofit2.Response;
 public class PassengerReportFragment extends Fragment {
     TextView selectedDate;
     Button calendarButton;
-    BarChart ridesPerDayChart, kilometersPerDayChart, spentPerDayChart;
+    PieChart ridesPerDayChart, kilometersPerDayChart, spentPerDayChart;
     private SharedPreferences preferences;
 
     @Nullable
@@ -205,18 +213,45 @@ public class PassengerReportFragment extends Fragment {
         setChart(report.getResult(), "RIDES_PER_DAY", ridesPerDayChart);
     }
 
-    private void setChart(Map<Date, Double> report, String typeOfChart, BarChart chart) {
-        List<BarEntry> entries = new ArrayList<>();
+    private void setChart(Map<Date, Double> report, String typeOfChart, PieChart chart) {
+        List<PieEntry> entries = new ArrayList<>();
         for (Map.Entry<Date, Double> entry : report.entrySet()) {
             double entryConverted = (double) Math.round( entry.getValue() * 100) / 100;
-            entries.add(new BarEntry(entry.getKey().getTime(),(float) entryConverted));
+            entries.add(new PieEntry((float) entryConverted, entry.getKey()));
         }
-        BarDataSet set = new BarDataSet(entries, typeOfChart.toLowerCase());
-        BarData barData = new BarData(set);
-        chart.setData(barData);
-
+        PieDataSet set = new PieDataSet(entries, typeOfChart.toLowerCase());
+        set.setColors(ColorTemplate.COLORFUL_COLORS);
+        PieData barData = new PieData(set);
+        barData.setDrawValues(true);
         final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        chart.getXAxis().setValueFormatter((value, axis) -> format.format(new Date((long) value)));
+        barData.setValueTextSize(12f);
+        barData.setValueTextColor(Color.BLACK);
+
+        chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                Date date = (Date) e.getData();
+                Toast.makeText(getContext(), format.format(date), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected() {
+            }
+        });
+        chart.setDrawHoleEnabled(true);
+        chart.setEntryLabelTextSize(12);
+        chart.setEntryLabelColor(Color.BLACK);
+        chart.getDescription().setEnabled(false);
+
+        Legend legend = chart.getLegend();
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
+        legend.setEnabled(true);
+        legend.setTextSize(12f);
+        legend.setDrawInside(false);
+
+        chart.setData(barData);
 
         chart.invalidate();
 
@@ -235,9 +270,9 @@ public class PassengerReportFragment extends Fragment {
     private void setViews() {
         selectedDate = getView().findViewById(R.id.text);
         calendarButton = getView().findViewById(R.id.calendar);
-        ridesPerDayChart = (BarChart) getView().findViewById(R.id.ridesPerDayChart);
-        kilometersPerDayChart = (BarChart) getView().findViewById(R.id.kilometersPerDayChart);
-        spentPerDayChart = (BarChart) getView().findViewById(R.id.spentPerDayChart);
+        ridesPerDayChart = (PieChart) getView().findViewById(R.id.ridesPerDayChart);
+        kilometersPerDayChart = (PieChart) getView().findViewById(R.id.kilometersPerDayChart);
+        spentPerDayChart = (PieChart) getView().findViewById(R.id.spentPerDayChart);
     }
 
 }
