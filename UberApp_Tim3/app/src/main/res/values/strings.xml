@@ -307,6 +307,7 @@
     <string name="driver">Driver</string>
     <string name="panic">PANIC</string>
     <string name="chat_with_the_driver">Chat with the driver</string>
+    <string name="favourite_name">Favourite Name</string>
     <string name="rides_per_day">Rides per day</string>
     <string name="spent_per_day">Spent per day</string>
 
