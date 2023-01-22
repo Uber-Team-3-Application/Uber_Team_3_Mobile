@@ -21,7 +21,7 @@ import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.model.DTO.ReportRequestDTO;
 import com.example.uberapp_tim3.model.DTO.ReportSumAverageDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
-import com.github.mikephil.charting.charts.HorizontalBarChart;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
@@ -41,6 +41,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -50,8 +51,7 @@ import retrofit2.Response;
 public class PassengerReportFragment extends Fragment {
     TextView selectedDate;
     Button calendarButton;
-    HorizontalBarChart ridesPerDayChart, kilometersPerDayChart;
-    PieChart spentPerDayChart;
+    BarChart ridesPerDayChart, kilometersPerDayChart, spentPerDayChart;
     private SharedPreferences preferences;
 
     @Nullable
@@ -183,7 +183,7 @@ public class PassengerReportFragment extends Fragment {
         TextView txtTotal = getActivity().findViewById(R.id.txtTotalKilometersPerDayInTimePeriod);
         TextView txtAverage = getActivity().findViewById(R.id.txtAverageKilometersPerDay);
         setTextViewsForReports(report, txtTotal, txtAverage);
-        setChart(report.getResult(), "KILOMETERS_PER_DAY");
+        setChart(report.getResult(), "KILOMETERS_PER_DAY", kilometersPerDayChart);
 
     }
 
@@ -192,7 +192,7 @@ public class PassengerReportFragment extends Fragment {
         TextView txtTotal = getActivity().findViewById(R.id.txtTotalSpentPerDayInTimePeriod);
         TextView txtAverage = getActivity().findViewById(R.id.txtAverageSpentPerDay);
         setTextViewsForReports(report, txtTotal, txtAverage);
-        setChart(report.getResult(), "SPENT_PER_DAY");
+        setChart(report.getResult(), "SPENT_PER_DAY", spentPerDayChart);
 
 
     }
@@ -202,34 +202,24 @@ public class PassengerReportFragment extends Fragment {
         TextView txtTotal = getActivity().findViewById(R.id.txtTotalRidesInTimePeriod);
         TextView txtAverage = getActivity().findViewById(R.id.txtAverageRidesPerDay);
         setTextViewsForReports(report, txtTotal, txtAverage);
-        setChart(report.getResult(), "RIDES_PER_DAY");
+        setChart(report.getResult(), "RIDES_PER_DAY", ridesPerDayChart);
     }
 
-    private void setChart(Map<Date, Double> report, String typeOfChart) {
-
-
-        ArrayList<BarEntry> pieEntries = new ArrayList<>();
-        for(Map.Entry<Date, Double> entry: report.entrySet()){
-            pieEntries.add(new BarEntry(entry.getKey().getTime(), entry.getValue().floatValue()));
+    private void setChart(Map<Date, Double> report, String typeOfChart, BarChart chart) {
+        List<BarEntry> entries = new ArrayList<>();
+        for (Map.Entry<Date, Double> entry : report.entrySet()) {
+            double entryConverted = (double) Math.round( entry.getValue() * 100) / 100;
+            entries.add(new BarEntry(entry.getKey().getTime(),(float) entryConverted));
         }
-        if(!typeOfChart.equalsIgnoreCase("spent_per_day")){
-            BarDataSet barDataSet = new BarDataSet(pieEntries, "");
-            BarData barData = new BarData(barDataSet);
-            ridesPerDayChart.setData(barData);
-            barDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-            barDataSet.setValueTextColor(Color.BLACK);
-            barDataSet.setValueTextSize(18f);
-            XAxis xAxis = ridesPerDayChart.getXAxis();
-            xAxis.setValueFormatter(new IAxisValueFormatter() {
+        BarDataSet set = new BarDataSet(entries, typeOfChart.toLowerCase());
+        BarData barData = new BarData(set);
+        chart.setData(barData);
 
-                @Override
-                public String getFormattedValue(float value, AxisBase axis) {
-                    return new SimpleDateFormat("dd/MM/yyyy").format(new Date((long) value));
+        final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        chart.getXAxis().setValueFormatter((value, axis) -> format.format(new Date((long) value)));
 
-                }
-            });
+        chart.invalidate();
 
-        }
     }
 
 
@@ -245,9 +235,9 @@ public class PassengerReportFragment extends Fragment {
     private void setViews() {
         selectedDate = getView().findViewById(R.id.text);
         calendarButton = getView().findViewById(R.id.calendar);
-        ridesPerDayChart = (HorizontalBarChart) getView().findViewById(R.id.ridesPerDayChart);
-        kilometersPerDayChart = (HorizontalBarChart) getView().findViewById(R.id.kilometersPerDayChart);
-        spentPerDayChart = (PieChart) getView().findViewById(R.id.spentPerDayChart);
+        ridesPerDayChart = (BarChart) getView().findViewById(R.id.ridesPerDayChart);
+        kilometersPerDayChart = (BarChart) getView().findViewById(R.id.kilometersPerDayChart);
+        spentPerDayChart = (BarChart) getView().findViewById(R.id.spentPerDayChart);
     }
 
 }
