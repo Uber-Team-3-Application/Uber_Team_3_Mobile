@@ -89,12 +89,12 @@ public class UserLoginActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(@NonNull Call<LoginResponseDTO> call, @NonNull Response<LoginResponseDTO> response) {
-                if(!response.isSuccessful()) return;
+                if(!response.isSuccessful()) {Log.d("Login Fail", "Response error");return;}
                 if(response.code() == 204){
                     Toast.makeText(UserLoginActivity.this, "Email not confirmed!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+                Log.d("TOKEN", response.body().getToken());
 
                 LoginResponseDTO loginResponse = response.body();
                 String userRole = "";
