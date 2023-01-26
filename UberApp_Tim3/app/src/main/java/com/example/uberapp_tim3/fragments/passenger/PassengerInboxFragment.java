@@ -71,11 +71,6 @@ public class PassengerInboxFragment  extends Fragment implements AdapterView.OnI
     @Override
     public void onResume() {
         super.onResume();
-        //requireActivity().setTitle(R.string.inbox);
-       // inboxItemsLayout.removeAllViews();
-        //editTextSearch.setText("");
-
-
     }
 
     @Override
@@ -176,9 +171,10 @@ public class PassengerInboxFragment  extends Fragment implements AdapterView.OnI
                     MessageBundleDTO messageBundleDTO = new MessageBundleDTO(senderId, receiverId, null, messageType);
                     Bundle args = new Bundle();
                     args.putParcelable("message", messageBundleDTO);
-                    ChatFragment chatFragment = new ChatFragment();
+                    PassengerChatFragment chatFragment = new PassengerChatFragment();
                     chatFragment.setArguments(args);
-                    FragmentTransition.to(chatFragment, requireActivity(), true);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, chatFragment).addToBackStack(null).commit();
+
                 }
 
                 @Override
@@ -369,7 +365,7 @@ public class PassengerInboxFragment  extends Fragment implements AdapterView.OnI
             MessageBundleDTO messageBundleDTO = new MessageBundleDTO(senderId, receiverId, message.getRideId(), messageType);
             Bundle args = new Bundle();
             args.putParcelable("message", messageBundleDTO);
-            ChatFragment chatFragment = new ChatFragment();
+            PassengerChatFragment chatFragment = new PassengerChatFragment();
             chatFragment.setArguments(args);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, chatFragment).addToBackStack(null).commit();
         });
