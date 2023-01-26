@@ -102,7 +102,7 @@
         android:id="@+id/lyAdditionalInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:gravity="center"
         android:orientation="horizontal">
@@ -111,21 +111,31 @@
             android:id="@+id/imgChild"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="10dp"
             android:src="@drawable/ic_baseline_child_care_24" />
 
         <ImageView
             android:id="@+id/imgPets"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginRight="20dp"
             android:src="@drawable/ic_baseline_pets_24" />
+
+        <Button
+            android:id="@+id/btnRemoveFromFavouriteRide"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Remove from favourites"
+            app:backgroundTint="#FF0000"
+            android:textSize="12sp"/>
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/lyOrderAgainRemoveFromFavourites"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -137,15 +147,19 @@
             android:text="Order Again"
             android:textColor="#FEEF7A"
             app:backgroundTint="#344338" />
-
         <Button
-            android:id="@+id/btnRemoveFromFavouriteRide"
+            android:id="@+id/dateTimeFuturePicker"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:text="Remove from favourites"
-            app:backgroundTint="#FF0000" />
+            android:layout_marginRight="20dp"
+            android:text="Set Ride Time"
+            android:textColor="#FEEF7A"
+            app:backgroundTint="#344338" />
+
+
 
     </LinearLayout>
+
 
 
 </LinearLayout>
