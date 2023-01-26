@@ -30,6 +30,7 @@ import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerAccountFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerCurrentRideFragment;
+import com.example.uberapp_tim3.fragments.passenger.PassengerFavouriteRoutesFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerInboxFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerReportFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerRideHistoryFragment;
@@ -137,28 +138,28 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerRideHistoryFragment()).addToBackStack(null).commit();
                 break;
             case R.id.nav_favorite:
-                //setTitle("Favourite Routes");
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerFavouriteRoutesFragment()).addToBackStack(null).commit();
-                setTitle("Current Ride");
-
-                Call<DriverRideDTO> call = ServiceUtils.rideService.getRide(1L);
-                //FragmentTransition.to(AccountSettingsFragment.newInstance(), this, true);
-                call.enqueue(new Callback<DriverRideDTO>() {
-                    @Override
-                    public void onResponse(Call<DriverRideDTO> call, Response<DriverRideDTO> response) {
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable("ride", response.body());
-                        PassengerCurrentRideFragment rideInfoFragment = new PassengerCurrentRideFragment();
-                        rideInfoFragment.setArguments(bundle);
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, rideInfoFragment).addToBackStack(null).commit();
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<DriverRideDTO> call, Throwable t) {
-
-                    }
-                });
+                setTitle("Favourite Routes");
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerFavouriteRoutesFragment()).addToBackStack(null).commit();
+//                setTitle("Current Ride");
+//
+//                Call<DriverRideDTO> call = ServiceUtils.rideService.getRide(1L);
+//                //FragmentTransition.to(AccountSettingsFragment.newInstance(), this, true);
+//                call.enqueue(new Callback<DriverRideDTO>() {
+//                    @Override
+//                    public void onResponse(Call<DriverRideDTO> call, Response<DriverRideDTO> response) {
+//                        Bundle bundle = new Bundle();
+//                        bundle.putParcelable("ride", response.body());
+//                        PassengerCurrentRideFragment rideInfoFragment = new PassengerCurrentRideFragment();
+//                        rideInfoFragment.setArguments(bundle);
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, rideInfoFragment).addToBackStack(null).commit();
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<DriverRideDTO> call, Throwable t) {
+//
+//                    }
+//                });
                 break;
             case R.id.nav_logout: {
                 this.finish();
