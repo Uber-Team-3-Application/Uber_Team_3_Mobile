@@ -33,9 +33,9 @@
                     android:id="@+id/btnFinishRideDriver"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Finish ride"
                     android:layout_marginLeft="130dp"
-                    android:layout_marginBottom="4dp"/>
+                    android:layout_marginBottom="4dp"
+                    android:text="Finish ride" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -132,19 +132,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/txtPanicReason"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center"
-                        android:paddingVertical="10dp"
-                        android:text="@string/drive_information"
-                        android:textColor="@color/uber_toolbar"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:layout_marginHorizontal="10dp"
+                        android:hint="Reason" />
 
                     <Button
                         android:id="@+id/btnDriverCurrentRidePanic"
@@ -157,6 +153,25 @@
                         android:text="@string/panic"
                         android:textSize="22sp"
                         android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:paddingVertical="10dp"
+                        android:text="@string/drive_information"
+                        android:textColor="@color/uber_toolbar"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
 
                 </LinearLayout>
 
@@ -297,31 +312,31 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/lyDriverCurrentRidePassengers"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:id="@+id/lyDriverCurrentRidePassengers"
-                        android:layout_marginTop="14dp">
+                        android:layout_marginTop="14dp"
+                        android:orientation="vertical">
 
 
                     </LinearLayout>
+
                     <LinearLayout
+                        android:id="@+id/lySendMessageToPassenger"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/lySendMessageToPassenger"
                         android:layout_marginTop="6dp"
                         android:orientation="vertical">
 
                     </LinearLayout>
+
                     <FrameLayout
+                        android:id="@+id/lySelectedPassengerProfile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/lySelectedPassengerProfile"
                         android:layout_marginTop="6dp">
 
                     </FrameLayout>
-
-
 
 
                 </LinearLayout>
