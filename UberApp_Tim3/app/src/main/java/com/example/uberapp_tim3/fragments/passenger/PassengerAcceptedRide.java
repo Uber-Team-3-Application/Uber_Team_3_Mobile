@@ -22,6 +22,7 @@ import com.example.uberapp_tim3.model.DTO.UserDTO;
 import com.example.uberapp_tim3.model.DTO.VehicleDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,12 +59,15 @@ public class PassengerAcceptedRide extends Fragment {
                     TextView txtEmailAddress = getView().findViewById(R.id.txtdriverEmail);
                     txtEmailAddress.setText(driver.getEmail());
 
-                    ImageView imgPassengerInfoAvatar = getActivity().findViewById(R.id.imgPassengerInfoAvatar);
-                    if(!driver.getProfilePicture().contains(",")){return;}
-                    String base64Image = driver.getProfilePicture().split(",")[1];
-                    byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
-                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                    imgPassengerInfoAvatar.setImageBitmap(decodedByte);
+                    if(driver.getProfilePicture().contains(",")) {
+
+                        String base64Image = driver.getProfilePicture().split(",")[1];
+                        byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+                        CircleImageView cv = getActivity().findViewById(R.id.imgAvatar);
+                        cv.setImageBitmap(decodedByte);
+                    }
                 }
 
                 @Override
