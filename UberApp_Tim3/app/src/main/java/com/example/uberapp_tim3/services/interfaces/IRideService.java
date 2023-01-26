@@ -42,4 +42,7 @@ public interface IRideService {
 
     @PUT(ServiceUtils.ride + "/{id}/cancel")
     Call<RideDTO> cancelRide(@Path("id") Long id, @Body ReasonDTO reasonDTO);
+
+    @PUT(ServiceUtils.ride + "/{id}/panic")
+    Call<RideDTO> panicRide(@Path("id") Long id, @Body ReasonDTO reasonDTO);
 }

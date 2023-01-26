@@ -372,7 +372,6 @@ public class DriverMainActivity extends AppCompatActivity {
     private void setNotification(RideDTO rideDTO) {
         String start = rideDTO.getLocations().get(0).getDeparture().getAddress();
         String end = rideDTO.getLocations().get(rideDTO.getLocations().size()-1).getDestination().getAddress();
-        Log.d("NOTIFIKACIJA", "POSTAVLJANJE");
         Intent intent = new Intent(this, NewRideNotificationActivity.class);
         intent.putExtra("ride",  rideDTO);
 

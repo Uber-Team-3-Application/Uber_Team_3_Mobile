@@ -37,5 +37,6 @@ public interface IDriverService {
     @POST(ServiceUtils.driver + "/{id}/activity")
     Call<String> changeActivity(@Path("id") Long id, @Body DriverActivityDTO driverActivityDTO);
 
+    
 
 }
