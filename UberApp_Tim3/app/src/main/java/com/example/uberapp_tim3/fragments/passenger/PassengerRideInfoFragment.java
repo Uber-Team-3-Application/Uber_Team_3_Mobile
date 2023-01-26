@@ -21,6 +21,7 @@ import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.DrawRouteFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverInfoProfile;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
+import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.tools.DrivesMockUp;
 
@@ -50,7 +51,7 @@ public class PassengerRideInfoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = this.getArguments();
-        DriverRideDTO rideDTO = null;
+        RideDTO rideDTO = null;
         if (bundle != null)
             rideDTO = bundle.getParcelable("ride");
         SetViews(rideDTO);
@@ -59,7 +60,7 @@ public class PassengerRideInfoFragment extends Fragment {
     }
 
     @SuppressLint("SetTextI18n")
-    private void SetViews(DriverRideDTO ride) {
+    private void SetViews(RideDTO ride) {
         RatingBar passengerRideInfoDriverRating = requireActivity().findViewById(R.id.passengerRideInfoDriverRating);
         passengerRideInfoDriverRating.setNumStars(4);
 

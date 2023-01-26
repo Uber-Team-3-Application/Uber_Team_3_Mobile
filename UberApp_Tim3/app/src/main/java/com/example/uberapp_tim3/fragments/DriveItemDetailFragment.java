@@ -221,13 +221,15 @@ public class DriveItemDetailFragment extends Fragment {
         txtEndStation.setText(rideDTO.getLocations()
                 .get(rideDTO.getLocations().size() - 1).getDestination().getAddress());
 
-        Date startTime = rideDTO.getStartTime();
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        String start = sdf.format(startTime);
-        txtStartDriving.setText(start);
-        Date endTime = rideDTO.getEndTime();
-        String end = sdf.format(endTime);
-        txtEndDriving.setText(end);
+        if(rideDTO.getEndTime() != null && rideDTO.getEndTime() != null) {
+            Date startTime = rideDTO.getStartTime();
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            String start = sdf.format(startTime);
+            txtStartDriving.setText(start);
+            Date endTime = rideDTO.getEndTime();
+            String end = sdf.format(endTime);
+            txtEndDriving.setText(end);
+        }
         double totalDistanceInKm = calculateDistance(rideDTO.getLocations().get(0).getDeparture(),
                                                     rideDTO.getLocations().get(rideDTO.getLocations().size() - 1).getDestination());
         String totalDistance = totalDistanceInKm + " KM";

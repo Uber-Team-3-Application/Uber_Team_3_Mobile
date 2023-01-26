@@ -4,8 +4,10 @@ import com.example.uberapp_tim3.model.DTO.CreateRideDTO;
 import com.example.uberapp_tim3.model.DTO.CreatedRideDTO;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.FavouriteRideDTO;
+import com.example.uberapp_tim3.model.DTO.ReasonDTO;
 import com.example.uberapp_tim3.model.DTO.ReportRequestDTO;
 import com.example.uberapp_tim3.model.DTO.ReportSumAverageDTO;
+import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.drives.Ride;
 import com.example.uberapp_tim3.services.ServiceUtils;
 
@@ -37,4 +39,7 @@ public interface IRideService {
     Call<ResponseBody> deleteFavouriteRide(@Path("id") Long id);
     @POST(ServiceUtils.ride + "/rides-report")
     Call<ReportSumAverageDTO> getReport(@Body ReportRequestDTO reportRequestDTO);
+
+    @PUT(ServiceUtils.ride + "/{id}/cancel")
+    Call<RideDTO> cancelRide(@Path("id") Long id, @Body ReasonDTO reasonDTO);
 }

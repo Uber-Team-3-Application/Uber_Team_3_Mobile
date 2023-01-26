@@ -90,6 +90,7 @@ public class DriverInboxFragment extends Fragment implements AdapterView.OnItemS
         spinnerChangeMessageType.setAdapter(adapter);
         spinnerChangeMessageType.setOnItemSelectedListener(this);
         rlSupportInbox = getActivity().findViewById(R.id.supportInbox);
+        messages = new ArrayList<>();
         setOnClickForSupportInbox();
         loadInbox();
         setSpinnerListener();

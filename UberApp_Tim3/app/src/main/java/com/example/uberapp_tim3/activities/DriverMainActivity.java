@@ -6,18 +6,14 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.app.RemoteInput;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
-import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -27,17 +23,13 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -45,8 +37,6 @@ import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.adapters.DrawerNavListAdapter;
-import com.example.uberapp_tim3.dialogs.RejectionDialog;
-import com.example.uberapp_tim3.fragments.AccountSettingsFragment;
 import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverAccountFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverCurrentRideFragment;
@@ -54,15 +44,19 @@ import com.example.uberapp_tim3.fragments.driver.DriverInboxFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverRideHistoryFragment;
 import com.example.uberapp_tim3.model.DTO.DriverActivityDTO;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
+import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.DTO.UserDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.NavItem;
 import com.example.uberapp_tim3.services.DriverMessagesService;
 import com.example.uberapp_tim3.tools.FragmentTransition;
+import com.example.uberapp_tim3.tools.RideSocketConfiguration;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.disposables.Disposable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -72,6 +66,7 @@ public class DriverMainActivity extends AppCompatActivity {
 
     private final static String DRIVER_CHANEL = "Driver channel";
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+
     private ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
     private DrawerLayout mDrawerLayout;
     private RelativeLayout mDrawerPane;
@@ -85,6 +80,9 @@ public class DriverMainActivity extends AppCompatActivity {
     private AlarmManager manager;
     private SharedPreferences sharedPreferences;
     static DriverMainActivity driverMainActivity;
+
+    public static RideSocketConfiguration rideSocketConfiguration;
+
 
 
     public static DriverMainActivity getInstance(){
@@ -150,7 +148,33 @@ public class DriverMainActivity extends AppCompatActivity {
 
         setUpService();
         consultPreferences();
+        initializeSockets();
 
+    }
+
+    
+    @SuppressLint("CheckResult")
+    private void initializeSockets() {
+
+        long driverId = this.sharedPreferences.getLong("pref_id", 0);
+        Log.d("Driver id", String.valueOf(driverId));
+        rideSocketConfiguration = new RideSocketConfiguration();
+        rideSocketConfiguration.connect();
+
+        rideSocketConfiguration.stompClient
+                .topic("/topic/driver/ride/" + driverId)
+                .subscribe(message -> {
+
+                    RideDTO ride = new Gson().fromJson(message.getPayload(), RideDTO.class);
+                    if(ride.getStatus().equalsIgnoreCase("pending")){
+                        setNotification(ride);
+                    }
+
+                },
+                        throwable -> {Log.d("SOCKET ERROR",
+                                throwable.getMessage());
+                }
+                );
     }
 
     private void changeActivity(Long id, boolean isActive) {
@@ -272,31 +296,13 @@ public class DriverMainActivity extends AppCompatActivity {
             FragmentTransition.to(MapFragment.newInstance(), this, true);
         } else if (position == 3)
 //            FragmentTransition.to(AccountSettingsFragment.newInstance(), this, true);
-            callNewRide();
+            //callNewRide();
 
         mDrawerList.setItemChecked(position, true);
         if (position != 5) {
             setTitle(mNavItems.get(position).getmTitle());
         }
         mDrawerLayout.closeDrawer(mDrawerPane);
-    }
-
-    /**
-     * Metoda napravljena radi improvizacije porucivanja voznje  --- POSLE JE IZBRISATI*/
-    private void callNewRide() {
-        Call<DriverRideDTO> call = ServiceUtils.rideService.getRide(1L);
-
-        call.enqueue(new Callback<DriverRideDTO>() {
-            @Override
-            public void onResponse(@NonNull Call<DriverRideDTO> call, @NonNull Response<DriverRideDTO> response) {
-                setNotification(response.body());
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<DriverRideDTO> call, @NonNull Throwable t) {
-
-            }
-        });
     }
 
 
@@ -363,10 +369,10 @@ public class DriverMainActivity extends AppCompatActivity {
 
 
 
-    private void setNotification(DriverRideDTO rideDTO) {
+    private void setNotification(RideDTO rideDTO) {
         String start = rideDTO.getLocations().get(0).getDeparture().getAddress();
         String end = rideDTO.getLocations().get(rideDTO.getLocations().size()-1).getDestination().getAddress();
-
+        Log.d("NOTIFIKACIJA", "POSTAVLJANJE");
         Intent intent = new Intent(this, NewRideNotificationActivity.class);
         intent.putExtra("ride",  rideDTO);
 

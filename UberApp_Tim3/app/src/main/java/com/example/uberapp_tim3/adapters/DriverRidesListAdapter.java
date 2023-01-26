@@ -89,10 +89,12 @@ public class DriverRidesListAdapter extends BaseAdapter {
         name.setText(fromTo);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-        Date startTime = drive.getStartTime();
-        Date endTime = drive.getEndTime();
-        String duration = sdf.format(startTime) + " - " + sdf.format(endTime);
-        description.setText(duration);
+        if(drive.getStartTime() != null && drive.getEndTime() != null) {
+            Date startTime = drive.getStartTime();
+            Date endTime = drive.getEndTime();
+            String duration = sdf.format(startTime) + " - " + sdf.format(endTime);
+            description.setText(duration);
+        }
         return  vi;
     }
 }

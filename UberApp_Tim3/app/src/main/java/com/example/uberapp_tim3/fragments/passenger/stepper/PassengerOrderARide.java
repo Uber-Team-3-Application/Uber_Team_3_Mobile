@@ -22,7 +22,6 @@ public class PassengerOrderARide extends Fragment implements StepperFormListener
 
     private Step1 step1;
     private Step2 step2;
-    private Step3 step3;
     private Step4 step4;
 
     private VerticalStepperFormView verticalStepperForm;
@@ -32,11 +31,10 @@ public class PassengerOrderARide extends Fragment implements StepperFormListener
         super.onViewCreated(view, savedInstanceState);
         step1 = new Step1("Departure and destination");
         step2 = new Step2("Vehicle type");
-        step3 = new Step3("Passengers");
         step4 = new Step4("Additional Info");
         verticalStepperForm = getView().findViewById(R.id.stepper_form);
         verticalStepperForm
-                .setup(this, step1, step2, step3, step4)
+                .setup(this, step1, step2, step4)
                 .init();
 
     }
@@ -49,8 +47,6 @@ public class PassengerOrderARide extends Fragment implements StepperFormListener
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
     }
 
     @Override
@@ -61,7 +57,6 @@ public class PassengerOrderARide extends Fragment implements StepperFormListener
         bundle.putString("departure", step1.getDeparture());
         bundle.putString("destination", step1.getDestination());
         bundle.putString("dateTme", step4.getDateTime());
-        bundle.putString("passengers", step3.getStepData());
         bundle.putBoolean("babyTransport", step4.isBabyTransport());
         bundle.putBoolean("petTransport", step4.isPetTransport());
         bundle.putString("vehicleType", step2.getStepData());

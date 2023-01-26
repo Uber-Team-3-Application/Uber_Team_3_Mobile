@@ -22,6 +22,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.uberapp_tim3.BuildConfig;
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
+import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.DTO.RouteDTO;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -54,7 +55,7 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
     private final String departureAddress;
     private final String destinationAddress;
 
-    public DrawRouteFragment(DriverRideDTO drive) {
+    public DrawRouteFragment(RideDTO drive) {
         RouteDTO start = drive.getLocations().get(0);
         RouteDTO end = drive.getLocations().get(drive.getLocations().size()-1);
         this.departure = new LatLng(start.getDeparture().getLatitude(), start.getDeparture().getLongitude());
