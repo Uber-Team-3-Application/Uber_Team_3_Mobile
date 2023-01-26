@@ -96,14 +96,14 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
         rideSocketConfiguration = new RideSocketConfiguration();
         rideSocketConfiguration.connect();
         rideSocketConfiguration.stompClient
-                .topic("/topic/passenger/ride")
+                .topic("/topic/passenger/ride/" + this.sharedPreferences.getLong("pref_id", 0))
                 .subscribe(message ->{
                     RideDTO ride  = new Gson().fromJson(message.getPayload(), RideDTO.class);
 
                     if(ride.getStatus().equalsIgnoreCase("accepted")){
 
                     }else if(ride.getStatus().equalsIgnoreCase("rejected")){
-                        
+
                     }
                 });
 

@@ -44,15 +44,19 @@ import com.example.uberapp_tim3.fragments.driver.DriverInboxFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverRideHistoryFragment;
 import com.example.uberapp_tim3.model.DTO.DriverActivityDTO;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
+import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.DTO.UserDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.NavItem;
 import com.example.uberapp_tim3.services.DriverMessagesService;
 import com.example.uberapp_tim3.tools.FragmentTransition;
+import com.example.uberapp_tim3.tools.RideSocketConfiguration;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.disposables.Disposable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -76,6 +80,9 @@ public class DriverMainActivity extends AppCompatActivity {
     private AlarmManager manager;
     private SharedPreferences sharedPreferences;
     static DriverMainActivity driverMainActivity;
+
+    public static RideSocketConfiguration rideSocketConfiguration;
+
 
 
     public static DriverMainActivity getInstance(){
@@ -145,7 +152,28 @@ public class DriverMainActivity extends AppCompatActivity {
 
     }
 
+    
+    @SuppressLint("CheckResult")
     private void initializeSockets() {
+
+        long driverId = this.sharedPreferences.getLong("pref_id", 0);
+        Log.d("Driver id", String.valueOf(driverId));
+        rideSocketConfiguration = new RideSocketConfiguration();
+        rideSocketConfiguration.connect();
+        if(rideSocketConfiguration.stompClient.isConnected())
+            Log.d("KONEKTOVAN", "DRIVER");
+        else
+            Log.d("NIJE KONEKTOVAN", "DRIVER");
+        rideSocketConfiguration.stompClient
+                .topic("/topic/driver/ride/" + driverId)
+                .subscribe(message -> {
+
+                    RideDTO ride = new Gson().fromJson(message.getPayload(), RideDTO.class);
+                },
+                        throwable -> {Log.d("SOCKET ERROR",
+                                throwable.getMessage());
+                }
+                );
     }
 
     private void changeActivity(Long id, boolean isActive) {
