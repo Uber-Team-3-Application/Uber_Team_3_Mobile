@@ -18,9 +18,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.fragments.passenger.stepper.ConfirmRideFragment;
 import com.example.uberapp_tim3.model.DTO.FavouriteRideDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
 
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -133,6 +135,8 @@ public class PassengerFavouriteRoutesFragment extends Fragment {
                         Toast.makeText(getActivity(), "Something went wrong!", Toast.LENGTH_SHORT).show();
                         return;
                     }
+                    Toast.makeText(getActivity(), "Successfully deleted favorite route", Toast.LENGTH_SHORT).show();
+
                     favouriteRoutesLayout.removeAllViews();
                     loadFavouriteRoutes();
 
@@ -149,7 +153,18 @@ public class PassengerFavouriteRoutesFragment extends Fragment {
     private void setBtnOrderAgainClickListener(Button btnOrderAgain, FavouriteRideDTO ride) {
 
         btnOrderAgain.setOnClickListener(view -> {
-            Toast.makeText(getActivity(), "Cant order rn, not implemented dude!", Toast.LENGTH_SHORT).show();
+            // form in an attempt to save or send the data.
+            Bundle bundle = new Bundle();
+            bundle.putString("departure", ride.getLocations().get(0).getDeparture().getAddress());
+            bundle.putString("destination", ride.getLocations().get(0).getDestination().getAddress());
+            bundle.putString("dateTme", (new Date()).toString());
+            bundle.putBoolean("babyTransport", ride.isBabyTransport());
+            bundle.putBoolean("petTransport", ride.isPetTransport());
+            bundle.putString("vehicleType", ride.getVehicleType());
+            ConfirmRideFragment fragment = new ConfirmRideFragment();
+            fragment.setArguments(bundle);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack(null).commit();
+
         });
     }
 
