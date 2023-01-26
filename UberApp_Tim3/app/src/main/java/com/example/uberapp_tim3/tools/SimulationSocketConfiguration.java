@@ -11,7 +11,7 @@ public class SimulationSocketConfiguration {
     public void connect(){
         String newAddress = BuildConfig.LOCALHOST.substring(0, BuildConfig.LOCALHOST.length() - 4);
         stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP,
-                newAddress+"vehicle-simulation");
+                newAddress+"vehicle-simulation/websocket");
         stompClient.connect();
     }
     public void disconnect(){

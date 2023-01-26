@@ -127,30 +127,7 @@ public class ConfirmRideFragment extends Fragment {
 
     private CreateRideDTO getCreatedRide() throws IOException {
         Set<PassengerEmailDTO> users = new HashSet<>();
-        if(passengers.contains(",")) {
-            passengers += ",";
-        }
-        passengers += preferences.getString("pref_email", "0");
 
-        String[] passengersEmails = passengers.split(",");
-
-        for (String email : passengersEmails) {
-            Call<UserDTO> call = ServiceUtils.userService.findByEmail(email);
-            call.enqueue(new Callback<UserDTO>() {
-                @Override
-                public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
-                    assert  response != null;
-                    UserDTO user = response.body();
-                    users.add(new PassengerEmailDTO(user.getId(), user.getEmail()));
-                }
-
-                @Override
-                public void onFailure(Call<UserDTO> call, Throwable t) {
-
-                }
-            });
-
-        }
         RouteDTO routeDTO = new RouteDTO(getLocation(departure), getLocation(destination));
         LinkedHashSet<RouteDTO> locations = new LinkedHashSet<>();
         locations.add(routeDTO);

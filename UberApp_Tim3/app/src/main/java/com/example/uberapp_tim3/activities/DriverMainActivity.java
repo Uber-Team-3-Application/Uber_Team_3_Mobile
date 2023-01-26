@@ -160,15 +160,13 @@ public class DriverMainActivity extends AppCompatActivity {
         Log.d("Driver id", String.valueOf(driverId));
         rideSocketConfiguration = new RideSocketConfiguration();
         rideSocketConfiguration.connect();
-        if(rideSocketConfiguration.stompClient.isConnected())
-            Log.d("KONEKTOVAN", "DRIVER");
-        else
-            Log.d("NIJE KONEKTOVAN", "DRIVER");
+
         rideSocketConfiguration.stompClient
                 .topic("/topic/driver/ride/" + driverId)
                 .subscribe(message -> {
 
                     RideDTO ride = new Gson().fromJson(message.getPayload(), RideDTO.class);
+
                 },
                         throwable -> {Log.d("SOCKET ERROR",
                                 throwable.getMessage());

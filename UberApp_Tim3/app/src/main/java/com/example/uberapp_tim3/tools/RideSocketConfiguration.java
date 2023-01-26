@@ -19,8 +19,8 @@ public class RideSocketConfiguration {
     public void connect(){
         String newAddress = BuildConfig.LOCALHOST.substring(0, BuildConfig.LOCALHOST.length() - 4);
         stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP,
-                newAddress+"socket");
-        Log.d("SOCKET ADRESA", newAddress+"socket");
+                newAddress+"socket/websocket");
+        Log.d("SOCKET ADRESA", newAddress+"socket/websocket");
         stompClient.lifecycle()
                         .subscribeOn(Schedulers.io())
                         .observeOn(Schedulers.computation())
