@@ -6,18 +6,14 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.app.RemoteInput;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
-import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -27,17 +23,13 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -45,8 +37,6 @@ import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.adapters.DrawerNavListAdapter;
-import com.example.uberapp_tim3.dialogs.RejectionDialog;
-import com.example.uberapp_tim3.fragments.AccountSettingsFragment;
 import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverAccountFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverCurrentRideFragment;
@@ -59,7 +49,6 @@ import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.NavItem;
 import com.example.uberapp_tim3.services.DriverMessagesService;
 import com.example.uberapp_tim3.tools.FragmentTransition;
-import com.example.uberapp_tim3.tools.WebSocketConfiguration;
 
 import java.util.ArrayList;
 
@@ -73,8 +62,6 @@ public class DriverMainActivity extends AppCompatActivity {
 
     private final static String DRIVER_CHANEL = "Driver channel";
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-    public static WebSocketConfiguration socketsConfiguration = new WebSocketConfiguration("socket");
-    public static WebSocketConfiguration simulationConfiguration = new WebSocketConfiguration("vehicle-simulation");
 
     private ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
     private DrawerLayout mDrawerLayout;
@@ -154,7 +141,11 @@ public class DriverMainActivity extends AppCompatActivity {
 
         setUpService();
         consultPreferences();
+        initializeSockets();
 
+    }
+
+    private void initializeSockets() {
     }
 
     private void changeActivity(Long id, boolean isActive) {

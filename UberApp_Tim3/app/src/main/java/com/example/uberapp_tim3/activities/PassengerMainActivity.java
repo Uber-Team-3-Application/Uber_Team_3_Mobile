@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -27,21 +28,22 @@ import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.MapFragment;
-import com.example.uberapp_tim3.fragments.driver.DriverCurrentRideFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerAccountFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerCurrentRideFragment;
-import com.example.uberapp_tim3.fragments.passenger.PassengerFavouriteRoutesFragment;
-import com.example.uberapp_tim3.fragments.passenger.PassengerHomeFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerInboxFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerReportFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerRideHistoryFragment;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.PassengerDTO;
+import com.example.uberapp_tim3.model.DTO.RideDTO;
+import com.example.uberapp_tim3.model.drives.Ride;
 import com.example.uberapp_tim3.services.PassengerMessagesService;
 import com.example.uberapp_tim3.services.ServiceUtils;
-import com.example.uberapp_tim3.tools.FragmentTransition;
-import com.example.uberapp_tim3.tools.WebSocketConfiguration;
+import com.example.uberapp_tim3.tools.RideSocketConfiguration;
+import com.example.uberapp_tim3.tools.SimulationSocketConfiguration;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -53,8 +55,8 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
     private final static String PASSENGER_CHANEL = "Passenger channel";
     private DrawerLayout drawer;
     public static String SYNC_DATA = "SYNC_DATA";
-    public static WebSocketConfiguration socketsConfiguration = new WebSocketConfiguration("socket");
-    public static WebSocketConfiguration simulationConfiguration = new WebSocketConfiguration("vehicle-simulation");
+    public static RideSocketConfiguration rideSocketConfiguration;
+    public static SimulationSocketConfiguration simulationSocketConfiguration;
     //Sync stuff
     private PendingIntent pendingIntent;
     private AlarmManager manager;
@@ -83,11 +85,32 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
         sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         this.getPassenger(sharedPreferences.getLong("pref_id", 0L));
 
+        
         createNotificationChannel();
         setUpService();
+        initializeSockets();
     }
 
+    @SuppressLint("CheckResult")
+    private void initializeSockets() {
+        rideSocketConfiguration = new RideSocketConfiguration();
+        rideSocketConfiguration.connect();
+        rideSocketConfiguration.stompClient
+                .topic("/topic/passenger/ride")
+                .subscribe(message ->{
+                    RideDTO ride  = new Gson().fromJson(message.getPayload(), RideDTO.class);
 
+                    if(ride.getStatus().equalsIgnoreCase("accepted")){
+
+                    }else if(ride.getStatus().equalsIgnoreCase("rejected")){
+                        
+                    }
+                });
+
+        simulationSocketConfiguration = new SimulationSocketConfiguration();
+        simulationSocketConfiguration.connect();
+
+    }
 
 
     @Override
