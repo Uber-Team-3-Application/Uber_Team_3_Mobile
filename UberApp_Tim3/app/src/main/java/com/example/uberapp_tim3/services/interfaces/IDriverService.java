@@ -6,6 +6,7 @@ import com.example.uberapp_tim3.model.DTO.DriverActivityDTO;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.Paginated;
 import com.example.uberapp_tim3.model.DTO.UserDTO;
+import com.example.uberapp_tim3.model.DTO.VehicleDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
 
 import java.time.LocalDate;
@@ -37,5 +38,7 @@ public interface IDriverService {
     @POST(ServiceUtils.driver + "/{id}/activity")
     Call<String> changeActivity(@Path("id") Long id, @Body DriverActivityDTO driverActivityDTO);
 
+    @GET(ServiceUtils.driver + "/{id}/vehicle")
+    Call<VehicleDTO> getVehicle(@Path("id") Long id);
 
 }
