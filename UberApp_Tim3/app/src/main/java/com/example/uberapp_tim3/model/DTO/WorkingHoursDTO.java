@@ -1,11 +1,12 @@
 package com.example.uberapp_tim3.model.DTO;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class WorkingHoursDTO {
     private Long id;
-    private Date start;
-    private Date end;
+    private LocalDateTime start;
+    private LocalDateTime end;
 
     public WorkingHoursDTO() {
     }
@@ -18,23 +19,23 @@ public class WorkingHoursDTO {
         this.id = id;
     }
 
-    public Date getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(LocalDateTime start) {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public LocalDateTime getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(LocalDateTime end) {
         this.end = end;
     }
 
-    public WorkingHoursDTO(Long id, Date start, Date end) {
+    public WorkingHoursDTO(Long id, LocalDateTime start, LocalDateTime end) {
         this.id = id;
         this.start = start;
         this.end = end;

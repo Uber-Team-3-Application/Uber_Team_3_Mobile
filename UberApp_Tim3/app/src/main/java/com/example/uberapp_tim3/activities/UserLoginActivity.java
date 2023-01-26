@@ -2,11 +2,13 @@ package com.example.uberapp_tim3.activities;
 
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +26,12 @@ import com.example.uberapp_tim3.model.DTO.TokenDTO;
 import com.example.uberapp_tim3.model.DTO.WorkingHoursDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalAccessor;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -146,7 +154,10 @@ public class UserLoginActivity extends AppCompatActivity {
     }
 
     private void createWorkingHours(Long id) {
-        Call<WorkingHoursDTO> whCall = ServiceUtils.driverService.createWorkingHours(id, new CreateWorkingHoursDTO(new Date()));
+
+        Call<WorkingHoursDTO> whCall = ServiceUtils.driverService
+                .createWorkingHours(id,
+                        new CreateWorkingHoursDTO(null));
         whCall.enqueue(new Callback<WorkingHoursDTO>() {
             @Override
             public void onResponse(Call<WorkingHoursDTO> call, Response<WorkingHoursDTO> response) {
@@ -155,6 +166,7 @@ public class UserLoginActivity extends AppCompatActivity {
                     Log.d("Working Hours", "EXISTING");
                     return;
                 }
+                createWorkingHoursPreference(response);
                 Log.d("Working Hours", "CREATED");
             }
 
@@ -164,6 +176,13 @@ public class UserLoginActivity extends AppCompatActivity {
                 Log.d("Working Hours", "FAIL");
             }
         });
+    }
+
+    private void createWorkingHoursPreference(Response<WorkingHoursDTO> response) {
+        this.sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor spEditor = this.sharedPreferences.edit();
+        spEditor.putLong("pref_working_hour_id", response.body().getId());
+        spEditor.apply();
     }
 
     private void deleteTokenPreferences() {

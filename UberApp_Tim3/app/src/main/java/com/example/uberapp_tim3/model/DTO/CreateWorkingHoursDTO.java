@@ -1,22 +1,23 @@
 package com.example.uberapp_tim3.model.DTO;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class CreateWorkingHoursDTO {
-    private Date start;
+
+    private LocalDateTime start;
 
     public CreateWorkingHoursDTO() {
     }
 
-    public Date getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(LocalDateTime start) {
         this.start = start;
     }
 
-    public CreateWorkingHoursDTO(Date start) {
+    public CreateWorkingHoursDTO(LocalDateTime start) {
         this.start = start;
     }
 }
