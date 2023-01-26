@@ -27,7 +27,7 @@ android {
 
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
         manifestPlaceholders = [MAPS_API_KEY: "${properties.getProperty('MAPS_API_KEY')}"]
-
+        multiDexEnabled true
         applicationId "com.example.uberapp_tim3"
         minSdk 19
         targetSdk 32
