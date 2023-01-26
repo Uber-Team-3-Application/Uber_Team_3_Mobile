@@ -46,6 +46,7 @@ public class ConfirmRideFragment extends Fragment {
     String departure;
     String destination;
     String dateTime;
+    String scheduledTime;
     String passengers;
     String vehicleType;
     Boolean babyTransport;
@@ -67,6 +68,8 @@ public class ConfirmRideFragment extends Fragment {
             vehicleType = getArguments().getString("vehicleType");
             babyTransport = getArguments().getBoolean("babyTransport");
             petTransport = getArguments().getBoolean("petTransport");
+            scheduledTime = getArguments().getString("scheduledTime");
+
         }
 
     }
@@ -81,6 +84,7 @@ public class ConfirmRideFragment extends Fragment {
         vehicleType = getArguments().getString("vehicleType");
         babyTransport = getArguments().getBoolean("babyTransport");
         petTransport = getArguments().getBoolean("petTransport");
+        scheduledTime = getArguments().getString("scheduledTime");
         preferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
 
         TextView departureView = getView().findViewById(R.id.departure);
