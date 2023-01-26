@@ -40,6 +40,7 @@ import com.example.uberapp_tim3.model.DTO.PassengerDTO;
 import com.example.uberapp_tim3.services.PassengerMessagesService;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.FragmentTransition;
+import com.example.uberapp_tim3.tools.WebSocketConfiguration;
 import com.google.android.material.navigation.NavigationView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -52,12 +53,14 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
     private final static String PASSENGER_CHANEL = "Passenger channel";
     private DrawerLayout drawer;
     public static String SYNC_DATA = "SYNC_DATA";
-
+    public static WebSocketConfiguration socketsConfiguration = new WebSocketConfiguration("socket");
+    public static WebSocketConfiguration simulationConfiguration = new WebSocketConfiguration("vehicle-simulation");
     //Sync stuff
     private PendingIntent pendingIntent;
     private AlarmManager manager;
     private NavigationView navigationView;
     private SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

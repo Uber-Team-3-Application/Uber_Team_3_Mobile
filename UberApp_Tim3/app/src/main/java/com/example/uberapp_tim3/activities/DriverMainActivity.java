@@ -59,6 +59,7 @@ import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.NavItem;
 import com.example.uberapp_tim3.services.DriverMessagesService;
 import com.example.uberapp_tim3.tools.FragmentTransition;
+import com.example.uberapp_tim3.tools.WebSocketConfiguration;
 
 import java.util.ArrayList;
 
@@ -72,6 +73,9 @@ public class DriverMainActivity extends AppCompatActivity {
 
     private final static String DRIVER_CHANEL = "Driver channel";
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+    public static WebSocketConfiguration socketsConfiguration = new WebSocketConfiguration("socket");
+    public static WebSocketConfiguration simulationConfiguration = new WebSocketConfiguration("vehicle-simulation");
+
     private ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
     private DrawerLayout mDrawerLayout;
     private RelativeLayout mDrawerPane;

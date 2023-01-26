@@ -64,6 +64,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.preference:preference:1.2.0'
     implementation 'androidx.preference:preference-ktx:1.2.0'
+    implementation 'com.github.NaikSoftware:StompProtocolAndroid:1.6.4'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
