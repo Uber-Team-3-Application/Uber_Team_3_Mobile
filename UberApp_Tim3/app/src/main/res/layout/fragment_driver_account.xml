@@ -114,34 +114,11 @@
                 android:textStyle="bold|italic" />
 
 
-            <TextView
-                android:id="@+id/txtDrivLicense"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtDrivHomeAddress"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/driver_license_number"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/txtDriverLicense"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtDriverHomeAddress"
-                android:layout_alignStart="@+id/txtDrivLicense"
-                android:layout_marginStart="144dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/driver_license_number_real"
-                android:textSize="16sp"
-                android:textStyle="bold|italic" />
-
-
             <Button
                 android:id="@+id/btnEditPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txtDriverLicense"
+                android:layout_below="@id/txtDriverHomeAddress"
                 android:layout_toLeftOf="@+id/btnEditDriverInfo"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="10dp"
@@ -153,7 +130,7 @@
                 android:id="@+id/btnEditDriverInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txtDriverLicense"
+                android:layout_below="@+id/txtDriverHomeAddress"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
@@ -164,23 +141,100 @@
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/relLayoutVehicleAcc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/relLayoutDriverAcc"
+        android:background="@color/white"
+        app:cardCornerRadius="10dp">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="20dp"
+            >
+
+            <TextView
+                android:id="@+id/txtVehicleType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgAvatar"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Vehicle type:"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/vehicleType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgAvatar"
+                android:layout_alignStart="@+id/txtVehicleType"
+                android:layout_marginStart="144dp"
+                android:layout_marginTop="20dp"
+                android:text="Standardno"
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
+
+
+            <TextView
+                android:id="@+id/txtModel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtVehicleType"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="VEhicle model"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/model"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtVehicleType"
+                android:layout_alignStart="@+id/txtModel"
+                android:layout_marginStart="144dp"
+                android:layout_marginTop="20dp"
+                android:text="R8 Audi"
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:id="@+id/txtDrivLicense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtModel"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/driver_license_number"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtDriverLicense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtModel"
+                android:layout_alignStart="@+id/txtDrivLicense"
+                android:layout_marginStart="144dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/driver_license_number_real"
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/relLayoutDriverAcc"
+        android:layout_below="@+id/relLayoutVehicleAcc"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="20dp"
         android:orientation="vertical">
 
 
-        <Button
-            android:id="@+id/btnEditCarInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/edit_vehicle_information"
-
-            />
         <Button
             android:id="@+id/btnDriverStatistics"
             android:layout_width="match_parent"
