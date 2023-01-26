@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,12 +20,18 @@ import android.widget.Toast;
 
 import com.auth0.android.jwt.JWT;
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.model.DTO.ChangePasswordDTO;
 import com.example.uberapp_tim3.model.DTO.CreateWorkingHoursDTO;
 import com.example.uberapp_tim3.model.DTO.LoginDTO;
 import com.example.uberapp_tim3.model.DTO.LoginResponseDTO;
 import com.example.uberapp_tim3.model.DTO.TokenDTO;
+import com.example.uberapp_tim3.model.DTO.UserDTO;
 import com.example.uberapp_tim3.model.DTO.WorkingHoursDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -39,9 +46,10 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+@SuppressLint({"MissingInflatedId", "LocalSuppress"})
 public class UserLoginActivity extends AppCompatActivity {
 
+    private FirebaseAuth mAuth;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -50,6 +58,7 @@ public class UserLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_login);
         TextView tvRegister = findViewById(R.id.btnRegister);
         Button btnLogin = findViewById(R.id.btnLogin);
+        TextView forgottenPassword = findViewById(R.id.forgotten);
 
         tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +66,11 @@ public class UserLoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(UserLoginActivity.this, PassengerRegisterActivity.class);
                 startActivity(intent);
             }
+        });
+
+        forgottenPassword.setOnClickListener(view -> {
+            Intent intent = new Intent(UserLoginActivity.this, ForgottenPasswordActivity.class);
+            startActivity(intent);
         });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +82,7 @@ public class UserLoginActivity extends AppCompatActivity {
                 String etUser = ((EditText) findViewById(R.id.editTxtEmail)).getText().toString();
                 String etPw = ((EditText)findViewById(R.id.editTxtPassword)).getText().toString();
 
-                //login("markopreradovic@gmail.com","Marko123");
+                login("markopreradovic@gmail.com","Marko123");
                 login("mirko@gmail.com","Mirko123");
 
                 //login(etUser, etPw);
@@ -99,7 +113,11 @@ public class UserLoginActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(@NonNull Call<LoginResponseDTO> call, @NonNull Response<LoginResponseDTO> response) {
-                if(!response.isSuccessful()) {Log.d("Login Fail", "Response error");return;}
+                if(!response.isSuccessful()) {
+//                    if (!checkAnotherPassword(email, password))
+                        Log.d("Login Fail", "Response error");
+
+                }
                 if(response.code() == 204){
                     Toast.makeText(UserLoginActivity.this, "Email not confirmed!", Toast.LENGTH_SHORT).show();
                     return;
@@ -150,6 +168,19 @@ public class UserLoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private boolean checkAnotherPassword(String email, String password) {
+        final boolean[] retVal = {false};
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this,
+                task -> {
+                    if (task.isSuccessful()) {
+
+                    } else {
+                        retVal[0] = false;
+                    }
+                });
+        return retVal[0];
     }
 
     private void createWorkingHours(Long id) {

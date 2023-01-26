@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.tools.ReesenTools;
+import com.google.firebase.auth.ActionCodeSettings;
 
 import java.util.Timer;
 import java.util.TimerTask;
