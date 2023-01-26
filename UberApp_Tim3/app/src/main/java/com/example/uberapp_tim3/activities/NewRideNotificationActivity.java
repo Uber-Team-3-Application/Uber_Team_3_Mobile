@@ -20,6 +20,8 @@ import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.users.Driver;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 
+import java.util.Date;
+
 public class NewRideNotificationActivity extends AppCompatActivity {
 
 

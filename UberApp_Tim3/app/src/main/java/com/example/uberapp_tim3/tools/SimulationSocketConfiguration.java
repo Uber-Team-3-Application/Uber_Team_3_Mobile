@@ -6,7 +6,7 @@ import ua.naiksoftware.stomp.Stomp;
 import ua.naiksoftware.stomp.StompClient;
 
 public class SimulationSocketConfiguration {
-    public static StompClient stompClient;
+    public StompClient stompClient;
 
     public void connect(){
         String newAddress = BuildConfig.LOCALHOST.substring(0, BuildConfig.LOCALHOST.length() - 4);

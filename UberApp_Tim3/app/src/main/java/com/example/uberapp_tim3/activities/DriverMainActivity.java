@@ -44,8 +44,10 @@ import com.example.uberapp_tim3.fragments.driver.DriverInboxFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverRideHistoryFragment;
 import com.example.uberapp_tim3.model.DTO.DriverActivityDTO;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
+import com.example.uberapp_tim3.model.DTO.EndWorkingHoursDTO;
 import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.DTO.UserDTO;
+import com.example.uberapp_tim3.model.DTO.WorkingHoursDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.NavItem;
 import com.example.uberapp_tim3.services.DriverMessagesService;
@@ -294,15 +296,38 @@ public class DriverMainActivity extends AppCompatActivity {
             FragmentTransition.to(DriverInboxFragment.newInstance(), this, true);
         } else if (position == 4) {
             FragmentTransition.to(MapFragment.newInstance(), this, true);
-        } else if (position == 3)
-//            FragmentTransition.to(AccountSettingsFragment.newInstance(), this, true);
-            //callNewRide();
+        } else if (position == 5)
+        {
+            finishShift();
+            this.finish();
+        }
 
         mDrawerList.setItemChecked(position, true);
         if (position != 5) {
             setTitle(mNavItems.get(position).getmTitle());
         }
         mDrawerLayout.closeDrawer(mDrawerPane);
+    }
+
+    private void finishShift() {
+        Call<WorkingHoursDTO> call = ServiceUtils.driverService.changeWorkingHours(
+                this.sharedPreferences.getLong("pref_working_hour_id", 0), new EndWorkingHoursDTO(null));
+        call.enqueue(new Callback<WorkingHoursDTO>() {
+            @Override
+            public void onResponse(Call<WorkingHoursDTO> call, Response<WorkingHoursDTO> response) {
+                if(!response.isSuccessful()){
+                    Log.d("Update WH fail", "FAIL");
+                    return;
+                }
+                Log.d("FINISH SHIFT", "Successfully finished shift");
+
+            }
+
+            @Override
+            public void onFailure(Call<WorkingHoursDTO> call, Throwable t) {
+                Log.d("Update WH FATAL fail", "FAIL");
+            }
+        });
     }
 
 
@@ -372,7 +397,6 @@ public class DriverMainActivity extends AppCompatActivity {
     private void setNotification(RideDTO rideDTO) {
         String start = rideDTO.getLocations().get(0).getDeparture().getAddress();
         String end = rideDTO.getLocations().get(rideDTO.getLocations().size()-1).getDestination().getAddress();
-        Log.d("NOTIFIKACIJA", "POSTAVLJANJE");
         Intent intent = new Intent(this, NewRideNotificationActivity.class);
         intent.putExtra("ride",  rideDTO);
 
