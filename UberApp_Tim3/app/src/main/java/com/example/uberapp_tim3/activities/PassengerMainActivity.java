@@ -221,23 +221,23 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
 
                 PassengerDTO passenger = response.body();
 
-//                TextView tvName = findViewById(R.id.passengerNameNavigation);
-//                assert passenger != null;
-//                String fullName = passenger.getName() + " " + passenger.getSurname();
-//                tvName.setText(fullName);
-//
-//                TextView tvPhoneNumber = findViewById(R.id.passengerPhoneNavigation);
-//                tvPhoneNumber.setText(passenger.getTelephoneNumber());
-//
-//
-//                if(!passenger.getProfilePicture().contains(",")){return;}
-//
-//                String base64Image = passenger.getProfilePicture().split(",")[1];
-//                byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
-//                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-//
-//                CircleImageView cv = findViewById(R.id.passengerProfilePictureNavigation);
-//                cv.setImageBitmap(decodedByte);
+                TextView tvName = findViewById(R.id.passengerNameNavigation);
+                assert passenger != null;
+                String fullName = passenger.getName() + " " + passenger.getSurname();
+                tvName.setText(fullName);
+
+                TextView tvPhoneNumber = findViewById(R.id.passengerPhoneNavigation);
+                tvPhoneNumber.setText(passenger.getTelephoneNumber());
+
+
+                if(!passenger.getProfilePicture().contains(",")){return;}
+
+                String base64Image = passenger.getProfilePicture().split(",")[1];
+                byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+                CircleImageView cv = findViewById(R.id.passengerProfilePictureNavigation);
+                cv.setImageBitmap(decodedByte);
 
             }
 

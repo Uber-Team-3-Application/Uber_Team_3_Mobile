@@ -51,6 +51,7 @@ public class DriverAccountFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        setOnClickListeners();
         sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         Long driverId= sharedPreferences.getLong("pref_id", 0);
         Call<UserDTO> call = ServiceUtils.driverService.getDriver(driverId);
@@ -71,7 +72,7 @@ public class DriverAccountFragment extends Fragment implements View.OnClickListe
 
                 TextView txtEmailAddress = getView().findViewById(R.id.txtdriverEmail);
                 txtEmailAddress.setText(driver.getEmail());
-                
+
                 if(driver.getProfilePicture().contains(",")){
 
                 String base64Image = driver.getProfilePicture().split(",")[1];

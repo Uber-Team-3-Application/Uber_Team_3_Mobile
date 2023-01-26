@@ -7,6 +7,7 @@ import com.example.uberapp_tim3.model.DTO.DriverActivityDTO;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.EndWorkingHoursDTO;
 import com.example.uberapp_tim3.model.DTO.Paginated;
+import com.example.uberapp_tim3.model.DTO.UpdateDriverDTO;
 import com.example.uberapp_tim3.model.DTO.UserDTO;
 import com.example.uberapp_tim3.model.DTO.VehicleDTO;
 import com.example.uberapp_tim3.model.DTO.WorkingHoursDTO;
@@ -52,4 +53,7 @@ public interface IDriverService {
     @PUT(ServiceUtils.driver + "/working-hour/{working-hour-id}")
     Call<WorkingHoursDTO> changeWorkingHours(@Path("working-hour-id") Long id,
                                              @Body EndWorkingHoursDTO workingHoursDTO);
+
+    @PUT(ServiceUtils.driver + "/{id}")
+    Call<UpdateDriverDTO> updateDriver(@Path("id") Long id, @Body UpdateDriverDTO driver);
 }
