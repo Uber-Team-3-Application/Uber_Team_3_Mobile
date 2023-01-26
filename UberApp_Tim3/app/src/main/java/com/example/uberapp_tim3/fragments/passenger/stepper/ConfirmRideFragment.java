@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.fragments.passenger.PassengerWaitingScreen;
 import com.example.uberapp_tim3.model.DTO.CreateRideDTO;
 import com.example.uberapp_tim3.model.DTO.CreatedRideDTO;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
@@ -88,8 +89,6 @@ public class ConfirmRideFragment extends Fragment {
         destinationView.setText(destination);
         TextView dateTimeView = getView().findViewById(R.id.chosenTime);
         dateTimeView.setText(dateTime);
-        TextView passengersView = getView().findViewById(R.id.chosenPassengers);
-        passengersView.setText(passengers);
         TextView vehicleTypeView = getView().findViewById(R.id.vehicleType);
         vehicleTypeView.setText(vehicleType);
         TextView babyTransportView = getView().findViewById(R.id.babyTransport);
@@ -110,7 +109,7 @@ public class ConfirmRideFragment extends Fragment {
                         @Override
                         public void onResponse(Call<CreatedRideDTO> call, Response<CreatedRideDTO> response) {
                             if(!response.isSuccessful()) return;
-                            Toast.makeText(getActivity(), "Successfully created ride", Toast.LENGTH_SHORT).show();
+                            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerWaitingScreen()).addToBackStack(null).commit();
                         }
 
                         @Override
@@ -140,7 +139,7 @@ public class ConfirmRideFragment extends Fragment {
             if(dateTime != null) scheduledTime = LocalDateTime.parse(dateTime, formatter);
             else scheduledTime = LocalDateTime.now();
         }
-        return new CreateRideDTO(users, locations, vehicleType, babyTransport, petTransport, scheduledTime);
+        return new CreateRideDTO(users, locations, vehicleType, babyTransport, petTransport, null);
     }
 
     private LocationDTO getLocation(String address) throws IOException {

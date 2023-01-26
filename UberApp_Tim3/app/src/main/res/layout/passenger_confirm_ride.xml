@@ -9,7 +9,7 @@
     <FrameLayout
         android:id="@+id/currentRideContainerDriver"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="300dp"
         android:background="@color/uber_toolbar" />
 
     <ScrollView
@@ -138,41 +138,7 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
-                    android:text="Chosen passengers"
-                    android:textSize="20sp"
-                    android:textStyle="bold|italic" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="6dp"
-                        android:text="Passengers: "
-                        android:textColor="@color/uber_toolbar"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/chosenPassengers"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="6dp"
-                        android:text="none"
-                        android:textColor="@color/uber_toolbar"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
