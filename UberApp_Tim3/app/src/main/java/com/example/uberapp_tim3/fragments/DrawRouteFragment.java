@@ -118,7 +118,8 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup vg, Bundle data) {
         setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.map_layout, vg, false);
-
+        simulationSocketConfiguration = new SimulationSocketConfiguration();
+        simulationSocketConfiguration.connect();
         return view;
     }
 
@@ -265,12 +266,9 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
 
     @SuppressLint("CheckResult")
     void startSimulation(){
-        simulationSocketConfiguration = new SimulationSocketConfiguration();
-        simulationSocketConfiguration.connect();
+
 
         Bitmap customMarker = BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_directions_car_24);
-        mMap.addMarker(new MarkerOptions().position(departure).title("Your ride")
-                .icon(BitmapDescriptorFactory.fromBitmap(customMarker)));
 
         simulationSocketConfiguration.stompClient
                 .topic("/topic/map-updates")
