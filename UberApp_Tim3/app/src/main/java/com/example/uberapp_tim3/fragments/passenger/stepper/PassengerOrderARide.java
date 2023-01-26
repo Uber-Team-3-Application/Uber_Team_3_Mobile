@@ -46,8 +46,6 @@ public class PassengerOrderARide extends Fragment implements StepperFormListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-
 
     }
 

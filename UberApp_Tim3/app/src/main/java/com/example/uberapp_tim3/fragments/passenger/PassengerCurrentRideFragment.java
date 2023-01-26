@@ -26,6 +26,7 @@ import com.example.uberapp_tim3.fragments.driver.DriverEditInfoFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverInfoProfile;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.MessageBundleDTO;
+import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.DTO.RideUserDTO;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 
@@ -66,7 +67,7 @@ public class PassengerCurrentRideFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = this.getArguments();
-        DriverRideDTO rideDTO = null;
+        RideDTO rideDTO = null;
         sharedPreferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         imgChatWithDriver = getActivity().findViewById(R.id.imgChatWithDriver);
 
@@ -132,7 +133,7 @@ public class PassengerCurrentRideFragment extends Fragment {
 
     }
 
-    private void setViews(DriverRideDTO rideDTO) {
+    private void setViews(RideDTO rideDTO) {
         assert rideDTO != null;
         requireActivity().getSupportFragmentManager().beginTransaction().replace(
                 R.id.currentRideContainerDriver, new DrawRouteFragment(rideDTO)
@@ -159,7 +160,7 @@ public class PassengerCurrentRideFragment extends Fragment {
         setInbox(rideDTO);
     }
 
-    private void setInbox(DriverRideDTO rideDTO) {
+    private void setInbox(RideDTO rideDTO) {
         imgChatWithDriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

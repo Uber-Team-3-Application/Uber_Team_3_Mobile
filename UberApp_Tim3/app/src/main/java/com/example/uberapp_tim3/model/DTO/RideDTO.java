@@ -1,9 +1,14 @@
 package com.example.uberapp_tim3.model.DTO;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class RideDTO {
+public class RideDTO implements Parcelable {
     private Long id;
     private List<RouteDTO> locations;
     private DeductionDTO rejection;
@@ -38,6 +43,23 @@ public class RideDTO {
         this.status = status;
         this.scheduledTime = scheduledTime;
     }
+
+    public static final Creator<RideDTO> CREATOR = new Creator<RideDTO>() {
+        @Override
+        public RideDTO createFromParcel(Parcel in) {
+            try {
+                return new RideDTO(in);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        public RideDTO[] newArray(int size) {
+            return new RideDTO[size];
+        }
+    };
 
     public Long getId() {
         return id;
@@ -149,5 +171,85 @@ public class RideDTO {
 
     public void setScheduledTime(Date scheduledTime) {
         this.scheduledTime = scheduledTime;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    protected RideDTO(Parcel in) throws ParseException {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readLong();
+        }
+        locations = in.createTypedArrayList(RouteDTO.CREATOR);
+        rejection = in.readParcelable(DeductionDTO.class.getClassLoader());
+        long dateValue = in.readLong();
+        if(dateValue != -1) {
+            startTime = new Date(dateValue);
+        } else {
+            startTime = null;
+        }
+        dateValue = in.readLong();
+        if(dateValue != -1) {
+            endTime = new Date(dateValue);
+        } else {
+            endTime = null;
+        }
+
+        totalCost = in.readDouble();
+        driver = in.readParcelable(RideUserDTO.class.getClassLoader());
+        passengers = in.createTypedArrayList(RideUserDTO.CREATOR);
+        estimatedTimeInMinutes = in.readDouble();
+        vehicleType = in.readString();
+        babyTransport = in.readByte() != 0;
+        petTransport = in.readByte() != 0;
+        status = in.readString();
+        dateValue = in.readLong();
+        if(dateValue != -1) {
+            scheduledTime = new Date(dateValue);
+        } else {
+            scheduledTime = null;
+        }
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        if (id == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeLong(id);
+        }
+
+        parcel.writeTypedList(locations);
+        parcel.writeParcelable(rejection, i);
+        if(startTime != null) {
+            parcel.writeLong(startTime.getTime());
+        } else {
+            parcel.writeLong(-1);
+        }
+        if(endTime != null) {
+            parcel.writeLong(endTime.getTime());
+        } else {
+            parcel.writeLong(-1);
+        }
+
+        parcel.writeDouble(totalCost);
+        parcel.writeParcelable(driver, i);
+        parcel.writeTypedList(passengers);
+        parcel.writeDouble(estimatedTimeInMinutes);
+        parcel.writeString(vehicleType);
+        parcel.writeByte((byte) (babyTransport ? 1 : 0));
+        parcel.writeByte((byte) (petTransport ? 1 : 0));
+        parcel.writeString(status);
+        if(scheduledTime != null) {
+            parcel.writeLong(scheduledTime.getTime());
+        } else {
+            parcel.writeLong(-1);
+        }
+
     }
 }

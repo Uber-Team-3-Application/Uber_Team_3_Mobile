@@ -166,6 +166,9 @@ public class DriverMainActivity extends AppCompatActivity {
                 .subscribe(message -> {
 
                     RideDTO ride = new Gson().fromJson(message.getPayload(), RideDTO.class);
+                    if(ride.getStatus().equalsIgnoreCase("pending")){
+                        setNotification(ride);
+                    }
 
                 },
                         throwable -> {Log.d("SOCKET ERROR",
@@ -293,31 +296,13 @@ public class DriverMainActivity extends AppCompatActivity {
             FragmentTransition.to(MapFragment.newInstance(), this, true);
         } else if (position == 3)
 //            FragmentTransition.to(AccountSettingsFragment.newInstance(), this, true);
-            callNewRide();
+            //callNewRide();
 
         mDrawerList.setItemChecked(position, true);
         if (position != 5) {
             setTitle(mNavItems.get(position).getmTitle());
         }
         mDrawerLayout.closeDrawer(mDrawerPane);
-    }
-
-    /**
-     * Metoda napravljena radi improvizacije porucivanja voznje  --- POSLE JE IZBRISATI*/
-    private void callNewRide() {
-        Call<DriverRideDTO> call = ServiceUtils.rideService.getRide(1L);
-
-        call.enqueue(new Callback<DriverRideDTO>() {
-            @Override
-            public void onResponse(@NonNull Call<DriverRideDTO> call, @NonNull Response<DriverRideDTO> response) {
-                setNotification(response.body());
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<DriverRideDTO> call, @NonNull Throwable t) {
-
-            }
-        });
     }
 
 
@@ -384,10 +369,10 @@ public class DriverMainActivity extends AppCompatActivity {
 
 
 
-    private void setNotification(DriverRideDTO rideDTO) {
+    private void setNotification(RideDTO rideDTO) {
         String start = rideDTO.getLocations().get(0).getDeparture().getAddress();
         String end = rideDTO.getLocations().get(rideDTO.getLocations().size()-1).getDestination().getAddress();
-
+        Log.d("NOTIFIKACIJA", "POSTAVLJANJE");
         Intent intent = new Intent(this, NewRideNotificationActivity.class);
         intent.putExtra("ride",  rideDTO);
 

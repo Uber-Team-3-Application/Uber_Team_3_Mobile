@@ -16,6 +16,7 @@ import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverAccountFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverCurrentRideFragment;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
+import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.users.Driver;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 
@@ -32,7 +33,7 @@ public class NewRideNotificationActivity extends AppCompatActivity {
         setContentView(R.layout.popup_driver);
 
 
-        DriverRideDTO ride = (DriverRideDTO) getIntent().getParcelableExtra("ride");
+        RideDTO ride = (RideDTO) getIntent().getParcelableExtra("ride");
         String start = ride.getLocations().get(0).getDeparture().getAddress();
         String end = ride.getLocations().get(ride.getLocations().size()-1).getDestination().getAddress();
         TextView startStation = (TextView) findViewById(R.id.txtStartStationPopup);
@@ -50,7 +51,7 @@ public class NewRideNotificationActivity extends AppCompatActivity {
     }
 
 
-    private void setListeners(Button accept, Button decline, DriverRideDTO ride) {
+    private void setListeners(Button accept, Button decline, RideDTO ride) {
         accept.setOnClickListener(view -> {
             Log.i("RRIDE", ride.toString());
             Bundle args = new Bundle();
@@ -64,7 +65,7 @@ public class NewRideNotificationActivity extends AppCompatActivity {
         });
 
         decline.setOnClickListener(view -> {
-            RejectionDialog dialog = new RejectionDialog(this, this);
+            RejectionDialog dialog = new RejectionDialog(this, this, ride);
             dialog.show();
         });
     }

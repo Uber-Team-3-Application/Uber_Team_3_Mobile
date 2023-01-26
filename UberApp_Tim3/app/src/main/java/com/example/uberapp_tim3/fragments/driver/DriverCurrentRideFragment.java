@@ -28,6 +28,7 @@ import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerInfoProfile;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.MessageBundleDTO;
+import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.DTO.RideUserDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.FragmentTransition;
@@ -50,7 +51,7 @@ public class DriverCurrentRideFragment extends Fragment {
     private Runnable runnable;
     private String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private int elapsedTime = 0;
-    DriverRideDTO rideDTO = null;
+    RideDTO rideDTO = null;
     private SharedPreferences preferences;
     public DriverCurrentRideFragment() {
         // Required empty public constructor
@@ -190,7 +191,7 @@ public class DriverCurrentRideFragment extends Fragment {
         tvSeconds = getActivity().findViewById(R.id.tv_second);
     }
 
-    private void setViews(DriverRideDTO rideDTO) {
+    private void setViews(RideDTO rideDTO) {
 
         assert rideDTO != null;
         requireActivity().getSupportFragmentManager().beginTransaction().replace(
@@ -207,7 +208,7 @@ public class DriverCurrentRideFragment extends Fragment {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Date today = new Date();
         tvStartTime.setText(sdf.format(today));
-        tvEndTIme.setText(sdf.format(new Date(today.getTime() + 1024)));
+        tvEndTIme.setText(sdf.format(rideDTO.getEndTime()));
         tvDeparture.setText(rideDTO.getLocations().get(0).getDeparture().getAddress());
         tvDestination.setText(rideDTO.getLocations().get(rideDTO.getLocations().size() - 1).getDestination().getAddress());
         String totalPassengers = Integer.toString(rideDTO.getPassengers().size());
@@ -220,7 +221,7 @@ public class DriverCurrentRideFragment extends Fragment {
 
     }
 
-    private void setPassengers(DriverRideDTO rideDTO) {
+    private void setPassengers(RideDTO rideDTO) {
         LinearLayout lyPassengers = getActivity().findViewById(R.id.lyDriverCurrentRidePassengers);
         LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         int order = 1;
