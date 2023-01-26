@@ -17,11 +17,14 @@ import android.widget.Toast;
 
 import com.auth0.android.jwt.JWT;
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.model.DTO.CreateWorkingHoursDTO;
 import com.example.uberapp_tim3.model.DTO.LoginDTO;
 import com.example.uberapp_tim3.model.DTO.LoginResponseDTO;
 import com.example.uberapp_tim3.model.DTO.TokenDTO;
+import com.example.uberapp_tim3.model.DTO.WorkingHoursDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -129,6 +132,7 @@ public class UserLoginActivity extends AppCompatActivity {
                     intent = new Intent(UserLoginActivity.this, DriverMainActivity.class);
                     startActivity(intent);
 
+                    createWorkingHours(id);
                 }
 
             }
@@ -139,6 +143,27 @@ public class UserLoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void createWorkingHours(Long id) {
+        Call<WorkingHoursDTO> whCall = ServiceUtils.driverService.createWorkingHours(id, new CreateWorkingHoursDTO(new Date()));
+        whCall.enqueue(new Callback<WorkingHoursDTO>() {
+            @Override
+            public void onResponse(Call<WorkingHoursDTO> call, Response<WorkingHoursDTO> response) {
+                if(!response.isSuccessful()) {
+
+                    Log.d("Working Hours", "EXISTING");
+                    return;
+                }
+                Log.d("Working Hours", "CREATED");
+            }
+
+            @Override
+            public void onFailure(Call<WorkingHoursDTO> call, Throwable t) {
+
+                Log.d("Working Hours", "FAIL");
+            }
+        });
     }
 
     private void deleteTokenPreferences() {
