@@ -155,9 +155,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
     private void createWorkingHours(Long id) {
 
-        Call<WorkingHoursDTO> whCall = ServiceUtils.driverService
-                .createWorkingHours(id,
-                        new CreateWorkingHoursDTO(null));
+        Call<WorkingHoursDTO> whCall = ServiceUtils.driverService.createWorkingHours(id, new CreateWorkingHoursDTO(null));
         whCall.enqueue(new Callback<WorkingHoursDTO>() {
             @Override
             public void onResponse(Call<WorkingHoursDTO> call, Response<WorkingHoursDTO> response) {

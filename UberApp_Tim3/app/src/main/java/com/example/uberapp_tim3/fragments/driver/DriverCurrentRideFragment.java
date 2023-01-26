@@ -111,7 +111,7 @@ public class DriverCurrentRideFragment extends Fragment {
                         return;
                     }
                     assert response.body() != null;
-                    FragmentTransition.to(MapFragment.newInstance(), getActivity(), true);
+                    Toast.makeText(getActivity(), "Support contacted, stay safe.", Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -198,7 +198,7 @@ public class DriverCurrentRideFragment extends Fragment {
 
         assert rideDTO != null;
         requireActivity().getSupportFragmentManager().beginTransaction().replace(
-                R.id.currentRideContainerDriver, new DrawRouteFragment(rideDTO)
+                R.id.currentRideContainerDriver, new DrawRouteFragment(rideDTO, true)
         ).commit();
 
         TextView tvStartTime = getActivity().findViewById(R.id.txtDriverCurrentRideStartTime);

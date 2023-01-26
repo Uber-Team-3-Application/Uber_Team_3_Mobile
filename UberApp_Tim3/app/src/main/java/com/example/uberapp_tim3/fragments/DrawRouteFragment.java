@@ -1,8 +1,11 @@
 package com.example.uberapp_tim3.fragments;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,14 +27,20 @@ import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.DTO.RouteDTO;
+import com.example.uberapp_tim3.model.DTO.VehicleLocationWithAvailabilityDTO;
+import com.example.uberapp_tim3.services.ServiceUtils;
+import com.example.uberapp_tim3.tools.SimulationSocketConfiguration;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.gson.Gson;
 import com.google.maps.DirectionsApi;
 import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
@@ -43,6 +52,12 @@ import com.google.maps.model.EncodedPolyline;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
 
@@ -54,6 +69,10 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
     private final LatLng destination;
     private final String departureAddress;
     private final String destinationAddress;
+    private Long rideId;
+    private boolean isSimulation;
+    private SimulationSocketConfiguration simulationSocketConfiguration;
+    private Map<Long, MarkerOptions> carMarkers;
 
     public DrawRouteFragment(RideDTO drive) {
         RouteDTO start = drive.getLocations().get(0);
@@ -62,6 +81,18 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
         this.destination = new LatLng(end.getDestination().getLatitude(), end.getDestination().getLongitude());
         this.departureAddress = start.getDeparture().getAddress();
         this.destinationAddress = end.getDestination().getAddress();
+        this.isSimulation = false;
+    }
+
+    public DrawRouteFragment(RideDTO drive, boolean isSimulation) {
+        RouteDTO start = drive.getLocations().get(0);
+        RouteDTO end = drive.getLocations().get(drive.getLocations().size()-1);
+        this.departure = new LatLng(start.getDeparture().getLatitude(), start.getDeparture().getLongitude());
+        this.destination = new LatLng(end.getDestination().getLatitude(), end.getDestination().getLongitude());
+        this.departureAddress = start.getDeparture().getAddress();
+        this.destinationAddress = end.getDestination().getAddress();
+        this.isSimulation = isSimulation;
+        this.rideId = drive.getId();
     }
 
     @Override
@@ -79,6 +110,7 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.map_container, mMapFragment).commit();
         mMapFragment.getMapAsync(this);
+        startSimulation();
 
     }
 
@@ -211,5 +243,58 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, routePadding));
+        Call<String> call =  ServiceUtils.vehicleService.startSimulation(this.rideId);
+        call.enqueue(new Callback<String>() {
+            @SuppressLint("CheckResult")
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if(!response.isSuccessful()){
+                    Log.d("SIMULATION", "ERROR");
+                }
+                else{
+                    Log.d("SIMULATION", "RUNNING");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.d("SIMULATION", "FATAL");
+            }
+        });
+    }
+
+    @SuppressLint("CheckResult")
+    void startSimulation(){
+        simulationSocketConfiguration = new SimulationSocketConfiguration();
+        simulationSocketConfiguration.connect();
+
+        Bitmap customMarker = BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_directions_car_24);
+        mMap.addMarker(new MarkerOptions().position(departure).title("Your ride")
+                .icon(BitmapDescriptorFactory.fromBitmap(customMarker)));
+
+        simulationSocketConfiguration.stompClient
+                .topic("/topic/map-updates")
+                .subscribe(message -> {
+                            VehicleLocationWithAvailabilityDTO vehicle = new Gson().fromJson(message.getPayload(), VehicleLocationWithAvailabilityDTO.class);
+                            if(carMarkers.get(vehicle.getId()) == null) {
+                                carMarkers.put(vehicle.getId(),
+                                        new MarkerOptions().position(departure).title("Your ride")
+                                                .icon(BitmapDescriptorFactory.fromBitmap(customMarker)));
+                                mMap.addMarker(Objects.requireNonNull(carMarkers.get(vehicle.getId())));
+
+                            }else{
+                                LatLng newPosition = new LatLng(vehicle.getLatitude(), vehicle.getLongitude());
+                                carMarkers.get(vehicle.getId()).position(newPosition);
+                                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(newPosition);
+                                mMap.animateCamera(cameraUpdate);
+
+                            }
+
+
+                        },
+                        throwable -> {Log.d("SOCKET ERROR",
+                                throwable.getMessage());
+                        }
+                );
     }
 }
