@@ -18,7 +18,7 @@
             <FrameLayout
                 android:id="@+id/untilRideContainerDriver"
                 android:layout_width="match_parent"
-                android:layout_height="560dp"
+                android:layout_height="470dp"
                 android:background="@color/uber_toolbar" />
 
 

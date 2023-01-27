@@ -75,7 +75,7 @@ public class PassengerCurrentRideFragment extends Fragment {
                         requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerRideHistoryFragment()).addToBackStack(null).commit();
                     }
                     });
-                }
+    }
     @SuppressLint("CheckResult")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

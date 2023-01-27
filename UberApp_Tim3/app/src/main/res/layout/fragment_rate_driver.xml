@@ -1,0 +1,155 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/uber_green_lily"
+    tools:context=".fragments.passenger.RateDriverFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/relLayoutDriverAcc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/white"
+        app:cardCornerRadius="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgAvatar"
+                android:layout_width="104dp"
+                android:layout_height="103dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/b_person" />
+
+        <TextView
+            android:id="@+id/txtdriverFullName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="100dp"
+            android:layout_toEndOf="@+id/imgAvatar"
+            android:text="@string/driver_full_name"
+            android:textSize="24sp"
+            android:textStyle="bold|italic" />
+
+
+            <TextView
+                android:id="@+id/commentForDriver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgAvatar"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Comment"
+                android:textSize="16sp" />
+
+
+            <EditText
+                android:id="@+id/txtDriverCommentRating"
+                android:layout_width="500dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/commentForDriver"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:hint="Enter comment..." />
+
+
+            <RatingBar
+                android:id="@+id/driverRatingBar"
+                android:numStars="5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/txtDriverCommentRating"
+                />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/relLayoutVehicleAcc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/relLayoutDriverAcc"
+        android:background="@color/white"
+        app:cardCornerRadius="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="20dp"
+            >
+            <TextView
+                android:id="@+id/rateVehicle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="115dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/imgAvatar"
+                android:text="Rate vehicle"
+                android:textSize="24sp"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:id="@+id/commentForVehicle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rateVehicle"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Comment"
+                android:textSize="16sp" />
+
+
+            <EditText
+                android:id="@+id/txtVehicleCommentRating"
+                android:layout_width="500dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/commentForVehicle"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:hint="Enter comment..." />
+
+
+            <RatingBar
+                android:id="@+id/vehicleRatingBar"
+                android:numStars="5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/txtVehicleCommentRating"
+                />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+    <Button
+        android:id="@+id/btnMaybeLater"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="90dp"
+        android:layout_marginTop="660dp"
+        android:text="Later" />
+
+    <Button
+        android:id="@+id/btnSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="660dp"
+
+        android:text="Send" />
+</RelativeLayout>

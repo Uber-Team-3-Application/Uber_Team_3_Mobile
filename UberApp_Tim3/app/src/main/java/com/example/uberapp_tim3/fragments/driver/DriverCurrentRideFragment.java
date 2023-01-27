@@ -23,10 +23,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.activities.NewRideNotificationActivity;
 import com.example.uberapp_tim3.fragments.ChatFragment;
 import com.example.uberapp_tim3.fragments.DrawRouteFragment;
 import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerInfoProfile;
+import com.example.uberapp_tim3.fragments.passenger.RateDriverFragment;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.MessageBundleDTO;
 import com.example.uberapp_tim3.model.DTO.ReasonDTO;
@@ -152,7 +154,13 @@ public class DriverCurrentRideFragment extends Fragment {
                             return;
                         }
                         Toast.makeText(getContext(), "Ride successfully finished!", Toast.LENGTH_SHORT).show();
-                        FragmentTransition.to(MapFragment.newInstance(), getActivity(), true);
+
+                        RateDriverFragment rateDriverFragment = new RateDriverFragment();
+                        Bundle args = new Bundle();
+                        args.putParcelable("ride", rideDTO);
+                        rateDriverFragment.setArguments(args);
+                        FragmentTransition.to(rateDriverFragment, requireActivity(), false);
+                        //FragmentTransition.to(MapFragment.newInstance(), getActivity(), true);
                     }
 
                     @Override
