@@ -140,7 +140,7 @@ public class DriverCurrentRideFragment extends Fragment {
                             return;
                         }
                         Toast.makeText(getContext(), "Ride successfully finished!", Toast.LENGTH_SHORT).show();
-                        FragmentTransition.to(MapFragment.newInstance(), getActivity(), true);
+                        getActivity().finish();
                     }
 
                     @Override
