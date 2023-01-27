@@ -83,17 +83,12 @@ public class DriverUntilRideFragment extends Fragment {
                         .enqueue(new Callback<RideDTO>() {
                     @Override
                     public void onResponse(Call<RideDTO> call, Response<RideDTO> response) {
-                        Log.d("STATUS", rideDTO.getStatus());
-                        if (Objects.equals(rideDTO.getStatus(), "CANCELED")) {
-                            Toast.makeText(getContext(), "Ride is canceled.", Toast.LENGTH_SHORT).show();
-                            onDestroy();
-                        }
+                        getActivity().finish();
                     }
 
                     @Override
                     public void onFailure(Call<RideDTO> call, Throwable t) {
-                        Log.d("ERROR", t.getMessage());
-                        Log.d("ERROR", "FATAL");
+                        getActivity().finish();
 
                     }
                 });

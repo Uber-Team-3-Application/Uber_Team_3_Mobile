@@ -343,6 +343,8 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
                                             carMarker.position(newPosition);
                                             marker = mMap.addMarker(carMarker);
 
+                                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newPosition, 16.0f));
+
                                         }
                                     });
 
