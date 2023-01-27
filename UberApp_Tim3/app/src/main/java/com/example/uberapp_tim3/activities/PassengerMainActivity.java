@@ -98,6 +98,7 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
     private void initializeSockets() {
         rideSocketConfiguration = new RideSocketConfiguration();
         rideSocketConfiguration.connect();
+
         rideSocketConfiguration.stompClient
                 .topic("/topic/passenger/ride/" + this.sharedPreferences.getLong("pref_id", 0))
                 .subscribe(message ->{
@@ -234,6 +235,7 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
             super.onBackPressed();
         }
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -257,10 +259,10 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
     @Override
     protected void onResume() {
         super.onResume();
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        boolean wifi = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+//        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//
+//        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+//        boolean wifi = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
     }
 
