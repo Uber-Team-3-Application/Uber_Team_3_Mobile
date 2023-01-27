@@ -17,6 +17,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.model.DTO.ReviewDTO;
 import com.example.uberapp_tim3.model.DTO.ReviewWithPassengerDTO;
 import com.example.uberapp_tim3.model.DTO.RideDTO;
@@ -39,11 +40,17 @@ public class RateDriverFragment extends Fragment {
         // Required empty public constructor
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
@@ -58,7 +65,6 @@ public class RateDriverFragment extends Fragment {
         Bundle bundle = this.getArguments();
         assert bundle != null;
         rideDTO = bundle.getParcelable("ride");
-        Log.d("ride", rideDTO.toString());
         setViews();
         setListeners();
 
@@ -66,6 +72,21 @@ public class RateDriverFragment extends Fragment {
     }
 
     private void setListeners() {
+        setSendBtnListener();
+        laterBtnListener();
+    }
+
+    private void laterBtnListener() {
+        Button laterBtn = requireActivity().findViewById(R.id.btnMaybeLater);
+        laterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requireActivity().onBackPressed();
+            }
+        });
+    }
+
+    private void setSendBtnListener() {
         Button sendBtn = requireActivity().findViewById(R.id.btnSend);
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +97,8 @@ public class RateDriverFragment extends Fragment {
                             new ReviewDTO((int)driverRatingBar.getRating(), txtDriverComment.getText().toString())).enqueue(new Callback<ReviewWithPassengerDTO>() {
                         @Override
                         public void onResponse(Call<ReviewWithPassengerDTO> call, Response<ReviewWithPassengerDTO> response) {
-                            onDestroy();
+                            checkVehicleIsRated(rideDTO);
+                            requireActivity().onBackPressed();
                         }
 
                         @Override
@@ -84,26 +106,31 @@ public class RateDriverFragment extends Fragment {
 
                         }
                     });
+                } else {
+                    checkVehicleIsRated(rideDTO);
+                    requireActivity().onBackPressed();
                 }
-                if (txtVehicleComment.getText().length() > 1 && vehicleRatingBar.getRating() != 0) {
-
-                    ServiceUtils.reviewService.createReviewAboutVehicle(rideDTO.getId().intValue(),
-                            new ReviewDTO((int)vehicleRatingBar.getRating(), txtVehicleComment.getText().toString())).enqueue(new Callback<ReviewWithPassengerDTO>() {
-                        @Override
-                        public void onResponse(Call<ReviewWithPassengerDTO> call, Response<ReviewWithPassengerDTO> response) {
-                            onDestroy();
-                        }
-
-                        @Override
-                        public void onFailure(Call<ReviewWithPassengerDTO> call, Throwable t) {
-
-                        }
-                    });
-                }
-                // return
             }
         });
+    }
 
+    private void checkVehicleIsRated(RideDTO rideDTO) {
+        if (txtVehicleComment.getText().length() > 1 && vehicleRatingBar.getRating() != 0) {
+
+            ServiceUtils.reviewService.createReviewAboutVehicle(rideDTO.getId().intValue(),
+                    new ReviewDTO((int)vehicleRatingBar.getRating(), txtVehicleComment.getText().toString())).enqueue(new Callback<ReviewWithPassengerDTO>() {
+                @Override
+                public void onResponse(Call<ReviewWithPassengerDTO> call, Response<ReviewWithPassengerDTO> response) {
+                    requireActivity().onBackPressed();
+
+                }
+
+                @Override
+                public void onFailure(Call<ReviewWithPassengerDTO> call, Throwable t) {
+
+                }
+            });
+        }
     }
 
     private void setViews() {
