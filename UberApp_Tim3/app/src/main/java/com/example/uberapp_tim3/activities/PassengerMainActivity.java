@@ -102,19 +102,27 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
         rideSocketConfiguration.stompClient
                 .topic("/topic/passenger/ride/" + this.sharedPreferences.getLong("pref_id", 0))
                 .subscribe(message ->{
-                    RideDTO ride  = new Gson().fromJson(message.getPayload(), RideDTO.class);
-
-                    if(ride.getStatus().equalsIgnoreCase("accepted")){
-                        PassengerAcceptedRide currentRideFragment = new PassengerAcceptedRide();
-                        Bundle args = new Bundle();
-                        args.putParcelable("ride", ride);
-                        currentRideFragment.setArguments(args);
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, currentRideFragment).addToBackStack(null).commit();
-
-                    }else if(ride.getStatus().equalsIgnoreCase("rejected")) {
+                    if(message.getPayload().toString().equals("No suitable driver found!"))
+                    {
                         PassengerRejectedRide rejectedRide = new PassengerRejectedRide();
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, rejectedRide).addToBackStack(null).commit();
+                    } else if(message.getPayload().toString().equals("You have a scheduled ride!"))
+                    {
+                        Toast.makeText(this, "You have a scheduled ride!", Toast.LENGTH_LONG);
+                    } else {
+                        RideDTO ride = new Gson().fromJson(message.getPayload(), RideDTO.class);
+                        if (ride.getStatus().equalsIgnoreCase("accepted")) {
+                            PassengerAcceptedRide currentRideFragment = new PassengerAcceptedRide();
+                            Bundle args = new Bundle();
+                            args.putParcelable("ride", ride);
+                            currentRideFragment.setArguments(args);
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, currentRideFragment).addToBackStack(null).commit();
 
+                        } else if (ride.getStatus().equalsIgnoreCase("rejected")) {
+                            PassengerRejectedRide rejectedRide = new PassengerRejectedRide();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, rejectedRide).addToBackStack(null).commit();
+
+                        }
                     }
 
                 });
