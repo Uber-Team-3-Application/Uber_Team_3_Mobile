@@ -1,5 +1,6 @@
 package com.example.uberapp_tim3.fragments.driver;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,11 +20,15 @@ import android.widget.Toast;
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.DrawRouteFragment;
 import com.example.uberapp_tim3.fragments.MapFragment;
+import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.LocationDTO;
 import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.DTO.VehicleDTO;
+import com.example.uberapp_tim3.model.DTO.VehicleLocationSimulationDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.FragmentTransition;
+import com.example.uberapp_tim3.tools.RideSocketConfiguration;
+import com.google.gson.Gson;
 
 import java.util.Objects;
 
@@ -38,6 +43,9 @@ public class DriverUntilRideFragment extends Fragment {
     private int elapsedTime = 0;
     private SharedPreferences preferences;
     private boolean isDriverArrived = false;
+    public static RideSocketConfiguration rideSocketConfiguration;
+    private LocationDTO locationDTO;
+
 
     public DriverUntilRideFragment() {
         // Required empty public constructor
@@ -89,11 +97,23 @@ public class DriverUntilRideFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<VehicleDTO> call, @NonNull Response<VehicleDTO> response) {
                 assert response.body() != null;
-                LocationDTO currentLocation = response.body().getCurrentLocation();
-                LocationDTO departure = rideDTO.getLocations().get(0).getDeparture();
                 requireActivity().getSupportFragmentManager().beginTransaction().replace(
-                        R.id.untilRideContainerDriver, new DrawRouteFragment(currentLocation, departure)
+                        R.id.untilRideContainerDriver, new DrawRouteFragment(rideDTO)
                 ).commit();
+
+                Call<VehicleLocationSimulationDTO> callVehicle = ServiceUtils.vehicleService.updateLocation(response.body().getId());
+                callVehicle.enqueue(new Callback<VehicleLocationSimulationDTO>() {
+                    @Override
+                    public void onResponse(@NonNull Call<VehicleLocationSimulationDTO> call, @NonNull Response<VehicleLocationSimulationDTO> response) {
+                        Log.d("response: ", response.body().toString());
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<VehicleLocationSimulationDTO> call, @NonNull Throwable t) {
+
+                    }
+                });
+
             }
 
             @Override
@@ -103,10 +123,30 @@ public class DriverUntilRideFragment extends Fragment {
         });
 
     }
-
+    @SuppressLint("CheckResult")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        rideSocketConfiguration = new RideSocketConfiguration();
+        rideSocketConfiguration.connect();
+
+        rideSocketConfiguration.stompClient
+                .topic("/topic/map-updates-regular")
+                .subscribe(message -> {
+                            Log.d("III", "STIGLO");
+                            VehicleLocationSimulationDTO simulationDTO = new Gson().fromJson(message.getPayload(), VehicleLocationSimulationDTO.class);
+                            Log.d("STIGLOJE", simulationDTO.toString());
+                            if (simulationDTO.getLatitude() == rideDTO.getLocations().get(0).getDeparture().getLatitude())
+                                if (simulationDTO.getLongitude() ==
+                                        rideDTO.getLocations().get(0).getDeparture().getLongitude()) {
+                                    isDriverArrived = true;
+                                }
+
+                        },
+                        throwable -> {Log.d("SOCKET ERROR",
+                                throwable.getMessage());
+                        }
+                );
 
     }
 
