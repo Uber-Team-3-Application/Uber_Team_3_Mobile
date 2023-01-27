@@ -108,17 +108,20 @@ public class ConfirmRideFragment extends Fragment {
             public void onClick(View view) {
 
                 try {
+                    Log.d("voznja je", getCreatedRide().toString());
                     Call<CreatedRideDTO> call =ServiceUtils.rideService.createARide(getCreatedRide());
                     call.enqueue(new Callback<CreatedRideDTO>() {
                         @Override
                         public void onResponse(Call<CreatedRideDTO> call, Response<CreatedRideDTO> response) {
                             if(!response.isSuccessful()) return;
-                            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerWaitingScreen(response.body())).addToBackStack(null).commit();
+                            requireActivity().getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.fragment_container,
+                                    new PassengerWaitingScreen(response.body())).addToBackStack(null).commit();
                         }
 
                         @Override
                         public void onFailure(Call<CreatedRideDTO> call, Throwable t) {
-
+                            Log.d("ERRORRR", t.getMessage());
                         }
                     });
                 } catch (IOException e) {

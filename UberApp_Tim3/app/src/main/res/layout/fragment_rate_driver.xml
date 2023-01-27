@@ -1,11 +1,22 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.passenger.RateDriverFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/uber_green_lily"
     tools:context=".fragments.passenger.RateDriverFragment">
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/relLayoutDriverAcc"
@@ -153,3 +164,6 @@
 
         android:text="Send" />
 </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -76,7 +76,7 @@ public class RateDriverFragment extends Fragment {
                             new ReviewDTO((int)driverRatingBar.getRating(), txtDriverComment.getText().toString())).enqueue(new Callback<ReviewWithPassengerDTO>() {
                         @Override
                         public void onResponse(Call<ReviewWithPassengerDTO> call, Response<ReviewWithPassengerDTO> response) {
-
+                            onDestroy();
                         }
 
                         @Override
@@ -87,11 +87,11 @@ public class RateDriverFragment extends Fragment {
                 }
                 if (txtVehicleComment.getText().length() > 1 && vehicleRatingBar.getRating() != 0) {
 
-                    ServiceUtils.reviewService.leaveReviewForTheDriver((long) rideDTO.getId().intValue(),
+                    ServiceUtils.reviewService.createReviewAboutVehicle(rideDTO.getId().intValue(),
                             new ReviewDTO((int)vehicleRatingBar.getRating(), txtVehicleComment.getText().toString())).enqueue(new Callback<ReviewWithPassengerDTO>() {
                         @Override
                         public void onResponse(Call<ReviewWithPassengerDTO> call, Response<ReviewWithPassengerDTO> response) {
-
+                            onDestroy();
                         }
 
                         @Override

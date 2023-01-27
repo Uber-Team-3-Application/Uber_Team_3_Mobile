@@ -59,6 +59,7 @@ public class DriverCurrentRideFragment extends Fragment {
     private SharedPreferences preferences;
     public DriverCurrentRideFragment() {
         // Required empty public constructor
+
     }
 
     public static DriverCurrentRideFragment newInstance(String param1, String param2) {
@@ -114,7 +115,6 @@ public class DriverCurrentRideFragment extends Fragment {
                     }
                     assert response.body() != null;
                     Toast.makeText(getActivity(), "Support contacted, stay safe.", Toast.LENGTH_SHORT).show();
-
                 }
 
                 @Override
@@ -122,8 +122,6 @@ public class DriverCurrentRideFragment extends Fragment {
                     Toast.makeText(getActivity(), "Something went wrong, try again!", Toast.LENGTH_SHORT).show();
                 }
             });
-
-
         });
     }
 
@@ -147,7 +145,6 @@ public class DriverCurrentRideFragment extends Fragment {
                         Bundle args = new Bundle();
                         args.putParcelable("ride", rideDTO);
                         rateDriverFragment.setArguments(args);
-                        FragmentTransition.to(rateDriverFragment, requireActivity(), false);
                         //FragmentTransition.to(MapFragment.newInstance(), getActivity(), true);
                         getActivity().finish();
                     }

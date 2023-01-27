@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -37,17 +38,15 @@ import com.example.uberapp_tim3.fragments.passenger.PassengerInboxFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerRejectedRide;
 import com.example.uberapp_tim3.fragments.passenger.PassengerReportFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerRideHistoryFragment;
-import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
+import com.example.uberapp_tim3.fragments.passenger.RateDriverFragment;
 import com.example.uberapp_tim3.model.DTO.PassengerDTO;
 import com.example.uberapp_tim3.model.DTO.RideDTO;
-import com.example.uberapp_tim3.model.drives.Ride;
 import com.example.uberapp_tim3.services.PassengerMessagesService;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.RideSocketConfiguration;
 import com.example.uberapp_tim3.tools.SimulationSocketConfiguration;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -104,14 +103,17 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
                 .subscribe(message ->{
                     if(message.getPayload().toString().equals("No suitable driver found!"))
                     {
+                        notifyForRejectedRide();
                         PassengerRejectedRide rejectedRide = new PassengerRejectedRide();
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, rejectedRide).addToBackStack(null).commit();
                     } else if(message.getPayload().toString().equals("You have a scheduled ride!"))
                     {
                         Toast.makeText(this, "You have a scheduled ride!", Toast.LENGTH_LONG);
                     } else {
+
                         RideDTO ride = new Gson().fromJson(message.getPayload(), RideDTO.class);
                         if (ride.getStatus().equalsIgnoreCase("accepted")) {
+                            notifyForAcceptedRide();
                             PassengerAcceptedRide currentRideFragment = new PassengerAcceptedRide();
                             Bundle args = new Bundle();
                             args.putParcelable("ride", ride);
@@ -119,6 +121,7 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, currentRideFragment).addToBackStack(null).commit();
 
                         } else if (ride.getStatus().equalsIgnoreCase("rejected")) {
+                            notifyForRejectedRide();
                             PassengerRejectedRide rejectedRide = new PassengerRejectedRide();
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, rejectedRide).addToBackStack(null).commit();
 
@@ -143,10 +146,17 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
         rideSocketConfiguration.stompClient
                 .topic("/topic/passenger/end-ride/" + this.sharedPreferences.getLong("pref_id", 0))
                 .subscribe( message ->{
-
+                    System.out.println(message);
                     RideDTO ride  = new Gson().fromJson(message.getPayload(), RideDTO.class);
                     if (ride.getStatus().equalsIgnoreCase("finished")) {
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerRideHistoryFragment()).addToBackStack(null).commit();
+                        rideIsFinishedNotification(ride);
+                        Bundle args = new Bundle();
+                        args.putParcelable("ride", ride);
+                        RateDriverFragment rateDriverFragment = new RateDriverFragment();
+                        rateDriverFragment.setArguments(args);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                rateDriverFragment).addToBackStack(null).commit();
+
                     }
 
                 });
@@ -155,6 +165,29 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
         simulationSocketConfiguration.connect();
 
     }
+
+    private void notifyForRejectedRide() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,PASSENGER_CHANEL)
+                .setSmallIcon(R.drawable.ic_baseline_notifications_24)
+                .setContentTitle("Your ride is rejected!")
+                .setContentText("Please try later...");
+
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, builder.build());
+    }
+
+    private void notifyForAcceptedRide() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,PASSENGER_CHANEL)
+                .setSmallIcon(R.drawable.ic_baseline_notifications_24)
+                .setContentTitle("Your ride is accepted!")
+                .setContentText("Please wait to driver arrived");
+
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, builder.build());
+
+    }
+
+
 
 
     @Override
@@ -228,8 +261,7 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
 
         boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         boolean wifi = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        Log.i("wwww", String.valueOf(gps));
-        Log.i("wqqqq", String.valueOf(wifi));
+
     }
 
 
@@ -275,6 +307,17 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MapFragment.newInstance()).addToBackStack(null).commit();
         navigationView.setCheckedItem(R.id.nav_home);
+    }
+
+    private void rideIsFinishedNotification(RideDTO rideDTO) {
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,PASSENGER_CHANEL)
+                .setSmallIcon(R.drawable.ic_baseline_notifications_24)
+                .setContentTitle("Your ride is finished!")
+                .setContentText("You can now rate the driver and the vehicle");
+
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, builder.build());
     }
 
     @Override
