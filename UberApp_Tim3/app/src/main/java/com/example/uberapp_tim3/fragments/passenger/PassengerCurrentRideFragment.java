@@ -68,13 +68,7 @@ public class PassengerCurrentRideFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPreferences = requireActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
-        rideSocketConfiguration.stompClient.topic("/topic/passenger/end-ride/" + sharedPreferences.getLong("pref_id", 0L))
-                .subscribe(message ->{
-                    RideDTO ride  = new Gson().fromJson(message.getPayload(), RideDTO.class);
-                    if (ride.getStatus().equalsIgnoreCase("finished")) {
-                        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerRideHistoryFragment()).addToBackStack(null).commit();
-                    }
-                    });
+
                 }
     @SuppressLint("CheckResult")
     @Override

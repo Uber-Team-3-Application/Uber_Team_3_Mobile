@@ -77,18 +77,6 @@ public class DriverCurrentRideFragment extends Fragment {
         setOnClickListeners();
     }
 
-    private void startSimulation() {
-        ServiceUtils.vehicleService.startSimulation(rideDTO.getId()).enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<String> call, Throwable t) {
-
-            }
-        });
-    }
 
     private void setOnClickListeners(){
         setFinishRideListener();

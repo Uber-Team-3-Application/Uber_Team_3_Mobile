@@ -29,10 +29,12 @@ import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.MapFragment;
+import com.example.uberapp_tim3.fragments.passenger.PassengerAcceptedRide;
 import com.example.uberapp_tim3.fragments.passenger.PassengerAccountFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerCurrentRideFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerFavouriteRoutesFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerInboxFragment;
+import com.example.uberapp_tim3.fragments.passenger.PassengerRejectedRide;
 import com.example.uberapp_tim3.fragments.passenger.PassengerReportFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerRideHistoryFragment;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
@@ -103,15 +105,40 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
                     RideDTO ride  = new Gson().fromJson(message.getPayload(), RideDTO.class);
 
                     if(ride.getStatus().equalsIgnoreCase("accepted")){
-                        PassengerCurrentRideFragment currentRideFragment = new PassengerCurrentRideFragment();
+                        PassengerAcceptedRide currentRideFragment = new PassengerAcceptedRide();
                         Bundle args = new Bundle();
                         args.putParcelable("ride", ride);
                         currentRideFragment.setArguments(args);
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, currentRideFragment).addToBackStack(null).commit();
 
                     }else if(ride.getStatus().equalsIgnoreCase("rejected")) {
-                        Toast.makeText(getApplicationContext(), "You'r ride is rejected. Try again.", Toast.LENGTH_SHORT).show();
+                        PassengerRejectedRide rejectedRide = new PassengerRejectedRide();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, rejectedRide).addToBackStack(null).commit();
 
+                    }
+
+                });
+
+        rideSocketConfiguration.stompClient
+                .topic("/topic/passenger/start-ride/" + this.sharedPreferences.getLong("pref_id", 0))
+                .subscribe( message ->{
+                    RideDTO ride  = new Gson().fromJson(message.getPayload(), RideDTO.class);
+                    PassengerCurrentRideFragment currentRideFragment = new PassengerCurrentRideFragment();
+                    Bundle args = new Bundle();
+                    args.putParcelable("ride", ride);
+                    currentRideFragment.setArguments(args);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, currentRideFragment).addToBackStack(null).commit();
+
+
+                });
+
+        rideSocketConfiguration.stompClient
+                .topic("/topic/passenger/end-ride/" + this.sharedPreferences.getLong("pref_id", 0))
+                .subscribe( message ->{
+
+                    RideDTO ride  = new Gson().fromJson(message.getPayload(), RideDTO.class);
+                    if (ride.getStatus().equalsIgnoreCase("finished")) {
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerRideHistoryFragment()).addToBackStack(null).commit();
                     }
 
                 });
@@ -148,26 +175,6 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
             case R.id.nav_favorite:
                 setTitle("Favourite Routes");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerFavouriteRoutesFragment()).addToBackStack(null).commit();
-//                setTitle("Current Ride");
-//
-//                Call<DriverRideDTO> call = ServiceUtils.rideService.getRide(1L);
-//                //FragmentTransition.to(AccountSettingsFragment.newInstance(), this, true);
-//                call.enqueue(new Callback<DriverRideDTO>() {
-//                    @Override
-//                    public void onResponse(Call<DriverRideDTO> call, Response<DriverRideDTO> response) {
-//                        Bundle bundle = new Bundle();
-//                        bundle.putParcelable("ride", response.body());
-//                        PassengerCurrentRideFragment rideInfoFragment = new PassengerCurrentRideFragment();
-//                        rideInfoFragment.setArguments(bundle);
-//                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, rideInfoFragment).addToBackStack(null).commit();
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<DriverRideDTO> call, Throwable t) {
-//
-//                    }
-//                });
                 break;
             case R.id.nav_logout: {
                 this.finish();

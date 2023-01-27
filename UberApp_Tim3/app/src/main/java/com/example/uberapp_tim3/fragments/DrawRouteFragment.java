@@ -52,10 +52,12 @@ import com.google.maps.model.DirectionsStep;
 import com.google.maps.model.EncodedPolyline;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import io.reactivex.disposables.Disposable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -131,6 +133,9 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
         View view = inflater.inflate(R.layout.map_layout, vg, false);
         simulationSocketConfiguration = new SimulationSocketConfiguration();
         simulationSocketConfiguration.connect();
+
+
+
         return view;
     }
 
@@ -257,16 +262,25 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, routePadding));
         if (!isSimulation)
             return;
+
+
+    }
+
+    @SuppressLint("CheckResult")
+    void startSimulation(){
+
+        simulate();
         Call<String> call =  ServiceUtils.vehicleService.startSimulation(this.rideId);
         call.enqueue(new Callback<String>() {
-            @SuppressLint("CheckResult")
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if(!response.isSuccessful()){
                     Log.d("SIMULATION", "ERROR");
+
                 }
                 else{
                     Log.d("SIMULATION", "RUNNING");
+
                 }
             }
 
@@ -275,22 +289,22 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
                 Log.d("SIMULATION", "FATAL");
             }
         });
+
+        //Bitmap customMarker = BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_directions_car_24);
     }
 
-    @SuppressLint("CheckResult")
-    void startSimulation(){
-
-
-        Bitmap customMarker = BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_directions_car_24);
-
-        simulationSocketConfiguration.stompClient
+    private void simulate() {
+        carMarkers = new HashMap<>();
+        Disposable flow = simulationSocketConfiguration.stompClient
                 .topic("/topic/map-updates")
                 .subscribe(message -> {
                             VehicleLocationWithAvailabilityDTO vehicle = new Gson().fromJson(message.getPayload(), VehicleLocationWithAvailabilityDTO.class);
                             if(carMarkers.get(vehicle.getId()) == null) {
+
                                 carMarkers.put(vehicle.getId(),
                                         new MarkerOptions().position(departure).title("Your ride")
-                                                .icon(BitmapDescriptorFactory.fromBitmap(customMarker)));
+                                );
+
                                 mMap.addMarker(Objects.requireNonNull(carMarkers.get(vehicle.getId())));
 
                             }else{

@@ -106,17 +106,40 @@ public class DriverUntilRideFragment extends Fragment {
         startRide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Call<RideDTO> call = ServiceUtils.rideService.startRide(rideDTO.getId());
+                call.enqueue(new Callback<RideDTO>() {
+                    @Override
+                    public void onResponse(Call<RideDTO> call, Response<RideDTO> response) {
+                        if(!response.isSuccessful()){
+                            return;
+                        }
+
+                        assert response.body() != null;
+                        DriverCurrentRideFragment currentRideFragment = new DriverCurrentRideFragment();
+                        Bundle args = new Bundle();
+                        args.putParcelable("ride", response.body());
+                        currentRideFragment.setArguments(args);
+                        FragmentTransition.to(currentRideFragment, requireActivity(), false);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<RideDTO> call, Throwable t) {
+
+                    }
+                });
                 // ako je stigao zapocni voznju
-                if (isDriverArrived) {
-                    DriverCurrentRideFragment currentRideFragment = new DriverCurrentRideFragment();
-                    Bundle args = new Bundle();
-                    args.putParcelable("ride", rideDTO);
-                    currentRideFragment.setArguments(args);
-                    FragmentTransition.to(currentRideFragment, requireActivity(), false);
-                }
-                else {
-                    Toast.makeText(getContext(), "You are not arrived to destination!", Toast.LENGTH_SHORT).show();
-                }
+//                if (isDriverArrived) {
+//                    DriverCurrentRideFragment currentRideFragment = new DriverCurrentRideFragment();
+//                    Bundle args = new Bundle();
+//                    args.putParcelable("ride", rideDTO);
+//                    currentRideFragment.setArguments(args);
+//                    FragmentTransition.to(currentRideFragment, requireActivity(), false);
+//                }
+//                else {
+//                    Toast.makeText(getContext(), "You are not arrived to destination!", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 
