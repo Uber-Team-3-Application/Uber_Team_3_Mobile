@@ -95,10 +95,15 @@ public class NewRideNotificationActivity extends AppCompatActivity {
 
         });
 
-        decline.setOnClickListener(view -> {
-            RejectionDialog dialog = new RejectionDialog(this, this, ride);
-            dialog.show();
+        decline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RejectionDialog dialog = new RejectionDialog(getApplicationContext(),
+                        NewRideNotificationActivity.this, ride);
+                dialog.show();
+            }
         });
+
     }
 
 
