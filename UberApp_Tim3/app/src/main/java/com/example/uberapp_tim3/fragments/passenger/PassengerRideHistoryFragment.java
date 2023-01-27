@@ -67,7 +67,8 @@ public class PassengerRideHistoryFragment extends ListFragment {
     public void onListItemClick(@NonNull ListView l, @NonNull View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
-        Call<DriverRideDTO> call = ServiceUtils.rideService.getRide(1L); // TODO: OVO JE RADI PROBE, IZMENITI
+        Call<DriverRideDTO> call = ServiceUtils.rideService.getRide(1L);
+        // TODO: OVO JE RADI PROBE, IZMENITI
 
         call.enqueue(new Callback<DriverRideDTO>() {
             @Override

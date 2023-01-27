@@ -15,12 +15,12 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+
             <FrameLayout
                 android:id="@+id/currentRideContainerPassenger"
                 android:layout_width="match_parent"
                 android:layout_height="560dp"
                 android:background="@color/uber_toolbar" />
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -321,7 +321,9 @@
                         android:id="@+id/lyDriverRideProfile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"></FrameLayout>
+                        android:layout_marginTop="6dp">
+
+                    </FrameLayout>
 
 
                 </LinearLayout>
@@ -345,14 +347,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <Button
-                        android:id="@+id/btnReportProblem"
-                        android:layout_width="160dp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:text="REPORT PROBLEM"
-                        android:textSize="15sp" />
+<!--                    <Button-->
+<!--                        android:id="@+id/btnReportProblem"-->
+<!--                        android:layout_width="160dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        android:text="REPORT PROBLEM"-->
+<!--                        android:textSize="15sp" />-->
+
                 </RelativeLayout>
 
 
