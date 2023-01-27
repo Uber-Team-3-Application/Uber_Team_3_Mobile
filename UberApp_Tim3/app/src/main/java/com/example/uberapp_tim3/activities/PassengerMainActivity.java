@@ -220,14 +220,13 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
                 setMapFragment();
 
                 PassengerDTO passenger = response.body();
-
                 TextView tvName = findViewById(R.id.passengerNameNavigation);
                 assert passenger != null;
                 String fullName = passenger.getName() + " " + passenger.getSurname();
-                tvName.setText(fullName);
+//                tvName.setText(fullName);
 
                 TextView tvPhoneNumber = findViewById(R.id.passengerPhoneNavigation);
-                tvPhoneNumber.setText(passenger.getTelephoneNumber());
+//                tvPhoneNumber.setText(passenger.getTelephoneNumber());
 
 
                 if(!passenger.getProfilePicture().contains(",")){return;}
@@ -237,7 +236,7 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
                 CircleImageView cv = findViewById(R.id.passengerProfilePictureNavigation);
-                cv.setImageBitmap(decodedByte);
+//                cv.setImageBitmap(decodedByte);
 
             }
 

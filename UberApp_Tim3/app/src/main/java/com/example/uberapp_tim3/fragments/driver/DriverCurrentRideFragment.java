@@ -71,7 +71,6 @@ public class DriverCurrentRideFragment extends Fragment {
         if (bundle != null)
             rideDTO = bundle.getParcelable("ride");
         preferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
-
         setViews(rideDTO);
         initializeTime();
         startMeasuringTime();
@@ -211,14 +210,14 @@ public class DriverCurrentRideFragment extends Fragment {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Date today = new Date();
         tvStartTime.setText(sdf.format(today));
-        tvEndTIme.setText(sdf.format(rideDTO.getEndTime()));
+        // TODO: ZASTO BEK VRACA NULL ZA END TIME ?
+//        tvEndTIme.setText(sdf.format(rideDTO.getEndTime()));
         tvDeparture.setText(rideDTO.getLocations().get(0).getDeparture().getAddress());
         tvDestination.setText(rideDTO.getLocations().get(rideDTO.getLocations().size() - 1).getDestination().getAddress());
         String totalPassengers = Integer.toString(rideDTO.getPassengers().size());
         tvPassengers.setText(totalPassengers);
         String totalCost = Double.toString(rideDTO.getTotalCost());
         tvPrice.setText(totalCost);
-
 
         setPassengers(rideDTO);
 

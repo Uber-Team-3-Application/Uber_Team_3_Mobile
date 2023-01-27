@@ -252,4 +252,24 @@ public class RideDTO implements Parcelable {
         }
 
     }
+
+    @Override
+    public String toString() {
+        return "RideDTO{" +
+                "id=" + id +
+                ", locations=" + locations +
+                ", rejection=" + rejection +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", totalCost=" + totalCost +
+                ", driver=" + driver +
+                ", passengers=" + passengers +
+                ", estimatedTimeInMinutes=" + estimatedTimeInMinutes +
+                ", vehicleType='" + vehicleType + '\'' +
+                ", babyTransport=" + babyTransport +
+                ", petTransport=" + petTransport +
+                ", status='" + status + '\'' +
+                ", scheduledTime=" + scheduledTime +
+                '}';
+    }
 }

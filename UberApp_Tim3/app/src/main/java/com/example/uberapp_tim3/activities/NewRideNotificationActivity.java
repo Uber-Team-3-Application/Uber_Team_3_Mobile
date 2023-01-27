@@ -15,6 +15,7 @@ import com.example.uberapp_tim3.dialogs.RejectionDialog;
 import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverAccountFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverCurrentRideFragment;
+import com.example.uberapp_tim3.fragments.driver.DriverUntilRideFragment;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.users.Driver;
@@ -54,15 +55,18 @@ public class NewRideNotificationActivity extends AppCompatActivity {
 
 
     private void setListeners(Button accept, Button decline, RideDTO ride) {
-        accept.setOnClickListener(view -> {
-            Log.i("RRIDE", ride.toString());
-            Bundle args = new Bundle();
-            args.putParcelable("ride", ride);
-            RelativeLayout newRidePopup = findViewById(R.id.newRidePopup);
-            newRidePopup.setVisibility(View.INVISIBLE);
-            DriverCurrentRideFragment currentRideFragment = new DriverCurrentRideFragment();
-            currentRideFragment.setArguments(args);
-            FragmentTransition.to(currentRideFragment, this, true);
+
+        accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle args = new Bundle();
+                args.putParcelable("ride", ride);
+                RelativeLayout newRidePopup = findViewById(R.id.newRidePopup);
+                newRidePopup.setVisibility(View.INVISIBLE);
+                DriverUntilRideFragment untilRideFragment = new DriverUntilRideFragment();
+                untilRideFragment.setArguments(args);
+                FragmentTransition.to(untilRideFragment, NewRideNotificationActivity.this, true);
+            }
 
         });
 

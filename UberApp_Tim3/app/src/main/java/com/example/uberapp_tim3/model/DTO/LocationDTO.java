@@ -36,6 +36,15 @@ public class LocationDTO  implements Parcelable {
         }
     };
 
+    @Override
+    public String toString() {
+        return "LocationDTO{" +
+                "address='" + address + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                '}';
+    }
+
     public String getAddress() {
         return address;
     }

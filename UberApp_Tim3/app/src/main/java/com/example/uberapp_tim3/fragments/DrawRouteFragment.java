@@ -25,6 +25,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.uberapp_tim3.BuildConfig;
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
+import com.example.uberapp_tim3.model.DTO.LocationDTO;
 import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.DTO.RouteDTO;
 import com.example.uberapp_tim3.model.DTO.VehicleLocationWithAvailabilityDTO;
@@ -94,6 +95,16 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
         this.isSimulation = isSimulation;
         this.rideId = drive.getId();
     }
+
+    public DrawRouteFragment(LocationDTO currentLocation, LocationDTO departure) {
+        this.departure = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+        this.destination = new LatLng(departure.getLatitude(), departure.getLongitude());
+        this.departureAddress = currentLocation.getAddress();
+        this.destinationAddress = departure.getAddress();
+        this.isSimulation = true;
+    }
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
