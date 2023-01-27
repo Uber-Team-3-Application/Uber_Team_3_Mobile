@@ -139,6 +139,7 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
         simulationSocketConfiguration = new SimulationSocketConfiguration();
         simulationSocketConfiguration.connect();
         if(isSimulation) {
+            Log.d("SIMULATION", "ON RESUME");
             startSimulation();
         }
 
@@ -296,7 +297,6 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
 
     @SuppressLint("CheckResult")
     void startSimulation(){
-
         simulate();
         Call<String> call =  ServiceUtils.vehicleService.startSimulation(this.rideId);
         call.enqueue(new Callback<String>() {
@@ -304,7 +304,6 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
             public void onResponse(Call<String> call, Response<String> response) {
                 if(!response.isSuccessful()){
                     Log.d("SIMULATION", "ERROR");
-
                 }
                 else{
                     Log.d("SIMULATION", "RUNNING");
@@ -318,7 +317,6 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-        //Bitmap customMarker = BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_directions_car_24);
     }
 
     @SuppressLint("CheckResult")
