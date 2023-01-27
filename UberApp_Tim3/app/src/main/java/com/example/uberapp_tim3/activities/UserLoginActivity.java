@@ -30,8 +30,6 @@ import com.example.uberapp_tim3.model.DTO.WorkingHoursDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -49,7 +47,6 @@ import retrofit2.Response;
 @SuppressLint({"MissingInflatedId", "LocalSuppress"})
 public class UserLoginActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -82,7 +79,8 @@ public class UserLoginActivity extends AppCompatActivity {
                 String etUser = ((EditText) findViewById(R.id.editTxtEmail)).getText().toString();
                 String etPw = ((EditText)findViewById(R.id.editTxtPassword)).getText().toString();
 //                login("mirko@gmail.com", "Mirko123");
-                login(etUser, etPw);
+//                login(etUser, etPw);
+                login("markopreradovic@gmail.com", "Marko123");
 
 
             }
@@ -167,18 +165,6 @@ public class UserLoginActivity extends AppCompatActivity {
 
     }
 
-    private boolean checkAnotherPassword(String email, String password) {
-        final boolean[] retVal = {false};
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this,
-                task -> {
-                    if (task.isSuccessful()) {
-
-                    } else {
-                        retVal[0] = false;
-                    }
-                });
-        return retVal[0];
-    }
 
     private void createWorkingHours(Long id) {
 
