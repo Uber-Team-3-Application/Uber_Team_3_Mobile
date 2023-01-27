@@ -19,9 +19,14 @@ import com.example.uberapp_tim3.fragments.driver.DriverUntilRideFragment;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.users.Driver;
+import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 
 import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NewRideNotificationActivity extends AppCompatActivity {
 
@@ -59,14 +64,31 @@ public class NewRideNotificationActivity extends AppCompatActivity {
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle args = new Bundle();
-                args.putParcelable("ride", ride);
-                RelativeLayout newRidePopup = findViewById(R.id.newRidePopup);
-                newRidePopup.setVisibility(View.INVISIBLE);
-                DriverUntilRideFragment untilRideFragment = new DriverUntilRideFragment();
-                untilRideFragment.setArguments(args);
-                FragmentTransition.to(untilRideFragment, NewRideNotificationActivity.this, true);
-            }
+                Call<RideDTO> call = ServiceUtils.rideService.acceptRide(ride.getId());
+                call.enqueue(new Callback<RideDTO>() {
+                    @Override
+                    public void onResponse(Call<RideDTO> call, Response<RideDTO> response) {
+                        if(!response.isSuccessful()){
+                            return;
+                        }
+                        assert response.body() != null;
+                        Bundle args = new Bundle();
+                        args.putParcelable("ride", response.body());
+                        RelativeLayout newRidePopup = findViewById(R.id.newRidePopup);
+                        newRidePopup.setVisibility(View.INVISIBLE);
+                        DriverUntilRideFragment untilRideFragment = new DriverUntilRideFragment();
+                        untilRideFragment.setArguments(args);
+                        FragmentTransition.to(untilRideFragment, NewRideNotificationActivity.this, true);
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<RideDTO> call, Throwable t) {
+
+                    }
+                });
+                 }
 
         });
 

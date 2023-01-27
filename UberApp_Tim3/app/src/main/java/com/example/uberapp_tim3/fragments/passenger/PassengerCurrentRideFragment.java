@@ -68,13 +68,7 @@ public class PassengerCurrentRideFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPreferences = requireActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
-        rideSocketConfiguration.stompClient.topic("/topic/passenger/end-ride/" + sharedPreferences.getLong("pref_id", 0L))
-                .subscribe(message ->{
-                    RideDTO ride  = new Gson().fromJson(message.getPayload(), RideDTO.class);
-                    if (ride.getStatus().equalsIgnoreCase("finished")) {
-                        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerRideHistoryFragment()).addToBackStack(null).commit();
-                    }
-                    });
+
     }
     @SuppressLint("CheckResult")
     @Override
@@ -159,7 +153,7 @@ public class PassengerCurrentRideFragment extends Fragment {
         TextView tvDestination = requireActivity().findViewById(R.id.txtPassengerCurrentRideDestination);
         TextView tvPassengers = requireActivity().findViewById(R.id.txtPassengerCurrentRidePassengerCount);
         TextView tvPrice = requireActivity().findViewById(R.id.txtPassengerCurrentRidePrice);
-        
+
 
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         tvStartTime.setText(sdf.format(rideDTO.getStartTime()));

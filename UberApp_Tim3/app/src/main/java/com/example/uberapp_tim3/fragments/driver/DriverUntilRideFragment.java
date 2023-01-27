@@ -106,17 +106,30 @@ public class DriverUntilRideFragment extends Fragment {
         startRide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // ako je stigao zapocni voznju
-                if (isDriverArrived) {
-                    DriverCurrentRideFragment currentRideFragment = new DriverCurrentRideFragment();
-                    Bundle args = new Bundle();
-                    args.putParcelable("ride", rideDTO);
-                    currentRideFragment.setArguments(args);
-                    FragmentTransition.to(currentRideFragment, requireActivity(), false);
-                }
-                else {
-                    Toast.makeText(getContext(), "You are not arrived to destination!", Toast.LENGTH_SHORT).show();
-                }
+
+                Call<RideDTO> call = ServiceUtils.rideService.startRide(rideDTO.getId());
+                call.enqueue(new Callback<RideDTO>() {
+                    @Override
+                    public void onResponse(Call<RideDTO> call, Response<RideDTO> response) {
+                        if(!response.isSuccessful()){
+                            return;
+                        }
+
+                        assert response.body() != null;
+                        DriverCurrentRideFragment currentRideFragment = new DriverCurrentRideFragment();
+                        Bundle args = new Bundle();
+                        args.putParcelable("ride", response.body());
+                        currentRideFragment.setArguments(args);
+                        FragmentTransition.to(currentRideFragment, requireActivity(), false);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<RideDTO> call, Throwable t) {
+
+                    }
+                });
+
             }
         });
 
@@ -133,25 +146,10 @@ public class DriverUntilRideFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<VehicleDTO> call, @NonNull Response<VehicleDTO> response) {
                 assert response.body() != null;
+                Log.d("ADRESA", response.body().getCurrentLocation().getAddress());
                 requireActivity().getSupportFragmentManager().beginTransaction().replace(
-                        R.id.untilRideContainerDriver, new DrawRouteFragment(rideDTO)
+                        R.id.untilRideContainerDriver, new DrawRouteFragment(rideDTO, true, response.body().getCurrentLocation())
                 ).commit();
-
-                LocationDTO locationDTO = new LocationDTO(rideDTO.getLocations().get(0).getDeparture().getAddress(),
-                        rideDTO.getLocations().get(0).getDeparture().getLatitude(),
-                        rideDTO.getLocations().get(0).getDeparture().getLongitude());
-                ServiceUtils.vehicleService.updateLocation(response.body().getId(), locationDTO)
-                .enqueue(new Callback<VehicleLocationSimulationDTO>() {
-                    @Override
-                    public void onResponse(@NonNull Call<VehicleLocationSimulationDTO> call, @NonNull Response<VehicleLocationSimulationDTO> response) {
-
-                    }
-
-                    @Override
-                    public void onFailure(@NonNull Call<VehicleLocationSimulationDTO> call, @NonNull Throwable t) {
-
-                    }
-                });
 
             }
 
@@ -166,24 +164,6 @@ public class DriverUntilRideFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        rideSocketConfiguration = new RideSocketConfiguration();
-        rideSocketConfiguration.connect();
-
-        rideSocketConfiguration.stompClient
-                .topic("/topic/map-updates-regular")
-                .subscribe(message -> {
-                            VehicleLocationSimulationDTO simulationDTO = new Gson().fromJson(message.getPayload(), VehicleLocationSimulationDTO.class);
-                            if (simulationDTO.getLatitude() == rideDTO.getLocations().get(0).getDeparture().getLatitude())
-                                if (simulationDTO.getLongitude() ==
-                                        rideDTO.getLocations().get(0).getDeparture().getLongitude()) {
-                                    isDriverArrived = true;
-                                }
-
-                        },
-                        throwable -> {Log.d("SOCKET ERROR",
-                                throwable.getMessage());
-                        }
-                );
 
     }
 

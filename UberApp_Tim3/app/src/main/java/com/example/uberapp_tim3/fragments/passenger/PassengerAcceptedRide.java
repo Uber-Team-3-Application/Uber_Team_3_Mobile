@@ -94,16 +94,16 @@ public class PassengerAcceptedRide extends Fragment {
 
                 }
             });
-            CountDownTimer timer = new CountDownTimer((long) (rideDTO.getEstimatedTimeInMinutes()*60000), 1000) {
-                public void onTick(long millisUntilFinished) {
-                    TextView timer = getView().findViewById(R.id.timer_text_view);
-                    timer.setText(Math.toIntExact(millisUntilFinished));
-                }
-
-                public void onFinish() {
-                    // Code to execute when the timer finishes
-                }
-            }.start();
+//            CountDownTimer timer = new CountDownTimer((long) (rideDTO.getEstimatedTimeInMinutes()*60000), 1000) {
+//                public void onTick(long millisUntilFinished) {
+//                    TextView timer = getView().findViewById(R.id.timer_text_view);
+//                    timer.setText(Math.toIntExact(millisUntilFinished));
+//                }
+//
+//                public void onFinish() {
+//                    // Code to execute when the timer finishes
+//                }
+//            }.start();
         }
 
     }

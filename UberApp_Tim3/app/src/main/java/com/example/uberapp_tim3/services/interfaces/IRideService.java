@@ -29,6 +29,7 @@ public interface IRideService {
 
     @POST(ServiceUtils.ride)
     Call<CreatedRideDTO> createARide(@Body CreateRideDTO createdRideDTO);
+
     @PUT(ServiceUtils.ride + "/{id}/end")
     Call<DriverRideDTO> endRide(@Path("id") Long id);
 
@@ -45,4 +46,12 @@ public interface IRideService {
 
     @PUT(ServiceUtils.ride + "/{id}/panic")
     Call<RideDTO> panicRide(@Path("id") Long id, @Body ReasonDTO reasonDTO);
+
+
+    @PUT(ServiceUtils.ride + "/{id}/accept")
+    Call<RideDTO> acceptRide(@Path("id") Long id);
+
+    @PUT(ServiceUtils.ride + "/{id}/start")
+    Call<RideDTO> startRide(@Path("id") Long id);
+
 }
