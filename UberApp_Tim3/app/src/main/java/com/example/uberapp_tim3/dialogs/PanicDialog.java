@@ -20,15 +20,7 @@ import retrofit2.Response;
 public class PanicDialog  extends AlertDialog.Builder{
 
     RideDTO ride;
-
-    public PanicDialog(@NonNull Context context) {
-        super(context);
-    }
-
-    public PanicDialog(@NonNull Context context, int themeResId) {
-        super(context, themeResId);
-    }
-
+    
     public PanicDialog(Context context, RideDTO rideDTO) {
         super(context);
         setUpDialog();
