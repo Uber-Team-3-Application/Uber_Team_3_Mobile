@@ -108,7 +108,6 @@ public class ConfirmRideFragment extends Fragment {
             public void onClick(View view) {
 
                 try {
-                    Log.d("voznja je", getCreatedRide().toString());
                     Call<CreatedRideDTO> call =ServiceUtils.rideService.createARide(getCreatedRide());
                     call.enqueue(new Callback<CreatedRideDTO>() {
                         @Override
