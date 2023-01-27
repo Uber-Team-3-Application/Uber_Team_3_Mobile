@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.example.uberapp_tim3.fragments.DrawRouteFragment;
 import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.LocationDTO;
+import com.example.uberapp_tim3.model.DTO.ReasonDTO;
 import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.DTO.VehicleDTO;
 import com.example.uberapp_tim3.model.DTO.VehicleLocationSimulationDTO;
@@ -63,7 +65,40 @@ public class DriverUntilRideFragment extends Fragment {
     }
 
     private void setListeners() {
-        setStartRideListener();
+        setStartRideListener(); setCancelRideListener();
+    }
+
+    private void setCancelRideListener() {
+        TextView txtRejection = (EditText) requireActivity().findViewById(R.id.txtCancelReason);
+        Button cancelRide = requireActivity().findViewById(R.id.btnCancelRide);
+        cancelRide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String reason = txtRejection.getText().toString().trim();
+                if(reason.equalsIgnoreCase("")){
+                    Toast.makeText(getActivity(), "Please enter a reason.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                ServiceUtils.rideService.cancelRide(rideDTO.getId(), new ReasonDTO(reason))
+                        .enqueue(new Callback<RideDTO>() {
+                    @Override
+                    public void onResponse(Call<RideDTO> call, Response<RideDTO> response) {
+                        Log.d("STATUS", rideDTO.getStatus());
+                        if (Objects.equals(rideDTO.getStatus(), "CANCELED")) {
+                            Toast.makeText(getContext(), "Ride is canceled.", Toast.LENGTH_SHORT).show();
+                            onDestroy();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<RideDTO> call, Throwable t) {
+                        Log.d("ERROR", t.getMessage());
+                        Log.d("ERROR", "FATAL");
+
+                    }
+                });
+            }
+        });
     }
 
     private void setStartRideListener() {
@@ -90,6 +125,7 @@ public class DriverUntilRideFragment extends Fragment {
     private void initializeTime() {
     }
 
+
     private void setViews(RideDTO rideDTO) {
 
         Call<VehicleDTO> call = ServiceUtils.driverService.getVehicle(rideDTO.getDriver().getId());
@@ -101,11 +137,14 @@ public class DriverUntilRideFragment extends Fragment {
                         R.id.untilRideContainerDriver, new DrawRouteFragment(rideDTO)
                 ).commit();
 
-                Call<VehicleLocationSimulationDTO> callVehicle = ServiceUtils.vehicleService.updateLocation(response.body().getId());
-                callVehicle.enqueue(new Callback<VehicleLocationSimulationDTO>() {
+                LocationDTO locationDTO = new LocationDTO(rideDTO.getLocations().get(0).getDeparture().getAddress(),
+                        rideDTO.getLocations().get(0).getDeparture().getLatitude(),
+                        rideDTO.getLocations().get(0).getDeparture().getLongitude());
+                ServiceUtils.vehicleService.updateLocation(response.body().getId(), locationDTO)
+                .enqueue(new Callback<VehicleLocationSimulationDTO>() {
                     @Override
                     public void onResponse(@NonNull Call<VehicleLocationSimulationDTO> call, @NonNull Response<VehicleLocationSimulationDTO> response) {
-                        Log.d("response: ", response.body().toString());
+
                     }
 
                     @Override
@@ -133,9 +172,7 @@ public class DriverUntilRideFragment extends Fragment {
         rideSocketConfiguration.stompClient
                 .topic("/topic/map-updates-regular")
                 .subscribe(message -> {
-                            Log.d("III", "STIGLO");
                             VehicleLocationSimulationDTO simulationDTO = new Gson().fromJson(message.getPayload(), VehicleLocationSimulationDTO.class);
-                            Log.d("STIGLOJE", simulationDTO.toString());
                             if (simulationDTO.getLatitude() == rideDTO.getLocations().get(0).getDeparture().getLatitude())
                                 if (simulationDTO.getLongitude() ==
                                         rideDTO.getLocations().get(0).getDeparture().getLongitude()) {

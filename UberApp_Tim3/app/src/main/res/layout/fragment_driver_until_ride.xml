@@ -51,7 +51,7 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/txtPanicReason"
+                        android:id="@+id/txtCancelReason"
                         android:layout_width="800dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"

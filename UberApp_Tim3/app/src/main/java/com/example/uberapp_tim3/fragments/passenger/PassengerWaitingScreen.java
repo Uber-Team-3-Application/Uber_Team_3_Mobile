@@ -1,6 +1,8 @@
 package com.example.uberapp_tim3.fragments.passenger;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +12,26 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.model.DTO.CreatedRideDTO;
+import com.example.uberapp_tim3.model.DTO.RideDTO;
+import com.example.uberapp_tim3.model.DTO.VehicleLocationSimulationDTO;
+import com.example.uberapp_tim3.tools.RideSocketConfiguration;
+import com.google.gson.Gson;
 
 public class PassengerWaitingScreen extends Fragment {
+    public static RideSocketConfiguration rideSocketConfiguration;
+    CreatedRideDTO createdRideDTO;
 
-    public PassengerWaitingScreen() {}
+
+    public PassengerWaitingScreen(CreatedRideDTO body) {
+        this.createdRideDTO = body;
+    }
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Nullable
     @Override

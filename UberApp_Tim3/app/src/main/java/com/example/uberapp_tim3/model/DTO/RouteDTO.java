@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class RouteDTO implements Parcelable {
 
-    private Long id;
+
     private LocationDTO departure;
     private LocationDTO destination;
 
@@ -14,7 +14,7 @@ public class RouteDTO implements Parcelable {
     }
 
     public RouteDTO(Long id, LocationDTO departure, LocationDTO destination) {
-        this.id = id;
+
         this.departure = departure;
         this.destination = destination;
     }
@@ -24,11 +24,6 @@ public class RouteDTO implements Parcelable {
     }
 
     protected RouteDTO(Parcel in) {
-        if (in.readByte() == 0) {
-            id = null;
-        } else {
-            id = in.readLong();
-        }
         departure = in.readParcelable(LocationDTO.class.getClassLoader());
         destination = in.readParcelable(LocationDTO.class.getClassLoader());
     }
@@ -45,13 +40,7 @@ public class RouteDTO implements Parcelable {
         }
     };
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public LocationDTO getDeparture() {
         return departure;
@@ -76,12 +65,6 @@ public class RouteDTO implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        if (id == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeLong(id);
-        }
         parcel.writeParcelable(departure, i);
         parcel.writeParcelable(destination, i);
     }

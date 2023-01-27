@@ -25,6 +25,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.MapFragment;
@@ -102,10 +103,17 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
                     RideDTO ride  = new Gson().fromJson(message.getPayload(), RideDTO.class);
 
                     if(ride.getStatus().equalsIgnoreCase("accepted")){
+                        PassengerCurrentRideFragment currentRideFragment = new PassengerCurrentRideFragment();
+                        Bundle args = new Bundle();
+                        args.putParcelable("ride", ride);
+                        currentRideFragment.setArguments(args);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, currentRideFragment).addToBackStack(null).commit();
 
-                    }else if(ride.getStatus().equalsIgnoreCase("rejected")){
+                    }else if(ride.getStatus().equalsIgnoreCase("rejected")) {
+                        Toast.makeText(getApplicationContext(), "You'r ride is rejected. Try again.", Toast.LENGTH_SHORT).show();
 
                     }
+
                 });
 
         simulationSocketConfiguration = new SimulationSocketConfiguration();

@@ -113,7 +113,7 @@ public class ConfirmRideFragment extends Fragment {
                         @Override
                         public void onResponse(Call<CreatedRideDTO> call, Response<CreatedRideDTO> response) {
                             if(!response.isSuccessful()) return;
-                            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerWaitingScreen()).addToBackStack(null).commit();
+                            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerWaitingScreen(response.body())).addToBackStack(null).commit();
                         }
 
                         @Override

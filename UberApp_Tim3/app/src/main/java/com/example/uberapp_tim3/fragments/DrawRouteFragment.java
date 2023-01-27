@@ -255,6 +255,8 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, routePadding));
+        if (!isSimulation)
+            return;
         Call<String> call =  ServiceUtils.vehicleService.startSimulation(this.rideId);
         call.enqueue(new Callback<String>() {
             @SuppressLint("CheckResult")

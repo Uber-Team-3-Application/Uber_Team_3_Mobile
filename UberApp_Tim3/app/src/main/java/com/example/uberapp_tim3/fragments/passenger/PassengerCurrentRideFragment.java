@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.ChatFragment;
@@ -29,6 +31,8 @@ import com.example.uberapp_tim3.model.DTO.MessageBundleDTO;
 import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.DTO.RideUserDTO;
 import com.example.uberapp_tim3.tools.FragmentTransition;
+import com.example.uberapp_tim3.tools.RideSocketConfiguration;
+import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.Objects;
@@ -46,6 +50,7 @@ public class PassengerCurrentRideFragment extends Fragment {
     private Runnable runnable;
     private ImageView imgChatWithDriver;
     private SharedPreferences sharedPreferences;
+    public static RideSocketConfiguration rideSocketConfiguration;
 
 
 
@@ -58,11 +63,20 @@ public class PassengerCurrentRideFragment extends Fragment {
         return fragment;
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
+        sharedPreferences = requireActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        rideSocketConfiguration.stompClient.topic("/topic/passenger/end-ride/" + sharedPreferences.getLong("pref_id", 0L))
+                .subscribe(message ->{
+                    RideDTO ride  = new Gson().fromJson(message.getPayload(), RideDTO.class);
+                    if (ride.getStatus().equalsIgnoreCase("finished")) {
+                        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerRideHistoryFragment()).addToBackStack(null).commit();
+                    }
+                    });
+                }
+    @SuppressLint("CheckResult")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
