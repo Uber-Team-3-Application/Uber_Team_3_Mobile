@@ -110,7 +110,8 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
                     } else if(message.getPayload().toString().equals("You have a scheduled ride!"))
                     {
                         Toast.makeText(this, "You have a scheduled ride!", Toast.LENGTH_LONG);
-                    } else {
+                    }
+                    else {
 
                         RideDTO ride = new Gson().fromJson(message.getPayload(), RideDTO.class);
                         if (ride.getStatus().equalsIgnoreCase("accepted")) {

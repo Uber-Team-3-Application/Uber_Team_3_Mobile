@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.InputType;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -20,7 +21,7 @@ import retrofit2.Response;
 public class PanicDialog  extends AlertDialog.Builder{
 
     RideDTO ride;
-    
+
     public PanicDialog(Context context, RideDTO rideDTO) {
         super(context);
         setUpDialog();
@@ -34,6 +35,9 @@ public class PanicDialog  extends AlertDialog.Builder{
         setView(input);
 
         setPositiveButton("OK", (dialog, id) -> {
+            if (input.getText().toString().equals("")) {
+                return;
+            }
             Call<RideDTO> call = ServiceUtils.rideService.panicRide(ride.getId(), new ReasonDTO(input.getText().toString()));
             call.enqueue(new Callback<RideDTO>() {
                 @Override
