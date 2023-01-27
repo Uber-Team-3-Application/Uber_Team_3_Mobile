@@ -53,6 +53,7 @@ import com.example.uberapp_tim3.tools.NavItem;
 import com.example.uberapp_tim3.services.DriverMessagesService;
 import com.example.uberapp_tim3.tools.FragmentTransition;
 import com.example.uberapp_tim3.tools.RideSocketConfiguration;
+import com.example.uberapp_tim3.tools.SimulationSocketConfiguration;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -177,6 +178,8 @@ public class DriverMainActivity extends AppCompatActivity {
                                 throwable.getMessage());
                 }
                 );
+
+
     }
 
     private void changeActivity(Long id, boolean isActive) {

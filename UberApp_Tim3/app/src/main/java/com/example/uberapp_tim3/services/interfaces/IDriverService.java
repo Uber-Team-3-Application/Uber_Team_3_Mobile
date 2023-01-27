@@ -5,6 +5,7 @@ import android.app.Service;
 import com.example.uberapp_tim3.model.DTO.CreateWorkingHoursDTO;
 import com.example.uberapp_tim3.model.DTO.DriverActivityDTO;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
+import com.example.uberapp_tim3.model.DTO.DriversStatisticsDTO;
 import com.example.uberapp_tim3.model.DTO.EndWorkingHoursDTO;
 import com.example.uberapp_tim3.model.DTO.Paginated;
 import com.example.uberapp_tim3.model.DTO.UpdateDriverDTO;
@@ -15,6 +16,7 @@ import com.example.uberapp_tim3.services.ServiceUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -56,4 +58,8 @@ public interface IDriverService {
 
     @PUT(ServiceUtils.driver + "/{id}")
     Call<UpdateDriverDTO> updateDriver(@Path("id") Long id, @Body UpdateDriverDTO driver);
+
+    @GET(ServiceUtils.driver + "/{id}/statistics")
+    Call<Set<DriversStatisticsDTO>> getStatistics(@Path("id") Long id);
+
 }
