@@ -80,4 +80,5 @@ public class LocationDTO  implements Parcelable {
         parcel.writeDouble(latitude);
         parcel.writeDouble(longitude);
     }
+
 }

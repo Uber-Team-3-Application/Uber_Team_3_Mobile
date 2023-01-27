@@ -2,11 +2,14 @@ package com.example.uberapp_tim3.fragments;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -30,6 +33,12 @@ import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.dialogs.LocationDialog;
 import com.example.uberapp_tim3.fragments.passenger.PassengerEditInfoFragment;
 import com.example.uberapp_tim3.fragments.passenger.stepper.PassengerOrderARide;
+import com.example.uberapp_tim3.model.DTO.LocationDTO;
+import com.example.uberapp_tim3.model.DTO.VehicleDTO;
+import com.example.uberapp_tim3.model.DTO.VehicleLocationSimulationDTO;
+import com.example.uberapp_tim3.services.ServiceUtils;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -39,6 +48,16 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.Executor;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MapFragment extends Fragment implements LocationListener, OnMapReadyCallback {
 
@@ -311,6 +330,72 @@ public class MapFragment extends Fragment implements LocationListener, OnMapRead
                     //Request location updates:
                     location = locationManager.getLastKnownLocation(provider);
                 }
+
+                if(this.sharedPreferences.getString("pref_role", "").equalsIgnoreCase("driver")) {
+                    FusedLocationProviderClient fusedLocationClient;
+                    fusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+                    Log.d("USAO", "1");
+                    fusedLocationClient.getLastLocation().addOnSuccessListener( getActivity(), new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            Log.d("USAO", "2");
+
+                            if (location != null) {
+                                Log.d("USAO", "3");
+
+                                double latitude = location.getLatitude();
+                                double longitude = location.getLongitude();
+                                LatLng latLng = new LatLng(latitude, longitude);
+                                Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+                                List<Address> addresses = null;
+                                try {
+                                    addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                                    Log.d("USAO", "4");
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                Log.d("USAO", "5");
+
+                                if (addresses.size() > 0) {
+                                    Log.d("USAO", "6");
+
+                                    Address address = addresses.get(0);
+                                    LocationDTO newLocation = new LocationDTO(address.getAddressLine(0), latitude, longitude);
+                                    Call<VehicleDTO> vehCall = ServiceUtils.driverService.getVehicle(sharedPreferences.getLong("pref_id", 0));
+                                    vehCall.enqueue(new Callback<VehicleDTO>() {
+                                        @Override
+                                        public void onResponse(Call<VehicleDTO> call, Response<VehicleDTO> response) {
+                                            Log.d("USAO", newLocation.toString());
+                                            Call<VehicleLocationSimulationDTO> call2 = ServiceUtils.vehicleService.updateLocation(response.body().getId(), newLocation);
+                                            call2.enqueue(new Callback<VehicleLocationSimulationDTO>() {
+                                                @Override
+                                                public void onResponse(Call<VehicleLocationSimulationDTO> call2, Response<VehicleLocationSimulationDTO> response2) {
+                                                    Log.d("USAO", "7");
+
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<VehicleLocationSimulationDTO> call2, Throwable t) {
+
+                                                }
+                                            });
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<VehicleDTO> call, Throwable t) {
+
+                                        }
+                                    });
+
+                                }
+
+                            }
+                        }
+                    });
+                }
+
+
             }
         }
 
