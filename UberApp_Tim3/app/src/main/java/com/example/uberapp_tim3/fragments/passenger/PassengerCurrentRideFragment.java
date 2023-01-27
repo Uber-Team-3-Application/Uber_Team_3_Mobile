@@ -11,35 +11,27 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.dialogs.PanicDialog;
+import com.example.uberapp_tim3.dialogs.RejectionDialog;
 import com.example.uberapp_tim3.fragments.ChatFragment;
 import com.example.uberapp_tim3.fragments.DrawRouteFragment;
-import com.example.uberapp_tim3.fragments.driver.DriverCurrentRideFragment;
-import com.example.uberapp_tim3.fragments.driver.DriverEditInfoFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverInfoProfile;
-import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.MessageBundleDTO;
 import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.DTO.RideUserDTO;
-import com.example.uberapp_tim3.tools.FragmentTransition;
 import com.example.uberapp_tim3.tools.RideSocketConfiguration;
-import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -89,18 +81,19 @@ public class PassengerCurrentRideFragment extends Fragment {
 
         initializeTime();
         startMeasuringTime();
-        setPanicListener();
+        setPanicListener(rideDTO);
     }
 
 
 
-    private void setPanicListener() {
+    private void setPanicListener(RideDTO rideDTO) {
 
         Button btnPanic = requireView().findViewById(R.id.btnPanic);
         btnPanic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                PanicDialog dialog = new PanicDialog(requireContext(), rideDTO);
+                dialog.show();
             }
         });
     }
@@ -219,9 +212,6 @@ public class PassengerCurrentRideFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("ONDESTROY", "DESTROY");
-        System.out.println("ondestroy");
-        Log.i("ONDESTROY", "ONDESOTRY");
         handler.removeCallbacks(runnable);
 
     }
