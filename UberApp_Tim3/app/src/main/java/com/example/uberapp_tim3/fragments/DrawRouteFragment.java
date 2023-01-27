@@ -8,6 +8,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.uberapp_tim3.BuildConfig;
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.activities.DriverMainActivity;
+import com.example.uberapp_tim3.activities.NewRideNotificationActivity;
 import com.example.uberapp_tim3.model.DTO.LocationDTO;
 import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.DTO.RouteDTO;
@@ -39,6 +43,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.Gson;
@@ -73,9 +78,11 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
     private final String departureAddress;
     private final String destinationAddress;
     private Long rideId;
+    Handler handler = new Handler(Looper.getMainLooper());
     private boolean isSimulation;
-    private SimulationSocketConfiguration simulationSocketConfiguration;
     private Map<Long, MarkerOptions> carMarkers;
+    Marker marker = null;
+
 
     public DrawRouteFragment(RideDTO drive) {
         RouteDTO start = drive.getLocations().get(0);
@@ -136,8 +143,6 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
         transaction.replace(R.id.map_container, mMapFragment).commit();
         mMapFragment.getMapAsync(this);
 
-        simulationSocketConfiguration = new SimulationSocketConfiguration();
-        simulationSocketConfiguration.connect();
         if(isSimulation) {
             Log.d("SIMULATION", "ON RESUME");
             startSimulation();
@@ -321,34 +326,31 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
 
     @SuppressLint("CheckResult")
     private void simulate() {
-        carMarkers = new HashMap<>();
         BitmapDescriptor markerBlue = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE);
 
-        simulationSocketConfiguration.stompClient
-                .topic("/topic/map-updates")
-                .subscribe(message -> {
-                            VehicleLocationWithAvailabilityDTO vehicle = new Gson().fromJson(message.getPayload(), VehicleLocationWithAvailabilityDTO.class);
-                            if(carMarkers.get(vehicle.getId()) == null) {
+        MarkerOptions carMarker =  new MarkerOptions().position(departure).title("Your ride").icon(markerBlue);
+        NewRideNotificationActivity.simulationSocketConfiguration.stompClient
+                        .topic("/topic/map-updates")
+                        .subscribe(message -> {
+                                    VehicleLocationWithAvailabilityDTO vehicle = new Gson().fromJson(message.getPayload(), VehicleLocationWithAvailabilityDTO.class);
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if(marker != null)
+                                                marker.remove();
 
-                                carMarkers.put(vehicle.getId(),
-                                        new MarkerOptions().position(departure).title("Your ride").icon(markerBlue)
-                                );
+                                            LatLng newPosition = new LatLng(vehicle.getLongitude(), vehicle.getLatitude());
+                                            carMarker.position(newPosition);
+                                            marker = mMap.addMarker(carMarker);
 
-                                mMap.addMarker(Objects.requireNonNull(carMarkers.get(vehicle.getId())));
+                                        }
+                                    });
 
-                            }else{
-                                LatLng newPosition = new LatLng(vehicle.getLatitude(), vehicle.getLongitude());
-                                carMarkers.get(vehicle.getId()).position(newPosition);
-                                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(newPosition);
-                                mMap.animateCamera(cameraUpdate);
+                                },
+                                throwable -> {Log.d("SOCKET ERROR",
+                                        throwable.getMessage());
+                                }
+                        );
 
-                            }
-
-
-                        },
-                        throwable -> {Log.d("SOCKET ERROR",
-                                throwable.getMessage());
-                        }
-                );
     }
 }
