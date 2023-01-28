@@ -175,11 +175,11 @@ public class PassengerFavouriteRoutesFragment extends Fragment {
             bundle.putBoolean("babyTransport", ride.isBabyTransport());
             bundle.putBoolean("petTransport", ride.isPetTransport());
             bundle.putString("vehicleType", ride.getVehicleType());
-            String orderForLaterText = btnOrderAgain.getText().toString();
+            String orderForLaterText = btnPickDate.getText().toString();
             if(!orderForLaterText.equalsIgnoreCase("set ride time")){
-                bundle.putString("dateTme", orderForLaterText);
+                bundle.putString("scheduledTime", orderForLaterText);
             }else{
-                bundle.putString("dateTme", (new Date()).toString());
+                bundle.putString("scheduledTime", null);
 
             }
             ConfirmRideFragment fragment = new ConfirmRideFragment();

@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerHomeFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerWaitingScreen;
 import com.example.uberapp_tim3.model.DTO.CreateRideDTO;
@@ -32,6 +33,8 @@ import com.example.uberapp_tim3.model.users.User;
 import com.example.uberapp_tim3.services.ServiceUtils;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -112,26 +115,19 @@ public class ConfirmRideFragment extends Fragment {
                         @Override
                         public void onResponse(Call<RideDTO> call, Response<RideDTO> response) {
                             if(!response.isSuccessful()) return;
-                            if (response.body().getScheduledTime() != null)
+                            if (response.body().getScheduledTime() == null)
                                 requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerWaitingScreen(response.body())).addToBackStack(null).commit();
                             else {
                                 Toast.makeText(getContext(), "You have scheduled a ride!", Toast.LENGTH_LONG);
-                                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerHomeFragment()).addToBackStack(null).commit();
+                                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MapFragment()).addToBackStack(null).commit();
                             }
-                            }
+                        }
 
                         @Override
                         public void onFailure(Call<RideDTO> call, Throwable t) {
-
-                            requireActivity().getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.fragment_container,
-                                    new PassengerWaitingScreen(response.body())).addToBackStack(null).commit();
-                        }
-
-                        @Override
-                        public void onFailure(Call<CreatedRideDTO> call, Throwable t) {
                             Log.d("ERRORRR", t.getMessage());
                         }
+
                     });
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -146,16 +142,19 @@ public class ConfirmRideFragment extends Fragment {
         RouteDTO routeDTO = new RouteDTO(getLocation(departure), getLocation(destination));
         LinkedHashSet<RouteDTO> locations = new LinkedHashSet<>();
         locations.add(routeDTO);
-        DateTimeFormatter formatter = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        }
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            if(!dateTime.equals("")) {
-                LocalDateTime scheduledTime = LocalDateTime.parse(dateTime, formatter);
+
+            if(dateTime != null) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                Date scheduledTime = null;
+                try {
+                    scheduledTime = sdf.parse(dateTime);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
                 return new CreateRideDTO(users, locations, vehicleType, babyTransport, petTransport, scheduledTime);
             }
-        }
+
         return new CreateRideDTO(users, locations, vehicleType, babyTransport, petTransport, null);
     }
 
