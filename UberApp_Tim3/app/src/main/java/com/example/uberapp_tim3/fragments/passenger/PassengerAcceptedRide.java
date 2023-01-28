@@ -44,7 +44,7 @@ public class PassengerAcceptedRide extends Fragment {
         RideDTO rideDTO = null;
         if (bundle != null){
             rideDTO = bundle.getParcelable("ride");
-            Call<UserDTO> call = ServiceUtils.driverService.getDriver(rideDTO.getDriver().getId());
+            Call<UserDTO> call = ServiceUtils.userService.getDriver(rideDTO.getDriver().getId());
             call.enqueue(new Callback<UserDTO>() {
                 @Override
                 public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
@@ -94,6 +94,7 @@ public class PassengerAcceptedRide extends Fragment {
 
                 }
             });
+
 //            CountDownTimer timer = new CountDownTimer((long) (rideDTO.getEstimatedTimeInMinutes()*60000), 1000) {
 //                public void onTick(long millisUntilFinished) {
 //                    TextView timer = getView().findViewById(R.id.timer_text_view);

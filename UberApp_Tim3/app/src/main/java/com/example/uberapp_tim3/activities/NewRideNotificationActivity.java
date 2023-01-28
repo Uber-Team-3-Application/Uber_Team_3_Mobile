@@ -21,6 +21,7 @@ import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.users.Driver;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.FragmentTransition;
+import com.example.uberapp_tim3.tools.RideSocketConfiguration;
 import com.example.uberapp_tim3.tools.SimulationSocketConfiguration;
 
 import java.util.Date;
@@ -31,7 +32,7 @@ import retrofit2.Response;
 
 public class NewRideNotificationActivity extends AppCompatActivity {
     public static SimulationSocketConfiguration simulationSocketConfiguration;
-
+    public static RideSocketConfiguration rideSocketConfiguration;
 
     public NewRideNotificationActivity() {
     }
@@ -59,6 +60,8 @@ public class NewRideNotificationActivity extends AppCompatActivity {
         setListeners(accept, decline, ride);
         simulationSocketConfiguration = new SimulationSocketConfiguration();
         simulationSocketConfiguration.connect();
+        rideSocketConfiguration = new RideSocketConfiguration();
+        rideSocketConfiguration.connect();
     }
 
 
@@ -95,10 +98,15 @@ public class NewRideNotificationActivity extends AppCompatActivity {
 
         });
 
-        decline.setOnClickListener(view -> {
-            RejectionDialog dialog = new RejectionDialog(this, this, ride);
-            dialog.show();
+        decline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RejectionDialog dialog = new RejectionDialog(getApplicationContext(),
+                        NewRideNotificationActivity.this, ride);
+                dialog.show();
+            }
         });
+
     }
 
 

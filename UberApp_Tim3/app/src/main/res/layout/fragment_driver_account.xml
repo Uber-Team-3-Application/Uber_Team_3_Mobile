@@ -46,7 +46,7 @@
 
 
             <TextView
-                android:id="@+id/txtDrivPhone"
+                android:id="@+id/commentForDriver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imgAvatar"
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imgAvatar"
-                android:layout_alignStart="@+id/txtDrivPhone"
+                android:layout_alignStart="@+id/commentForDriver"
                 android:layout_marginStart="144dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/driver_phone_real_number"
@@ -72,7 +72,7 @@
                 android:id="@+id/txtDrivEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txtDrivPhone"
+                android:layout_below="@+id/commentForDriver"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/driver_email"
@@ -82,7 +82,7 @@
                 android:id="@+id/txtdriverEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txtDrivPhone"
+                android:layout_below="@+id/commentForDriver"
                 android:layout_alignStart="@+id/txtDrivEmail"
                 android:layout_marginStart="144dp"
                 android:layout_marginTop="20dp"

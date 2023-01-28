@@ -410,6 +410,7 @@ public class DriverMainActivity extends AppCompatActivity {
                 .setSmallIcon(R.drawable.ic_baseline_notifications_24)
                 .setContentTitle("New Ride")
                 .setContentText(start + " - " + end)
+                .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);

@@ -41,4 +41,7 @@ public interface IUserService {
     @GET(ServiceUtils.user + "/admin-user")
     Call<Long> getAdminId();
 
+    @GET(ServiceUtils.user + "/{id}/user")
+    Call<UserDTO> getDriver(@Path("id") Long id);
+
 }

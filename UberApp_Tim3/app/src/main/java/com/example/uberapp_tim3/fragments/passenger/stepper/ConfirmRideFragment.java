@@ -123,6 +123,14 @@ public class ConfirmRideFragment extends Fragment {
                         @Override
                         public void onFailure(Call<RideDTO> call, Throwable t) {
 
+                            requireActivity().getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.fragment_container,
+                                    new PassengerWaitingScreen(response.body())).addToBackStack(null).commit();
+                        }
+
+                        @Override
+                        public void onFailure(Call<CreatedRideDTO> call, Throwable t) {
+                            Log.d("ERRORRR", t.getMessage());
                         }
                     });
                 } catch (IOException e) {
