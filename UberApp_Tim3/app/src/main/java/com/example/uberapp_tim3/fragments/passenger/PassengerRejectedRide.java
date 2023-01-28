@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.fragments.MapFragment;
 
 public class PassengerRejectedRide extends Fragment {
 
@@ -33,7 +34,7 @@ public class PassengerRejectedRide extends Fragment {
     {
         @Override
         public void onClick (View view){
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerHomeFragment()).addToBackStack(null).commit();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MapFragment()).addToBackStack(null).commit();
     }
     });
 }
