@@ -26,7 +26,6 @@ import com.example.uberapp_tim3.R;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@SuppressLint({"MissingInflatedId", "LocalSuppress"})
 public class ForgottenPasswordActivity extends AppCompatActivity {
 
     private String code;
@@ -45,7 +44,7 @@ public class ForgottenPasswordActivity extends AppCompatActivity {
                 String mail = mMail.getText().toString();
                 if (checkEmail(mail))
                     sendMail(mail);
-                Toast.makeText(ForgottenPasswordActivity.this, "Please enter validate email",
+                else Toast.makeText(ForgottenPasswordActivity.this, "Please enter valid email",
                         Toast.LENGTH_SHORT).show();
             }
         });
