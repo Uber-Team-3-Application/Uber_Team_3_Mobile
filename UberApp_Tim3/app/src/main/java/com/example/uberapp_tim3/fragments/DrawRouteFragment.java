@@ -87,6 +87,8 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
     private Map<Long, MarkerOptions> carMarkers;
     Marker marker = null;
     private SharedPreferences preferences;
+    MarkerOptions carMarker;
+    BitmapDescriptor panic;
 
 
     public DrawRouteFragment(RideDTO drive) {
@@ -158,6 +160,7 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        panic = BitmapFromVector(R.drawable.ic_baseline_car_crash_36);
     }
 
     @Override
@@ -351,16 +354,19 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
     @SuppressLint("CheckResult")
     private void simulate() {
 
-        MarkerOptions carMarker =  new MarkerOptions().position(departure).title("Your ride")
+        carMarker =  new MarkerOptions().position(departure).title("Your ride")
                 .icon(BitmapFromVector(R.drawable.ic_baseline_directions_car_36_black));
-
         NewRideNotificationActivity.rideSocketConfiguration.stompClient
                         .topic("/topic/panic/"+this.preferences.getLong("pref_id", 0))
                                 .subscribe(message ->{
                                             handler.post(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    carMarker.icon(BitmapFromVector(R.drawable.ic_baseline_car_crash_36));
+                                                    if(marker != null)
+                                                        marker.remove();
+
+                                                    carMarker.icon(panic);
+                                                    marker = mMap.addMarker(carMarker);
 
                                                 }
                                             });
