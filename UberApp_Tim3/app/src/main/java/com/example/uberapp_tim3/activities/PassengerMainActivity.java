@@ -135,6 +135,7 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
         rideSocketConfiguration.stompClient
                 .topic("/topic/passenger/start-ride/" + this.sharedPreferences.getLong("pref_id", 0))
                 .subscribe( message ->{
+                    notifyForStartedRide();
                     RideDTO ride  = new Gson().fromJson(message.getPayload(), RideDTO.class);
                     PassengerCurrentRideFragment currentRideFragment = new PassengerCurrentRideFragment();
                     Bundle args = new Bundle();
@@ -166,6 +167,16 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
         simulationSocketConfiguration = new SimulationSocketConfiguration();
         simulationSocketConfiguration.connect();
 
+    }
+
+    private void notifyForStartedRide() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,PASSENGER_CHANEL)
+                .setSmallIcon(R.drawable.ic_baseline_notifications_24)
+                .setContentTitle("Your ride is started!")
+                .setContentText("We wish you a pleasant ride...");
+
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, builder.build());
     }
 
     private void notifyForRejectedRide() {
