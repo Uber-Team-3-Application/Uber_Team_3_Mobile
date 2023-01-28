@@ -18,12 +18,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.fragments.passenger.PassengerHomeFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerWaitingScreen;
 import com.example.uberapp_tim3.model.DTO.CreateRideDTO;
 import com.example.uberapp_tim3.model.DTO.CreatedRideDTO;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.LocationDTO;
 import com.example.uberapp_tim3.model.DTO.PassengerEmailDTO;
+import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.DTO.RouteDTO;
 import com.example.uberapp_tim3.model.DTO.UserDTO;
 import com.example.uberapp_tim3.model.users.User;
@@ -32,6 +34,7 @@ import com.example.uberapp_tim3.services.ServiceUtils;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -46,7 +49,6 @@ public class ConfirmRideFragment extends Fragment {
     String departure;
     String destination;
     String dateTime;
-    String scheduledTime;
     String passengers;
     String vehicleType;
     Boolean babyTransport;
@@ -63,15 +65,12 @@ public class ConfirmRideFragment extends Fragment {
         if (getArguments() != null) {
             departure = getArguments().getString("departure");
             destination = getArguments().getString("destination");
-            dateTime = getArguments().getString("dateTme");
             passengers = getArguments().getString("passengers");
             vehicleType = getArguments().getString("vehicleType");
             babyTransport = getArguments().getBoolean("babyTransport");
             petTransport = getArguments().getBoolean("petTransport");
-            scheduledTime = getArguments().getString("scheduledTime");
-
+            dateTime = getArguments().getString("scheduledTime");
         }
-
     }
 
     @Override
@@ -79,12 +78,11 @@ public class ConfirmRideFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         departure = getArguments().getString("departure");
         destination = getArguments().getString("destination");
-        dateTime = getArguments().getString("dateTime");
         passengers = getArguments().getString("passengers");
         vehicleType = getArguments().getString("vehicleType");
         babyTransport = getArguments().getBoolean("babyTransport");
         petTransport = getArguments().getBoolean("petTransport");
-        scheduledTime = getArguments().getString("scheduledTime");
+        dateTime = getArguments().getString("scheduledTime");
         preferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
 
         TextView departureView = getView().findViewById(R.id.departure);
@@ -100,6 +98,7 @@ public class ConfirmRideFragment extends Fragment {
         TextView petTransportView = getView().findViewById(R.id.petTransport);
         petTransportView.setText(petTransport ? "Yes" : "No");
 
+
         // Add the logic for drawing the route on the map
 
         btnOrderARide = getView().findViewById(R.id.btnOrderARide);
@@ -108,16 +107,21 @@ public class ConfirmRideFragment extends Fragment {
             public void onClick(View view) {
 
                 try {
-                    Call<CreatedRideDTO> call =ServiceUtils.rideService.createARide(getCreatedRide());
-                    call.enqueue(new Callback<CreatedRideDTO>() {
+                    Call<RideDTO> call = ServiceUtils.rideService.createARide(getCreatedRide());
+                    call.enqueue(new Callback<RideDTO>() {
                         @Override
-                        public void onResponse(Call<CreatedRideDTO> call, Response<CreatedRideDTO> response) {
+                        public void onResponse(Call<RideDTO> call, Response<RideDTO> response) {
                             if(!response.isSuccessful()) return;
-                            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerWaitingScreen(response.body())).addToBackStack(null).commit();
-                        }
+                            if (response.body().getScheduledTime() != null)
+                                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerWaitingScreen(response.body())).addToBackStack(null).commit();
+                            else {
+                                Toast.makeText(getContext(), "You have scheduled a ride!", Toast.LENGTH_LONG);
+                                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerHomeFragment()).addToBackStack(null).commit();
+                            }
+                            }
 
                         @Override
-                        public void onFailure(Call<CreatedRideDTO> call, Throwable t) {
+                        public void onFailure(Call<RideDTO> call, Throwable t) {
 
                         }
                     });
@@ -136,12 +140,13 @@ public class ConfirmRideFragment extends Fragment {
         locations.add(routeDTO);
         DateTimeFormatter formatter = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+            formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         }
-        LocalDateTime scheduledTime = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            if(dateTime != null) scheduledTime = LocalDateTime.parse(dateTime, formatter);
-            else scheduledTime = LocalDateTime.now();
+            if(!dateTime.equals("")) {
+                LocalDateTime scheduledTime = LocalDateTime.parse(dateTime, formatter);
+                return new CreateRideDTO(users, locations, vehicleType, babyTransport, petTransport, scheduledTime);
+            }
         }
         return new CreateRideDTO(users, locations, vehicleType, babyTransport, petTransport, null);
     }

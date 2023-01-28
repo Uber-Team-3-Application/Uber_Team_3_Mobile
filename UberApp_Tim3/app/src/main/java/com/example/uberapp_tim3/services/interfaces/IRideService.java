@@ -28,7 +28,7 @@ public interface IRideService {
     Call<DriverRideDTO> getRide(@Path("id") Long id);
 
     @POST(ServiceUtils.ride)
-    Call<CreatedRideDTO> createARide(@Body CreateRideDTO createdRideDTO);
+    Call<RideDTO> createARide(@Body CreateRideDTO createdRideDTO);
 
     @PUT(ServiceUtils.ride + "/{id}/end")
     Call<DriverRideDTO> endRide(@Path("id") Long id);

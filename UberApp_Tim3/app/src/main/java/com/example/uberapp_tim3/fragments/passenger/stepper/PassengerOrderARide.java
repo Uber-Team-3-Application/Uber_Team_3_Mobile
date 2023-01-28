@@ -60,6 +60,7 @@ public class PassengerOrderARide extends Fragment implements StepperFormListener
         bundle.putString("dateTme", step4.getDateTime());
         bundle.putBoolean("babyTransport", step4.isBabyTransport());
         bundle.putBoolean("petTransport", step4.isPetTransport());
+        bundle.putString("scheduledTime", step4.getDateTime());
         bundle.putString("vehicleType", step2.getStepData());
         ConfirmRideFragment fragment = new ConfirmRideFragment();
         fragment.setArguments(bundle);

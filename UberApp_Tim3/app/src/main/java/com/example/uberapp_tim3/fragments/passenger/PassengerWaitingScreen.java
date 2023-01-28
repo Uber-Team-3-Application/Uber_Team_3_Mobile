@@ -19,10 +19,10 @@ import com.example.uberapp_tim3.tools.RideSocketConfiguration;
 import com.google.gson.Gson;
 
 public class PassengerWaitingScreen extends Fragment {
-    CreatedRideDTO createdRideDTO;
+    RideDTO createdRideDTO;
 
 
-    public PassengerWaitingScreen(CreatedRideDTO body) {
+    public PassengerWaitingScreen(RideDTO body) {
         this.createdRideDTO = body;
     }
 
