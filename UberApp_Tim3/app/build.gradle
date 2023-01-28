@@ -13,6 +13,18 @@ def getLocalHost() {
     return properties.getProperty("localhost");
 }
 
+def getEmail() {
+    Properties properties = new Properties();
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    return properties.getProperty("EMAIL")
+}
+
+def getAppPassword() {
+    Properties properties = new Properties();
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    return properties.getProperty("APP_PASSWORD")
+}
+
 def getMapsApiKey() {
     Properties properties = new Properties();
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
@@ -38,6 +50,8 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "LOCALHOST", "\"" + getLocalHost() +"\""
         buildConfigField "String", "MAPS_API_KEY", "\"" + getMapsApiKey() + "\""
+        buildConfigField "String", "EMAIL", "\"" + getEmail() + "\""
+        buildConfigField "String", "APP_PASSWORD", "\"" + getAppPassword() + "\""
 
     }
 

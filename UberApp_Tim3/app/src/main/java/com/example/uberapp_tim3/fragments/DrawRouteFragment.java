@@ -381,7 +381,7 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
                                         throwable -> {Log.d("PANIC", "ERROR");});
 
 
-        simulationSocketConfiguration.stompClient.
+        simulationSocketConfiguration.stompClient
                         .topic("/topic/map-updates")
                         .subscribe(message -> {
                                     VehicleLocationWithAvailabilityDTO vehicle = new Gson().fromJson(message.getPayload(), VehicleLocationWithAvailabilityDTO.class);

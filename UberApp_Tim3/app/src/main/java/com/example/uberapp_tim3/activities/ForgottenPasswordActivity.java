@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.uberapp_tim3.tools.SendMail;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -22,10 +23,13 @@ import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @SuppressLint({"MissingInflatedId", "LocalSuppress"})
 public class ForgottenPasswordActivity extends AppCompatActivity {
 
-    private String MESSAGE =  "Hello from Reesen!...";
+    private String code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,28 +43,29 @@ public class ForgottenPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String mail = mMail.getText().toString();
-                // TODO: CHECK MAIL
-                sendMail(mail);
-
+                if (checkEmail(mail))
+                    sendMail(mail);
+                Toast.makeText(ForgottenPasswordActivity.this, "Please enter validate email",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
     }
 
-    private void sendMail(String mail) {
-        Intent email = new Intent(Intent.ACTION_SEND);
-        email.putExtra(Intent.EXTRA_EMAIL, new String[]{"veljkobubnjevic01@gmail.com"});
-        email.putExtra(Intent.EXTRA_TEXT, MESSAGE);
-        email.setType("message/rfc822");
-        try {
-            startActivity(Intent.createChooser(email, "Sending mail.... "));
-            finish();
-            Toast.makeText(getApplicationContext(), "Email sent.", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, ResetCodeActivity.class);
-            startActivity(intent);
 
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(ForgottenPasswordActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+    private boolean checkEmail(String email) {
+        Pattern pattern = Pattern.compile("^(.+)@(.+)$");
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    private void sendMail(String mail) {
+        try {
+            SendMail sm = new SendMail(this, mail, code);
+            sm.execute();
+
+        } catch (Exception e) {
+            Log.e("SendMail", e.getMessage(), e);
         }
 
 
