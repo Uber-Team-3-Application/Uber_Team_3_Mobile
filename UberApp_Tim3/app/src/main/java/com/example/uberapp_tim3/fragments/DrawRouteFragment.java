@@ -2,7 +2,9 @@ package com.example.uberapp_tim3.fragments;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -84,6 +86,7 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
     private boolean isSimulation;
     private Map<Long, MarkerOptions> carMarkers;
     Marker marker = null;
+    private SharedPreferences preferences;
 
 
     public DrawRouteFragment(RideDTO drive) {
@@ -144,7 +147,7 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.map_container, mMapFragment).commit();
         mMapFragment.getMapAsync(this);
-
+        preferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         if(isSimulation) {
             Log.d("SIMULATION", "ON RESUME");
             startSimulation();
@@ -349,11 +352,22 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
     @SuppressLint("CheckResult")
     private void simulate() {
 
-
-
-        BitmapDescriptor markerBlue = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE);
         MarkerOptions carMarker =  new MarkerOptions().position(departure).title("Your ride")
                 .icon(BitmapFromVector(R.drawable.ic_baseline_directions_car_24_black));
+
+        NewRideNotificationActivity.rideSocketConfiguration.stompClient
+                        .topic("/topic/panic/"+this.preferences.getLong("pref_id", 0))
+                                .subscribe(message ->{
+                                            handler.post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    carMarker.icon(BitmapFromVector(R.drawable.ic_baseline_car_crash_24));
+
+                                                }
+                                            });
+                                },
+                                        throwable -> {Log.d("PANIC", "ERROR");});
+
 
         NewRideNotificationActivity.simulationSocketConfiguration.stompClient
                         .topic("/topic/map-updates")

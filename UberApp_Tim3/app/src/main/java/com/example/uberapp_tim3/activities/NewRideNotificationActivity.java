@@ -60,6 +60,8 @@ public class NewRideNotificationActivity extends AppCompatActivity {
         setListeners(accept, decline, ride);
         simulationSocketConfiguration = new SimulationSocketConfiguration();
         simulationSocketConfiguration.connect();
+        rideSocketConfiguration = new RideSocketConfiguration();
+        rideSocketConfiguration.connect();
     }
 
 
