@@ -98,7 +98,7 @@ public class RateDriverFragment extends Fragment {
                         @Override
                         public void onResponse(Call<ReviewWithPassengerDTO> call, Response<ReviewWithPassengerDTO> response) {
                             checkVehicleIsRated(rideDTO);
-                            requireActivity().onBackPressed();
+
                         }
 
                         @Override
@@ -108,8 +108,9 @@ public class RateDriverFragment extends Fragment {
                     });
                 } else {
                     checkVehicleIsRated(rideDTO);
-                    requireActivity().onBackPressed();
                 }
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MapFragment()).addToBackStack(null).commit();
+
             }
         });
     }
@@ -121,7 +122,6 @@ public class RateDriverFragment extends Fragment {
                     new ReviewDTO((int)vehicleRatingBar.getRating(), txtVehicleComment.getText().toString())).enqueue(new Callback<ReviewWithPassengerDTO>() {
                 @Override
                 public void onResponse(Call<ReviewWithPassengerDTO> call, Response<ReviewWithPassengerDTO> response) {
-                    requireActivity().onBackPressed();
 
                 }
 

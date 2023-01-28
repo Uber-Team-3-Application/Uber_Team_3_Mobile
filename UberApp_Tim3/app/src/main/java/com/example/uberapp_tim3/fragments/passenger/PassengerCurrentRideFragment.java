@@ -28,10 +28,17 @@ import com.example.uberapp_tim3.fragments.driver.DriverInfoProfile;
 import com.example.uberapp_tim3.model.DTO.MessageBundleDTO;
 import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.DTO.RideUserDTO;
+import com.example.uberapp_tim3.model.DTO.VehicleDTO;
+import com.example.uberapp_tim3.model.DTO.VehicleLocationSimulationDTO;
+import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.RideSocketConfiguration;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -140,9 +147,37 @@ public class PassengerCurrentRideFragment extends Fragment {
 
     private void setViews(RideDTO rideDTO) {
         assert rideDTO != null;
-        requireActivity().getSupportFragmentManager().beginTransaction().replace(
-                R.id.currentRideContainerPassenger, new DrawRouteFragment(rideDTO, true)
-        ).commit();
+
+        Call<VehicleDTO> call = ServiceUtils.driverService.getVehicle(rideDTO.getDriver().getId());
+        call.enqueue(new Callback<VehicleDTO>() {
+            @Override
+            public void onResponse(Call<VehicleDTO> call, Response<VehicleDTO> response) {
+                assert response.body() != null;
+                VehicleDTO vehicleDTO = response.body();
+
+                Call<VehicleLocationSimulationDTO> another = ServiceUtils.vehicleService.updateLocation(vehicleDTO.getId(), rideDTO.getLocations().get(0).getDeparture());
+                another.enqueue(new Callback<VehicleLocationSimulationDTO>() {
+                    @Override
+                    public void onResponse(Call<VehicleLocationSimulationDTO> another, Response<VehicleLocationSimulationDTO> response) {
+                        requireActivity().getSupportFragmentManager().beginTransaction().replace(
+                                R.id.currentRideContainerPassenger, new DrawRouteFragment(rideDTO, true)
+                        ).commit();
+                    }
+
+                    @Override
+                    public void onFailure(Call<VehicleLocationSimulationDTO> another, Throwable t) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onFailure(Call<VehicleDTO> call, Throwable t) {
+
+            }
+        });
+
 
         TextView tvStartTime = requireActivity().findViewById(R.id.txtPassengerCurrentRideStartTime);
         TextView tvEndTIme = requireActivity().findViewById(R.id.txtPassengerCurrentRideEndTime);

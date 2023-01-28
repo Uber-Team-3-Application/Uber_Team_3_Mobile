@@ -38,6 +38,7 @@ import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.DTO.RouteDTO;
 import com.example.uberapp_tim3.model.DTO.VehicleLocationWithAvailabilityDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
+import com.example.uberapp_tim3.tools.RideSocketConfiguration;
 import com.example.uberapp_tim3.tools.SimulationSocketConfiguration;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -87,6 +88,7 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
     private boolean isSimulation;
     private Map<Long, MarkerOptions> carMarkers;
     public static SimulationSocketConfiguration simulationSocketConfiguration;
+    public static RideSocketConfiguration rideSocketConfiguration;
     Marker marker = null;
     private SharedPreferences preferences;
     MarkerOptions carMarker;
@@ -107,8 +109,8 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
         RouteDTO start;
         RouteDTO end;
 
-         start = drive.getLocations().get(0);
-         end = drive.getLocations().get(drive.getLocations().size() - 1);
+        start = drive.getLocations().get(0);
+        end = drive.getLocations().get(drive.getLocations().size() - 1);
 
         this.departure = new LatLng(start.getDeparture().getLatitude(), start.getDeparture().getLongitude());
         this.destination = new LatLng(end.getDestination().getLatitude(), end.getDestination().getLongitude());
@@ -147,6 +149,8 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
         super.onResume();
         simulationSocketConfiguration = new SimulationSocketConfiguration();
         simulationSocketConfiguration.connect();
+        rideSocketConfiguration = new RideSocketConfiguration();
+        rideSocketConfiguration.connect();
         mMapFragment = SupportMapFragment.newInstance();
 
         Button btnGetARide = getActivity().findViewById(R.id.btnGetARide);
@@ -363,7 +367,7 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
 
         carMarker =  new MarkerOptions().position(departure).title("Your ride")
                 .icon(BitmapFromVector(R.drawable.ic_baseline_directions_car_36_black));
-        NewRideNotificationActivity.rideSocketConfiguration.stompClient
+        rideSocketConfiguration.stompClient
                         .topic("/topic/panic/"+this.preferences.getLong("pref_id", 0))
                                 .subscribe(message ->{
                                             handler.post(new Runnable() {
@@ -381,7 +385,7 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
                                         throwable -> {Log.d("PANIC", "ERROR");});
 
 
-        simulationSocketConfiguration.stompClient.
+        simulationSocketConfiguration.stompClient
                         .topic("/topic/map-updates")
                         .subscribe(message -> {
                                     VehicleLocationWithAvailabilityDTO vehicle = new Gson().fromJson(message.getPayload(), VehicleLocationWithAvailabilityDTO.class);
