@@ -21,6 +21,7 @@ import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.users.Driver;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.FragmentTransition;
+import com.example.uberapp_tim3.tools.RideSocketConfiguration;
 import com.example.uberapp_tim3.tools.SimulationSocketConfiguration;
 
 import java.util.Date;
@@ -31,7 +32,7 @@ import retrofit2.Response;
 
 public class NewRideNotificationActivity extends AppCompatActivity {
     public static SimulationSocketConfiguration simulationSocketConfiguration;
-
+    public static RideSocketConfiguration rideSocketConfiguration;
 
     public NewRideNotificationActivity() {
     }
