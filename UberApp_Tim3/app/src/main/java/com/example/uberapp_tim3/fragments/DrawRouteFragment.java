@@ -2,11 +2,15 @@ package com.example.uberapp_tim3.fragments;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -84,6 +88,9 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
     private Map<Long, MarkerOptions> carMarkers;
     public static SimulationSocketConfiguration simulationSocketConfiguration;
     Marker marker = null;
+    private SharedPreferences preferences;
+    MarkerOptions carMarker;
+    BitmapDescriptor panic;
 
 
     public DrawRouteFragment(RideDTO drive) {
@@ -147,7 +154,7 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.map_container, mMapFragment).commit();
         mMapFragment.getMapAsync(this);
-
+        preferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         if(isSimulation) {
 
             Log.d("SIMULATION", "ON RESUME");
@@ -159,6 +166,7 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        panic = BitmapFromVector(R.drawable.ic_baseline_car_crash_36);
     }
 
     @Override
@@ -329,14 +337,51 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
         });
 
     }
+    private BitmapDescriptor BitmapFromVector(int vectorResId) {
+        // below line is use to generate a drawable.
+        Drawable vectorDrawable = ContextCompat.getDrawable(getContext(), vectorResId);
+        // below line is use to set bounds to our vector drawable.
+        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
 
+        // below line is use to create a bitmap for our
+        // drawable which we have added.
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+
+        // below line is use to add bitmap in our canvas.
+        Canvas canvas = new Canvas(bitmap);
+
+        // below line is use to draw our
+        // vector drawable in canvas.
+        vectorDrawable.draw(canvas);
+
+        // after generating our bitmap we are returning our bitmap.
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
     @SuppressLint("CheckResult")
     private void simulate() {
-        BitmapDescriptor markerBlue = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE);
 
-        MarkerOptions carMarker =  new MarkerOptions().position(departure).title("Your ride").icon(markerBlue);
 
-        simulationSocketConfiguration.stompClient
+        carMarker =  new MarkerOptions().position(departure).title("Your ride")
+                .icon(BitmapFromVector(R.drawable.ic_baseline_directions_car_36_black));
+        NewRideNotificationActivity.rideSocketConfiguration.stompClient
+                        .topic("/topic/panic/"+this.preferences.getLong("pref_id", 0))
+                                .subscribe(message ->{
+                                            handler.post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    if(marker != null)
+                                                        marker.remove();
+
+                                                    carMarker.icon(panic);
+                                                    marker = mMap.addMarker(carMarker);
+
+                                                }
+                                            });
+                                },
+                                        throwable -> {Log.d("PANIC", "ERROR");});
+
+
+        simulationSocketConfiguration.stompClient.
                         .topic("/topic/map-updates")
                         .subscribe(message -> {
                                     VehicleLocationWithAvailabilityDTO vehicle = new Gson().fromJson(message.getPayload(), VehicleLocationWithAvailabilityDTO.class);
@@ -350,7 +395,7 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
                                             carMarker.position(newPosition);
                                             marker = mMap.addMarker(carMarker);
 
-                                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newPosition, 16.0f));
+                                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(newPosition, 15.0f));
 
                                         }
                                     });
