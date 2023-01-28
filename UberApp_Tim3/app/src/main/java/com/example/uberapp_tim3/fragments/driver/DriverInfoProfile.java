@@ -48,7 +48,7 @@ public class DriverInfoProfile extends Fragment {
 
         assert bundle != null;
         Long driverId= bundle.getLong("driverId");
-        Call<UserDTO> call = ServiceUtils.driverService.getDriver(driverId);
+        Call<UserDTO> call = ServiceUtils.userService.getDriver(driverId);
         call.enqueue(new Callback<UserDTO>() {
             @Override
             public void onResponse(@NonNull Call<UserDTO> call, @NonNull Response<UserDTO> response) {

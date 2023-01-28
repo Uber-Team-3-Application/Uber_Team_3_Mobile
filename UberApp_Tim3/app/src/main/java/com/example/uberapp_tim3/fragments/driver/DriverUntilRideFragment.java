@@ -40,7 +40,7 @@ import retrofit2.Response;
 
 public class DriverUntilRideFragment extends Fragment {
 
-    RideDTO rideDTO = null;
+    RideDTO rideDTO;
     private TextView tvHours, tvMinutes, tvSeconds;
     private int elapsedTime = 0;
     private SharedPreferences preferences;

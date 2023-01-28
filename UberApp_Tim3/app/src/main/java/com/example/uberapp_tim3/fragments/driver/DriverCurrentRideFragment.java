@@ -23,10 +23,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.activities.NewRideNotificationActivity;
 import com.example.uberapp_tim3.fragments.ChatFragment;
 import com.example.uberapp_tim3.fragments.DrawRouteFragment;
 import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerInfoProfile;
+import com.example.uberapp_tim3.fragments.passenger.RateDriverFragment;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.MessageBundleDTO;
 import com.example.uberapp_tim3.model.DTO.ReasonDTO;
@@ -57,6 +59,7 @@ public class DriverCurrentRideFragment extends Fragment {
     private SharedPreferences preferences;
     public DriverCurrentRideFragment() {
         // Required empty public constructor
+
     }
 
     public static DriverCurrentRideFragment newInstance(String param1, String param2) {
@@ -112,7 +115,6 @@ public class DriverCurrentRideFragment extends Fragment {
                     }
                     assert response.body() != null;
                     Toast.makeText(getActivity(), "Support contacted, stay safe.", Toast.LENGTH_SHORT).show();
-
                 }
 
                 @Override
@@ -120,8 +122,6 @@ public class DriverCurrentRideFragment extends Fragment {
                     Toast.makeText(getActivity(), "Something went wrong, try again!", Toast.LENGTH_SHORT).show();
                 }
             });
-
-
         });
     }
 
@@ -140,6 +140,12 @@ public class DriverCurrentRideFragment extends Fragment {
                             return;
                         }
                         Toast.makeText(getContext(), "Ride successfully finished!", Toast.LENGTH_SHORT).show();
+
+                        RateDriverFragment rateDriverFragment = new RateDriverFragment();
+                        Bundle args = new Bundle();
+                        args.putParcelable("ride", rideDTO);
+                        rateDriverFragment.setArguments(args);
+                        //FragmentTransition.to(MapFragment.newInstance(), getActivity(), true);
                         getActivity().finish();
                     }
 

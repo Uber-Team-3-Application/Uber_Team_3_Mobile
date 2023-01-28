@@ -10,32 +10,28 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.dialogs.PanicDialog;
+import com.example.uberapp_tim3.dialogs.RejectionDialog;
 import com.example.uberapp_tim3.fragments.ChatFragment;
 import com.example.uberapp_tim3.fragments.DrawRouteFragment;
-import com.example.uberapp_tim3.fragments.driver.DriverCurrentRideFragment;
-import com.example.uberapp_tim3.fragments.driver.DriverEditInfoFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverInfoProfile;
-import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.MessageBundleDTO;
 import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.DTO.RideUserDTO;
-import com.example.uberapp_tim3.tools.FragmentTransition;
 import com.example.uberapp_tim3.tools.RideSocketConfiguration;
-import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
-import java.util.Objects;
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,7 +42,7 @@ public class PassengerCurrentRideFragment extends Fragment {
     private TextView tvHours, tvMinutes, tvSeconds;
     private String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private int elapsedTime = 0;
-    private Handler handler = new Handler();
+    private Handler handler = new Handler(Looper.getMainLooper());
     private Runnable runnable;
     private ImageView imgChatWithDriver;
     private SharedPreferences sharedPreferences;
@@ -69,7 +65,7 @@ public class PassengerCurrentRideFragment extends Fragment {
         super.onCreate(savedInstanceState);
         sharedPreferences = requireActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
 
-                }
+    }
     @SuppressLint("CheckResult")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -85,18 +81,19 @@ public class PassengerCurrentRideFragment extends Fragment {
 
         initializeTime();
         startMeasuringTime();
-        setPanicListener();
+        setPanicListener(rideDTO);
     }
 
 
 
-    private void setPanicListener() {
+    private void setPanicListener(RideDTO rideDTO) {
 
         Button btnPanic = requireView().findViewById(R.id.btnPanic);
         btnPanic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                PanicDialog dialog = new PanicDialog(requireContext(), rideDTO);
+                dialog.show();
             }
         });
     }
@@ -144,7 +141,7 @@ public class PassengerCurrentRideFragment extends Fragment {
     private void setViews(RideDTO rideDTO) {
         assert rideDTO != null;
         requireActivity().getSupportFragmentManager().beginTransaction().replace(
-                R.id.currentRideContainerDriver, new DrawRouteFragment(rideDTO)
+                R.id.currentRideContainerPassenger, new DrawRouteFragment(rideDTO, true)
         ).commit();
 
         TextView tvStartTime = requireActivity().findViewById(R.id.txtPassengerCurrentRideStartTime);
@@ -153,11 +150,18 @@ public class PassengerCurrentRideFragment extends Fragment {
         TextView tvDestination = requireActivity().findViewById(R.id.txtPassengerCurrentRideDestination);
         TextView tvPassengers = requireActivity().findViewById(R.id.txtPassengerCurrentRidePassengerCount);
         TextView tvPrice = requireActivity().findViewById(R.id.txtPassengerCurrentRidePrice);
-        
+
 
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         tvStartTime.setText(sdf.format(rideDTO.getStartTime()));
-        tvEndTIme.setText(sdf.format(rideDTO.getEndTime()));
+
+        Calendar time = Calendar.getInstance();
+
+        time.setTime(rideDTO.getStartTime());
+        time.add(Calendar.MINUTE, (int)rideDTO.getEstimatedTimeInMinutes());
+        String estimated = sdf.format(time.getTime()) + "(estimated)";
+        tvEndTIme.setText(estimated);
+
         tvDeparture.setText(rideDTO.getLocations().get(0).getDeparture().getAddress());
         tvDestination.setText(rideDTO.getLocations().get(rideDTO.getLocations().size() - 1).getDestination().getAddress());
         String totalPassengers = Integer.toString(rideDTO.getPassengers().size());
