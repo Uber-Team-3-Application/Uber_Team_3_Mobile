@@ -331,7 +331,6 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
     private BitmapDescriptor BitmapFromVector(int vectorResId) {
         // below line is use to generate a drawable.
         Drawable vectorDrawable = ContextCompat.getDrawable(getContext(), vectorResId);
-
         // below line is use to set bounds to our vector drawable.
         vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
 
@@ -353,7 +352,7 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
     private void simulate() {
 
         MarkerOptions carMarker =  new MarkerOptions().position(departure).title("Your ride")
-                .icon(BitmapFromVector(R.drawable.ic_baseline_directions_car_24_black));
+                .icon(BitmapFromVector(R.drawable.ic_baseline_directions_car_36_black));
 
         NewRideNotificationActivity.rideSocketConfiguration.stompClient
                         .topic("/topic/panic/"+this.preferences.getLong("pref_id", 0))
@@ -361,7 +360,7 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
                                             handler.post(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    carMarker.icon(BitmapFromVector(R.drawable.ic_baseline_car_crash_24));
+                                                    carMarker.icon(BitmapFromVector(R.drawable.ic_baseline_car_crash_36));
 
                                                 }
                                             });
