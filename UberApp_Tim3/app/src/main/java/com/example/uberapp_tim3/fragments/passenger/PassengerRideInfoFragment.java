@@ -3,6 +3,7 @@ package com.example.uberapp_tim3.fragments.passenger;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -57,6 +58,8 @@ public class PassengerRideInfoFragment extends Fragment {
     private TextView txtPrice;
     private Button driverCommentOkButton;
     private Button vehicleCommentOkButton;
+    private ImageView heart;
+    private boolean isRideFavourite;
 
     public PassengerRideInfoFragment() {
     }
@@ -89,7 +92,9 @@ public class PassengerRideInfoFragment extends Fragment {
         txtEndStation = requireActivity().findViewById(R.id.txtEndStation);
         txtPrice = requireActivity().findViewById(R.id.txtPrice);
         txtStartStation = requireActivity().findViewById(R.id.txtStartStation);
+        heart = requireActivity().findViewById(R.id.likedHeart);
 
+        isRideFavourite = false;
         SetReviews();
         checkReviewsAreDisabled();
         SetRideInfo();
@@ -225,14 +230,17 @@ public class PassengerRideInfoFragment extends Fragment {
 
             }
         });
-        requireActivity().getSupportFragmentManager().beginTransaction().replace(
-                R.id.map_route_fragment_container,new DrawRouteFragment(new RideDTO(rideDTO))
-        ).commit();
+//        requireActivity().getSupportFragmentManager().beginTransaction().replace(
+//                R.id.map_route_fragment_container,new DrawRouteFragment(new RideDTO(rideDTO))
+//        ).commit();
 
     }
 
 
     private void setOnClickListeners(){
+
+        setHeartListener();
+
         ImageView imgInbox = requireActivity().findViewById(R.id.imgInbox);
 
         ImageView imgDriver = requireActivity().findViewById(R.id.imgDriver);
@@ -256,13 +264,30 @@ public class PassengerRideInfoFragment extends Fragment {
         });
     }
 
+    private void setHeartListener() {
+        heart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (!isRideFavourite) {
+                    heart.setImageResource(R.drawable.heart_liked);
+                    isRideFavourite = true;
+                }
+                else {
+                    heart.setImageResource(R.drawable.heart_disliked);
+                    isRideFavourite = false;
+
+                }
+            }
+        });
+    }
+
 
     @SuppressLint("SetTextI18n")
     private void fillOtherPassengers(){
         LinearLayout ly = requireActivity().findViewById(R.id.lyOtherPassengers);
         LayoutInflater inflater = (LayoutInflater) requireView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        List<Drive> drives = DrivesMockUp.getDrives();
         for(int i =1;i<rideDTO.getPassengers().size();i++){
             View passenger = inflater.inflate(R.layout.other_passenger_item, (ViewGroup) getView(), false);
             TextView txtPassengerFullName = passenger.findViewById(R.id.txtPassengerFullName);
