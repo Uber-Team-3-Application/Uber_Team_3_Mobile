@@ -15,8 +15,16 @@ import retrofit2.http.Path;
 
 public interface IReviewService {
 
-    @GET(ServiceUtils.review + "/{id}")
-    Call<List<RideReviewDTO>> getReviews(@Path("id") Long id);
+    @GET(ServiceUtils.review + "/{rideId}")
+    Call<List<RideReviewDTO>> getReviews(@Path("rideId") Long id);
+
+
+    @GET(ServiceUtils.review + "/driver/{id}")
+    Call<ReviewWithPassengerDTO> getReviewAboutDriver(@Path("id") Long id);
+
+    @GET(ServiceUtils.review + "/vehicle/{id}")
+    Call<ReviewWithPassengerDTO> getReviewAboutVehicle(@Path("id") Long id);
+
 
     @POST(ServiceUtils.review + "/{rideId}/vehicle")
     Call<ReviewWithPassengerDTO> createReviewAboutVehicle(@Path("rideId") int rideId, @Body ReviewDTO r);

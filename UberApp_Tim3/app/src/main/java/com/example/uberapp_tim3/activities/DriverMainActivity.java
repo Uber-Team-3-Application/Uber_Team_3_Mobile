@@ -138,7 +138,7 @@ public class DriverMainActivity extends AppCompatActivity {
             }
 
             public void onDrawerOpened(View drawerView) {
-                getSupportActionBar().setTitle("Uber");
+                getSupportActionBar().setTitle("Reesen");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -215,8 +215,7 @@ public class DriverMainActivity extends AppCompatActivity {
 
         boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         boolean wifi = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        Log.i("wwww", String.valueOf(gps));
-        Log.i("wqqqq", String.valueOf(wifi));
+
     }
 
     public UserDTO getDriver(Long id){
@@ -248,8 +247,7 @@ public class DriverMainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<UserDTO> call, @NonNull Throwable t) {
-                Log.d("FAIIIL", t.getMessage());
-                Log.d("FAIIIL", "BLATRUC");
+                Log.d("FAIL", t.getMessage());
             }
         });
         return null;

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">reesen</string>
+    <string name="app_name">Reesen</string>
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="email">Email Address</string>
@@ -315,5 +315,10 @@
     <string name="you_are_on_location_for">You are on location for</string>
     <string name="maybe_later">Maybe later</string>
     <string name="rate_driver">Rate driver</string>
+    <string name="resetCodeMessage">Enter a code which sent to email</string>
+    <string name="verify">Verify</string>
+    <string name="new_password">New Password</string>
+    <string name="example_password">Password123</string>
+    <string name="ok">OK</string>
 
 </resources>

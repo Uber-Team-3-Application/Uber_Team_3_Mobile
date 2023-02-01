@@ -5,8 +5,11 @@ import android.os.Parcelable;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class RideDTO implements Parcelable {
     private Long id;
@@ -176,6 +179,29 @@ public class RideDTO implements Parcelable {
     @Override
     public int describeContents() {
         return 0;
+    }
+
+    public RideDTO(PassengerRideDTO passengerRide) {
+        this.id = passengerRide.getId();
+        this.babyTransport = passengerRide.isBabyTransport();
+        this.driver = new RideUserDTO(passengerRide.getDriver());
+        this.petTransport = passengerRide.isPetTransport();
+        this.locations = passengerRide.getLocations();
+        this.startTime = passengerRide.getStartTime();
+        this.endTime = passengerRide.getEndTime();
+        this.passengers = new ArrayList<>();
+        for (UserDTO pass : passengerRide.getPassengers()) {
+            this.passengers.add(new RideUserDTO(pass));
+        }
+        this.vehicleType = passengerRide.getVehicleType();
+        this.totalCost = passengerRide.getTotalCost();
+        this.scheduledTime = passengerRide.getStartTime();
+        this.estimatedTimeInMinutes = passengerRide.getEstimatedTimeInMinutes();
+        this.rejection = passengerRide.getRejection();
+
+
+
+
     }
 
     protected RideDTO(Parcel in) throws ParseException {
