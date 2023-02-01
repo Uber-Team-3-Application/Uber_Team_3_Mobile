@@ -62,7 +62,7 @@ public class FavouriteDialog extends AlertDialog.Builder {
 
                 @Override
                 public void onFailure(Call<FavouriteRideDTO> call, Throwable t) {
-
+                    System.out.println("FAILURE: " + t);
                 }
             });
 

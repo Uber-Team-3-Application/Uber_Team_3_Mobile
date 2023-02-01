@@ -106,8 +106,7 @@ public class ForgottenPasswordActivity extends AppCompatActivity {
                             "You are receiving this email because you registred on our website." +
                             "If this wasn't you, please ignore this mail.";
         EmailDTO dto = new EmailDTO(mail, "Password Reset", message + code + endMessage);
-        Call<String> call = ServiceUtils.userService.sendEmail(dto);
-        call.enqueue(new Callback<String>() {
+        ServiceUtils.userService.sendEmail(dto).enqueue(new Callback<String>() {
             @Override
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                 System.out.println("POSLATOOO");
@@ -119,12 +118,13 @@ public class ForgottenPasswordActivity extends AppCompatActivity {
                 Intent intent = new Intent(ForgottenPasswordActivity.this, ResetCodeActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
+
             }
 
             @Override
             public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
                 System.out.println("ERROR");
-                System.out.println(t.toString());
+                System.out.println(t.getMessage());
                 Toast.makeText(ForgottenPasswordActivity.this, "Try later...", Toast.LENGTH_SHORT).show();
             }
         });

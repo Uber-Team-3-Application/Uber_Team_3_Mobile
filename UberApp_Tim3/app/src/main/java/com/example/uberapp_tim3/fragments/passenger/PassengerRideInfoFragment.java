@@ -108,7 +108,7 @@ public class PassengerRideInfoFragment extends Fragment {
             fillOtherPassengers();
     }
 
-  
+
 
     private void checkReviewsAreDisabled() {
         Calendar cal = Calendar.getInstance();
@@ -308,11 +308,14 @@ public class PassengerRideInfoFragment extends Fragment {
     private void fillOtherPassengers(){
         LinearLayout ly = requireActivity().findViewById(R.id.lyOtherPassengers);
         LayoutInflater inflater = (LayoutInflater) requireView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        SharedPreferences sharedPreferences =  requireActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
 
-        for(int i =1;i<rideDTO.getPassengers().size();i++){
+        for(int i =0;i<rideDTO.getPassengers().size();i++){
+            if (rideDTO.getPassengers().get(i).getId() == sharedPreferences.getLong("pref_id", 0L))
+                continue;
             View passenger = inflater.inflate(R.layout.other_passenger_item, (ViewGroup) getView(), false);
             TextView txtPassengerFullName = passenger.findViewById(R.id.txtPassengerFullName);
-            txtPassengerFullName.setText(rideDTO.getPassengers().get(i).getName() + " " + rideDTO.getPassengers().get(i).getSurname());
+            txtPassengerFullName.setText(rideDTO.getPassengers().get(i).getEmail());
             ly.addView(passenger);
         }
 

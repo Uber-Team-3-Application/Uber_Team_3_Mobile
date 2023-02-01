@@ -23,13 +23,6 @@ import retrofit2.http.Query;
 
 public interface IUserService {
 
-    @Headers(
-            {
-                    "User-Agent: Mobile-Android",
-                    "Content-Type:application/json"
-            }
-    )
-
     @POST(ServiceUtils.user + "/login")
     Call<LoginResponseDTO> login(@Body LoginDTO loginDTO);
 
