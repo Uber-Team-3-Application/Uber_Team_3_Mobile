@@ -23,6 +23,7 @@ public class DriverRideDTO implements Parcelable {
     private List<RideReviewDTO> reviews;
 
 
+
     protected DriverRideDTO(Parcel in) {
         if (in.readByte() == 0) {
             id = null;
