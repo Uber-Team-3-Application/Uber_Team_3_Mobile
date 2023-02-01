@@ -100,7 +100,6 @@ public class PassengerRideInfoFragment extends Fragment {
         heart = requireActivity().findViewById(R.id.likedHeart);
 
         isRideFavourite = false;
-        checkIsFavourite();
         SetReviews();
         checkReviewsAreDisabled();
         SetRideInfo();
@@ -109,27 +108,7 @@ public class PassengerRideInfoFragment extends Fragment {
             fillOtherPassengers();
     }
 
-    private void checkIsFavourite() {
-        ServiceUtils.rideService.getFavouriteRides().enqueue(new Callback<List<FavouriteRideDTO>>() {
-            @Override
-            public void onResponse(Call<List<FavouriteRideDTO>> call, Response<List<FavouriteRideDTO>> response) {
-                if (response.body() != null) {
-                    for (FavouriteRideDTO favourite : response.body()) {
-                        if (Objects.equals(favourite.get, rideDTO.getId())) {
-                            isRideFavourite = true;
-                            return;
-                        }
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<FavouriteRideDTO>> call, Throwable t) {
-                System.out.println(t.getMessage());
-            }
-        });
-    }
+  
 
     private void checkReviewsAreDisabled() {
         Calendar cal = Calendar.getInstance();
