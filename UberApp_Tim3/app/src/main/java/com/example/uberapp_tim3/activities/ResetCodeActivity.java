@@ -58,8 +58,8 @@ public class ResetCodeActivity extends AppCompatActivity {
             code = intent.getStringExtra("code");
             newPassword = intent.getStringExtra("newPassword");
 
-
         }
+
         setContentView(R.layout.activity_reset_code);
 
         otp_textbox_one = findViewById(R.id.otp_edit_box1);
@@ -92,9 +92,12 @@ public class ResetCodeActivity extends AppCompatActivity {
         verify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String input = otp_textbox_one.getText() + String.valueOf(otp_textbox_two) +
-                        otp_textbox_three.getText() + otp_textbox_four.getText() + otp_textbox_five.getText() +
-                        otp_textbox_six.getText();
+                String input =
+                        otp_textbox_one.getText().toString() + otp_textbox_two.getText().toString() +
+                        otp_textbox_three.getText().toString() + otp_textbox_four.getText().toString() +
+                        otp_textbox_five.getText().toString() +
+                        otp_textbox_six.getText().toString();
+
                 if (Objects.equals(code, input)) {
                     sendCode(input);
                 } else {

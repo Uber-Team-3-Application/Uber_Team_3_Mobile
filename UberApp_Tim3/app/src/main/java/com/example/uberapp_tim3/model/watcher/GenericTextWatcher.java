@@ -41,11 +41,15 @@ public class GenericTextWatcher implements TextWatcher {
                     editText[1].requestFocus();
                 break;
             case R.id.otp_edit_box4:
-                if (text.length() == 0)
+                if (text.length() == 1)
+                    editText[4].requestFocus();
+                else if (text.length() == 0)
                     editText[2].requestFocus();
                 break;
             case R.id.otp_edit_box5:
-                if (text.length() == 0)
+                if (text.length() == 1)
+                    editText[5].requestFocus();
+                else if (text.length() == 0)
                     editText[3].requestFocus();
                 break;
             case R.id.otp_edit_box6:
