@@ -1,5 +1,6 @@
 package com.example.uberapp_tim3.services.interfaces;
 
+import com.example.uberapp_tim3.model.DTO.CreateFavouriteRideDTO;
 import com.example.uberapp_tim3.model.DTO.CreateRideDTO;
 import com.example.uberapp_tim3.model.DTO.CreatedRideDTO;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
@@ -36,8 +37,12 @@ public interface IRideService {
     @GET(ServiceUtils.ride + "/favorites")
     Call<List<FavouriteRideDTO>> getFavouriteRides();
 
+    @POST(ServiceUtils.ride + "/favorites")
+    Call<FavouriteRideDTO> addFavouriteRide(@Body CreateFavouriteRideDTO dto);
+
     @DELETE(ServiceUtils.ride + "/favorites/{id}")
     Call<ResponseBody> deleteFavouriteRide(@Path("id") Long id);
+
     @POST(ServiceUtils.ride + "/rides-report")
     Call<ReportSumAverageDTO> getReport(@Body ReportRequestDTO reportRequestDTO);
 

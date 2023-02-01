@@ -20,8 +20,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.dialogs.FavouriteDialog;
 import com.example.uberapp_tim3.fragments.DrawRouteFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverInfoProfile;
+import com.example.uberapp_tim3.model.DTO.CreateFavouriteRideDTO;
+import com.example.uberapp_tim3.model.DTO.FavouriteRideDTO;
 import com.example.uberapp_tim3.model.DTO.LocationDTO;
 import com.example.uberapp_tim3.model.DTO.PassengerRideDTO;
 import com.example.uberapp_tim3.model.DTO.ReviewDTO;
@@ -37,7 +40,9 @@ import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -95,12 +100,35 @@ public class PassengerRideInfoFragment extends Fragment {
         heart = requireActivity().findViewById(R.id.likedHeart);
 
         isRideFavourite = false;
+        checkIsFavourite();
         SetReviews();
         checkReviewsAreDisabled();
         SetRideInfo();
         setOnClickListeners();
         if (rideDTO.getPassengers().size() > 1)
             fillOtherPassengers();
+    }
+
+    private void checkIsFavourite() {
+        ServiceUtils.rideService.getFavouriteRides().enqueue(new Callback<List<FavouriteRideDTO>>() {
+            @Override
+            public void onResponse(Call<List<FavouriteRideDTO>> call, Response<List<FavouriteRideDTO>> response) {
+                if (response.body() != null) {
+                    for (FavouriteRideDTO favourite : response.body()) {
+                        if (Objects.equals(favourite.get, rideDTO.getId())) {
+                            isRideFavourite = true;
+                            return;
+                        }
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<FavouriteRideDTO>> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
     }
 
     private void checkReviewsAreDisabled() {
@@ -272,15 +300,29 @@ public class PassengerRideInfoFragment extends Fragment {
                 if (!isRideFavourite) {
                     heart.setImageResource(R.drawable.heart_liked);
                     isRideFavourite = true;
+                    FavouriteDialog favouriteDialog = new FavouriteDialog(getContext(), rideDTO);
+                    favouriteDialog.show();
                 }
                 else {
                     heart.setImageResource(R.drawable.heart_disliked);
+                    ServiceUtils.rideService.deleteFavouriteRide(rideDTO.getId()).enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                        }
+                    });
                     isRideFavourite = false;
 
                 }
             }
         });
     }
+
 
 
     @SuppressLint("SetTextI18n")
