@@ -2,6 +2,7 @@ package com.example.uberapp_tim3.fragments.passenger;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -20,17 +21,42 @@ import android.widget.TextView;
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.DrawRouteFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverInfoProfile;
-import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
+import com.example.uberapp_tim3.model.DTO.LocationDTO;
+import com.example.uberapp_tim3.model.DTO.PassengerRideDTO;
+import com.example.uberapp_tim3.model.DTO.ReviewDTO;
+import com.example.uberapp_tim3.model.DTO.ReviewWithPassengerDTO;
 import com.example.uberapp_tim3.model.DTO.RideDTO;
+import com.example.uberapp_tim3.model.DTO.RideReviewDTO;
 import com.example.uberapp_tim3.model.mockup.Drive;
+import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.DrivesMockUp;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class PassengerRideInfoFragment extends Fragment {
 
+    private PassengerRideDTO rideDTO;
+    private RatingBar passengerRideInfoDriverRating;
+    private RatingBar passengerRideInfoCarRating;
+    private TextView  passVehicleComment;
+    private TextView passDriverComment;
+    private TextView txtStartStation;
+    private TextView txtEndStation;
+    private TextView txtStartTime;
+    private TextView txtEndTime;
+    private TextView txtKilometers;
+    private TextView txtPrice;
+    private Button driverCommentOkButton;
+    private Button vehicleCommentOkButton;
 
     public PassengerRideInfoFragment() {
     }
@@ -49,30 +75,158 @@ public class PassengerRideInfoFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         Bundle bundle = this.getArguments();
-        RideDTO rideDTO = null;
         if (bundle != null)
             rideDTO = bundle.getParcelable("ride");
-        SetViews(rideDTO);
+
+        passengerRideInfoDriverRating = requireActivity().findViewById(R.id.passengerRideInfoDriverRating);
+        passengerRideInfoCarRating = requireActivity().findViewById(R.id.passengerRideInfoCarRating);
+        passVehicleComment = requireActivity().findViewById(R.id.passVehicleComment);
+        passDriverComment = requireActivity().findViewById(R.id.passDriverComment);
+        txtStartTime = requireActivity().findViewById(R.id.txtStartTime);
+        txtEndTime = requireActivity().findViewById(R.id.txtEndTime);
+        txtKilometers = requireActivity().findViewById(R.id.txtKilometers);
+        txtEndStation = requireActivity().findViewById(R.id.txtEndStation);
+        txtPrice = requireActivity().findViewById(R.id.txtPrice);
+        txtStartStation = requireActivity().findViewById(R.id.txtStartStation);
+
+        SetReviews();
+        checkReviewsAreDisabled();
+        SetRideInfo();
         setOnClickListeners();
-        fillOtherPassengers();
+        if (rideDTO.getPassengers().size() > 1)
+            fillOtherPassengers();
+    }
+
+    private void checkReviewsAreDisabled() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.DAY_OF_MONTH, -3);
+        Calendar endCal = Calendar.getInstance();
+        endCal.setTime(rideDTO.getEndTime());
+        vehicleCommentOkButton = requireActivity().findViewById(R.id.vehicleCommentOkButton);
+        driverCommentOkButton = requireActivity().findViewById(R.id.driverCommentOkButton);
+
+
+        if (endCal.before(cal)) {
+            passengerRideInfoDriverRating.setIsIndicator(true);
+            passengerRideInfoCarRating.setIsIndicator(true);
+            passDriverComment.setEnabled(false);
+            passVehicleComment.setEnabled(false);
+            vehicleCommentOkButton.setEnabled(false);
+            driverCommentOkButton.setEnabled(false);
+        } else {
+            setDriverCommentButtonListener();
+            setVehicleCommentButtonListener();
+        }
+    }
+
+    private void setVehicleCommentButtonListener() {
+        vehicleCommentOkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ReviewDTO dto = new ReviewDTO((int)passengerRideInfoCarRating.getRating(), passVehicleComment.getText().toString());
+                ServiceUtils.reviewService.createReviewAboutVehicle(rideDTO.getId().intValue(), dto).enqueue(new Callback<ReviewWithPassengerDTO>() {
+                    @Override
+                    public void onResponse(Call<ReviewWithPassengerDTO> call, Response<ReviewWithPassengerDTO> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ReviewWithPassengerDTO> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
+    }
+
+    private void setDriverCommentButtonListener() {
+        driverCommentOkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ReviewDTO dto = new ReviewDTO((int)passengerRideInfoDriverRating.getRating(), passDriverComment.getText().toString());
+                ServiceUtils.reviewService.leaveReviewForTheDriver(rideDTO.getId(), dto).enqueue(new Callback<ReviewWithPassengerDTO>() {
+                    @Override
+                    public void onResponse(Call<ReviewWithPassengerDTO> call, Response<ReviewWithPassengerDTO> response) {
+
+                    }
+                    @Override
+                    public void onFailure(Call<ReviewWithPassengerDTO> call, Throwable t) {
+
+                    }
+                });
+
+            }
+        });
+    }
+
+
+    private void SetRideInfo() {
+        txtStartStation.setText(rideDTO.getLocations()
+                .get(0).getDeparture().getAddress());
+        txtEndStation.setText(rideDTO.getLocations()
+                .get(rideDTO.getLocations().size() - 1).getDestination().getAddress());
+
+        if(rideDTO.getEndTime() != null && rideDTO.getEndTime() != null) {
+            Date startTime = rideDTO.getStartTime();
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            String start = sdf.format(startTime);
+            txtStartTime.setText(start);
+            Date endTime = rideDTO.getEndTime();
+            String end = sdf.format(endTime);
+            txtEndTime.setText(end);
+        }
+
+        double totalDistanceInKm = calculateDistance(rideDTO.getLocations().get(0).getDeparture(),
+                rideDTO.getLocations().get(rideDTO.getLocations().size() - 1).getDestination());
+        String totalDistance = totalDistanceInKm + " KM";
+        txtKilometers.setText(totalDistance);
+        String cost = rideDTO.getTotalCost() + " RSD";
+        txtPrice.setText(cost);
+    }
+
+    private double calculateDistance(LocationDTO departure, LocationDTO destination){
+        double theta = departure.getLongitude() - destination.getLongitude();
+        double dist = Math.sin(Math.toRadians(departure.getLatitude())) * Math.sin(Math.toRadians(destination.getLatitude()))
+                + Math.cos(Math.toRadians(departure.getLatitude())) * Math.cos(Math.toRadians(destination.getLatitude())) * Math.cos(Math.toRadians(theta));
+        dist = Math.acos(dist);
+        dist = Math.toDegrees(dist);
+        dist = dist * 60 * 1.1515;
+        dist = dist * 1.609344;
+        double scale = Math.pow(10, 2);
+        return Math.round(dist * scale) / scale;
     }
 
     @SuppressLint("SetTextI18n")
-    private void SetViews(RideDTO ride) {
-        RatingBar passengerRideInfoDriverRating = requireActivity().findViewById(R.id.passengerRideInfoDriverRating);
-        passengerRideInfoDriverRating.setNumStars(4);
+    private void SetReviews() {
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
 
-        RatingBar passengerRideInfoCarRating = requireActivity().findViewById(R.id.passengerRideInfoCarRating);
-        passengerRideInfoCarRating.setNumStars(3);
 
-        EditText txtComment = requireActivity().findViewById(R.id.passRideInfoComment);
-        txtComment.setText("Voznja je bila ok brt, al auto malo los");
+        Call<List<RideReviewDTO>> call = ServiceUtils.reviewService.getReviews(rideDTO.getId());
+        call.enqueue(new Callback<List<RideReviewDTO>>() {
+            @SuppressLint("SuspiciousIndentation")
+            @Override
+            public void onResponse(@NonNull Call<List<RideReviewDTO>> call, @NonNull Response<List<RideReviewDTO>> response) {
+                if (response.body() != null)
+                for (RideReviewDTO reviewDTO : response.body()) {
+                    if (reviewDTO.getDriverReview().getPassenger().getId() == sharedPreferences.getLong("pref_id", 0L)) {
+                        passengerRideInfoDriverRating.setRating(reviewDTO.getDriverReview().getRating());
+                        passDriverComment.setText(reviewDTO.getDriverReview().getComment());
+                        passengerRideInfoCarRating.setRating(reviewDTO.getVehicleReview().getRating());
+                        passVehicleComment.setText(reviewDTO.getVehicleReview().getComment());
+                        break;
+                    }
+                }
+            }
 
-        assert ride != null;
+            @Override
+            public void onFailure(@NonNull Call<List<RideReviewDTO>> call, @NonNull Throwable t) {
+
+            }
+        });
         requireActivity().getSupportFragmentManager().beginTransaction().replace(
-                R.id.map_route_fragment_container,new DrawRouteFragment(ride)
+                R.id.map_route_fragment_container,new DrawRouteFragment(new RideDTO(rideDTO))
         ).commit();
 
     }
@@ -86,15 +240,15 @@ public class PassengerRideInfoFragment extends Fragment {
         imgInbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PassengerInboxFragment()).addToBackStack(null).commit();
-
+                requireActivity().getSupportFragmentManager().beginTransaction().
+                        replace(R.id.fragment_container, new PassengerInboxFragment()).addToBackStack(null).commit();
             }
         });
         imgDriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle args = new Bundle();
-//                args.putLong("driverId", driver.getId()); //TODO: PROSLEDITI ID VOZACA
+                args.putLong("driverId", rideDTO.getDriver().getId());
                 DriverInfoProfile profile = new DriverInfoProfile();
                 profile.setArguments(args);
                 requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, profile).addToBackStack(null).commit();
@@ -102,15 +256,17 @@ public class PassengerRideInfoFragment extends Fragment {
         });
     }
 
+
+    @SuppressLint("SetTextI18n")
     private void fillOtherPassengers(){
         LinearLayout ly = requireActivity().findViewById(R.id.lyOtherPassengers);
         LayoutInflater inflater = (LayoutInflater) requireView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         List<Drive> drives = DrivesMockUp.getDrives();
-        for(int i =1;i<drives.get(0).getPassengerList().size();i++){
+        for(int i =1;i<rideDTO.getPassengers().size();i++){
             View passenger = inflater.inflate(R.layout.other_passenger_item, (ViewGroup) getView(), false);
             TextView txtPassengerFullName = passenger.findViewById(R.id.txtPassengerFullName);
-            txtPassengerFullName.setText(drives.get(0).getPassengerList().get(i).getName() + " " + drives.get(0).getPassengerList().get(i).getLastName());
+            txtPassengerFullName.setText(rideDTO.getPassengers().get(i).getName() + " " + rideDTO.getPassengers().get(i).getSurname());
             ly.addView(passenger);
         }
 
