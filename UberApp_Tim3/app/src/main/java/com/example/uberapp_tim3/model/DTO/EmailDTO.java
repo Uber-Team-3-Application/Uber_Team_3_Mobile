@@ -6,6 +6,9 @@ public class EmailDTO {
     private String subject;
     private String message;
 
+    public EmailDTO() {
+
+    }
 
     public EmailDTO(String to, String subject, String message) {
         this.to = to;
