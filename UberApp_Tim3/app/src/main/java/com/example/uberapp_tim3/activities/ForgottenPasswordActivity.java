@@ -109,7 +109,6 @@ public class ForgottenPasswordActivity extends AppCompatActivity {
         ServiceUtils.userService.sendEmail(dto).enqueue(new Callback<String>() {
             @Override
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
-                System.out.println("POSLATOOO");
                 Toast.makeText(ForgottenPasswordActivity.this, "Email with code sent", Toast.LENGTH_SHORT).show();
                 Bundle bundle = new Bundle();
                 bundle.putString("code", code);

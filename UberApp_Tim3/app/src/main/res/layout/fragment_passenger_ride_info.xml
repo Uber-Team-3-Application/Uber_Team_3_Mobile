@@ -379,14 +379,16 @@
                     android:orientation="vertical">
 
                     <Button
+                        android:id="@+id/orderAgainButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/order_again_for_now" />
 
                     <Button
+                        android:id="@+id/orderAgainForLaterButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/order_again_for_later" />
+                        android:text="Set ride time" />
                 </LinearLayout>
 
                 <LinearLayout

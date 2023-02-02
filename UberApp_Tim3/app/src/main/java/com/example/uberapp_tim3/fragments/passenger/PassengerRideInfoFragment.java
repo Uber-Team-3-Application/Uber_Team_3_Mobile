@@ -1,9 +1,10 @@
 package com.example.uberapp_tim3.fragments.passenger;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,33 +15,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.dialogs.FavouriteDialog;
 import com.example.uberapp_tim3.fragments.DrawRouteFragment;
 import com.example.uberapp_tim3.fragments.driver.DriverInfoProfile;
-import com.example.uberapp_tim3.model.DTO.CreateFavouriteRideDTO;
-import com.example.uberapp_tim3.model.DTO.FavouriteRideDTO;
+import com.example.uberapp_tim3.fragments.passenger.stepper.ConfirmRideFragment;
 import com.example.uberapp_tim3.model.DTO.LocationDTO;
 import com.example.uberapp_tim3.model.DTO.PassengerRideDTO;
 import com.example.uberapp_tim3.model.DTO.ReviewDTO;
 import com.example.uberapp_tim3.model.DTO.ReviewWithPassengerDTO;
 import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.DTO.RideReviewDTO;
-import com.example.uberapp_tim3.model.mockup.Drive;
 import com.example.uberapp_tim3.services.ServiceUtils;
-import com.example.uberapp_tim3.tools.DrivesMockUp;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
+import java.util.Locale;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -63,6 +62,8 @@ public class PassengerRideInfoFragment extends Fragment {
     private TextView txtPrice;
     private Button driverCommentOkButton;
     private Button vehicleCommentOkButton;
+    private Button orderAgainButton;
+    private Button btnPickDate;
     private ImageView heart;
     private boolean isRideFavourite;
 
@@ -98,6 +99,15 @@ public class PassengerRideInfoFragment extends Fragment {
         txtPrice = requireActivity().findViewById(R.id.txtPrice);
         txtStartStation = requireActivity().findViewById(R.id.txtStartStation);
         heart = requireActivity().findViewById(R.id.likedHeart);
+        orderAgainButton = requireActivity().findViewById(R.id.orderAgainButton);
+        btnPickDate = requireActivity().findViewById(R.id.orderAgainForLaterButton);
+
+        btnPickDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDateTimePicker();
+            }
+        });
 
         isRideFavourite = false;
         SetReviews();
@@ -108,6 +118,29 @@ public class PassengerRideInfoFragment extends Fragment {
             fillOtherPassengers();
     }
 
+    private void showDateTimePicker() {
+        final Calendar currentDate = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        Calendar selectedDateTime = Calendar.getInstance();
+                        selectedDateTime.set(year, monthOfYear, dayOfMonth, hourOfDay, minute);
+                        btnPickDate.setText(getFormattedDateTime(selectedDateTime));
+                    }
+                }, currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), false);
+                timePickerDialog.show();
+            }
+        }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DATE));
+        datePickerDialog.show();
+    }
+
+    private String getFormattedDateTime(Calendar calendar) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+        return dateFormat.format(calendar.getTime());
+    }
 
 
     private void checkReviewsAreDisabled() {
@@ -247,6 +280,7 @@ public class PassengerRideInfoFragment extends Fragment {
     private void setOnClickListeners(){
 
         setHeartListener();
+        setOrderAgainListener();
 
         ImageView imgInbox = requireActivity().findViewById(R.id.imgInbox);
 
@@ -268,6 +302,30 @@ public class PassengerRideInfoFragment extends Fragment {
                 profile.setArguments(args);
                 requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, profile).addToBackStack(null).commit();
             }
+        });
+    }
+
+    private void setOrderAgainListener() {
+
+        orderAgainButton.setOnClickListener(view -> {
+            // form in an attempt to save or send the data.
+            Bundle bundle = new Bundle();
+            bundle.putString("departure", rideDTO.getLocations().get(0).getDeparture().getAddress());
+            bundle.putString("destination", rideDTO.getLocations().get(0).getDestination().getAddress());
+            bundle.putBoolean("babyTransport", rideDTO.isBabyTransport());
+            bundle.putBoolean("petTransport", rideDTO.isPetTransport());
+            bundle.putString("vehicleType", rideDTO.getVehicleType());
+            String orderForLaterText = btnPickDate.getText().toString();
+            if(!orderForLaterText.equalsIgnoreCase("set ride time")){
+                bundle.putString("scheduledTime", orderForLaterText);
+            }else{
+                bundle.putString("scheduledTime", null);
+
+            }
+            ConfirmRideFragment fragment = new ConfirmRideFragment();
+            fragment.setArguments(bundle);
+            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack(null).commit();
+
         });
     }
 
