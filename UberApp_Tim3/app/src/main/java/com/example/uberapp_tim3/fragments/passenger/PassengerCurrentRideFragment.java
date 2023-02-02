@@ -105,6 +105,12 @@ public class PassengerCurrentRideFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        requireActivity().setTitle("Current Ride");
+    }
+
     private void initializeTime(){
         tvHours = requireView().findViewById(R.id.tv_hour);
         tvMinutes = requireView().findViewById(R.id.tv_minute);
