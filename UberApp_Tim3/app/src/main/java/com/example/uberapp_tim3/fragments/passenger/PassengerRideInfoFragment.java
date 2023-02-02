@@ -237,9 +237,9 @@ public class PassengerRideInfoFragment extends Fragment {
 
             }
         });
-//        requireActivity().getSupportFragmentManager().beginTransaction().replace(
-//                R.id.map_route_fragment_container,new DrawRouteFragment(new RideDTO(rideDTO))
-//        ).commit();
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(
+                R.id.map_route_fragment_container,new DrawRouteFragment(new RideDTO(rideDTO))
+        ).commit();
 
     }
 
