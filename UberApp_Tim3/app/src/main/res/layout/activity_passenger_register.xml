@@ -143,6 +143,25 @@
                         android:inputType="textEmailAddress"
                         android:minWidth="180dp" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="40dp"
+                        android:text="Home address"
+                        android:textColor="@color/uber_sagebrush"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/txtAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
+                        android:hint="Boulevard 5"
+                        android:inputType="text"
+                        android:minWidth="180dp" />
+
                 </LinearLayout>
             </LinearLayout>
 
@@ -213,31 +232,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="4dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/choose_a_profile_picture"
-                    android:textColor="@color/uber_sagebrush"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/btnAddImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="33dp"
-                    android:layout_marginStart="10dp"
-                    android:background="@color/uber_desert_sage"
-                    android:text="@string/choose"
-                    android:textSize="12sp" />
-            </LinearLayout>
 
             <Button
                 android:id="@+id/btnRegisterUser"
