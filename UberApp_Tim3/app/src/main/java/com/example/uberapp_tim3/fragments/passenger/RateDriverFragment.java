@@ -81,7 +81,10 @@ public class RateDriverFragment extends Fragment {
         laterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requireActivity().onBackPressed();
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MapFragment()).addToBackStack(null).commit();
+
+
             }
         });
     }

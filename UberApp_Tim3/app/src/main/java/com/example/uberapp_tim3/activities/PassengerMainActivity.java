@@ -103,19 +103,26 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
                 .topic("/topic/passenger/ride/" + this.sharedPreferences.getLong("pref_id", 0))
                 .subscribe(message ->{
 
-                    if(message.getPayload().equals("No suitable driver found!"))
+
+                    if(message.getPayload().contains("No suitable"))
                     {
+                        Log.d("SADRZI", message.getPayload());
                         notifyForRejectedRide();
                         PassengerRejectedRide rejectedRide = new PassengerRejectedRide();
+                        Toast.makeText(this, "No suitable driver!", Toast.LENGTH_LONG).show();
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, rejectedRide).addToBackStack(null).commit();
-                    } else if(message.getPayload().equals("You have a scheduled ride!"))
+                    } else if(message.getPayload().contains("You have"))
                     {
-                        Toast.makeText(this, "You have a scheduled ride!", Toast.LENGTH_LONG);
+                        Log.d("NE SADRZI", message.getPayload());
+
+                        Toast.makeText(this, "You have a scheduled ride!", Toast.LENGTH_LONG).show();
                     }
 
                     else {
                         Log.d("PAYLOADD", message.getPayload());
                         Log.d("PAYLOADD", "No suitable driver found!");
+                        if(!message.getPayload().contains("{")) return;
+
                         RideDTO ride = new Gson().fromJson(message.getPayload(), RideDTO.class);
                         if (ride.getStatus().equalsIgnoreCase("accepted")) {
                             notifyForAcceptedRide();
@@ -125,7 +132,7 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
                             currentRideFragment.setArguments(args);
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, currentRideFragment).addToBackStack(null).commit();
 
-                        } else if (ride.getStatus().equalsIgnoreCase("rejected")) {
+                        } else if (ride.getStatus().equalsIgnoreCase("rejected") || ride.getStatus().equalsIgnoreCase("canceled")) {
                             notifyForRejectedRide();
                             PassengerRejectedRide rejectedRide = new PassengerRejectedRide();
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, rejectedRide).addToBackStack(null).commit();
@@ -196,7 +203,7 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,PASSENGER_CHANEL)
                 .setSmallIcon(R.drawable.ic_baseline_notifications_24)
                 .setContentTitle("Your ride is accepted!")
-                .setContentText("Please wait to driver arrived");
+                .setContentText("Please wait for the driver to arrive");
 
         NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, builder.build());
