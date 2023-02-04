@@ -18,6 +18,11 @@ public class RideUserDTO implements Parcelable {
 
     }
 
+    public RideUserDTO(UserDTO userDTO) {
+        this.id = userDTO.getId();
+        this.email = userDTO.getEmail();
+    }
+
     public RideUserDTO(Long id, String email) {
         this.id = id;
         this.email = email;

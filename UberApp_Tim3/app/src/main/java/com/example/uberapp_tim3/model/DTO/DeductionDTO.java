@@ -10,12 +10,12 @@ import java.time.LocalDateTime;
 public class DeductionDTO implements Parcelable {
 
     private String reason;
-    private LocalDateTime timeOfRejection;
+    private String timeOfRejection;
 
     public DeductionDTO() {
 
     }
-    public DeductionDTO(String reason, LocalDateTime timeOfRejection){
+    public DeductionDTO(String reason, String timeOfRejection){
         this.reason = reason;
         this.timeOfRejection = timeOfRejection;
     }
@@ -44,11 +44,11 @@ public class DeductionDTO implements Parcelable {
         this.reason = reason;
     }
 
-    public LocalDateTime getTimeOfRejection() {
+    public String getTimeOfRejection() {
         return this.timeOfRejection;
     }
 
-    public void setTimeOfRejection(LocalDateTime deductionTime) {
+    public void setTimeOfRejection(String deductionTime) {
         this.timeOfRejection = deductionTime;
     }
 

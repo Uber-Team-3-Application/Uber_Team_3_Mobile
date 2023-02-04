@@ -126,10 +126,10 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/forgotten"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-
                 android:layout_marginVertical="4dp"
                 android:text="@string/forgot_password"
                 android:textColor="@color/uber_green_lily"

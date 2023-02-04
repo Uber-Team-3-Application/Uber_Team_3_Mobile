@@ -36,6 +36,15 @@ public class LocationDTO  implements Parcelable {
         }
     };
 
+    @Override
+    public String toString() {
+        return "LocationDTO{" +
+                "address='" + address + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                '}';
+    }
+
     public String getAddress() {
         return address;
     }
@@ -71,4 +80,5 @@ public class LocationDTO  implements Parcelable {
         parcel.writeDouble(latitude);
         parcel.writeDouble(longitude);
     }
+
 }

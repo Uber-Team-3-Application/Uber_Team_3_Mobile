@@ -109,11 +109,25 @@ public class DriveItemDetailFragment extends Fragment {
                 rideDTO = response.body();
                 assert rideDTO != null;
                 setBasicRideInfo(rideDTO);
-                List<RideReviewDTO> reviews = rideDTO.getReviews();
-                float rating =  getRating(rideDTO, reviews);
-                simpleRatingBar.setRating(rating);
-                setPassengerReviews(reviews);
                 setPassengers(rideDTO.getPassengers());
+                Call<List<RideReviewDTO>> reviewCall = ServiceUtils.reviewService.getReviews(rideDTO.getId());
+                reviewCall.enqueue(new Callback<List<RideReviewDTO>>() {
+                    @Override
+                    public void onResponse(Call<List<RideReviewDTO>> call, Response<List<RideReviewDTO>> response) {
+                        if(!response.isSuccessful()) return;
+                        assert response.body() != null;
+                        List<RideReviewDTO> reviews = response.body();
+                        float rating =  getRating(rideDTO, reviews);
+                        simpleRatingBar.setRating(rating);
+                        setPassengerReviews(reviews);
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<RideReviewDTO>> call, Throwable t) {
+
+                    }
+                });
+
 
 
             }
@@ -185,6 +199,7 @@ public class DriveItemDetailFragment extends Fragment {
 
     private float getRating(DriverRideDTO rideDTO, List<RideReviewDTO> reviews) {
         float rating = 0;
+        if(reviews == null) return 0;
         if(reviews.size() == 0)
             return 0 ;
 
@@ -206,13 +221,15 @@ public class DriveItemDetailFragment extends Fragment {
         txtEndStation.setText(rideDTO.getLocations()
                 .get(rideDTO.getLocations().size() - 1).getDestination().getAddress());
 
-        Date startTime = rideDTO.getStartTime();
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        String start = sdf.format(startTime);
-        txtStartDriving.setText(start);
-        Date endTime = rideDTO.getEndTime();
-        String end = sdf.format(endTime);
-        txtEndDriving.setText(end);
+        if(rideDTO.getEndTime() != null && rideDTO.getEndTime() != null) {
+            Date startTime = rideDTO.getStartTime();
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            String start = sdf.format(startTime);
+            txtStartDriving.setText(start);
+            Date endTime = rideDTO.getEndTime();
+            String end = sdf.format(endTime);
+            txtEndDriving.setText(end);
+        }
         double totalDistanceInKm = calculateDistance(rideDTO.getLocations().get(0).getDeparture(),
                                                     rideDTO.getLocations().get(rideDTO.getLocations().size() - 1).getDestination());
         String totalDistance = totalDistanceInKm + " KM";

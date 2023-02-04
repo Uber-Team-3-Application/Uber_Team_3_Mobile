@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "148257697513",
+    "project_id": "reesen-374520",
+    "storage_bucket": "reesen-374520.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:148257697513:android:f9c1f3db181338969a8a78",
+        "android_client_info": {
+          "package_name": "com.example.uberapp_tim3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "148257697513-ea0c6sj7ucbjicokjvd2nssch2p7h4sr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.uberapp_tim3",
+            "certificate_hash": "9ae198d2314542aaa5ef6e66cd4d1e446bc130d9"
+          }
+        },
+        {
+          "client_id": "148257697513-n67d1q23q14tnnibpde5l1rfs6ic92dl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.uberapp_tim3",
+            "certificate_hash": "9f7be65f9886f2cae9fc886c2ae9cafec19adc40"
+          }
+        },
+        {
+          "client_id": "148257697513-tkgqcp9ar23lc9cp5es6brmoefoqiedm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.uberapp_tim3",
+            "certificate_hash": "a0d773c806a2193d44228dc82447dd3d6ada0fb8"
+          }
+        },
+        {
+          "client_id": "148257697513-86u0i0vbidmibujh1vs73s33bb26j92n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMrJZ102V1JHU_7E3E4UsiKNlCJhOP0hs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "148257697513-86u0i0vbidmibujh1vs73s33bb26j92n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

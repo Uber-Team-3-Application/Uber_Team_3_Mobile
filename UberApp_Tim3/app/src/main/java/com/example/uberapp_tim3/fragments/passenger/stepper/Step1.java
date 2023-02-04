@@ -146,25 +146,28 @@ public class Step1 extends Step<String> {
 
     @Override
     protected IsDataValid isStepDataValid(String stepData) {
-        Geocoder geocoder = new Geocoder(getContext());
-        List<Address> addresses = null;
-        try {
-            addresses = geocoder.getFromLocationName(departure.getText().toString(), 1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return new IsDataValid(true, "");
 
-        if (addresses != null && addresses.size() > 0) {
-            try {
-                addresses = geocoder.getFromLocationName(destination.getText().toString(), 1);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (addresses != null && addresses.size() > 0) {
-            return new IsDataValid(true, "");
-            }
-        }
-        return  new IsDataValid(false, "Wrong address");
     }
+//        Geocoder geocoder = new Geocoder(getContext());
+//        List<Address> addresses = null;
+//        try {
+//            addresses = geocoder.getFromLocationName(departure.getText().toString(), 1);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        if (addresses != null && addresses.size() > 0) {
+//            try {
+//                addresses = geocoder.getFromLocationName(destination.getText().toString(), 1);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            if (addresses != null && addresses.size() > 0) {
+//            return new IsDataValid(true, "");
+//            }
+//        }
+//        return  new IsDataValid(false, "Wrong address");
+//    }
 
 }

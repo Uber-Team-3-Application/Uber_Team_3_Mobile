@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lySingleFavouriteRoute"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@color/uber_toolbar"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/tvFavouriteRouteName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingVertical="10dp"
+        android:text="@string/favourite_name"
+        android:textColor="#FFF07A"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/lyFromFavouriteRoute"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:text="From"
+            android:textColor="#F3F0D6"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtFromFavouriteRoute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bulevar oslobodjenja 46"
+            android:textColor="#F1E49E"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lyToFavouriteRoute"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:text="To"
+            android:textColor="#F3F0D6"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtToFavouriteRoute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bulevar oslobodjenja 46"
+            android:textColor="#F1E49E"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lyVehicleType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:text="Type"
+            android:textColor="#F3F0D6"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtVehicleTypeFavouriteRoute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="STANDARD"
+            android:textColor="#F1E49E"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lyAdditionalInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imgChild"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_baseline_child_care_24" />
+
+        <ImageView
+            android:id="@+id/imgPets"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_baseline_pets_24" />
+
+        <Button
+            android:id="@+id/btnRemoveFromFavouriteRide"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Remove from favourites"
+            app:backgroundTint="#FF0000"
+            android:textSize="12sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lyOrderAgainRemoveFromFavourites"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnOrderRideAgainFromFavourites"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginRight="20dp"
+            android:text="Order Again"
+            android:textColor="#FEEF7A"
+            app:backgroundTint="#344338" />
+        <Button
+            android:id="@+id/dateTimeFuturePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginRight="20dp"
+            android:text="Set Ride Time"
+            android:textColor="#FEEF7A"
+            app:backgroundTint="#344338" />
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

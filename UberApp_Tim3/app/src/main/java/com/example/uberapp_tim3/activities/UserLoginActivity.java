@@ -2,11 +2,14 @@ package com.example.uberapp_tim3.activities;
 
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,18 +20,31 @@ import android.widget.Toast;
 
 import com.auth0.android.jwt.JWT;
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.model.DTO.ChangePasswordDTO;
+import com.example.uberapp_tim3.model.DTO.CreateWorkingHoursDTO;
 import com.example.uberapp_tim3.model.DTO.LoginDTO;
 import com.example.uberapp_tim3.model.DTO.LoginResponseDTO;
 import com.example.uberapp_tim3.model.DTO.TokenDTO;
+import com.example.uberapp_tim3.model.DTO.UserDTO;
+import com.example.uberapp_tim3.model.DTO.WorkingHoursDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalAccessor;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+@SuppressLint({"MissingInflatedId", "LocalSuppress"})
 public class UserLoginActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
@@ -39,6 +55,7 @@ public class UserLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_login);
         TextView tvRegister = findViewById(R.id.btnRegister);
         Button btnLogin = findViewById(R.id.btnLogin);
+        TextView forgottenPassword = findViewById(R.id.forgotten);
 
         tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +63,11 @@ public class UserLoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(UserLoginActivity.this, PassengerRegisterActivity.class);
                 startActivity(intent);
             }
+        });
+
+        forgottenPassword.setOnClickListener(view -> {
+            Intent intent = new Intent(UserLoginActivity.this, ForgottenPasswordActivity.class);
+            startActivity(intent);
         });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -56,12 +78,9 @@ public class UserLoginActivity extends AppCompatActivity {
 
                 String etUser = ((EditText) findViewById(R.id.editTxtEmail)).getText().toString();
                 String etPw = ((EditText)findViewById(R.id.editTxtPassword)).getText().toString();
-
-
-//                login("markopreradovic@gmail.com","Marko123");
-               // login("mirko@gmail.com","Mirko123");
-
+//                  login("mirko@gmail.com", "Mirko123");
                 login(etUser, etPw);
+//                login("markopreradovic@gmail.com", "Marko123");
 
 
             }
@@ -89,13 +108,16 @@ public class UserLoginActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(@NonNull Call<LoginResponseDTO> call, @NonNull Response<LoginResponseDTO> response) {
-                if(!response.isSuccessful()) return;
+                if(!response.isSuccessful()) {
+//                    if (!checkAnotherPassword(email, password))
+                        Log.d("Login Fail", "Response error");
+                        Toast.makeText(UserLoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
+                        return;
+                }
                 if(response.code() == 204){
                     Toast.makeText(UserLoginActivity.this, "Email not confirmed!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-
                 LoginResponseDTO loginResponse = response.body();
                 String userRole = "";
                 JWT jwt = new JWT(loginResponse.getToken());
@@ -129,6 +151,7 @@ public class UserLoginActivity extends AppCompatActivity {
                     intent = new Intent(UserLoginActivity.this, DriverMainActivity.class);
                     startActivity(intent);
 
+                    createWorkingHours(id);
                 }
 
             }
@@ -139,6 +162,37 @@ public class UserLoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    private void createWorkingHours(Long id) {
+
+        Call<WorkingHoursDTO> whCall = ServiceUtils.driverService.createWorkingHours(id, new CreateWorkingHoursDTO(null));
+        whCall.enqueue(new Callback<WorkingHoursDTO>() {
+            @Override
+            public void onResponse(Call<WorkingHoursDTO> call, Response<WorkingHoursDTO> response) {
+                if(!response.isSuccessful()) {
+
+                    Log.d("Working Hours", "EXISTING");
+                    return;
+                }
+                createWorkingHoursPreference(response);
+                Log.d("Working Hours", "CREATED");
+            }
+
+            @Override
+            public void onFailure(Call<WorkingHoursDTO> call, Throwable t) {
+
+                Log.d("Working Hours", "FAIL");
+            }
+        });
+    }
+
+    private void createWorkingHoursPreference(Response<WorkingHoursDTO> response) {
+        this.sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor spEditor = this.sharedPreferences.edit();
+        spEditor.putLong("pref_working_hour_id", response.body().getId());
+        spEditor.apply();
     }
 
     private void deleteTokenPreferences() {

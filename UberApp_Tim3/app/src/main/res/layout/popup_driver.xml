@@ -13,167 +13,169 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-<RelativeLayout
-    android:id="@+id/newRidePopup"
-    android:layout_width="380dp"
-    android:layout_height="390dp"
-    android:layout_gravity="center"
-    android:background="@drawable/popup_background"
-    android:textColor="@color/uber_toolbar"
-    tools:context=".activities.NewRideNotificationActivity"
->
-
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="10dp"
-        android:src="@drawable/ic_baseline_notifications_none_24"
- />
-    <TextView
-        android:id="@+id/newRide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="75dp"
-        android:layout_marginTop="10dp"
-        android:text="NEW RIDE"
-        android:textColor="@color/uber_toolbar"
-        android:textSize="40sp"
-        android:textStyle="bold|italic"
-        />
-
-    <RelativeLayout
-        android:id="@+id/borderPopUp"
-        android:layout_width="346dp"
-        android:layout_height="245dp"
-        android:layout_below="@id/newRide"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="50dp"
-        android:background="@drawable/background_border">
-
-        <TextView
-            android:id="@+id/startStationPopup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:text="Start station:"
+        <RelativeLayout
+            android:id="@+id/newRidePopup"
+            android:layout_width="380dp"
+            android:layout_height="390dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="153dp"
+            android:background="@drawable/popup_background"
             android:textColor="@color/uber_toolbar"
-            android:textSize="18sp" />
+            tools:context=".activities.NewRideNotificationActivity">
 
-        <TextView
-            android:id="@+id/txtStartStationPopup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/startStationPopup"
-            android:layout_marginStart="130dp"
-            android:layout_marginTop="30dp"
-            android:text="Svetosavska 86, Kikinda"
-            android:textColor="@color/uber_toolbar"
-            android:textSize="18sp" />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/ic_baseline_notifications_none_24" />
 
+            <TextView
+                android:id="@+id/newRide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="75dp"
+                android:layout_marginTop="10dp"
+                android:text="NEW RIDE"
+                android:textColor="@color/uber_toolbar"
+                android:textSize="40sp"
+                android:textStyle="bold|italic" />
 
-        <TextView
-            android:id="@+id/endStationPopup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/startStationPopup"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:text="End station:"
-            android:textColor="@color/uber_toolbar"
-            android:textSize="18sp" />
+            <RelativeLayout
+                android:id="@+id/borderPopUp"
+                android:layout_width="346dp"
+                android:layout_height="245dp"
+                android:layout_below="@id/newRide"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/background_border">
 
-        <TextView
-            android:id="@+id/txtEndStationPopup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/startStationPopup"
-            android:layout_alignStart="@+id/endStationPopup"
-            android:layout_marginStart="130dp"
-            android:layout_marginTop="30dp"
-            android:text="Atarska 7, Sombor"
-            android:textColor="@color/uber_toolbar"
-            android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/startStationPopup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Start station:"
+                    android:textColor="@color/uber_toolbar"
+                    android:textSize="18sp" />
 
-
-        <TextView
-            android:id="@+id/numPassengersPopup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/endStationPopup"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:text="Passengers:"
-            android:textColor="@color/uber_toolbar"
-            android:textSize="18sp" />
-
-
-        <TextView
-            android:id="@+id/txtNumPassengersPopup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/endStationPopup"
-            android:layout_alignStart="@+id/numPassengersPopup"
-            android:layout_marginStart="130dp"
-            android:layout_marginTop="30dp"
-            android:text="2"
-            android:textColor="@color/uber_toolbar"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/pricePopup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/numPassengersPopup"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:text="Price:"
-            android:textColor="@color/uber_toolbar"
-            android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/txtStartStationPopup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/startStationPopup"
+                    android:layout_marginStart="130dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Svetosavska 86, Kikinda"
+                    android:textColor="@color/uber_toolbar"
+                    android:textSize="18sp" />
 
 
-        <TextView
-            android:id="@+id/txtPricePopup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/numPassengersPopup"
-            android:layout_alignStart="@+id/pricePopup"
-            android:layout_marginStart="130dp"
-            android:layout_marginTop="30dp"
-            android:text="6500 RSD"
-            android:textColor="@color/uber_toolbar"
-            android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/endStationPopup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/startStationPopup"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp"
+                    android:text="End station:"
+                    android:textColor="@color/uber_toolbar"
+                    android:textSize="18sp" />
 
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/txtEndStationPopup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/startStationPopup"
+                    android:layout_alignStart="@+id/endStationPopup"
+                    android:layout_marginStart="130dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Atarska 7, Sombor"
+                    android:textColor="@color/uber_toolbar"
+                    android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/btnAcceptDrive"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="320dp"
-        android:layout_marginLeft="60dp"
-        android:text="ACCEPT"
-        android:textSize="13sp"
-        android:textStyle="italic"/>
+
+                <TextView
+                    android:id="@+id/numPassengersPopup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/endStationPopup"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Passengers:"
+                    android:textColor="@color/uber_toolbar"
+                    android:textSize="18sp" />
 
 
-    <Button
-        android:id="@+id/btnDeclineDrive"
-        android:layout_alignStart="@+id/btnAcceptDrive"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="320dp"
-        android:layout_marginLeft="150dp"
-        android:text="DECLINE"
-        android:backgroundTint="#F44336"
-        android:textSize="13sp"
-        android:textStyle="italic"/>
+                <TextView
+                    android:id="@+id/txtNumPassengersPopup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/endStationPopup"
+                    android:layout_alignStart="@+id/numPassengersPopup"
+                    android:layout_marginStart="130dp"
+                    android:layout_marginTop="30dp"
+                    android:text="2"
+                    android:textColor="@color/uber_toolbar"
+                    android:textSize="18sp" />
 
-</RelativeLayout>
+                <TextView
+                    android:id="@+id/pricePopup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/numPassengersPopup"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Price:"
+                    android:textColor="@color/uber_toolbar"
+                    android:textSize="18sp" />
+
+
+                <TextView
+                    android:id="@+id/txtPricePopup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/numPassengersPopup"
+                    android:layout_alignStart="@+id/pricePopup"
+                    android:layout_marginStart="130dp"
+                    android:layout_marginTop="30dp"
+                    android:text="6500 RSD"
+                    android:textColor="@color/uber_toolbar"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btnAcceptDrive"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="320dp"
+                android:text="ACCEPT"
+                android:textSize="13sp"
+                android:textStyle="italic" />
+
+
+            <Button
+                android:id="@+id/btnDeclineDrive"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_alignStart="@+id/btnAcceptDrive"
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="320dp"
+                android:backgroundTint="#F44336"
+                android:text="DECLINE"
+                android:textSize="13sp"
+                android:textStyle="italic" />
+
+        </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

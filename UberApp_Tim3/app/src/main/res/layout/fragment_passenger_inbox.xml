@@ -27,7 +27,7 @@
                 android:src="@drawable/ic_search" />
 
             <EditText
-                android:id="@+id/editTxtEmail"
+                android:id="@+id/etTxtSearchInbox"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
                 android:hint="@string/search"
@@ -40,7 +40,7 @@
                 android:src="@drawable/ic_filter" />
 
             <Spinner
-                android:id="@+id/filter"
+                android:id="@+id/spFilterInbox"
                 android:layout_width="150dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="5dp"
@@ -93,20 +93,6 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/last_message"
-                    android:textColor="@color/uber_lauren_green"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/time_and_date"
-                    android:textColor="@color/uber_lauren_green"
-                    android:textSize="15sp"
-                    android:textStyle="italic" />
             </LinearLayout>
 
         </LinearLayout>

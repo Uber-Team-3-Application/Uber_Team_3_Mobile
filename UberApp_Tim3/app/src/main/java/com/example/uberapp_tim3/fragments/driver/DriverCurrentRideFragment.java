@@ -1,6 +1,5 @@
 package com.example.uberapp_tim3.fragments.driver;
 
-import android.app.Service;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,7 +7,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.os.Handler;
 import android.util.Log;
@@ -16,7 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,19 +22,17 @@ import android.widget.Toast;
 import com.example.uberapp_tim3.R;
 import com.example.uberapp_tim3.fragments.ChatFragment;
 import com.example.uberapp_tim3.fragments.DrawRouteFragment;
-import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerInfoProfile;
+import com.example.uberapp_tim3.fragments.passenger.RateDriverFragment;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
 import com.example.uberapp_tim3.model.DTO.MessageBundleDTO;
+import com.example.uberapp_tim3.model.DTO.ReasonDTO;
+import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.DTO.RideUserDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.FragmentTransition;
-import com.google.maps.model.Unit;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.Date;
 
 import retrofit2.Call;
@@ -50,10 +46,11 @@ public class DriverCurrentRideFragment extends Fragment {
     private Runnable runnable;
     private String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private int elapsedTime = 0;
-    DriverRideDTO rideDTO = null;
+    RideDTO rideDTO = null;
     private SharedPreferences preferences;
     public DriverCurrentRideFragment() {
         // Required empty public constructor
+
     }
 
     public static DriverCurrentRideFragment newInstance(String param1, String param2) {
@@ -68,12 +65,12 @@ public class DriverCurrentRideFragment extends Fragment {
         if (bundle != null)
             rideDTO = bundle.getParcelable("ride");
         preferences = getActivity().getSharedPreferences("preferences", Context.MODE_PRIVATE);
-
         setViews(rideDTO);
         initializeTime();
         startMeasuringTime();
         setOnClickListeners();
     }
+
 
     private void setOnClickListeners(){
         setFinishRideListener();
@@ -89,35 +86,33 @@ public class DriverCurrentRideFragment extends Fragment {
 
     private void setPanicListener() {
         Button btnPanic = getActivity().findViewById(R.id.btnDriverCurrentRidePanic);
-        btnPanic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Call<Long> call = ServiceUtils.userService.getAdminId();
-                call.enqueue(new Callback<Long>() {
-                    @Override
-                    public void onResponse(Call<Long> call, Response<Long> response) {
-                        if(!response.isSuccessful()) return;
-                        Long adminId = response.body();
-                        assert  adminId != null;
-                        Long senderId = preferences.getLong("pref_id", 0);
-                        Long receiverId = adminId;
-                        Long rideId = rideDTO.getId();
-                        String messageType = "PANIC";
-                        MessageBundleDTO messageBundleDTO = new MessageBundleDTO(senderId, receiverId, rideId, messageType);
-                        Bundle args = new Bundle();
-                        args.putParcelable("message", messageBundleDTO);
-                        ChatFragment chatFragment = new ChatFragment();
-                        chatFragment.setArguments(args);
-                        FragmentTransition.to(chatFragment, requireActivity(), true);
-                    }
-
-                    @Override
-                    public void onFailure(Call<Long> call, Throwable t) {
-                        Log.d("ERROR", "error bro");
-                    }
-                });
-
+        EditText txtPanic = getActivity().findViewById(R.id.txtPanicReason);
+        btnPanic.setOnClickListener(view -> {
+            String reason = txtPanic.getText().toString().trim();
+            if(reason.equalsIgnoreCase("")){
+                Toast.makeText(getActivity(), "Please enter a reason.", Toast.LENGTH_SHORT).show();
+                return;
             }
+            Call<RideDTO> call = ServiceUtils
+                    .rideService.panicRide(rideDTO.getId(),
+                                        new ReasonDTO(reason));
+            call.enqueue(new Callback<RideDTO>() {
+                @Override
+                public void onResponse(Call<RideDTO> call, Response<RideDTO> response) {
+                    if(!response.isSuccessful()){
+
+                        Toast.makeText(getActivity(), "Something went wrong with the response, try again!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    assert response.body() != null;
+                    Toast.makeText(getActivity(), "Support contacted, stay safe.", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(Call<RideDTO> call, Throwable t) {
+                    Toast.makeText(getActivity(), "Something went wrong, try again!", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
     }
 
@@ -136,7 +131,13 @@ public class DriverCurrentRideFragment extends Fragment {
                             return;
                         }
                         Toast.makeText(getContext(), "Ride successfully finished!", Toast.LENGTH_SHORT).show();
-                        FragmentTransition.to(MapFragment.newInstance(), getActivity(), true);
+
+                        RateDriverFragment rateDriverFragment = new RateDriverFragment();
+                        Bundle args = new Bundle();
+                        args.putParcelable("ride", rideDTO);
+                        rateDriverFragment.setArguments(args);
+                        //FragmentTransition.to(MapFragment.newInstance(), getActivity(), true);
+                        getActivity().finish();
                     }
 
                     @Override
@@ -190,11 +191,11 @@ public class DriverCurrentRideFragment extends Fragment {
         tvSeconds = getActivity().findViewById(R.id.tv_second);
     }
 
-    private void setViews(DriverRideDTO rideDTO) {
+    private void setViews(RideDTO rideDTO) {
 
         assert rideDTO != null;
         requireActivity().getSupportFragmentManager().beginTransaction().replace(
-                R.id.currentRideContainerDriver, new DrawRouteFragment(rideDTO)
+                R.id.currentRideContainerPassengerInfo, new DrawRouteFragment(rideDTO, true)
         ).commit();
 
         TextView tvStartTime = getActivity().findViewById(R.id.txtDriverCurrentRideStartTime);
@@ -207,7 +208,8 @@ public class DriverCurrentRideFragment extends Fragment {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Date today = new Date();
         tvStartTime.setText(sdf.format(today));
-        tvEndTIme.setText(sdf.format(new Date(today.getTime() + 1024)));
+        // TODO: ZASTO BEK VRACA NULL ZA END TIME ?
+//        tvEndTIme.setText(sdf.format(rideDTO.getEndTime()));
         tvDeparture.setText(rideDTO.getLocations().get(0).getDeparture().getAddress());
         tvDestination.setText(rideDTO.getLocations().get(rideDTO.getLocations().size() - 1).getDestination().getAddress());
         String totalPassengers = Integer.toString(rideDTO.getPassengers().size());
@@ -215,12 +217,11 @@ public class DriverCurrentRideFragment extends Fragment {
         String totalCost = Double.toString(rideDTO.getTotalCost());
         tvPrice.setText(totalCost);
 
-
         setPassengers(rideDTO);
 
     }
 
-    private void setPassengers(DriverRideDTO rideDTO) {
+    private void setPassengers(RideDTO rideDTO) {
         LinearLayout lyPassengers = getActivity().findViewById(R.id.lyDriverCurrentRidePassengers);
         LayoutInflater inflater = (LayoutInflater)getView().getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         int order = 1;

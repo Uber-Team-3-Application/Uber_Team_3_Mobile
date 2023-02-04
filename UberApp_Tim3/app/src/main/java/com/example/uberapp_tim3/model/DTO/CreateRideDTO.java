@@ -1,6 +1,7 @@
 package com.example.uberapp_tim3.model.DTO;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -11,13 +12,13 @@ public class CreateRideDTO {
     private String vehicleType;
     private boolean babyTransport;
     private boolean petTransport;
-    private LocalDateTime scheduledTime;
+    private String scheduledTime;
 
     public CreateRideDTO() {
         super();
     }
 
-    public CreateRideDTO(Set<PassengerEmailDTO> passengers, LinkedHashSet<RouteDTO> locations, String vehicleType, boolean babyTransport, boolean petTransport, LocalDateTime scheduledTime) {
+    public CreateRideDTO(Set<PassengerEmailDTO> passengers, LinkedHashSet<RouteDTO> locations, String vehicleType, boolean babyTransport, boolean petTransport, String scheduledTime) {
         this.passengers = passengers;
         this.locations = locations;
         this.vehicleType = vehicleType;
@@ -57,11 +58,11 @@ public class CreateRideDTO {
         this.passengers = passengers;
     }
 
-    public LocalDateTime getScheduledTime() {
+    public String getScheduledTime() {
         return scheduledTime;
     }
 
-    public void setScheduledTime(LocalDateTime scheduledTime) {
+    public void setScheduledTime(String scheduledTime) {
         this.scheduledTime = scheduledTime;
     }
 }

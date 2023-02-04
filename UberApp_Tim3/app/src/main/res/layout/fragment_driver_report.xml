@@ -25,7 +25,7 @@
         android:textSize="20sp"
         android:textStyle="bold|italic" />
 
-    <com.github.mikephil.charting.charts.HorizontalBarChart
+    <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.tools.ReesenTools;
+import com.example.uberapp_tim3.tools.GeneralTools;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -49,8 +49,8 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void checkConnectivity() {
-        int status = ReesenTools.getConnectivityStatus(getApplicationContext());
-        if (status != ReesenTools.TYPE_WIFI && status != ReesenTools.TYPE_MOBILE) {
+        int status = GeneralTools.getConnectivityStatus(getApplicationContext());
+        if (status != GeneralTools.TYPE_WIFI && status != GeneralTools.TYPE_MOBILE) {
             Toast.makeText(getApplicationContext(), "Device is not connected to the internet",
                     Toast.LENGTH_SHORT).show();
 
