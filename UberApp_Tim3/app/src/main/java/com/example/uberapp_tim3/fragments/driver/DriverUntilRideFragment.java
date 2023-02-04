@@ -141,7 +141,6 @@ public class DriverUntilRideFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<VehicleDTO> call, @NonNull Response<VehicleDTO> response) {
                 assert response.body() != null;
-                Log.d("ADRESA", response.body().getCurrentLocation().getAddress());
                 requireActivity().getSupportFragmentManager().beginTransaction().replace(
                         R.id.untilRideContainerDriver, new DrawRouteFragment(rideDTO, true, response.body().getCurrentLocation())
                 ).commit();

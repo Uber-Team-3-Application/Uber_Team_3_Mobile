@@ -121,6 +121,15 @@ public class DrawRouteFragment extends Fragment implements OnMapReadyCallback {
 
     }
 
+    public DrawRouteFragment(LocationDTO start, LocationDTO end) {
+        this.departure = new LatLng(start.getLatitude(), start.getLongitude());
+        this.destination = new LatLng(end.getLatitude(), end.getLongitude());
+        this.departureAddress = start.getAddress();
+        this.destinationAddress = end.getAddress();
+        this.isSimulation = false;
+
+    }
+
 
     public DrawRouteFragment(RideDTO ride, boolean isSimulation, LocationDTO locationDTO) {
         RouteDTO end;

@@ -104,6 +104,7 @@ public class PassengerAcceptedRide extends Fragment {
                     e.printStackTrace();
                 }
             }
+            timer.setText("Less then a minute");
         }
 
     }
