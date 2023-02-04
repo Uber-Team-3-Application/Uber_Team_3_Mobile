@@ -152,7 +152,7 @@ public class ConfirmRideFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                return new CreateRideDTO(users, locations, vehicleType, babyTransport, petTransport, scheduledTime);
+                return new CreateRideDTO(users, locations, vehicleType, babyTransport, petTransport, String.valueOf(scheduledTime));
             }
 
         return new CreateRideDTO(users, locations, vehicleType, babyTransport, petTransport, null);

@@ -12,13 +12,13 @@ public class CreateRideDTO {
     private String vehicleType;
     private boolean babyTransport;
     private boolean petTransport;
-    private Date scheduledTime;
+    private String scheduledTime;
 
     public CreateRideDTO() {
         super();
     }
 
-    public CreateRideDTO(Set<PassengerEmailDTO> passengers, LinkedHashSet<RouteDTO> locations, String vehicleType, boolean babyTransport, boolean petTransport, Date scheduledTime) {
+    public CreateRideDTO(Set<PassengerEmailDTO> passengers, LinkedHashSet<RouteDTO> locations, String vehicleType, boolean babyTransport, boolean petTransport, String scheduledTime) {
         this.passengers = passengers;
         this.locations = locations;
         this.vehicleType = vehicleType;
@@ -58,11 +58,11 @@ public class CreateRideDTO {
         this.passengers = passengers;
     }
 
-    public Date getScheduledTime() {
+    public String getScheduledTime() {
         return scheduledTime;
     }
 
-    public void setScheduledTime(Date scheduledTime) {
+    public void setScheduledTime(String scheduledTime) {
         this.scheduledTime = scheduledTime;
     }
 }
