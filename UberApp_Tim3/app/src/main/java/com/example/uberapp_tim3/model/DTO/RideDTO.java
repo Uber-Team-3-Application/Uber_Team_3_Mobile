@@ -30,7 +30,9 @@ public class RideDTO implements Parcelable {
     public RideDTO() {
     }
 
-    public RideDTO(Long id, List<RouteDTO> locations, DeductionDTO rejection, Date startTime, Date endTime, double totalCost, RideUserDTO driver, List<RideUserDTO> passengers, double estimatedTimeInMinutes, String vehicleType, boolean babyTransport, boolean petTransport, String status, Date scheduledTime) {
+    public RideDTO(Long id, List<RouteDTO> locations, DeductionDTO rejection, Date startTime, Date endTime,
+                   double totalCost, RideUserDTO driver, List<RideUserDTO> passengers, double estimatedTimeInMinutes,
+                   String vehicleType, boolean babyTransport, boolean petTransport, String status, Date scheduledTime) {
         this.id = id;
         this.locations = locations;
         this.rejection = rejection;

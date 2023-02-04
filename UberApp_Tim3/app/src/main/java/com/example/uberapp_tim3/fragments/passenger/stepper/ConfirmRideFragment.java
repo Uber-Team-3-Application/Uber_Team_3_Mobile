@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.uberapp_tim3.R;
+import com.example.uberapp_tim3.fragments.DrawRouteFragment;
 import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerHomeFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerWaitingScreen;
@@ -103,6 +104,18 @@ public class ConfirmRideFragment extends Fragment {
 
 
         // Add the logic for drawing the route on the map
+        try {
+            requireActivity().getSupportFragmentManager().beginTransaction().replace(
+                    R.id.currentRideContainerPassengerInfo, new DrawRouteFragment(getLocation(departure), getLocation(destination))).commit();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+//        requireActivity().getSupportFragmentManager().beginTransaction().replace(
+//                R.id.currentRideContainerPassenger, new DrawRouteFragment(, true)
+//        ).commit();
 
         btnOrderARide = getView().findViewById(R.id.btnOrderARide);
         btnOrderARide.setOnClickListener(new View.OnClickListener() {

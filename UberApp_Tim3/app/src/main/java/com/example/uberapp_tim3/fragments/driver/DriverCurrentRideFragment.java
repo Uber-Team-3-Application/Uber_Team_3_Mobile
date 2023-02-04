@@ -1,6 +1,5 @@
 package com.example.uberapp_tim3.fragments.driver;
 
-import android.app.Service;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,7 +7,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.os.Handler;
 import android.util.Log;
@@ -17,16 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.uberapp_tim3.R;
-import com.example.uberapp_tim3.activities.NewRideNotificationActivity;
 import com.example.uberapp_tim3.fragments.ChatFragment;
 import com.example.uberapp_tim3.fragments.DrawRouteFragment;
-import com.example.uberapp_tim3.fragments.MapFragment;
 import com.example.uberapp_tim3.fragments.passenger.PassengerInfoProfile;
 import com.example.uberapp_tim3.fragments.passenger.RateDriverFragment;
 import com.example.uberapp_tim3.model.DTO.DriverRideDTO;
@@ -36,12 +31,8 @@ import com.example.uberapp_tim3.model.DTO.RideDTO;
 import com.example.uberapp_tim3.model.DTO.RideUserDTO;
 import com.example.uberapp_tim3.services.ServiceUtils;
 import com.example.uberapp_tim3.tools.FragmentTransition;
-import com.google.maps.model.Unit;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.Date;
 
 import retrofit2.Call;
@@ -204,7 +195,7 @@ public class DriverCurrentRideFragment extends Fragment {
 
         assert rideDTO != null;
         requireActivity().getSupportFragmentManager().beginTransaction().replace(
-                R.id.currentRideContainerDriver, new DrawRouteFragment(rideDTO, true)
+                R.id.currentRideContainerPassengerInfo, new DrawRouteFragment(rideDTO, true)
         ).commit();
 
         TextView tvStartTime = getActivity().findViewById(R.id.txtDriverCurrentRideStartTime);
