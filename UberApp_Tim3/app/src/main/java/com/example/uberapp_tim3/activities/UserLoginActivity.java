@@ -111,14 +111,13 @@ public class UserLoginActivity extends AppCompatActivity {
                 if(!response.isSuccessful()) {
 //                    if (!checkAnotherPassword(email, password))
                         Log.d("Login Fail", "Response error");
-
+                        Toast.makeText(UserLoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
+                        return;
                 }
                 if(response.code() == 204){
                     Toast.makeText(UserLoginActivity.this, "Email not confirmed!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Log.d("TOKEN", response.body().getToken());
-
                 LoginResponseDTO loginResponse = response.body();
                 String userRole = "";
                 JWT jwt = new JWT(loginResponse.getToken());
