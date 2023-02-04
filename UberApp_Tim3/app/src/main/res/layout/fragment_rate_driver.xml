@@ -33,33 +33,23 @@
             android:paddingBottom="20dp">
 
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgAvatar"
-                android:layout_width="104dp"
-                android:layout_height="103dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/b_person" />
-
         <TextView
             android:id="@+id/txtdriverFullName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="115dp"
             android:layout_marginTop="100dp"
-            android:layout_toEndOf="@+id/imgAvatar"
-            android:text="@string/driver_full_name"
+            android:text="Rate Driver"
             android:textSize="24sp"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold|italic"
+            />
 
 
             <TextView
                 android:id="@+id/commentForDriver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imgAvatar"
+                android:layout_below="@+id/txtdriverFullName"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:text="Comment"
@@ -109,7 +99,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="115dp"
                 android:layout_marginTop="10dp"
-                android:layout_toEndOf="@+id/imgAvatar"
                 android:text="Rate vehicle"
                 android:textSize="24sp"
                 android:textStyle="bold|italic" />

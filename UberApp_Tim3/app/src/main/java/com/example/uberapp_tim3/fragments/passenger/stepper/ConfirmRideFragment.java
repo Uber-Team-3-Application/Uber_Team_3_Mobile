@@ -143,7 +143,7 @@ public class ConfirmRideFragment extends Fragment {
         LinkedHashSet<RouteDTO> locations = new LinkedHashSet<>();
         locations.add(routeDTO);
 
-            if(dateTime != null) {
+            if(dateTime != null && dateTime != "Schedule a ride") {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                 Date scheduledTime = null;
                 try {

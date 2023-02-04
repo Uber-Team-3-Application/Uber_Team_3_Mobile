@@ -102,17 +102,20 @@ public class PassengerMainActivity extends AppCompatActivity implements Navigati
         rideSocketConfiguration.stompClient
                 .topic("/topic/passenger/ride/" + this.sharedPreferences.getLong("pref_id", 0))
                 .subscribe(message ->{
-                    if(message.getPayload().toString().equals("No suitable driver found!"))
+
+                    if(message.getPayload().equals("No suitable driver found!"))
                     {
                         notifyForRejectedRide();
                         PassengerRejectedRide rejectedRide = new PassengerRejectedRide();
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, rejectedRide).addToBackStack(null).commit();
-                    } else if(message.getPayload().toString().equals("You have a scheduled ride!"))
+                    } else if(message.getPayload().equals("You have a scheduled ride!"))
                     {
                         Toast.makeText(this, "You have a scheduled ride!", Toast.LENGTH_LONG);
                     }
-                    else {
 
+                    else {
+                        Log.d("PAYLOADD", message.getPayload());
+                        Log.d("PAYLOADD", "No suitable driver found!");
                         RideDTO ride = new Gson().fromJson(message.getPayload(), RideDTO.class);
                         if (ride.getStatus().equalsIgnoreCase("accepted")) {
                             notifyForAcceptedRide();
